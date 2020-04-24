@@ -5,15 +5,9 @@ plugins {
 }
 
 group 'org.example'
-version '1.0-SNAPSHOT'
+version '1.0'
 
 sourceCompatibility = 14
-
-jar {
-    manifest {
-        attributes 'Main-Class': 'org.example.Main'
-    }
-}
 
 repositories {
     mavenCentral()
@@ -25,7 +19,16 @@ dependencies {
 
 javafx {
     version = "14"
-    modules = [ 'javafx.controls', 'javafx.fxml' ]
+    modules = ['javafx.controls', 'javafx.fxml']
 }
 
-mainClassName = 'org.example.Main'
+mainClassName = 'com.example.Main'
+
+jar {
+    manifest {
+        attributes 'Main-Class': "$mainClassName"
+    }
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
