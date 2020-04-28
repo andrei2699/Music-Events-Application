@@ -5,7 +5,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-public class FileSystemManager {
+public final class FileSystemManager {
     private static final String APPLICATION_FOLDER = ".MusicEventsApplication";
     private static final String USER_FOLDER = System.getProperty("user.home");
 
@@ -22,7 +22,7 @@ public class FileSystemManager {
         return Paths.get(APPLICATION_HOME_PATH.toFile().getPath(), path);
     }
 
-    protected FileSystemManager() {
+    FileSystemManager() {
     }
 
     public void createJSONFiles() throws IOException {
@@ -54,6 +54,40 @@ public class FileSystemManager {
             Files.createFile(artistsFilePath);
             writeEmptyJSONArrayToFile(artistsFilePath);
         }
+    }
+
+    public String readFileContent(Path path) {
+        String result = "";
+        if (Files.exists(path)) {
+            try {
+                result = Files.readString(path);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return result;
+    }
+
+    public void writeToFile(Path path, String content) {
+        if (Files.exists(path)) {
+            try {
+                Files.writeString(path, content);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public Path getUsersFilePath() {
+        return getPathToFile(DATA_FOLDER_NAME, USERS_JSON_FILE_NAME);
+    }
+
+    public Path getBarsFilePath() {
+        return getPathToFile(DATA_FOLDER_NAME, BARS_JSON_FILE_NAME);
+    }
+
+    public Path getArtistsFilePath() {
+        return getPathToFile(DATA_FOLDER_NAME, ARTISTS_JSON_FILE_NAME);
     }
 
     private void writeEmptyJSONArrayToFile(Path path) throws IOException {

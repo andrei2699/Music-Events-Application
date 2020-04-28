@@ -1,8 +1,9 @@
 package services;
 
-public class ServiceInjector {
+public final class ServiceInjector {
     private static ServiceInjector instance;
     private static FileSystemManager fileSystemManager;
+    private static UserService userService;
 
     private ServiceInjector() {
 
@@ -20,5 +21,12 @@ public class ServiceInjector {
             fileSystemManager = new FileSystemManager();
         }
         return fileSystemManager;
+    }
+
+    public UserService getUserService() {
+        if (userService == null) {
+            userService = new UserService();
+        }
+        return userService;
     }
 }
