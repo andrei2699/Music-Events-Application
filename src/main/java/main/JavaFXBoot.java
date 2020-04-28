@@ -5,10 +5,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import services.ServiceInjector;
 
 public class JavaFXBoot extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
+
+        ServiceInjector.getInstance().getFileSystemManager().createJSONFiles();
 
         Parent root = FXMLLoader.load(getClass().getResource("/main.fxml"));
 
