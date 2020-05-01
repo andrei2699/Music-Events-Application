@@ -16,6 +16,12 @@
                     <Font size="20.0" />
                 </font>
             </Label>
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
+         <padding>
+            <Insets right="40.0" />
+         </padding>
         </HBox>
         <GridPane alignment="CENTER" hgap="20.0" vgap="5.0">
             <columnConstraints>
@@ -50,7 +56,10 @@
             <ComboBox fx:id="userTypeComboBox" prefWidth="150.0" promptText="Tip utilizator" GridPane.rowIndex="4" />
         </GridPane>
         <HBox alignment="CENTER" prefHeight="30.0" prefWidth="200.0">
-            <Label fx:id="emailInUseErrorLabel" text="Adresă de mail folosită!" textFill="#eb2222" />
+            <Label fx:id="emailInUseErrorLabel" text="Adresă de email folosită!" textFill="#eb2222">
+            <padding>
+               <Insets right="40.0" />
+            </padding></Label>
         </HBox>
         <HBox alignment="CENTER" prefHeight="70.0" prefWidth="200.0" spacing="30.0">
             <Button fx:id="createAccountButton" mnemonicParsing="false" onAction="#onCreateAccountClick" prefWidth="100.0" text="Creează Cont" />
