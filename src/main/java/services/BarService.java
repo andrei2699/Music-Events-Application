@@ -4,7 +4,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import models.BarModel;
-import models.UserModel;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -15,9 +14,14 @@ public class BarService {
     BarService() {
     }
 
-    public BarModel getBar(String name) {
+    public BarModel getBar(String barName) {
         List<BarModel> allBars = getAllBars();
-        return allBars.stream().filter(b -> b.getName().equals(name)).findFirst().orElse(null);
+        return allBars.stream().filter(b -> b.getName().equals(barName)).findFirst().orElse(null);
+    }
+
+    public BarModel getBar(int user_id) {
+        List<BarModel> allBars = getAllBars();
+        return allBars.stream().filter(b -> b.getUser_id() == user_id).findFirst().orElse(null);
     }
 
     public List<BarModel> getBars(String address) {
