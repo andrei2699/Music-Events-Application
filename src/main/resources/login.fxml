@@ -16,6 +16,9 @@
                 <font>
                     <Font size="20.0" />
                 </font>
+            <HBox.margin>
+               <Insets right="20.0" />
+            </HBox.margin>
             </Label>
          <VBox.margin>
             <Insets />
@@ -39,7 +42,7 @@
             <Label fx:id="emailErrorLabel" text="* Camp Obligatoriu" textFill="#eb2222" GridPane.columnIndex="1" GridPane.rowIndex="0" />
 
             <PasswordField fx:id="passwordTextField" maxWidth="-Infinity" prefHeight="25.0" prefWidth="200.0" promptText="Parola" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-            <Label fx:id="passwordErrorLabel" text="* Camp Obligatoriu" textFill="#eb2222" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+            <Label fx:id="passwordErrorLabel" text="* Camp Obligatoriu" textFill="#eb2222" GridPane.columnIndex="1" GridPane.rowIndex="1" />
 
         </GridPane>
         <HBox alignment="CENTER" prefHeight="30.0" prefWidth="200.0">
