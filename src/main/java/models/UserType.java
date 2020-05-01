@@ -1,7 +1,18 @@
 package models;
 
 public enum UserType {
-    RegularUser, // utilizator obisnuit
-    Manager, // manager local
-    Artist // artist sau formatie
+    RegularUser("Utilizator obisnuit"), // utilizator obisnuit
+    Manager("Manager Local"), // manager local
+    Artist("Artist / Formatie"); // artist sau formatie
+
+    private String value;
+
+    UserType(String value) {
+        this.value = value;
+    }
+
+    @Override
+    public String toString() {
+        return value;
+    }
 }

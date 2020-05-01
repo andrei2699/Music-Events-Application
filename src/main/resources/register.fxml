@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.RegisterController">
+<AnchorPane prefHeight="400.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.RegisterController">
     <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <padding>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
@@ -16,6 +16,12 @@
                     <Font size="20.0" />
                 </font>
             </Label>
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
+         <padding>
+            <Insets right="40.0" />
+         </padding>
         </HBox>
         <GridPane alignment="CENTER" hgap="20.0" vgap="5.0">
             <columnConstraints>
@@ -41,24 +47,29 @@
 
             <TextField fx:id="emailTextField" maxWidth="-Infinity" prefWidth="200.0" promptText="Email" GridPane.columnIndex="0" GridPane.rowIndex="1" />
             <Label fx:id="emailErrorLabel" text="* Camp Obligatoriu" textFill="#eb2222" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-
-            <TextField fx:id="passwordTextField" maxWidth="-Infinity" prefHeight="25.0" prefWidth="200.0" promptText="Parola" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+            <PasswordField fx:id="passwordTextField" maxWidth="-Infinity" prefHeight="25.0" prefWidth="200.0" promptText="Parola" GridPane.columnIndex="0" GridPane.rowIndex="2" />
             <Label fx:id="passwordErrorLabel" text="* Camp Obligatoriu" textFill="#eb2222" GridPane.columnIndex="1" GridPane.rowIndex="2" />
 
-            <TextField fx:id="confirmPasswordTextField" maxWidth="-Infinity" prefHeight="25.0" prefWidth="200.0" promptText="Confirmare Parola" GridPane.rowIndex="3" />
+            <PasswordField fx:id="confirmPasswordTextField" maxWidth="-Infinity" prefHeight="25.0" prefWidth="200.0" promptText="Confirmare Parola" GridPane.rowIndex="3" />
             <Label fx:id="confirmPasswordErrorLabel" text="* Camp Obligatoriu" textFill="#eb2222" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <ComboBox prefWidth="150.0" promptText="Tip utilizator" GridPane.rowIndex="4" />
+            <ComboBox fx:id="userTypeComboBox" prefWidth="150.0" promptText="Tip utilizator" GridPane.rowIndex="4" />
         </GridPane>
         <HBox alignment="CENTER" prefHeight="30.0" prefWidth="200.0">
-            <Label text="Adresă de mail folosită!" textFill="#eb2222" />
+            <Label fx:id="emailInUseErrorLabel" text="Adresă de email folosită!" textFill="#eb2222">
+            <padding>
+               <Insets right="40.0" />
+            </padding></Label>
         </HBox>
         <HBox alignment="CENTER" prefHeight="70.0" prefWidth="200.0" spacing="30.0">
-            <Button fx:id="createAccountButton" mnemonicParsing="false" onAction="#onCreateAccountClick" prefWidth="100.0" text="Crează Cont" />
+            <Button fx:id="createAccountButton" mnemonicParsing="false" onAction="#onCreateAccountClick" prefWidth="100.0" text="Creează Cont" />
             <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="6.0">
                 <Label text="Ai deja un cont?" />
 
                 <Button fx:id="goToLoginPage" mnemonicParsing="false" onAction="#onGoToLoginPageClick" prefWidth="100.0" text="Log in" />
             </VBox>
+        </HBox>
+        <HBox alignment="CENTER_RIGHT" prefHeight="30.0" prefWidth="445.0">
+            <Button mnemonicParsing="false" onAction="#onSkipPageButtonClick" text="Continuă fără înregistrare" />
         </HBox>
     </VBox>
      <HBox alignment="CENTER_RIGHT" prefHeight="30.0" prefWidth="445.0" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="10.0">

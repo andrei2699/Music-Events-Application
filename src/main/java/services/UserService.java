@@ -31,7 +31,7 @@ public class UserService {
         return allUsers.stream().filter(u -> u.getEmail().equals(email)).findFirst().orElse(null);
     }
 
-    public void updateUserName(UserModel model, String newName) {
+    public void updateUser(UserModel model) {
         FileSystemManager fileSystemManager = ServiceInjector.getInstance().getFileSystemManager();
         Path usersFilePath = fileSystemManager.getUsersFilePath();
         List<UserModel> users = getAllUsers();
@@ -41,7 +41,7 @@ public class UserService {
 
         for (UserModel user : users) {
             if (user.getEmail().equals(model.getEmail())) {
-                user.setName(newName);
+                user.setName(model.getName());
                 break;
             }
         }
