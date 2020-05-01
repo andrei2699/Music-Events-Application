@@ -40,29 +40,32 @@ public class LoginController implements Initializable {
 
     public void onLoginClick(ActionEvent actionEvent) {
         setAllLabelsInvisible();
+        boolean canLogin = true;
 
         if (emailTextField.getText().isEmpty()) {
             emailErrorLabel.setText(REQUIRED_FIELD_ERROR_MESSAGE);
             emailErrorLabel.setVisible(true);
-            return;
+            canLogin = false;
         }
 
         if (!validateEmailAddress(emailTextField.getText())) {
             emailErrorLabel.setText(INVALID_EMAIL_ERROR_MESSAGE);
             emailErrorLabel.setVisible(true);
-            return;
+            canLogin = false;
         }
 
         if (passwordTextField.getText().isEmpty()) {
             passwordErrorLabel.setVisible(true);
-            return;
+            canLogin = false;
         }
 
-        UserService userService = ServiceInjector.getInstance().getUserService();
-        if (userService.validateUserCredentials(emailTextField.getText(), passwordTextField.getText())) {
-            onSkipPageButtonClick(actionEvent);
-        } else {
-            incorrectCredentialsError.setVisible(true);
+        if (canLogin) {
+            UserService userService = ServiceInjector.getInstance().getUserService();
+            if (userService.validateUserCredentials(emailTextField.getText(), passwordTextField.getText())) {
+                onSkipPageButtonClick(actionEvent);
+            } else {
+                incorrectCredentialsError.setVisible(true);
+            }
         }
     }
 
