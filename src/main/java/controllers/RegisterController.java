@@ -103,7 +103,7 @@ public class RegisterController implements Initializable {
             return;
         }
 
-        if (validateCredentials()) {
+        if (emailExists()) {
             showErrorLabel(emailInUseErrorLabel);
             return;
         }
@@ -144,8 +144,8 @@ public class RegisterController implements Initializable {
         return passwordTextField.getText().equals(confirmPasswordTextField.getText());
     }
 
-    private boolean validateCredentials() {
-        return userService.validateUserCredentials(emailTextField.getText(), passwordTextField.getText());
+    private boolean emailExists() {
+        return userService.getUser(emailTextField.getText()) != null;
     }
 
     private void setAllLabelsInvisible() {
