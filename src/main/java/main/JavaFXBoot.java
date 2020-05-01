@@ -24,7 +24,7 @@ public class JavaFXBoot extends Application {
         Scene registerScene = new Scene(FXMLLoader.load(getClass().getResource("/register.fxml")));
 
         // todo replace with login.fxml
-        Scene loginScene = new Scene(FXMLLoader.load(getClass().getResource("/main.fxml")));
+        Scene loginScene = new Scene(FXMLLoader.load(getClass().getResource("/login.fxml")));
 
         SceneSwitchController sceneSwitchController = SceneSwitchController.getInstance();
 
