@@ -58,7 +58,7 @@
         </HBox>
     </VBox>
      <HBox alignment="BOTTOM_RIGHT" prefHeight="30.0" prefWidth="445.0" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="10.0">
-         <Button fx:id="continueWithoutLoginButton" mnemonicParsing="false" onAction="#onSkipPageButtonClick" text="Continuă fără logare" />
+         <Button fx:id="continueWithoutLoginButton" mnemonicParsing="false" onAction="#onSkipPageButtonClick" prefWidth="151.0" text="Continuă fără logare" />
      </HBox>
 
 </AnchorPane>

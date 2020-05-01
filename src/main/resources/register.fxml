@@ -47,7 +47,6 @@
 
             <TextField fx:id="emailTextField" maxWidth="-Infinity" prefWidth="200.0" promptText="Email" GridPane.columnIndex="0" GridPane.rowIndex="1" />
             <Label fx:id="emailErrorLabel" text="* Camp Obligatoriu" textFill="#eb2222" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-
             <PasswordField fx:id="passwordTextField" maxWidth="-Infinity" prefHeight="25.0" prefWidth="200.0" promptText="Parola" GridPane.columnIndex="0" GridPane.rowIndex="2" />
             <Label fx:id="passwordErrorLabel" text="* Camp Obligatoriu" textFill="#eb2222" GridPane.columnIndex="1" GridPane.rowIndex="2" />
 
@@ -73,4 +72,7 @@
             <Button mnemonicParsing="false" onAction="#onSkipPageButtonClick" text="Continuă fără înregistrare" />
         </HBox>
     </VBox>
+     <HBox alignment="CENTER_RIGHT" prefHeight="30.0" prefWidth="445.0" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="10.0">
+         <Button mnemonicParsing="false" text="Continuă fără înregistrare" />
+     </HBox>
 </AnchorPane>
