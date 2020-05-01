@@ -6,19 +6,20 @@ import javafx.stage.Stage;
 import java.util.HashMap;
 import java.util.Map;
 
-public final class SceneController {
+public final class SceneSwitchController {
     public enum SceneType {
         MainScene,
         RegisterScene,
-        LoginScene
+        LoginScene,
+        ProfileScene
     }
 
-    private static SceneController instance = new SceneController();
+    private static final SceneSwitchController instance = new SceneSwitchController();
 
     private Stage stage;
-    private Map<SceneType, Scene> sceneMap = new HashMap<>();
+    private final Map<SceneType, Scene> sceneMap = new HashMap<>();
 
-    public static SceneController getInstance() {
+    public static SceneSwitchController getInstance() {
         return instance;
     }
 

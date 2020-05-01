@@ -3,9 +3,10 @@ package controllers;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import main.SceneController;
+import main.SceneSwitchController;
 import models.UserModel;
 import models.UserType;
 import services.ServiceInjector;
@@ -29,6 +30,9 @@ public class RegisterController implements Initializable {
     @FXML
     public TextField confirmPasswordTextField;
 
+    // todo add @FXML annotation when field is added to fxml file
+    public ComboBox<UserType> userTypeComboBox;
+
     @FXML
     public Button createAccountButton;
 
@@ -43,10 +47,12 @@ public class RegisterController implements Initializable {
     }
 
     public void onGoToLoginPageClick(ActionEvent actionEvent) {
-        SceneController.getInstance().switchScene(SceneController.SceneType.MainScene);
+        SceneSwitchController.getInstance().switchScene(SceneSwitchController.SceneType.LoginScene);
     }
 
     public void onCreateAccountClick(ActionEvent actionEvent) {
+        // todo replace prints with messages in fxml
+
         if (nameTextField.getText().isEmpty()) {
             System.out.println("field is required");
             return;
@@ -87,9 +93,11 @@ public class RegisterController implements Initializable {
         }
 
         try {
-            userService.createUser(new UserModel(emailTextField.getText(), passwordTextField.getText(), nameTextField.getText(), UserType.RegularUser));
+            userService.createUser(new UserModel(emailTextField.getText(), passwordTextField.getText(), nameTextField.getText(), userTypeComboBox.getValue()));
 
             // todo redirect user to edit profile
+            // todo add messaging system between scenes
+//            SceneSwitchController.getInstance().switchScene(ProfileScene);
         } catch (UserExistsException e) {
             System.out.println("Account already exists");
             // user exists
