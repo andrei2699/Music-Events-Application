@@ -108,20 +108,20 @@ public class RegisterController implements Initializable {
             return;
         }
 
-//        try {
-//            UserType userType = userTypeComboBox.getValue();
-//            userService.createUser(new UserModel(emailTextField.getText(), passwordTextField.getText(), nameTextField.getText(), userType));
-//
-//            // todo redirect user to edit profile
-//            // todo add messaging system between scenes
-////            if (userType == UserType.Artist) {
-////                SceneSwitchController.getInstance().switchScene(ArtistProfileScene);
-////            } else if (userType == UserType.Manager) {
-////                SceneSwitchController.getInstance().switchScene(BarProfileScene);
-////            }
-//        } catch (UserExistsException e) {
-//            showErrorLabel(emailInUseErrorLabel);
-//        }
+        try {
+            UserType userType = userTypeComboBox.getValue();
+            userService.createUser(new UserModel(emailTextField.getText(), passwordTextField.getText(), nameTextField.getText(), userType));
+
+            // todo redirect user to edit profile
+            // todo add messaging system between scenes or store information about user
+//            if (userType == UserType.Artist) {
+//                SceneSwitchController.getInstance().switchScene(ArtistProfileScene);
+//            } else if (userType == UserType.Manager) {
+//                SceneSwitchController.getInstance().switchScene(BarProfileScene);
+//            }
+        } catch (UserExistsException e) {
+            showErrorLabel(emailInUseErrorLabel);
+        }
     }
 
     public void onSkipPageButtonClick(ActionEvent actionEvent) {
