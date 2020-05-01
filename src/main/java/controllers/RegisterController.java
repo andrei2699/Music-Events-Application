@@ -1,11 +1,10 @@
 package controllers;
 
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import main.SceneSwitchController;
 import models.UserModel;
 import models.UserType;
@@ -18,6 +17,11 @@ import java.util.ResourceBundle;
 import java.util.regex.Pattern;
 
 public class RegisterController implements Initializable {
+
+    private static final String REQUIRED_FIELD_ERROR_MESSAGE = "* Camp Obligatoriu";
+    private static final String INVALID_EMAIL_ERROR_MESSAGE = "* Adresa de email invalida";
+    private static final String PASSWORDS_DONT_MATCH_ERROR_MESSAGE = "* Cele doua parole nu sunt identice";
+
     @FXML
     public TextField nameTextField;
 
@@ -25,12 +29,12 @@ public class RegisterController implements Initializable {
     public TextField emailTextField;
 
     @FXML
-    public TextField passwordTextField;
+    public PasswordField passwordTextField;
 
     @FXML
-    public TextField confirmPasswordTextField;
+    public PasswordField confirmPasswordTextField;
 
-    // todo add @FXML annotation when field is added to fxml file
+    @FXML
     public ComboBox<UserType> userTypeComboBox;
 
     @FXML
@@ -39,11 +43,29 @@ public class RegisterController implements Initializable {
     @FXML
     public Button goToLoginPage;
 
+    @FXML
+    public Label nameErrorLabel;
+
+    @FXML
+    public Label emailErrorLabel;
+
+    @FXML
+    public Label passwordErrorLabel;
+
+    @FXML
+    public Label confirmPasswordErrorLabel;
+
+    @FXML
+    public Label emailInUseErrorLabel;
+
     private UserService userService;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         userService = ServiceInjector.getInstance().getUserService();
+        setAllLabelsInvisible();
+        userTypeComboBox.setItems(FXCollections.observableArrayList(UserType.values()));
+        userTypeComboBox.getSelectionModel().select(0);
     }
 
     public void onGoToLoginPageClick(ActionEvent actionEvent) {
@@ -51,57 +73,59 @@ public class RegisterController implements Initializable {
     }
 
     public void onCreateAccountClick(ActionEvent actionEvent) {
-        // todo replace prints with messages in fxml
+        setAllLabelsInvisible();
 
         if (nameTextField.getText().isEmpty()) {
-            System.out.println("field is required");
+            showErrorLabel(nameErrorLabel);
             return;
         }
         if (emailTextField.getText().isEmpty()) {
-            System.out.println("field is required");
-
+            showErrorLabel(emailErrorLabel, REQUIRED_FIELD_ERROR_MESSAGE);
             return;
         }
-        if (validateEmailAddress(emailTextField.getText())) {
-            System.out.println("invalid email address");
-
+        if (!validateEmailAddress(emailTextField.getText())) {
+            showErrorLabel(emailErrorLabel, INVALID_EMAIL_ERROR_MESSAGE);
             return;
         }
 
         if (passwordTextField.getText().isEmpty()) {
-            System.out.println("field is required");
-
+            showErrorLabel(passwordErrorLabel);
             return;
         }
 
         if (confirmPasswordTextField.getText().isEmpty()) {
-            System.out.println("field is required");
-
+            showErrorLabel(confirmPasswordErrorLabel, REQUIRED_FIELD_ERROR_MESSAGE);
             return;
         }
 
         if (!validateEqualPasswordsFields()) {
-            System.out.println("password don't match");
-
+            showErrorLabel(confirmPasswordErrorLabel, PASSWORDS_DONT_MATCH_ERROR_MESSAGE);
             return;
         }
 
         if (validateCredentials()) {
-            System.out.println("Account already exists");
-            // user exists
+            showErrorLabel(emailInUseErrorLabel);
             return;
         }
 
-        try {
-            userService.createUser(new UserModel(emailTextField.getText(), passwordTextField.getText(), nameTextField.getText(), userTypeComboBox.getValue()));
+//        try {
+//            UserType userType = userTypeComboBox.getValue();
+//            userService.createUser(new UserModel(emailTextField.getText(), passwordTextField.getText(), nameTextField.getText(), userType));
+//
+//            // todo redirect user to edit profile
+//            // todo add messaging system between scenes
+////            if (userType == UserType.Artist) {
+////                SceneSwitchController.getInstance().switchScene(ArtistProfileScene);
+////            } else if (userType == UserType.Manager) {
+////                SceneSwitchController.getInstance().switchScene(BarProfileScene);
+////            }
+//        } catch (UserExistsException e) {
+//            showErrorLabel(emailInUseErrorLabel);
+//        }
+    }
 
-            // todo redirect user to edit profile
-            // todo add messaging system between scenes
-//            SceneSwitchController.getInstance().switchScene(ProfileScene);
-        } catch (UserExistsException e) {
-            System.out.println("Account already exists");
-            // user exists
-        }
+    public void onSkipPageButtonClick(ActionEvent actionEvent) {
+        SceneSwitchController.getInstance().switchScene(SceneSwitchController.SceneType.MainScene);
     }
 
     private boolean validateEmailAddress(String email) {
@@ -122,5 +146,22 @@ public class RegisterController implements Initializable {
 
     private boolean validateCredentials() {
         return userService.validateUserCredentials(emailTextField.getText(), passwordTextField.getText());
+    }
+
+    private void setAllLabelsInvisible() {
+        nameErrorLabel.setVisible(false);
+        emailErrorLabel.setVisible(false);
+        passwordErrorLabel.setVisible(false);
+        confirmPasswordErrorLabel.setVisible(false);
+        emailInUseErrorLabel.setVisible(false);
+    }
+
+    private void showErrorLabel(Label label, String text) {
+        label.setVisible(true);
+        label.setText(text);
+    }
+
+    private void showErrorLabel(Label label) {
+        label.setVisible(true);
     }
 }

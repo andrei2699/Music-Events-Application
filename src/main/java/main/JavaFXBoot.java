@@ -33,7 +33,7 @@ public class JavaFXBoot extends Application {
         sceneSwitchController.addScene(SceneSwitchController.SceneType.RegisterScene, registerScene);
         sceneSwitchController.addScene(SceneSwitchController.SceneType.LoginScene, loginScene);
 
-        primaryStage.setScene(registerScene);
+        sceneSwitchController.switchScene(SceneSwitchController.SceneType.RegisterScene);
         primaryStage.show();
     }
 
