@@ -4,6 +4,7 @@ public final class ServiceInjector {
     private static ServiceInjector instance;
     private static FileSystemManager fileSystemManager;
     private static UserService userService;
+    private static BarService barService;
 
     private ServiceInjector() {
 
@@ -28,5 +29,12 @@ public final class ServiceInjector {
             userService = new UserService();
         }
         return userService;
+    }
+
+    public BarService getBarService() {
+        if (barService == null) {
+            barService = new BarService();
+        }
+        return barService;
     }
 }
