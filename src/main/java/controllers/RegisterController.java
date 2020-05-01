@@ -3,8 +3,8 @@ package controllers;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import main.SceneSwitchController;
 import models.UserModel;
@@ -16,6 +16,9 @@ import services.UserService;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.regex.Pattern;
+
+import static main.SceneSwitchController.SceneType.ArtistProfileScene;
+import static main.SceneSwitchController.SceneType.BarProfileScene;
 
 public class RegisterController implements Initializable {
     @FXML
@@ -93,11 +96,16 @@ public class RegisterController implements Initializable {
         }
 
         try {
-            userService.createUser(new UserModel(emailTextField.getText(), passwordTextField.getText(), nameTextField.getText(), userTypeComboBox.getValue()));
+            UserType userType = userTypeComboBox.getValue();
+            userService.createUser(new UserModel(emailTextField.getText(), passwordTextField.getText(), nameTextField.getText(), userType));
 
             // todo redirect user to edit profile
             // todo add messaging system between scenes
-//            SceneSwitchController.getInstance().switchScene(ProfileScene);
+//            if (userType == UserType.Artist) {
+//                SceneSwitchController.getInstance().switchScene(ArtistProfileScene);
+//            } else if (userType == UserType.Manager) {
+//                SceneSwitchController.getInstance().switchScene(BarProfileScene);
+//            }
         } catch (UserExistsException e) {
             System.out.println("Account already exists");
             // user exists

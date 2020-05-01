@@ -11,7 +11,8 @@ public final class SceneSwitchController {
         MainScene,
         RegisterScene,
         LoginScene,
-        ProfileScene
+        BarProfileScene,
+        ArtistProfileScene
     }
 
     private static final SceneSwitchController instance = new SceneSwitchController();
@@ -37,6 +38,7 @@ public final class SceneSwitchController {
 
     public void switchScene(SceneType type) {
         if (sceneMap.containsKey(type)) {
+            stage.setTitle(type.toString());
             stage.setScene(sceneMap.get(type));
         }
     }
