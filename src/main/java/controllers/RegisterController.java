@@ -74,53 +74,56 @@ public class RegisterController implements Initializable {
 
     public void onCreateAccountClick(ActionEvent actionEvent) {
         setAllLabelsInvisible();
+        boolean canCreateAccount = true;
 
         if (nameTextField.getText().isEmpty()) {
             showErrorLabel(nameErrorLabel);
-            return;
+            canCreateAccount = false;
         }
         if (emailTextField.getText().isEmpty()) {
             showErrorLabel(emailErrorLabel, REQUIRED_FIELD_ERROR_MESSAGE);
-            return;
+            canCreateAccount = false;
         }
         if (!validateEmailAddress(emailTextField.getText())) {
             showErrorLabel(emailErrorLabel, INVALID_EMAIL_ERROR_MESSAGE);
-            return;
+            canCreateAccount = false;
         }
 
         if (passwordTextField.getText().isEmpty()) {
             showErrorLabel(passwordErrorLabel);
-            return;
+            canCreateAccount = false;
         }
 
         if (confirmPasswordTextField.getText().isEmpty()) {
             showErrorLabel(confirmPasswordErrorLabel, REQUIRED_FIELD_ERROR_MESSAGE);
-            return;
+            canCreateAccount = false;
         }
 
         if (!validateEqualPasswordsFields()) {
             showErrorLabel(confirmPasswordErrorLabel, PASSWORDS_DONT_MATCH_ERROR_MESSAGE);
-            return;
+            canCreateAccount = false;
         }
 
         if (emailExists()) {
             showErrorLabel(emailInUseErrorLabel);
-            return;
+            canCreateAccount = false;
         }
 
-        try {
-            UserType userType = userTypeComboBox.getValue();
-            userService.createUser(new UserModel(emailTextField.getText(), passwordTextField.getText(), nameTextField.getText(), userType));
+        if (canCreateAccount) {
+            try {
+                UserType userType = userTypeComboBox.getValue();
+                userService.createUser(new UserModel(emailTextField.getText(), passwordTextField.getText(), nameTextField.getText(), userType));
 
-            // todo redirect user to edit profile
-            // todo add messaging system between scenes or store information about user
+                // todo redirect user to edit profile
+                // todo add messaging system between scenes or store information about user
 //            if (userType == UserType.Artist) {
 //                SceneSwitchController.getInstance().switchScene(ArtistProfileScene);
 //            } else if (userType == UserType.Manager) {
 //                SceneSwitchController.getInstance().switchScene(BarProfileScene);
 //            }
-        } catch (UserExistsException e) {
-            showErrorLabel(emailInUseErrorLabel);
+            } catch (UserExistsException e) {
+                showErrorLabel(emailInUseErrorLabel);
+            }
         }
     }
 
