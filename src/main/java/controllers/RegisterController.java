@@ -5,16 +5,20 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import main.LoggedUserData;
 import main.SceneSwitchController;
 import models.UserModel;
 import models.UserType;
-import services.ServiceInjector;
+import services.Inject;
+import services.ServiceProvider;
 import services.UserExistsException;
 import services.UserService;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.regex.Pattern;
+
+import static main.SceneSwitchController.SceneType.*;
 
 public class RegisterController implements Initializable {
 
@@ -58,11 +62,13 @@ public class RegisterController implements Initializable {
     @FXML
     public Label emailInUseErrorLabel;
 
+    @Inject
     private UserService userService;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        userService = ServiceInjector.getInstance().getUserService();
+        userService = ServiceProvider.getUserService();
+
         setAllLabelsInvisible();
         userTypeComboBox.setItems(FXCollections.observableArrayList(UserType.values()));
         userTypeComboBox.getSelectionModel().select(0);
@@ -111,16 +117,16 @@ public class RegisterController implements Initializable {
 
         if (canCreateAccount) {
             try {
-                UserType userType = userTypeComboBox.getValue();
-                userService.createUser(new UserModel(emailTextField.getText(), passwordTextField.getText(), nameTextField.getText(), userType));
+                UserModel user = userService.createUser(emailTextField.getText(), passwordTextField.getText(), nameTextField.getText(), userTypeComboBox.getValue());
+                LoggedUserData.getInstance().setUserModel(user);
 
-                // todo redirect user to edit profile
-                // todo add messaging system between scenes or store information about user
-//            if (userType == UserType.Artist) {
-//                SceneSwitchController.getInstance().switchScene(ArtistProfileScene);
-//            } else if (userType == UserType.Manager) {
-//                SceneSwitchController.getInstance().switchScene(BarProfileScene);
-//            }
+                if (user.getType() == UserType.Manager) {
+                    SceneSwitchController.getInstance().switchScene(BarProfileScene);
+                } else if (user.getType() == UserType.Artist) {
+                    SceneSwitchController.getInstance().switchScene(ArtistProfileScene);
+                } else {
+                    SceneSwitchController.getInstance().switchScene(MainScene);
+                }
             } catch (UserExistsException e) {
                 showErrorLabel(emailInUseErrorLabel);
             }
@@ -148,7 +154,7 @@ public class RegisterController implements Initializable {
     }
 
     private boolean emailExists() {
-        return userService.getUser(emailTextField.getText()) != null;
+        return userService.existsUser(emailTextField.getText());
     }
 
     private void setAllLabelsInvisible() {

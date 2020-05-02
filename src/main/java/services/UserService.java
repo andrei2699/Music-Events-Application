@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import models.UserModel;
+import models.UserType;
 
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
@@ -32,7 +33,7 @@ public class UserService {
     }
 
     public void updateUser(UserModel model) {
-        FileSystemManager fileSystemManager = ServiceInjector.getInstance().getFileSystemManager();
+        FileSystemManager fileSystemManager = ServiceProvider.getFileSystemManager();
         Path usersFilePath = fileSystemManager.getUsersFilePath();
         List<UserModel> users = getAllUsers();
 
@@ -50,8 +51,8 @@ public class UserService {
         fileSystemManager.writeToFile(usersFilePath, json);
     }
 
-    public void createUser(UserModel userModel) throws UserExistsException {
-        FileSystemManager fileSystemManager = ServiceInjector.getInstance().getFileSystemManager();
+    public UserModel createUser(String email, String password, String userName, UserType userType) throws UserExistsException {
+        FileSystemManager fileSystemManager = ServiceProvider.getFileSystemManager();
         Path usersFilePath = fileSystemManager.getUsersFilePath();
         List<UserModel> users = getAllUsers();
 
@@ -60,21 +61,21 @@ public class UserService {
 
         int biggestId = -1;
         for (UserModel user : users) {
-            if (user.getEmail().equals(userModel.getEmail())) {
+            if (user.getEmail().equals(email)) {
                 throw new UserExistsException();
             }
             if (user.getId() > biggestId) {
                 biggestId = user.getId();
             }
         }
-
-        userModel.setPassword(encryptString(userModel.getEmail(), userModel.getPassword()));
-        userModel.setId(biggestId + 1);
+        UserModel userModel = new UserModel(biggestId + 1, email, encryptString(email, password), userName, userType);
 
         users.add(userModel);
 
         String json = gson.toJson(users);
         fileSystemManager.writeToFile(usersFilePath, json);
+
+        return userModel;
     }
 
     public boolean existsUser(int id) {
@@ -88,7 +89,7 @@ public class UserService {
     }
 
     public List<UserModel> getAllUsers() {
-        FileSystemManager fileSystemManager = ServiceInjector.getInstance().getFileSystemManager();
+        FileSystemManager fileSystemManager = ServiceProvider.getFileSystemManager();
         Path usersFilePath = fileSystemManager.getUsersFilePath();
         String jsonFileContent = fileSystemManager.readFileContent(usersFilePath);
 

@@ -5,8 +5,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import main.LoggedUserData;
 import main.SceneSwitchController;
-import services.ServiceInjector;
+import services.Inject;
+import services.ServiceProvider;
 import services.UserService;
 
 import java.net.URL;
@@ -33,8 +35,12 @@ public class LoginController implements Initializable {
     @FXML
     public Label passwordErrorLabel;
 
+    @Inject
+    private UserService userService;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        userService = ServiceProvider.getUserService();
         setAllLabelsInvisible();
     }
 
@@ -60,8 +66,8 @@ public class LoginController implements Initializable {
         }
 
         if (canLogin) {
-            UserService userService = ServiceInjector.getInstance().getUserService();
             if (userService.validateUserCredentials(emailTextField.getText(), passwordTextField.getText())) {
+                LoggedUserData.getInstance().setUserModel(userService.getUser(emailTextField.getText()));
                 onSkipPageButtonClick(actionEvent);
             } else {
                 incorrectCredentialsError.setVisible(true);

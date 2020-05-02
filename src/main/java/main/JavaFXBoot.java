@@ -5,18 +5,16 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import models.BarModel;
-import models.UserModel;
-import models.UserType;
 import services.BarService;
-import services.ServiceInjector;
+import services.ServiceProvider;
 
 public class JavaFXBoot extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
 
-        ServiceInjector.getInstance().getFileSystemManager().createJSONFiles();
-        BarService barService = ServiceInjector.getInstance().getBarService();
+        ServiceProvider.getFileSystemManager().createJSONFiles();
+        BarService barService = ServiceProvider.getBarService();
 
         barService.createBar(new BarModel(2, "Bar Name", "Bars Address"));
 
@@ -32,7 +30,7 @@ public class JavaFXBoot extends Application {
         sceneSwitchController.addScene(SceneSwitchController.SceneType.RegisterScene, registerScene);
         sceneSwitchController.addScene(SceneSwitchController.SceneType.LoginScene, loginScene);
 
-        sceneSwitchController.switchScene(SceneSwitchController.SceneType.RegisterScene);
+        sceneSwitchController.switchScene(SceneSwitchController.SceneType.LoginScene);
         primaryStage.show();
     }
 

@@ -34,7 +34,7 @@ public class BarService {
     }
 
     public void updateBar(BarModel model) {
-        FileSystemManager fileSystemManager = ServiceInjector.getInstance().getFileSystemManager();
+        FileSystemManager fileSystemManager = ServiceProvider.getFileSystemManager();
         Path barsFilePath = fileSystemManager.getBarsFilePath();
         List<BarModel> bars = getAllBars();
 
@@ -55,7 +55,7 @@ public class BarService {
     }
 
     public void createBar(BarModel barModel) throws UserExistsException {
-        FileSystemManager fileSystemManager = ServiceInjector.getInstance().getFileSystemManager();
+        FileSystemManager fileSystemManager = ServiceProvider.getFileSystemManager();
         Path barsFilePath = fileSystemManager.getBarsFilePath();
         List<BarModel> bars = getAllBars();
 
@@ -69,7 +69,7 @@ public class BarService {
     }
 
     public List<BarModel> getAllBars() {
-        FileSystemManager fileSystemManager = ServiceInjector.getInstance().getFileSystemManager();
+        FileSystemManager fileSystemManager = ServiceProvider.getFileSystemManager();
         Path barsFilePath = fileSystemManager.getBarsFilePath();
         String jsonFileContent = fileSystemManager.readFileContent(barsFilePath);
 
