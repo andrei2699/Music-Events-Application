@@ -3,6 +3,7 @@ package services;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import models.ArtistModel;
 import models.BarModel;
 
 import java.nio.file.Path;
@@ -45,6 +46,7 @@ public class BarService {
             if (bar.getUser_id() == model.getUser_id()) {
                 bar.setName(model.getName());
                 bar.setAddress(model.getAddress());
+                bar.setPath_to_image(model.getPath_to_image());
                 bar.setIntervals(model.getIntervals());
                 break;
             }
@@ -54,15 +56,24 @@ public class BarService {
         fileSystemManager.writeToFile(barsFilePath, json);
     }
 
-    public void createBar(BarModel barModel) throws UserExistsException {
+    public void createBar(BarModel barModel)  {
         FileSystemManager fileSystemManager = ServiceProvider.getFileSystemManager();
         Path barsFilePath = fileSystemManager.getBarsFilePath();
         List<BarModel> bars = getAllBars();
+        boolean found=false;
 
         GsonBuilder gsonBuilder = new GsonBuilder();
         Gson gson = gsonBuilder.setPrettyPrinting().create();
 
-        bars.add(barModel);
+        for(BarModel bar : bars) {
+            if (bar.getUser_id() == barModel.getUser_id()) {
+                found=true;
+                updateBar(barModel);
+                break;
+            }
+        }
+        if(!found)
+            bars.add(barModel);
 
         String json = gson.toJson(bars);
         fileSystemManager.writeToFile(barsFilePath, json);
