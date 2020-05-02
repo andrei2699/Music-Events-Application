@@ -9,10 +9,7 @@ import main.LoggedUserData;
 import main.SceneSwitchController;
 import models.UserModel;
 import models.UserType;
-import services.Inject;
-import services.ServiceProvider;
-import services.UserExistsException;
-import services.UserService;
+import services.*;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -62,7 +59,6 @@ public class RegisterController implements Initializable {
     @FXML
     public Label emailInUseErrorLabel;
 
-    @Inject
     private UserService userService;
 
     @Override

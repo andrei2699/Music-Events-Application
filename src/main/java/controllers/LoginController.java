@@ -7,7 +7,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import main.LoggedUserData;
 import main.SceneSwitchController;
-import services.Inject;
 import services.ServiceProvider;
 import services.UserService;
 
@@ -35,7 +34,6 @@ public class LoginController implements Initializable {
     @FXML
     public Label passwordErrorLabel;
 
-    @Inject
     private UserService userService;
 
     @Override
