@@ -110,6 +110,15 @@
                                  </HBox.margin></TextField>
                            </children>
                         </HBox>
+                        <HBox alignment="CENTER_LEFT" prefHeight="68.0" prefWidth="500.0">
+                           <children>
+                              <Label text="Orar disponibilitate:">
+                                 <HBox.margin>
+                                    <Insets left="10.0" />
+                                 </HBox.margin>
+                              </Label>
+                           </children>
+                        </HBox>
                      </children>
                   </VBox>
                </children>
