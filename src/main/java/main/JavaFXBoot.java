@@ -18,7 +18,7 @@ public class JavaFXBoot extends Application {
 
         barService.createBar(new BarModel(2, "Bar Name", "Bars Address"));
 
-        Scene mainScene = new Scene(FXMLLoader.load(getClass().getResource("/barProfilePage.fxml")));
+        Scene mainScene = new Scene(FXMLLoader.load(getClass().getResource("/editBarProfilePage.fxml")));
         Scene registerScene = new Scene(FXMLLoader.load(getClass().getResource("/register.fxml")));
 
         Scene loginScene = new Scene(FXMLLoader.load(getClass().getResource("/login.fxml")));
