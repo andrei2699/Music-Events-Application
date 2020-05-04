@@ -8,8 +8,14 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import main.SceneSwitchController;
 import javafx.event.ActionEvent;
+import models.ArtistModel;
+import models.Interval;
+import services.ArtistService;
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class EditArtistProfilePageController extends ChangeableSceneController {
@@ -37,6 +43,13 @@ public class EditArtistProfilePageController extends ChangeableSceneController {
     @FXML
     public TextArea bandMembersField;
 
+    @FXML
+    public GridPane scheduleGridPane;
+
+    private ArtistService artistService;
+
+    private ArtistModel artistModel;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
     }
@@ -52,7 +65,8 @@ public class EditArtistProfilePageController extends ChangeableSceneController {
     }
 
     public void onGoToStartPageButtonClick(ActionEvent actionEvent) {
-
+        onSaveChangesButtonClick(actionEvent);
+        SceneSwitchController.getInstance().switchScene(SceneSwitchController.SceneType.MainScene);
     }
 
     public void onChooseFileButtonClick(ActionEvent actionEvent) {
@@ -63,7 +77,23 @@ public class EditArtistProfilePageController extends ChangeableSceneController {
 
     }
 
-    public void onSaveChangesButtonClick(ActionEvent actionEvent) {
+    private List<String> getMembersFromTextArea() {
+        String textFromTextArea = bandMembersField.getText();
+        return Arrays.asList(textFromTextArea.split(","));
+    }
 
+    public void onSaveChangesButtonClick(ActionEvent actionEvent) {
+        if (artistModel == null) {
+            return;
+        }
+
+        List<Interval> intervalsFromGridPane = getIntervalsFromGridPane(scheduleGridPane);
+
+        artistModel.setGenre(genreField.getText());
+        artistModel.setName(userNameField.getText());
+        artistModel.setIntervals(intervalsFromGridPane);
+        artistModel.setMembers(getMembersFromTextArea());
+
+        artistService.updateArtist(artistModel);
     }
 }
