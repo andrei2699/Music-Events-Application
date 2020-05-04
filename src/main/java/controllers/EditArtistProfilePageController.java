@@ -96,4 +96,8 @@ public class EditArtistProfilePageController extends ChangeableSceneController {
 
         artistService.updateArtist(artistModel);
     }
+
+    private List<Interval> getIntervalsFromGridPane(GridPane scheduleGridPane) {
+        return null;
+    }
 }
