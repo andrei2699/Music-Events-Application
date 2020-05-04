@@ -5,7 +5,7 @@ public class UserModel {
     private int id;
     private String email;
     private String password;
-    private String name;
+    private String name; //for a solo artist it is his/her name, for a band it is band's name | or bar name | or user name
     private UserType type;
 
     public UserModel(int id, String email, String password, String name, UserType type) {

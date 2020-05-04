@@ -15,11 +15,6 @@ public class BarService {
     BarService() {
     }
 
-    public BarModel getBar(String barName) {
-        List<BarModel> allBars = getAllBars();
-        return allBars.stream().filter(b -> b.getName().equals(barName)).findFirst().orElse(null);
-    }
-
     public BarModel getBar(int user_id) {
         List<BarModel> allBars = getAllBars();
         return allBars.stream().filter(b -> b.getUser_id() == user_id).findFirst().orElse(null);
@@ -44,7 +39,6 @@ public class BarService {
 
         for (BarModel bar : bars) {
             if (bar.getUser_id() == model.getUser_id()) {
-                bar.setName(model.getName());
                 bar.setAddress(model.getAddress());
                 bar.setPath_to_image(model.getPath_to_image());
                 bar.setIntervals(model.getIntervals());

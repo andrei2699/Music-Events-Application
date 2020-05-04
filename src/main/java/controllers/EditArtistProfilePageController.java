@@ -1,41 +1,23 @@
 package controllers;
 
-import javafx.fxml.FXML;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.GridPane;
-import main.SceneSwitchController;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.scene.control.*;
+import main.LoggedUserData;
+import main.SceneSwitchController;
 import models.ArtistModel;
 import models.Interval;
+import models.UserModel;
 import services.ArtistService;
+import services.ServiceProvider;
 
+import java.io.File;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class EditArtistProfilePageController extends ChangeableSceneController {
-    @FXML
-    public ImageView profilePhoto;
-
-    @FXML
-    public TextField userNameField;
-
-    @FXML
-    public ChoiceBox chooseArtistType;
-
-    @FXML
-    public GridPane scheduleGridArtist;
-
-    @FXML
-    public TextField emailField;
-
-    @FXML
-    public TextField userTypeField;
+public class EditArtistProfilePageController extends EditProfileAbstractController {
 
     @FXML
     public TextField genreField;
@@ -44,7 +26,10 @@ public class EditArtistProfilePageController extends ChangeableSceneController {
     public TextArea bandMembersField;
 
     @FXML
-    public GridPane scheduleGridPane;
+    public Label bandMembersLabel;
+
+    @FXML
+    public CheckBox bandCheckBox;
 
     private ArtistService artistService;
 
@@ -52,11 +37,17 @@ public class EditArtistProfilePageController extends ChangeableSceneController {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-    }
+        super.initialize(location, resources);
+        artistService = ServiceProvider.getArtistService();
 
-    @Override
-    public void onSceneChanged() {
-
+        if (LoggedUserData.getInstance().isUserLogged()) {
+            UserModel userModel = LoggedUserData.getInstance().getUserModel();
+            artistModel = artistService.getArtist(userModel.getId());
+            if (artistModel == null) {
+                artistModel = new ArtistModel(userModel.getId(), false, "");
+            }
+            artistService.createArtist(artistModel);
+        }
     }
 
     @Override
@@ -64,40 +55,83 @@ public class EditArtistProfilePageController extends ChangeableSceneController {
         return SceneSwitchController.SceneType.EditArtistProfileScene;
     }
 
-    public void onGoToStartPageButtonClick(ActionEvent actionEvent) {
-        onSaveChangesButtonClick(actionEvent);
-        SceneSwitchController.getInstance().switchScene(SceneSwitchController.SceneType.MainScene);
+    @Override
+    public void onChoosePhotoButtonClick(ActionEvent actionEvent) {
+
+        File selectedFile = openFileChooser();
+        if (selectedFile != null) {
+            artistModel.setPath_to_image(selectedFile.getPath());
+            profilePhoto.setImage(getProfileImage(selectedFile.getPath()));
+
+            artistService.updateArtist(artistModel);
+        }
     }
 
-    public void onChooseFileButtonClick(ActionEvent actionEvent) {
+    @Override
+    protected void updateUIOnSceneChanged() {
+        fillFieldsWithValuesFromLoggedUserData();
+        List<Interval> intervals;
+        if (artistModel == null) {
+            intervals = null;
+        } else {
+            intervals = artistModel.getIntervals();
+        }
 
+        gridHBoxes = fillScheduleGridPane(scheduleGridPane, intervals);
     }
 
-    public void onSelectBandCheckBoxClick(ActionEvent actionEvent) {
-
-    }
-
-    private List<String> getMembersFromTextArea() {
-        String textFromTextArea = bandMembersField.getText();
-        return Arrays.asList(textFromTextArea.split(","));
-    }
-
+    @Override
     public void onSaveChangesButtonClick(ActionEvent actionEvent) {
         if (artistModel == null) {
             return;
         }
 
-        List<Interval> intervalsFromGridPane = getIntervalsFromGridPane(scheduleGridPane);
+        List<Interval> intervalsFromGridPane = getIntervalsFromGrid(gridHBoxes);
+        UserModel userModel = LoggedUserData.getInstance().getUserModel();
 
         artistModel.setGenre(genreField.getText());
-        artistModel.setName(userNameField.getText());
+        if (!nameField.getText().isEmpty()) {
+            userModel.setName(nameField.getText());
+        }
         artistModel.setIntervals(intervalsFromGridPane);
-        artistModel.setMembers(getMembersFromTextArea());
+        artistModel.setMembers(bandMembersField.getText());
+        artistModel.setIs_band(bandCheckBox.isSelected());
 
         artistService.updateArtist(artistModel);
+        userService.updateUser(userModel);
     }
 
-    private List<Interval> getIntervalsFromGridPane(GridPane scheduleGridPane) {
-        return null;
+    @Override
+    protected void fillFieldsWithValuesFromLoggedUserData() {
+        if (!LoggedUserData.getInstance().isUserLogged()) {
+            return;
+        }
+
+        UserModel userModel = LoggedUserData.getInstance().getUserModel();
+
+        nameField.setText(userModel.getName());
+        emailField.setText(userModel.getEmail());
+        userTypeField.setText(userModel.getType().toString());
+        ArtistModel artistModel = artistService.getArtist(userModel.getId());
+        if (artistModel == null) {
+            return;
+        }
+
+        bandMembersField.setText(artistModel.getMembers());
+        bandCheckBox.setSelected(artistModel.isIs_band());
+        onSelectBandCheckBoxClick(null);
+
+        genreField.setText(artistModel.getGenre());
+        profilePhoto.setImage(getProfileImage(artistModel.getPath_to_image()));
+    }
+
+    public void onSelectBandCheckBoxClick(ActionEvent actionEvent) {
+        if (bandCheckBox.isSelected()) {
+            bandMembersLabel.setVisible(true);
+            bandMembersField.setVisible(true);
+        } else {
+            bandMembersLabel.setVisible(false);
+            bandMembersField.setVisible(false);
+        }
     }
 }

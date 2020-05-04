@@ -35,7 +35,7 @@ public final class SceneSwitchController {
         this.stage = stage;
     }
 
-    public void addScene(SceneType type, String pathToFXMLFile) throws IOException {
+    public void addScene(SceneType type, String pathToFXMLFile) {
         sceneMap.put(type, pathToFXMLFile);
     }
 
@@ -50,8 +50,10 @@ public final class SceneSwitchController {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            ChangeableSceneController controller = loader.getController();
-            controller.onSceneChanged();
+            if (loader.getController() instanceof ChangeableSceneController) {
+                ChangeableSceneController controller = loader.getController();
+                controller.onSceneChanged();
+            }
         }
     }
 

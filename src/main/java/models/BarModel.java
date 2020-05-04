@@ -6,14 +6,12 @@ import java.util.List;
 public class BarModel {
 
     private int user_id;
-    private String name;
     private String address;
     private String path_to_image;
     private List<Interval> intervals;
 
-    public BarModel(int user_id, String name, String address) {
+    public BarModel(int user_id, String address) {
         this.user_id = user_id;
-        this.name = name;
         this.address = address;
         this.path_to_image = "";
         this.intervals = new ArrayList<>();
@@ -23,7 +21,7 @@ public class BarModel {
         intervals.add(interval);
     }
 
-    public void deleteInterval(String day) {
+    public void deleteInterval(DaysOfWeek day) {
         intervals.removeIf(i -> i.getDay().equals(day));
     }
 
@@ -33,14 +31,6 @@ public class BarModel {
 
     public int getUser_id() {
         return user_id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getAddress() {
