@@ -56,27 +56,28 @@ public class BarService {
         fileSystemManager.writeToFile(barsFilePath, json);
     }
 
-    public void createBar(BarModel barModel)  {
+    public void createBar(BarModel barModel) {
         FileSystemManager fileSystemManager = ServiceProvider.getFileSystemManager();
         Path barsFilePath = fileSystemManager.getBarsFilePath();
         List<BarModel> bars = getAllBars();
-        boolean found=false;
+        boolean found = false;
 
         GsonBuilder gsonBuilder = new GsonBuilder();
         Gson gson = gsonBuilder.setPrettyPrinting().create();
 
-        for(BarModel bar : bars) {
+        for (BarModel bar : bars) {
             if (bar.getUser_id() == barModel.getUser_id()) {
-                found=true;
+                found = true;
                 updateBar(barModel);
                 break;
             }
         }
-        if(!found)
+        if (!found) {
             bars.add(barModel);
 
-        String json = gson.toJson(bars);
-        fileSystemManager.writeToFile(barsFilePath, json);
+            String json = gson.toJson(bars);
+            fileSystemManager.writeToFile(barsFilePath, json);
+        }
     }
 
     public List<BarModel> getAllBars() {
