@@ -2,37 +2,37 @@ package models;
 
 public class Interval {
 
-    private String day;
-    private String start_hour;
-    private String end_hour;
+    private DaysOfWeek day;
+    private Integer start_hour;
+    private Integer end_hour;
 
-    public Interval(String day, String start_hour, String end_hour) {
+    public Interval(DaysOfWeek day, Integer start_hour, Integer end_hour) {
         this.day = day;
         this.start_hour = start_hour;
         this.end_hour = end_hour;
     }
 
-    public String getDay() {
+    public DaysOfWeek getDay() {
         return day;
     }
 
-    public void setDay(String day) {
+    public void setDay(DaysOfWeek day) {
         this.day = day;
     }
 
-    public String getStart_hour() {
+    public int getStart_hour() {
         return start_hour;
     }
 
-    public void setStart_hour(String start_hour) {
+    public void setStart_hour(Integer start_hour) {
         this.start_hour = start_hour;
     }
 
-    public String getEnd_hour() {
+    public Integer getEnd_hour() {
         return end_hour;
     }
 
-    public void setEnd_hour(String end_hour) {
+    public void setEnd_hour(Integer end_hour) {
         this.end_hour = end_hour;
     }
 }

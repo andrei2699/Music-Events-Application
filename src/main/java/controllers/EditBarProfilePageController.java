@@ -14,14 +14,15 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import main.LoggedUserData;
 import main.SceneSwitchController;
-import models.*;
+import models.BarModel;
+import models.DaysOfWeek;
+import models.Interval;
+import models.UserModel;
 import services.BarService;
 import services.ServiceProvider;
-import services.UserService;
 
 import java.io.File;
 import java.net.URISyntaxException;
@@ -31,6 +32,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import static models.DaysOfWeek.Duminica;
 import static models.DaysOfWeek.NumberOfDays;
 
 public class EditBarProfilePageController extends ChangeableSceneController {
@@ -55,6 +57,7 @@ public class EditBarProfilePageController extends ChangeableSceneController {
     private BarService barService;
 
     private BarModel barModel;
+    private HBox[][] gridHBoxes;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -75,17 +78,17 @@ public class EditBarProfilePageController extends ChangeableSceneController {
         // make a save to the database to create the bar record
         onSaveChangesButtonClick(null);
 
-        Task<Void> sleeper = new Task<Void>() {
+        Task<Void> sleeper = new Task<>() {
             @Override
             protected Void call() throws Exception {
                 try {
-                    Thread.sleep(100);
-                } catch (InterruptedException e) {
+                    Thread.sleep(10);
+                } catch (InterruptedException ignored) {
                 }
                 return null;
             }
         };
-        sleeper.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
+        sleeper.setOnSucceeded(new EventHandler<>() {
             @Override
             public void handle(WorkerStateEvent event) {
                 fillFieldsWithValuesFromLoggedUserData();
@@ -95,7 +98,8 @@ public class EditBarProfilePageController extends ChangeableSceneController {
                 } else {
                     intervals = barModel.getIntervals();
                 }
-                fillScheduleGridPane(scheduleGridPane, intervals);
+
+                gridHBoxes = fillScheduleGridPane(scheduleGridPane, intervals);
             }
         });
         new Thread(sleeper).start();
@@ -126,7 +130,7 @@ public class EditBarProfilePageController extends ChangeableSceneController {
             return;
         }
 
-        List<Interval> intervalsFromGridPane= getIntervalsFromGridPane(scheduleGridPane);
+        List<Interval> intervalsFromGridPane = getIntervalsFromGrid(gridHBoxes);
 
         barModel.setAddress(addressField.getText());
         barModel.setName(userNameField.getText());
@@ -142,7 +146,7 @@ public class EditBarProfilePageController extends ChangeableSceneController {
 
         UserModel userModel = LoggedUserData.getInstance().getUserModel();
 
-        userNameField.setText(userModel.getName());
+        userNameField.setText(barModel.getName());
         emailField.setText(userModel.getEmail());
         userTypeField.setText(userModel.getType().toString());
         BarModel barModel = barService.getBar(userModel.getId());
@@ -167,18 +171,54 @@ public class EditBarProfilePageController extends ChangeableSceneController {
         profilePhoto.setImage(new Image(file.toURI().toString()));
     }
 
-    private List<Interval> getIntervalsFromGridPane(GridPane gridPane) {
-        return new ArrayList<>();
+    public static List<Interval> getIntervalsFromGrid(HBox[][] hBoxes) {
+
+        if (hBoxes == null) {
+            return null;
+        }
+
+        List<Interval> intervals = new ArrayList<>();
+
+        for (DaysOfWeek day : DaysOfWeek.values()) {
+            intervals.add(new Interval(day, 0, 0));
+        }
+
+        for (int column = 1; column < hBoxes.length; column++) {
+            ComboBox startHourComboBox = (ComboBox) hBoxes[column][1].getChildren().get(0);
+            ComboBox endHourComboBox = (ComboBox) hBoxes[column][2].getChildren().get(0);
+
+            if (startHourComboBox.getValue() == null) {
+                intervals.get(column - 1).setStart_hour(null);
+            } else {
+                intervals.get(column - 1).setStart_hour(Integer.parseInt(startHourComboBox.getValue().toString()));
+            }
+
+
+            if (endHourComboBox.getValue() == null) {
+                intervals.get(column - 1).setEnd_hour(null);
+            } else {
+                intervals.get(column - 1).setEnd_hour(Integer.parseInt(endHourComboBox.getValue().toString()));
+            }
+        }
+
+
+        return intervals;
     }
 
-    private void fillScheduleGridPane(GridPane gridPane, List<Interval> intervals) {
+    public static HBox[][] fillScheduleGridPane(GridPane gridPane, List<Interval> intervals) {
         HBox[][] hBoxes = new HBox[NumberOfDays + 1][3]; // 3 = day of week, start_hour, end_hour
 
-        for (int row = 0; row < hBoxes.length; row++) {
-            for (int column = 0; column < hBoxes[row].length; column++) {
-                hBoxes[row][column] = new HBox();
-                hBoxes[row][column].setAlignment(Pos.CENTER);
-                gridPane.add(hBoxes[row][column], row, column);
+
+        Integer[] hours = new Integer[24];
+        for (int i = 0; i < hours.length; i++) {
+            hours[i] = i;
+        }
+
+        for (int column = 0; column < hBoxes.length; column++) {
+            for (int row = 0; row < hBoxes[column].length; row++) {
+                hBoxes[column][row] = new HBox();
+                hBoxes[column][row].setAlignment(Pos.CENTER);
+                gridPane.add(hBoxes[column][row], column, row);
             }
         }
 
@@ -194,18 +234,15 @@ public class EditBarProfilePageController extends ChangeableSceneController {
 
         hBoxes[0][2].getChildren().add(new Label("Sfarsit"));
 
-        Integer[] hours = new Integer[24];
-        for (int i = 0; i < hours.length; i++) {
-            hours[i] = i;
-        }
 
-        for (int row = 1; row < hBoxes.length; row++) {
-            for (int column = 1; column < hBoxes[row].length; column++) {
+        for (int column = 1; column < hBoxes.length; column++) {
+            for (int row = 1; row < hBoxes[column].length; row++) {
                 ComboBox<Integer> comboBox = new ComboBox<>();
                 comboBox.setItems(FXCollections.observableArrayList(hours));
-                hBoxes[row][column].getChildren().add(comboBox);
+                hBoxes[column][row].getChildren().add(comboBox);
             }
         }
+        return hBoxes;
     }
 
     public void onGoToStartPageButtonClick(ActionEvent actionEvent) {
