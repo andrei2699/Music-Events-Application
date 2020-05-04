@@ -37,7 +37,6 @@ public class LoginController extends ChangeableSceneController {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        super.initialize(location, resources);
         userService = ServiceProvider.getUserService();
         setAllLabelsInvisible();
     }

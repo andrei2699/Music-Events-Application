@@ -14,7 +14,6 @@ public class BarProfilePageController extends ChangeableSceneController {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        super.initialize(location, resources);
 //        File file=new File("C:/Users/Tania/Desktop/patrat.png");
 //        profilePhoto.setImage(new Image(file.toURI().toString()));
     }

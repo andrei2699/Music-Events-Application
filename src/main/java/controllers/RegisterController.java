@@ -64,7 +64,6 @@ public class RegisterController extends ChangeableSceneController {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        super.initialize(location, resources);
         userService = ServiceProvider.getUserService();
 
         setAllLabelsInvisible();
@@ -119,9 +118,9 @@ public class RegisterController extends ChangeableSceneController {
                 LoggedUserData.getInstance().setUserModel(user);
 
                 if (user.getType() == UserType.Manager) {
-                    SceneSwitchController.getInstance().switchScene(BarProfileScene);
+                    SceneSwitchController.getInstance().switchScene(EditBarProfileScene);
                 } else if (user.getType() == UserType.Artist) {
-                    SceneSwitchController.getInstance().switchScene(ArtistProfileScene);
+                    SceneSwitchController.getInstance().switchScene(EditArtistProfileScene);
                 } else {
                     SceneSwitchController.getInstance().switchScene(MainScene);
                 }
