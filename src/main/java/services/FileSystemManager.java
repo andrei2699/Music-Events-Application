@@ -6,9 +6,9 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public final class FileSystemManager {
-    private static final String APPLICATION_FOLDER = ".MusicEventsApplication";
-    private static final String USER_FOLDER = System.getProperty("user.home");
+    public static final String USER_FOLDER = System.getProperty("user.home");
 
+    private static final String APPLICATION_FOLDER = ".MusicEventsApplication";
     private static final String DATA_FOLDER_NAME = "data";
     private static final String IMAGES_FOLDER_NAME = "images";
 
