@@ -14,21 +14,17 @@ public class JavaFXBoot extends Application {
     public void start(Stage primaryStage) throws Exception {
 
         ServiceProvider.getFileSystemManager().createJSONFiles();
-        BarService barService = ServiceProvider.getBarService();
-
-        barService.createBar(new BarModel(2, "Bar Name", "Bars Address"));
-
-        Scene mainScene = new Scene(FXMLLoader.load(getClass().getResource("/fxml/editArtistProfilePage.fxml")));
-        Scene registerScene = new Scene(FXMLLoader.load(getClass().getResource("/fxml/register.fxml")));
-
-        Scene loginScene = new Scene(FXMLLoader.load(getClass().getResource("/fxml/login.fxml")));
 
         SceneSwitchController sceneSwitchController = SceneSwitchController.getInstance();
 
         sceneSwitchController.setStage(primaryStage);
-        sceneSwitchController.addScene(SceneSwitchController.SceneType.MainScene, mainScene);
-        sceneSwitchController.addScene(SceneSwitchController.SceneType.RegisterScene, registerScene);
-        sceneSwitchController.addScene(SceneSwitchController.SceneType.LoginScene, loginScene);
+        sceneSwitchController.addScene(SceneSwitchController.SceneType.MainScene, "/fxml/editBarProfilePage.fxml");
+
+        sceneSwitchController.addScene(SceneSwitchController.SceneType.RegisterScene, "/fxml/register.fxml");
+        sceneSwitchController.addScene(SceneSwitchController.SceneType.LoginScene, "/fxml/login.fxml");
+
+        sceneSwitchController.addScene(SceneSwitchController.SceneType.EditBarProfileScene, "/fxml/editBarProfilePage.fxml");
+        sceneSwitchController.addScene(SceneSwitchController.SceneType.EditArtistProfileScene, "/fxml/editArtistProfilePage.fxml");
 
         sceneSwitchController.switchScene(SceneSwitchController.SceneType.LoginScene);
         primaryStage.show();
