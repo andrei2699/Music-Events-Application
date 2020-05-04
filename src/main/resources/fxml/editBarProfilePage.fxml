@@ -14,13 +14,20 @@
         <rowConstraints>
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
         </rowConstraints>
-        <VBox prefHeight="200.0" prefWidth="100.0" spacing="15.0">
-            <Button mnemonicParsing="false" onAction="#onGoToStartPageButtonClick" text="Spre pagina de start" textAlignment="CENTER">
-                <VBox.margin>
-                    <Insets left="10.0" top="10.0" />
-                </VBox.margin>
-            </Button>
-            <ImageView fx:id="profilePhoto" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="15.0">
+         <HBox>
+            <children>
+                  <Button mnemonicParsing="false" onAction="#onGoToStartPageButtonClick" text="Spre pagina de start" textAlignment="CENTER">
+                  <HBox.margin>
+                     <Insets left="10.0" top="10.0" />
+                  </HBox.margin>
+                  </Button>
+            </children>
+         </HBox>
+            <ImageView fx:id="profilePhoto" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+            <VBox.margin>
+               <Insets />
+            </VBox.margin></ImageView>
             <VBox alignment="TOP_CENTER" spacing="15.0" VBox.vgrow="ALWAYS">
                 <Label text="Poți încărca o fotografie diferită" />
                 <Button mnemonicParsing="false" onAction="#onChoosePhotoButtonClick" text="Alege fișier">
