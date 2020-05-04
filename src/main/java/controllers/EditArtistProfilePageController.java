@@ -49,4 +49,20 @@ public class EditArtistProfilePageController extends ChangeableSceneController {
     public SceneSwitchController.SceneType getControlledSceneType() {
         return SceneSwitchController.SceneType.EditArtistProfileScene;
     }
+
+    public void onGoToStartPageButtonClick(ActionEvent actionEvent) {
+
+    }
+
+    public void onChooseFileButtonClick(ActionEvent actionEvent) {
+
+    }
+
+    public void onSelectBandCheckBoxClick(ActionEvent actionEvent) {
+
+    }
+
+    public void onSaveChangesButtonClick(ActionEvent actionEvent) {
+
+    }
 }

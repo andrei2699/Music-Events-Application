@@ -204,4 +204,8 @@ public class EditBarProfilePageController extends ChangeableSceneController {
             }
         }
     }
+
+    public void onGoToStartPageButtonClick(ActionEvent actionEvent) {
+
+    }
 }
