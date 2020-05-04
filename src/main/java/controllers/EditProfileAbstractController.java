@@ -34,6 +34,8 @@ import static models.DaysOfWeek.NumberOfDays;
 
 public abstract class EditProfileAbstractController extends ChangeableSceneController {
 
+    private static final String IMAGES_DEFAULT_USER_PHOTO = "/Images/defaultUserPhoto.png";
+
     @FXML
     public ImageView profilePhoto;
 
@@ -69,19 +71,20 @@ public abstract class EditProfileAbstractController extends ChangeableSceneContr
     public void onSceneChanged() {
         // make a save to the database to create the bar record
 //        onSaveChangesButtonClick(null);
-
-        Task<Void> sleeper = new Task<>() {
-            @Override
-            protected Void call() {
-                try {
-                    Thread.sleep(10);
-                } catch (InterruptedException ignored) {
-                }
-                return null;
-            }
-        };
-        sleeper.setOnSucceeded(event -> updateUIOnSceneChanged());
-        new Thread(sleeper).start();
+//
+//        Task<Void> sleeper = new Task<>() {
+//            @Override
+//            protected Void call() {
+//                try {
+//                    Thread.sleep(10);
+//                } catch (InterruptedException ignored) {
+//                }
+//                return null;
+//            }
+//        };
+//        sleeper.setOnSucceeded(event -> updateUIOnSceneChanged());
+//        new Thread(sleeper).start();
+        updateUIOnSceneChanged();
     }
 
     public void onGoToStartPageButtonClick(ActionEvent actionEvent) {
@@ -143,7 +146,7 @@ public abstract class EditProfileAbstractController extends ChangeableSceneContr
             for (int row = 0; row < hBoxes[column].length; row++) {
                 hBoxes[column][row] = new HBox();
                 hBoxes[column][row].setAlignment(Pos.CENTER);
-                hBoxes[column][row].setPadding(new Insets(0,5,0,5));
+                hBoxes[column][row].setPadding(new Insets(0,2,0,2));
                 gridPane.add(hBoxes[column][row], column, row);
             }
         }
@@ -184,14 +187,14 @@ public abstract class EditProfileAbstractController extends ChangeableSceneContr
     protected Image getProfileImage(String pathToImageFile) {
         if (pathToImageFile.isEmpty()) {
             try {
-                pathToImageFile = Paths.get(getClass().getResource("/Images/defaultUserPhoto.jpg").toURI()).toString();
+                pathToImageFile = Paths.get(getClass().getResource(IMAGES_DEFAULT_USER_PHOTO).toURI()).toString();
             } catch (URISyntaxException e) {
                 e.printStackTrace();
             }
         }
 
         File file = new File(pathToImageFile);
-        return new Image(file.toURI().toString());
+        return new Image(file.toURI().toString(),true );
     }
 
 }
