@@ -2,7 +2,6 @@ package controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import main.LoggedUserData;
@@ -14,7 +13,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.regex.Pattern;
 
-public class LoginController implements Initializable {
+public class LoginController extends ChangeableSceneController {
 
     private static final String REQUIRED_FIELD_ERROR_MESSAGE = "* Camp Obligatoriu";
     private static final String INVALID_EMAIL_ERROR_MESSAGE = "* Adresa de email invalida";
@@ -38,6 +37,7 @@ public class LoginController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        super.initialize(location, resources);
         userService = ServiceProvider.getUserService();
         setAllLabelsInvisible();
     }
@@ -97,5 +97,15 @@ public class LoginController implements Initializable {
         if (email == null)
             return false;
         return pat.matcher(email).matches();
+    }
+
+    @Override
+    public void onSceneChanged() {
+
+    }
+
+    @Override
+    public SceneSwitchController.SceneType getControlledSceneType() {
+        return SceneSwitchController.SceneType.LoginScene;
     }
 }

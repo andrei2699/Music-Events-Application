@@ -1,22 +1,14 @@
 package controllers;
 
-import javafx.fxml.FXML;
-import javafx.scene.image.ImageView;
 import main.SceneSwitchController;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class BarProfilePageController extends ChangeableSceneController {
-
-    @FXML
-    public ImageView profilePhoto;
-
+public class EditArtistProfilePageController extends ChangeableSceneController {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         super.initialize(location, resources);
-//        File file=new File("C:/Users/Tania/Desktop/patrat.png");
-//        profilePhoto.setImage(new Image(file.toURI().toString()));
     }
 
     @Override
@@ -26,6 +18,6 @@ public class BarProfilePageController extends ChangeableSceneController {
 
     @Override
     public SceneSwitchController.SceneType getControlledSceneType() {
-        return SceneSwitchController.SceneType.BarProfileScene;
+        return SceneSwitchController.SceneType.EditArtistProfileScene;
     }
 }
