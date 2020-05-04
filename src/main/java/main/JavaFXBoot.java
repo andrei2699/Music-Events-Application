@@ -18,10 +18,10 @@ public class JavaFXBoot extends Application {
 
         barService.createBar(new BarModel(2, "Bar Name", "Bars Address"));
 
-        Scene mainScene = new Scene(FXMLLoader.load(getClass().getResource("/editArtistProfilePage.fxml")));
-        Scene registerScene = new Scene(FXMLLoader.load(getClass().getResource("/register.fxml")));
+        Scene mainScene = new Scene(FXMLLoader.load(getClass().getResource("/fxml/editArtistProfilePage.fxml")));
+        Scene registerScene = new Scene(FXMLLoader.load(getClass().getResource("/fxml/register.fxml")));
 
-        Scene loginScene = new Scene(FXMLLoader.load(getClass().getResource("/login.fxml")));
+        Scene loginScene = new Scene(FXMLLoader.load(getClass().getResource("/fxml/login.fxml")));
 
         SceneSwitchController sceneSwitchController = SceneSwitchController.getInstance();
 
