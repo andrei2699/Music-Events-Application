@@ -18,7 +18,7 @@ public class JavaFXBoot extends Application {
         SceneSwitchController sceneSwitchController = SceneSwitchController.getInstance();
 
         sceneSwitchController.setStage(primaryStage);
-        sceneSwitchController.addScene(SceneSwitchController.SceneType.MainScene, "/fxml/editBarProfilePage.fxml");
+        sceneSwitchController.addScene(SceneSwitchController.SceneType.MainScene, "/fxml/main.fxml");
 
         sceneSwitchController.addScene(SceneSwitchController.SceneType.RegisterScene, "/fxml/register.fxml");
         sceneSwitchController.addScene(SceneSwitchController.SceneType.LoginScene, "/fxml/login.fxml");

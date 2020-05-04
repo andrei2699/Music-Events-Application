@@ -239,10 +239,12 @@ public class EditBarProfilePageController extends ChangeableSceneController {
             for (int row = 1; row < hBoxes[column].length; row++) {
                 ComboBox<Integer> comboBox = new ComboBox<>();
 
-                if (row == 1) {
-                    comboBox.setValue(intervals.get(column - 1).getStart_hour());
-                } else if (row == 2) {
-                    comboBox.setValue(intervals.get(column - 1).getEnd_hour());
+                if (intervals != null) {
+                    if (row == 1) {
+                        comboBox.setValue(intervals.get(column - 1).getStart_hour());
+                    } else if (row == 2) {
+                        comboBox.setValue(intervals.get(column - 1).getEnd_hour());
+                    }
                 }
 
                 comboBox.setItems(FXCollections.observableArrayList(hours));
