@@ -139,4 +139,8 @@ public class EditBarProfilePageController extends ChangeableSceneController {
         Label endHourLabel = new Label("Sfarsit");
         hBoxes[0][2].getChildren().add(endHourLabel);
     }
+
+    public void onGoToStartPageButtonClick(ActionEvent actionEvent) {
+
+    }
 }
