@@ -126,10 +126,13 @@ public class EditBarProfilePageController extends ChangeableSceneController {
             return;
         }
 
+        List<Interval> intervalsFromGridPane= getIntervalsFromGridPane(scheduleGridPane);
 
-//        barService.updateBar(barModel);
-        // todo update user model with user service
-        // todo change LoggedUserData with the updated data
+        barModel.setAddress(addressField.getText());
+        barModel.setName(userNameField.getText());
+        barModel.setIntervals(intervalsFromGridPane);
+
+        barService.updateBar(barModel);
     }
 
     private void fillFieldsWithValuesFromLoggedUserData() {
@@ -206,6 +209,7 @@ public class EditBarProfilePageController extends ChangeableSceneController {
     }
 
     public void onGoToStartPageButtonClick(ActionEvent actionEvent) {
-
+        onSaveChangesButtonClick(actionEvent);
+        SceneSwitchController.getInstance().switchScene(SceneSwitchController.SceneType.MainScene);
     }
 }
