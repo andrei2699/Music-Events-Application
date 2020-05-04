@@ -6,6 +6,7 @@ import javafx.concurrent.WorkerStateEvent;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -142,6 +143,7 @@ public abstract class EditProfileAbstractController extends ChangeableSceneContr
             for (int row = 0; row < hBoxes[column].length; row++) {
                 hBoxes[column][row] = new HBox();
                 hBoxes[column][row].setAlignment(Pos.CENTER);
+                hBoxes[column][row].setPadding(new Insets(0,5,0,5));
                 gridPane.add(hBoxes[column][row], column, row);
             }
         }
