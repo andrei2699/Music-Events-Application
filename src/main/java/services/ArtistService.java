@@ -15,11 +15,6 @@ public class ArtistService {
     ArtistService() {
     }
 
-    public ArtistModel getArtist(String name) {
-        List<ArtistModel> allArtists = getAllArtists();
-        return allArtists.stream().filter(a -> a.getName().equals(name)).findFirst().orElse(null);
-    }
-
     public ArtistModel getArtist(int user_id) {
         List<ArtistModel> allArtists = getAllArtists();
         return allArtists.stream().filter(a -> a.getUser_id() == user_id).findFirst().orElse(null);
@@ -34,7 +29,7 @@ public class ArtistService {
         return searchResults;
     }
 
-    public void updateArtist(ArtistModel artistModel) {
+    public void updateArtist(ArtistModel model) {
         FileSystemManager fileSystemManager = ServiceProvider.getFileSystemManager();
         Path artistsFilePath = fileSystemManager.getArtistsFilePath();
         List<ArtistModel> artists = getAllArtists();
@@ -43,13 +38,14 @@ public class ArtistService {
         Gson gson = gsonBuilder.setPrettyPrinting().create();
 
         for (ArtistModel artist : artists) {
-            if (artist.getUser_id() == artistModel.getUser_id()) {
-                artist.setName(artistModel.getName());
-                artist.setGenre(artistModel.getGenre());
-                artist.setIntervals(artistModel.getIntervals());
-                artist.setPath_to_image(artistModel.getPath_to_image());
-                if(artist.getIs_band())
-                    artist.setMembers(artistModel.getMembers());
+            if (artist.getUser_id() == model.getUser_id()) {
+                artist.setGenre(model.getGenre());
+                artist.setIntervals(model.getIntervals());
+                artist.setPath_to_image(model.getPath_to_image());
+                artist.setIs_band(model.getIs_band());
+                if (artist.getIs_band()) {
+                    artist.setMembers(model.getMembers());
+                }
                 break;
             }
         }
@@ -62,23 +58,25 @@ public class ArtistService {
         FileSystemManager fileSystemManager = ServiceProvider.getFileSystemManager();
         Path artistsFilePath = fileSystemManager.getArtistsFilePath();
         List<ArtistModel> artists = getAllArtists();
-        boolean found=false;
+        boolean found = false;
 
         GsonBuilder gsonBuilder = new GsonBuilder();
         Gson gson = gsonBuilder.setPrettyPrinting().create();
 
-        for(ArtistModel artist : artists) {
+        for (ArtistModel artist : artists) {
             if (artist.getUser_id() == artistModel.getUser_id()) {
-                found=true;
+                found = true;
                 updateArtist(artistModel);
                 break;
             }
         }
-        if(!found)
+
+        if (!found) {
             artists.add(artistModel);
 
-        String json = gson.toJson(artists);
-        fileSystemManager.writeToFile(artistsFilePath, json);
+            String json = gson.toJson(artists);
+            fileSystemManager.writeToFile(artistsFilePath, json);
+        }
     }
 
     public List<ArtistModel> getAllArtists() {

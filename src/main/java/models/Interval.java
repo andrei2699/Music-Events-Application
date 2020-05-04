@@ -20,7 +20,7 @@ public class Interval {
         this.day = day;
     }
 
-    public int getStart_hour() {
+    public Integer getStart_hour() {
         return start_hour;
     }
 
