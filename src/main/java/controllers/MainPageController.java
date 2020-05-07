@@ -1,6 +1,6 @@
 package controllers;
 
-import javafx.collections.FXCollections;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -22,6 +22,7 @@ public class MainPageController extends ChangeableSceneController {
     @FXML
     private VBox evenCardsContainer;
 
+
     @Override
     public void onSceneChanged() {
 
@@ -37,17 +38,26 @@ public class MainPageController extends ChangeableSceneController {
 
         List<EventModel> eventModels = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
-            eventModels.add(new EventModel("Event" + i, "Bar Name " + i, "Artist Name " + i));
+            EventModel model = new EventModel("Event" + i, "Bar Name " + i, "Artist Name " + i, "DateTime " + i, (i + 12) + "", i * 3);
+            if (i % 2 == 0) {
+                model.setDescription("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
+            }
+            eventModels.add(model);
         }
 
         for (EventModel model : eventModels) {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/components/eventDetailsCard.fxml"));
-            loader.setController(new EventListViewCellController(model));
+            EventDetailsCardController controller = new EventDetailsCardController(model);
+            loader.setController(controller);
 
             try {
                 evenCardsContainer.getChildren().add(loader.load());
             } catch (IOException e) {
                 e.printStackTrace();
+            }
+
+            if (!LoggedUserData.getInstance().isUserLogged() || LoggedUserData.getInstance().getUserModel().getType() != UserType.RegularUser) {
+                controller.hideControlsForNotRegisteredUsers();
             }
         }
 
