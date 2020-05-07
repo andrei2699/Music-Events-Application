@@ -41,6 +41,7 @@ public class LoginController extends ChangeableSceneController {
         setAllLabelsInvisible();
     }
 
+    @FXML
     public void onLoginClick(ActionEvent actionEvent) {
         setAllLabelsInvisible();
         boolean canLogin = true;
@@ -72,10 +73,12 @@ public class LoginController extends ChangeableSceneController {
         }
     }
 
+    @FXML
     public void onGoToRegisterPageClick(ActionEvent actionEvent) {
         SceneSwitchController.getInstance().switchScene(SceneSwitchController.SceneType.RegisterScene);
     }
 
+    @FXML
     public void onSkipPageButtonClick(ActionEvent actionEvent) {
         SceneSwitchController.getInstance().switchScene(SceneSwitchController.SceneType.MainScene);
     }
