@@ -3,15 +3,16 @@ package controllers;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListCell;
 import javafx.scene.layout.AnchorPane;
 import models.EventModel;
 
-import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class EventListViewCellController extends ListCell<EventModel> {
+public class EventListViewCellController implements Initializable {
 
     @FXML
     private AnchorPane cardPane;
@@ -30,38 +31,23 @@ public class EventListViewCellController extends ListCell<EventModel> {
     @FXML
     private Button showDetailsButton;
 
-    @Override
-    protected void updateItem(EventModel model, boolean empty) {
-        super.updateItem(model, empty);
+    private final EventModel model;
 
-        if (empty || model == null) {
-            setText(null);
-            setGraphic(null);
-        } else {
-            if (fxmlLoader == null) {
-                fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/eventListCell.fxml"));
-                fxmlLoader.setController(this);
-
-                try {
-                    fxmlLoader.load();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            eventNameLabel.setText(model.getEventName());
-            barNameLabel.setText(model.getBarName());
-            artistNameLabel.setText(model.getArtistName());
-
-            showDetailsButton.setOnAction(this::onShowDetailsButtonClick);
-
-            setText(null);
-            setGraphic(cardPane);
-        }
+    public EventListViewCellController(EventModel model) {
+        this.model = model;
     }
 
+    @FXML
     public void onShowDetailsButtonClick(ActionEvent actionEvent) {
         System.out.println(artistNameLabel.getText());
 
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        eventNameLabel.setText(model.getEventName());
+        barNameLabel.setText(model.getBarName());
+        artistNameLabel.setText(model.getArtistName());
+        showDetailsButton.setOnAction(this::onShowDetailsButtonClick);
     }
 }
