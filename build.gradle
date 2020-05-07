@@ -16,8 +16,7 @@ repositories {
 dependencies {
     implementation 'com.google.code.gson:gson:2.8.6'
     testCompile group: 'junit', name: 'junit', version: '4.12'
-    compile 'com.jfoenix:jfoenix:9.0.8'
-
+//    compile 'com.jfoenix:jfoenix:9.0.8'
 }
 
 javafx {
