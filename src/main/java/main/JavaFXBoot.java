@@ -24,7 +24,7 @@ public class JavaFXBoot extends Application {
 
 
 
-        sceneSwitchController.switchScene(SceneSwitchController.SceneType.MainScene);
+        sceneSwitchController.switchScene(SceneSwitchController.SceneType.LoginScene);
         primaryStage.show();
     }
 
