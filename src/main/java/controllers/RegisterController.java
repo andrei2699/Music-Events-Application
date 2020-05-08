@@ -10,7 +10,7 @@ import models.UserModel;
 import models.UserType;
 import services.ServiceProvider;
 import services.exceptions.UserExistsException;
-import services.implementations.UserServiceImpl;
+import services.interfaces.UserService;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -60,7 +60,7 @@ public class RegisterController extends ChangeableSceneController {
     @FXML
     public Label emailInUseErrorLabel;
 
-    private UserServiceImpl userService;
+    private UserService userService;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

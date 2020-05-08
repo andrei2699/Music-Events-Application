@@ -17,7 +17,7 @@ import main.SceneSwitchController;
 import models.DaysOfWeek;
 import models.Interval;
 import services.ServiceProvider;
-import services.implementations.UserServiceImpl;
+import services.interfaces.UserService;
 
 import java.io.File;
 import java.net.URISyntaxException;
@@ -49,7 +49,7 @@ public abstract class EditProfileAbstractController extends ChangeableSceneContr
     public GridPane scheduleGridPane;
 
     protected HBox[][] gridHBoxes;
-    protected UserServiceImpl userService;
+    protected UserService userService;
 
     protected abstract void onSaveChangesButtonClick(ActionEvent actionEvent);
 
@@ -143,7 +143,7 @@ public abstract class EditProfileAbstractController extends ChangeableSceneContr
             for (int row = 0; row < hBoxes[column].length; row++) {
                 hBoxes[column][row] = new HBox();
                 hBoxes[column][row].setAlignment(Pos.CENTER);
-                hBoxes[column][row].setPadding(new Insets(0,2,0,2));
+                hBoxes[column][row].setPadding(new Insets(0, 2, 0, 2));
                 gridPane.add(hBoxes[column][row], column, row);
             }
         }
@@ -191,7 +191,7 @@ public abstract class EditProfileAbstractController extends ChangeableSceneContr
         }
 
         File file = new File(pathToImageFile);
-        return new Image(file.toURI().toString(),true );
+        return new Image(file.toURI().toString(), true);
     }
 
 }

@@ -7,7 +7,7 @@ import javafx.scene.control.TextField;
 import main.LoggedUserData;
 import main.SceneSwitchController;
 import services.ServiceProvider;
-import services.implementations.UserServiceImpl;
+import services.interfaces.UserService;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -33,7 +33,7 @@ public class LoginController extends ChangeableSceneController {
     @FXML
     public Label passwordErrorLabel;
 
-    private UserServiceImpl userService;
+    private UserService userService;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

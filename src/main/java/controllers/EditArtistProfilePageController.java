@@ -8,8 +8,8 @@ import main.SceneSwitchController;
 import models.ArtistModel;
 import models.Interval;
 import models.UserModel;
-import services.implementations.ArtistServiceImpl;
 import services.ServiceProvider;
+import services.interfaces.ArtistService;
 
 import java.io.File;
 import java.net.URL;
@@ -30,7 +30,7 @@ public class EditArtistProfilePageController extends EditProfileAbstractControll
     @FXML
     public CheckBox bandCheckBox;
 
-    private ArtistServiceImpl artistService;
+    private ArtistService artistService;
 
     private ArtistModel artistModel;
 

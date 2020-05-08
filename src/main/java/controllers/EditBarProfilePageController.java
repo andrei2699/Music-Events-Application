@@ -8,8 +8,8 @@ import main.SceneSwitchController;
 import models.BarModel;
 import models.Interval;
 import models.UserModel;
-import services.implementations.BarServiceImpl;
 import services.ServiceProvider;
+import services.interfaces.BarService;
 
 import java.io.File;
 import java.net.URL;
@@ -21,7 +21,7 @@ public class EditBarProfilePageController extends EditProfileAbstractController 
     @FXML
     public TextField addressField;
 
-    private BarServiceImpl barService;
+    private BarService barService;
 
     private BarModel barModel;
 
