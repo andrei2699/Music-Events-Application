@@ -7,6 +7,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import main.LoggedUserData;
 import main.SceneSwitchController;
 import models.EventModel;
@@ -31,9 +32,15 @@ public class MainPageController extends ChangeableSceneController {
 
     private FilteredList<EventModelContainer> eventModelFilteredList;
 
+    @FXML
+    public void onSearchImageClicked(MouseEvent mouseEvent) {
+        searchTextField.requestFocus();
+    }
+
     @Override
     public void onSceneChanged() {
-
+        eventModelFilteredList = new FilteredList<>(getMockupEvents(), m -> true);
+        eventsTableView.setItems(eventModelFilteredList);
     }
 
     @Override
@@ -43,9 +50,7 @@ public class MainPageController extends ChangeableSceneController {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        eventModelFilteredList = new FilteredList<>(getMockupEvents(), m -> true);
 
-        eventsTableView.setItems(eventModelFilteredList);
         eventsTableView.setPlaceholder(new Label(NO_CONTENT_TABLE_VIEW_LABEL));
 
         eventsTableColumn.setCellValueFactory(new PropertyValueFactory<>("eventModel"));

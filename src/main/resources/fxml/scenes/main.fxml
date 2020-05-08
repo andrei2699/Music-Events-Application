@@ -3,6 +3,7 @@
 <?import java.net.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
@@ -20,11 +21,21 @@
          <Insets left="20.0" />
       </padding>
     </HBox>
-   <TextField fx:id="searchTextField" promptText="Cauta evenimente..." AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="16.0" AnchorPane.topAnchor="60.0">
-      <opaqueInsets>
-         <Insets />
-      </opaqueInsets>
-   </TextField>
+    <HBox alignment="CENTER_LEFT" spacing="4.0" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="16.0"
+          AnchorPane.topAnchor="60.0">
+        <ImageView fitHeight="26.0" fitWidth="26.0" onMouseClicked="#onSearchImageClicked" pickOnBounds="true"
+                   preserveRatio="true">
+            <HBox.margin>
+                <Insets/>
+            </HBox.margin>
+            <Image url="@../../Images/search_icon_black_18dp.png"/>
+        </ImageView>
+        <TextField fx:id="searchTextField" prefWidth="700.0" promptText="Cauta evenimente...">
+           <opaqueInsets>
+               <Insets/>
+           </opaqueInsets>
+        </TextField>
+    </HBox>
    <TableView fx:id="eventsTableView" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="110.0">
      <columns>
        <TableColumn fx:id="eventsTableColumn" editable="false" minWidth="160.0" prefWidth="-1.0" sortable="false" text="Evenimente Dispnibile" />
@@ -33,7 +44,7 @@
          <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
       </columnResizePolicy>
       <padding>
-         <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+         <Insets bottom="2.0" left="8.0" right="8.0" top="2.0" />
       </padding>
    </TableView>
     <stylesheets>
