@@ -1,4 +1,4 @@
-package services.implementations;
+package services.implementation;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -6,16 +6,13 @@ import com.google.gson.reflect.TypeToken;
 import models.BarModel;
 import services.FileSystemManager;
 import services.ServiceProvider;
-import services.interfaces.BarService;
+import services.BarService;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
 public class BarServiceImpl implements BarService {
-
-    public BarServiceImpl() {
-    }
 
     @Override
     public BarModel getBar(int user_id) {

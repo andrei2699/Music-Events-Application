@@ -1,4 +1,4 @@
-package services.implementations;
+package services.implementation;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -6,17 +6,13 @@ import com.google.gson.reflect.TypeToken;
 import models.ArtistModel;
 import services.FileSystemManager;
 import services.ServiceProvider;
-import services.interfaces.ArtistService;
+import services.ArtistService;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ArtistServiceImpl implements ArtistService {
-
-    public ArtistServiceImpl() {
-    }
-
     @Override
     public ArtistModel getArtist(int user_id) {
         List<ArtistModel> allArtists = getAllArtists();

@@ -7,7 +7,7 @@ import javafx.scene.control.TextField;
 import main.LoggedUserData;
 import main.SceneSwitchController;
 import services.ServiceProvider;
-import services.interfaces.UserService;
+import services.UserService;
 
 import java.net.URL;
 import java.util.ResourceBundle;

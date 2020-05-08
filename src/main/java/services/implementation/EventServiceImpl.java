@@ -1,4 +1,4 @@
-package services.implementations;
+package services.implementation;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -6,17 +6,13 @@ import com.google.gson.reflect.TypeToken;
 import models.EventModel;
 import services.FileSystemManager;
 import services.ServiceProvider;
-import services.interfaces.EventService;
+import services.EventService;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
 public class EventServiceImpl implements EventService {
-
-    public EventServiceImpl() {
-    }
-
     @Override
     public EventModel getEventUsingEventId(int id) {
         List<EventModel> allEvents = getAllEvents();
