@@ -1,10 +1,14 @@
 package services;
 
+import services.implementations.ArtistServiceImpl;
+import services.implementations.BarServiceImpl;
+import services.implementations.UserServiceImpl;
+
 public final class ServiceProvider {
     private static final FileSystemManager fileSystemManager = new FileSystemManager();
-    private static final UserService userService = new UserService();
-    private static final BarService barService = new BarService();
-    private static final ArtistService artistService = new ArtistService();
+    private static final UserServiceImpl userService = new UserServiceImpl();
+    private static final BarServiceImpl barService = new BarServiceImpl();
+    private static final ArtistServiceImpl artistService = new ArtistServiceImpl();
 
     private ServiceProvider() {
 
@@ -14,15 +18,15 @@ public final class ServiceProvider {
         return fileSystemManager;
     }
 
-    public static UserService getUserService() {
+    public static UserServiceImpl getUserService() {
         return userService;
     }
 
-    public static BarService getBarService() {
+    public static BarServiceImpl getBarService() {
         return barService;
     }
 
-    public static ArtistService getArtistService() {
+    public static ArtistServiceImpl getArtistService() {
         return artistService;
     }
 }

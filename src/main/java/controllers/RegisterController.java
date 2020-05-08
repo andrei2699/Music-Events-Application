@@ -9,8 +9,8 @@ import main.SceneSwitchController;
 import models.UserModel;
 import models.UserType;
 import services.ServiceProvider;
-import services.UserExistsException;
-import services.UserService;
+import services.exceptions.UserExistsException;
+import services.implementations.UserServiceImpl;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -60,7 +60,7 @@ public class RegisterController extends ChangeableSceneController {
     @FXML
     public Label emailInUseErrorLabel;
 
-    private UserService userService;
+    private UserServiceImpl userService;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

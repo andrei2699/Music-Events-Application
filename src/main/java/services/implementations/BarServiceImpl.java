@@ -1,25 +1,29 @@
-package services;
+package services.implementations;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
-import models.ArtistModel;
 import models.BarModel;
+import services.FileSystemManager;
+import services.ServiceProvider;
+import services.interfaces.BarService;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BarService {
+public class BarServiceImpl implements BarService {
 
-    BarService() {
+    public BarServiceImpl() {
     }
 
+    @Override
     public BarModel getBar(int user_id) {
         List<BarModel> allBars = getAllBars();
         return allBars.stream().filter(b -> b.getUser_id() == user_id).findFirst().orElse(null);
     }
 
+    @Override
     public List<BarModel> getBars(String address) {
         List<BarModel> allBars = getAllBars();
         List<BarModel> searchResults = new ArrayList<>();
@@ -29,6 +33,7 @@ public class BarService {
         return searchResults;
     }
 
+    @Override
     public void updateBar(BarModel model) {
         FileSystemManager fileSystemManager = ServiceProvider.getFileSystemManager();
         Path barsFilePath = fileSystemManager.getBarsFilePath();
@@ -50,6 +55,7 @@ public class BarService {
         fileSystemManager.writeToFile(barsFilePath, json);
     }
 
+    @Override
     public void createBar(BarModel barModel) {
         FileSystemManager fileSystemManager = ServiceProvider.getFileSystemManager();
         Path barsFilePath = fileSystemManager.getBarsFilePath();
@@ -74,6 +80,7 @@ public class BarService {
         }
     }
 
+    @Override
     public List<BarModel> getAllBars() {
         FileSystemManager fileSystemManager = ServiceProvider.getFileSystemManager();
         Path barsFilePath = fileSystemManager.getBarsFilePath();

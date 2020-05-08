@@ -1,10 +1,7 @@
 package controllers;
 
 import javafx.collections.FXCollections;
-import javafx.concurrent.Task;
-import javafx.concurrent.WorkerStateEvent;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -20,7 +17,7 @@ import main.SceneSwitchController;
 import models.DaysOfWeek;
 import models.Interval;
 import services.ServiceProvider;
-import services.UserService;
+import services.implementations.UserServiceImpl;
 
 import java.io.File;
 import java.net.URISyntaxException;
@@ -52,7 +49,7 @@ public abstract class EditProfileAbstractController extends ChangeableSceneContr
     public GridPane scheduleGridPane;
 
     protected HBox[][] gridHBoxes;
-    protected UserService userService;
+    protected UserServiceImpl userService;
 
     protected abstract void onSaveChangesButtonClick(ActionEvent actionEvent);
 
