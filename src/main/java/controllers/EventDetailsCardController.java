@@ -18,6 +18,8 @@ import java.util.ResourceBundle;
 
 public class EventDetailsCardController extends TableCell<MainPageController.EventModelContainer, EventModel> {
 
+    private static final double MIN_DESCRIPTION_LABEL_WIDTH = 240;
+
     @FXML
     private VBox eventCardVBox;
 
@@ -87,7 +89,13 @@ public class EventDetailsCardController extends TableCell<MainPageController.Eve
 
             reserveTicketButton.setOnAction(this::onReserveTicketButtonClick);
 
-            Platform.runLater(() -> descriptionLabel.setPrefWidth(detailsTitledPaneContentVBox.getWidth()));
+            Platform.runLater(() -> {
+                double width = detailsTitledPaneContentVBox.getWidth();
+                if (width == 0) {
+                    width = MIN_DESCRIPTION_LABEL_WIDTH;
+                }
+                descriptionLabel.setPrefWidth(width);
+            });
 
             if (!LoggedUserData.getInstance().isUserLogged() || LoggedUserData.getInstance().getUserModel().getType() != UserType.RegularUser) {
                 hideControlsForNotRegisteredUsers();
