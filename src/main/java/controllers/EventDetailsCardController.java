@@ -5,18 +5,18 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.Separator;
-import javafx.scene.control.TitledPane;
+import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import main.LoggedUserData;
 import models.EventModel;
+import models.UserType;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class EventDetailsCardController implements Initializable {
+public class EventDetailsCardController extends TableCell<MainPageController.EventModelContainer, EventModel> {
 
     @FXML
     private VBox eventCardVBox;
@@ -60,26 +60,43 @@ public class EventDetailsCardController implements Initializable {
     @FXML
     private HBox actionButtonsHBox;
 
-    private FXMLLoader fxmlLoader;
-    private final EventModel model;
+    public EventDetailsCardController() {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/components/eventDetailsCard.fxml"));
+        fxmlLoader.setController(this);
 
-    public EventDetailsCardController(EventModel model) {
-        this.model = model;
+        try {
+            fxmlLoader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        eventNameLabel.setText(model.getEventName());
-        barNameLabel.setText(model.getBarName());
-        artistNameLabel.setText(model.getArtistName());
-        dateLabel.setText(model.getDate());
-        startHourLabel.setText(model.getStartHour());
-        numberOfSeatsLabel.setText(model.getNumberOfSeats() + "");
-        descriptionLabel.setText(model.getDescription());
+    protected void updateItem(EventModel model, boolean empty) {
+        super.updateItem(model, empty);
 
-        reserveTicketButton.setOnAction(this::onReserveTicketButtonClick);
+        if (!empty && model != null) {
 
-        Platform.runLater(() -> descriptionLabel.setPrefWidth(detailsTitledPaneContentVBox.getWidth()));
+            eventNameLabel.setText(model.getEventName());
+            barNameLabel.setText(model.getBarName());
+            artistNameLabel.setText(model.getArtistName());
+            dateLabel.setText(model.getDate());
+            startHourLabel.setText(model.getStartHour());
+            numberOfSeatsLabel.setText(model.getNumberOfSeats() + "");
+            descriptionLabel.setText(model.getDescription());
+
+            reserveTicketButton.setOnAction(this::onReserveTicketButtonClick);
+
+            Platform.runLater(() -> descriptionLabel.setPrefWidth(detailsTitledPaneContentVBox.getWidth()));
+
+            if (!LoggedUserData.getInstance().isUserLogged() || LoggedUserData.getInstance().getUserModel().getType() != UserType.RegularUser) {
+                hideControlsForNotRegisteredUsers();
+            }
+
+            setGraphic(eventCardVBox);
+        } else {
+            setGraphic(null);
+        }
 
 //        Platform.runLater(() -> {
 //
