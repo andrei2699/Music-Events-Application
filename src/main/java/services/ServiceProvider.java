@@ -1,13 +1,19 @@
 package services;
 
+import services.implementations.ArtistServiceImpl;
+import services.implementations.BarServiceImpl;
+import services.implementations.UserServiceImpl;
+import services.interfaces.ArtistService;
+import services.interfaces.BarService;
+import services.interfaces.UserService;
+
 public final class ServiceProvider {
     private static final FileSystemManager fileSystemManager = new FileSystemManager();
-    private static final UserService userService = new UserService();
-    private static final BarService barService = new BarService();
-    private static final ArtistService artistService = new ArtistService();
+    private static final UserService userService = new UserServiceImpl();
+    private static final BarService barService = new BarServiceImpl();
+    private static final ArtistService artistService = new ArtistServiceImpl();
 
     private ServiceProvider() {
-
     }
 
     public static FileSystemManager getFileSystemManager() {

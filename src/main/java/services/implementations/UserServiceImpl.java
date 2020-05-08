@@ -1,37 +1,43 @@
-package services;
+package services.implementations;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import models.UserModel;
 import models.UserType;
+import services.FileSystemManager;
+import services.ServiceProvider;
+import services.exceptions.UserExistsException;
+import services.interfaces.UserService;
+import utils.StringEncryptor;
 
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
-public class UserService {
+public class UserServiceImpl implements UserService {
 
-    UserService() {
+    public UserServiceImpl() {
     }
 
+    @Override
     public boolean validateUserCredentials(String email, String password) {
         List<UserModel> allUsers = getAllUsers();
         return allUsers.stream().anyMatch(u -> u.getEmail().equals(email) && u.getPassword().equals(encryptString(email, password)));
     }
 
+    @Override
     public UserModel getUser(int id) {
         List<UserModel> allUsers = getAllUsers();
         return allUsers.stream().filter(u -> u.getId() == id).findFirst().orElse(null);
     }
 
+    @Override
     public UserModel getUser(String email) {
         List<UserModel> allUsers = getAllUsers();
         return allUsers.stream().filter(u -> u.getEmail().equals(email)).findFirst().orElse(null);
     }
 
+    @Override
     public void updateUser(UserModel model) {
         FileSystemManager fileSystemManager = ServiceProvider.getFileSystemManager();
         Path usersFilePath = fileSystemManager.getUsersFilePath();
@@ -51,6 +57,7 @@ public class UserService {
         fileSystemManager.writeToFile(usersFilePath, json);
     }
 
+    @Override
     public UserModel createUser(String email, String password, String userName, UserType userType) throws UserExistsException {
         FileSystemManager fileSystemManager = ServiceProvider.getFileSystemManager();
         Path usersFilePath = fileSystemManager.getUsersFilePath();
@@ -78,16 +85,19 @@ public class UserService {
         return userModel;
     }
 
+    @Override
     public boolean existsUser(int id) {
         List<UserModel> allUsers = getAllUsers();
         return allUsers.stream().anyMatch(u -> u.getId() == id);
     }
 
+    @Override
     public boolean existsUser(String email) {
         List<UserModel> allUsers = getAllUsers();
         return allUsers.stream().anyMatch(u -> u.getEmail().equals(email));
     }
 
+    @Override
     public List<UserModel> getAllUsers() {
         FileSystemManager fileSystemManager = ServiceProvider.getFileSystemManager();
         Path usersFilePath = fileSystemManager.getUsersFilePath();
@@ -101,21 +111,7 @@ public class UserService {
     }
 
     private String encryptString(String salt, String value) {
-        MessageDigest md = getMessageDigest();
-        md.update(salt.getBytes(StandardCharsets.UTF_8));
-
-        byte[] hashedPassword = md.digest(value.getBytes(StandardCharsets.UTF_8));
-
-        return new String(hashedPassword, StandardCharsets.UTF_8).replace("\"", "");
+        return StringEncryptor.encrypt(salt, value);
     }
 
-    private MessageDigest getMessageDigest() {
-        MessageDigest md;
-        try {
-            md = MessageDigest.getInstance("SHA-512");
-        } catch (NoSuchAlgorithmException e) {
-            throw new IllegalStateException("SHA-512 does not exist!");
-        }
-        return md;
-    }
 }

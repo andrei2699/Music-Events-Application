@@ -8,8 +8,8 @@ import main.SceneSwitchController;
 import models.BarModel;
 import models.Interval;
 import models.UserModel;
-import services.BarService;
 import services.ServiceProvider;
+import services.interfaces.BarService;
 
 import java.io.File;
 import java.net.URL;

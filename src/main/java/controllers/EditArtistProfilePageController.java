@@ -8,12 +8,11 @@ import main.SceneSwitchController;
 import models.ArtistModel;
 import models.Interval;
 import models.UserModel;
-import services.ArtistService;
 import services.ServiceProvider;
+import services.interfaces.ArtistService;
 
 import java.io.File;
 import java.net.URL;
-import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 
