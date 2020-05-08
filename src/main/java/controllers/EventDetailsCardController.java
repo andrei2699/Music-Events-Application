@@ -8,12 +8,13 @@ import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import main.LoggedUserData;
+import models.EventCardModel;
 import models.EventModel;
 import models.UserType;
 
 import java.io.IOException;
 
-public class EventDetailsCardController extends TableCell<MainPageController.EventModelContainer, EventModel> {
+public class EventDetailsCardController extends TableCell<MainPageController.EventModelContainer, EventCardModel> {
 
     @FXML
     private VBox eventCardVBox;
@@ -69,18 +70,18 @@ public class EventDetailsCardController extends TableCell<MainPageController.Eve
     }
 
     @Override
-    protected void updateItem(EventModel model, boolean empty) {
-        super.updateItem(model, empty);
+    protected void updateItem(EventCardModel eventCardModel, boolean empty) {
+        super.updateItem(eventCardModel, empty);
 
-        if (!empty && model != null) {
-
-            eventNameLabel.setText(model.getEventName());
-            barNameLabel.setText(model.getBarName());
-            artistNameLabel.setText(model.getArtistName());
-            dateLabel.setText(model.getDate());
-            startHourLabel.setText(model.getStartHour());
-            numberOfSeatsLabel.setText(model.getNumberOfSeats() + "");
-            descriptionLabel.setText(model.getDescription());
+        if (!empty && eventCardModel != null) {
+            EventModel eventModel = eventCardModel.getEventModel();
+            eventNameLabel.setText(eventModel.getName());
+            barNameLabel.setText(eventCardModel.getBarName());
+            artistNameLabel.setText(eventCardModel.getArtistName());
+            dateLabel.setText(eventModel.getDate());
+            startHourLabel.setText(eventModel.getStart_hour() + "");
+            numberOfSeatsLabel.setText(eventModel.getAvailableSeats() + " / " + eventModel.getTotal_seats());
+            descriptionLabel.setText(eventModel.getDescription());
 
             reserveTicketButton.setOnAction(this::onReserveTicketButtonClick);
 

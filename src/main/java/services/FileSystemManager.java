@@ -15,6 +15,7 @@ public final class FileSystemManager {
     private static final String USERS_JSON_FILE_NAME = "users.json";
     private static final String BARS_JSON_FILE_NAME = "bars.json"; //localuri
     private static final String ARTISTS_JSON_FILE_NAME = "artists.json";
+    private static final String EVENTS_JSON_FILE_NAME = "events.json";
 
     public static final Path APPLICATION_HOME_PATH = Paths.get(USER_FOLDER, APPLICATION_FOLDER);
 
@@ -54,6 +55,12 @@ public final class FileSystemManager {
             Files.createFile(artistsFilePath);
             writeEmptyJSONArrayToFile(artistsFilePath);
         }
+
+        Path eventsFilePath = dataDirectoryPath.resolve(EVENTS_JSON_FILE_NAME);
+        if (!Files.exists(eventsFilePath)) {
+            Files.createFile(eventsFilePath);
+            writeEmptyJSONArrayToFile(eventsFilePath);
+        }
     }
 
     public String readFileContent(Path path) {
@@ -88,6 +95,10 @@ public final class FileSystemManager {
 
     public Path getArtistsFilePath() {
         return getPathToFile(DATA_FOLDER_NAME, ARTISTS_JSON_FILE_NAME);
+    }
+
+    public Path getEventsFilePath() {
+        return getPathToFile(DATA_FOLDER_NAME, EVENTS_JSON_FILE_NAME);
     }
 
     private void writeEmptyJSONArrayToFile(Path path) throws IOException {
