@@ -1,10 +1,7 @@
 package controllers;
 
 import javafx.collections.FXCollections;
-import javafx.concurrent.Task;
-import javafx.concurrent.WorkerStateEvent;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -20,7 +17,7 @@ import main.SceneSwitchController;
 import models.DaysOfWeek;
 import models.Interval;
 import services.ServiceProvider;
-import services.UserService;
+import services.interfaces.UserService;
 
 import java.io.File;
 import java.net.URISyntaxException;
@@ -146,7 +143,7 @@ public abstract class EditProfileAbstractController extends ChangeableSceneContr
             for (int row = 0; row < hBoxes[column].length; row++) {
                 hBoxes[column][row] = new HBox();
                 hBoxes[column][row].setAlignment(Pos.CENTER);
-                hBoxes[column][row].setPadding(new Insets(0,2,0,2));
+                hBoxes[column][row].setPadding(new Insets(0, 2, 0, 2));
                 gridPane.add(hBoxes[column][row], column, row);
             }
         }
@@ -194,7 +191,7 @@ public abstract class EditProfileAbstractController extends ChangeableSceneContr
         }
 
         File file = new File(pathToImageFile);
-        return new Image(file.toURI().toString(),true );
+        return new Image(file.toURI().toString(), true);
     }
 
 }

@@ -1,25 +1,29 @@
-package services;
+package services.implementations;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import models.ArtistModel;
-import models.BarModel;
+import services.FileSystemManager;
+import services.ServiceProvider;
+import services.interfaces.ArtistService;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ArtistService {
+public class ArtistServiceImpl implements ArtistService {
 
-    ArtistService() {
+    public ArtistServiceImpl() {
     }
 
+    @Override
     public ArtistModel getArtist(int user_id) {
         List<ArtistModel> allArtists = getAllArtists();
         return allArtists.stream().filter(a -> a.getUser_id() == user_id).findFirst().orElse(null);
     }
 
+    @Override
     public List<ArtistModel> getArtists(String genre) {
         List<ArtistModel> allArtists = getAllArtists();
         List<ArtistModel> searchResults = new ArrayList<>();
@@ -29,6 +33,7 @@ public class ArtistService {
         return searchResults;
     }
 
+    @Override
     public void updateArtist(ArtistModel model) {
         FileSystemManager fileSystemManager = ServiceProvider.getFileSystemManager();
         Path artistsFilePath = fileSystemManager.getArtistsFilePath();
@@ -54,6 +59,7 @@ public class ArtistService {
         fileSystemManager.writeToFile(artistsFilePath, json);
     }
 
+    @Override
     public void createArtist(ArtistModel artistModel) {
         FileSystemManager fileSystemManager = ServiceProvider.getFileSystemManager();
         Path artistsFilePath = fileSystemManager.getArtistsFilePath();
@@ -79,6 +85,7 @@ public class ArtistService {
         }
     }
 
+    @Override
     public List<ArtistModel> getAllArtists() {
         FileSystemManager fileSystemManager = ServiceProvider.getFileSystemManager();
         Path artistsFilePath = fileSystemManager.getArtistsFilePath();
