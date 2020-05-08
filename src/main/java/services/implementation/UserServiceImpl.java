@@ -1,4 +1,4 @@
-package services.implementations;
+package services.implementation;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -7,8 +7,7 @@ import models.UserModel;
 import models.UserType;
 import services.FileSystemManager;
 import services.ServiceProvider;
-import services.exceptions.UserExistsException;
-import services.interfaces.UserService;
+import services.UserService;
 import utils.StringEncryptor;
 
 import java.nio.file.Path;
@@ -16,13 +15,11 @@ import java.util.List;
 
 public class UserServiceImpl implements UserService {
 
-    public UserServiceImpl() {
-    }
-
     @Override
     public boolean validateUserCredentials(String email, String password) {
         List<UserModel> allUsers = getAllUsers();
-        return allUsers.stream().anyMatch(u -> u.getEmail().equals(email) && u.getPassword().equals(encryptString(email, password)));
+        return allUsers.stream().anyMatch(u -> u.getEmail().equals(email) &&
+                u.getPassword().equals(StringEncryptor.encrypt(email, password)));
     }
 
     @Override
@@ -75,7 +72,7 @@ public class UserServiceImpl implements UserService {
                 biggestId = user.getId();
             }
         }
-        UserModel userModel = new UserModel(biggestId + 1, email, encryptString(email, password), userName, userType);
+        UserModel userModel = new UserModel(biggestId + 1, email, StringEncryptor.encrypt(email, password), userName, userType);
 
         users.add(userModel);
 
@@ -108,10 +105,6 @@ public class UserServiceImpl implements UserService {
 
         return gson.fromJson(jsonFileContent, new TypeToken<List<UserModel>>() {
         }.getType());
-    }
-
-    private String encryptString(String salt, String value) {
-        return StringEncryptor.encrypt(salt, value);
     }
 
 }

@@ -9,7 +9,7 @@ import models.BarModel;
 import models.Interval;
 import models.UserModel;
 import services.ServiceProvider;
-import services.interfaces.BarService;
+import services.BarService;
 
 import java.io.File;
 import java.net.URL;

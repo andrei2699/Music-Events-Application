@@ -9,7 +9,7 @@ import models.ArtistModel;
 import models.Interval;
 import models.UserModel;
 import services.ServiceProvider;
-import services.interfaces.ArtistService;
+import services.ArtistService;
 
 import java.io.File;
 import java.net.URL;

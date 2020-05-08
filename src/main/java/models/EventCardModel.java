@@ -1,7 +1,7 @@
 package models;
 
 import services.ServiceProvider;
-import services.interfaces.UserService;
+import services.UserService;
 
 public class EventCardModel {
     private String barName;

@@ -17,7 +17,7 @@ import main.SceneSwitchController;
 import models.DaysOfWeek;
 import models.Interval;
 import services.ServiceProvider;
-import services.interfaces.UserService;
+import services.UserService;
 
 import java.io.File;
 import java.net.URISyntaxException;

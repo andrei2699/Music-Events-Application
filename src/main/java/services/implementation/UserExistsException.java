@@ -1,4 +1,4 @@
-package services.exceptions;
+package services.implementation;
 
 public class UserExistsException extends Exception {
 }
