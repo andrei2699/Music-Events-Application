@@ -1,76 +1,87 @@
 package models;
 
 public class EventModel {
-    private String eventName;
-    private String barName;
-    private String artistName;
+    private int id;
+    private int bar_manager_id;
+    private int artist_id;
+    private String name;
     private String date;
-    private String startHour;
+    private int start_hour;
     private String description;
-    private int numberOfSeats;
+    private int total_seats;
+    private int reserved_seats;
 
-    public EventModel(String eventName, String barName, String artistName, String date, String startHour, int numberOfSeats) {
-        this.eventName = eventName;
-        this.barName = barName;
-        this.artistName = artistName;
+    public EventModel(int id, int barManagerId, int artistId, String name, String date, int startHour, int totalSeats) {
+        this.id = id;
+        this.bar_manager_id = barManagerId;
+        this.artist_id = artistId;
+        this.name = name;
         this.date = date;
-        this.startHour = startHour;
-        this.numberOfSeats = numberOfSeats;
+        this.start_hour = startHour;
+        this.total_seats = totalSeats;
     }
 
-    public String getEventName() {
-        return eventName;
-    }
-
-    public void setEventName(String eventName) {
-        this.eventName = eventName;
-    }
-
-    public String getBarName() {
-        return barName;
-    }
-
-    public void setBarName(String barName) {
-        this.barName = barName;
-    }
-
-    public String getArtistName() {
-        return artistName;
-    }
-
-    public void setArtistName(String artistName) {
-        this.artistName = artistName;
-    }
-
-    public String getDate() {
-        return date;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public void setDate(String date) {
         this.date = date;
     }
 
-    public String getDescription() {
-        return description;
+    public void setStart_hour(int start_hour) {
+        this.start_hour = start_hour;
     }
 
     public void setDescription(String description) {
         this.description = description;
     }
 
-    public int getNumberOfSeats() {
-        return numberOfSeats;
+    public void setTotal_seats(int total_seats) {
+        this.total_seats = total_seats;
     }
 
-    public void setNumberOfSeats(int numberOfSeats) {
-        this.numberOfSeats = numberOfSeats;
+    public void setReserved_seats(int reserved_seats) {
+        this.reserved_seats = reserved_seats;
     }
 
-    public String getStartHour() {
-        return startHour;
+    public int getId() {
+        return id;
     }
 
-    public void setStartHour(String startHour) {
-        this.startHour = startHour;
+    public int getBar_manager_id() {
+        return bar_manager_id;
+    }
+
+    public int getArtist_id() {
+        return artist_id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public int getStart_hour() {
+        return start_hour;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public int getTotal_seats() {
+        return total_seats;
+    }
+
+    public int getReserved_seats() {
+        return reserved_seats;
+    }
+
+    public int getAvailableSeats() {
+        return total_seats - reserved_seats;
     }
 }

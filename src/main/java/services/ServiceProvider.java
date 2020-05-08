@@ -2,9 +2,11 @@ package services;
 
 import services.implementations.ArtistServiceImpl;
 import services.implementations.BarServiceImpl;
+import services.implementations.EventServiceImpl;
 import services.implementations.UserServiceImpl;
 import services.interfaces.ArtistService;
 import services.interfaces.BarService;
+import services.interfaces.EventService;
 import services.interfaces.UserService;
 
 public final class ServiceProvider {
@@ -12,6 +14,7 @@ public final class ServiceProvider {
     private static final UserService userService = new UserServiceImpl();
     private static final BarService barService = new BarServiceImpl();
     private static final ArtistService artistService = new ArtistServiceImpl();
+    private static final EventService eventService = new EventServiceImpl();
 
     private ServiceProvider() {
     }
@@ -31,4 +34,6 @@ public final class ServiceProvider {
     public static ArtistService getArtistService() {
         return artistService;
     }
+
+    public static EventService getEventService() { return eventService; }
 }
