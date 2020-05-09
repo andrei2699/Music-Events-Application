@@ -7,32 +7,32 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="500.0" prefWidth="700.0" styleClass="root-pane" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MainPageController">
-    <HBox alignment="CENTER_LEFT" prefHeight="60.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-        <Label alignment="CENTER" contentDisplay="CENTER" text="Music Events Application">
-            <font>
-                <Font size="20.0" />
-            </font>
+<AnchorPane prefHeight="600.0" prefWidth="800.0" styleClass="root-pane" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MainPageController">
+   <ButtonBar buttonMinWidth="60.0" prefHeight="60.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="0.0">
+     <buttons>
+         <HBox alignment="CENTER_LEFT">
+             <Label prefWidth="3000.0" text="Music Events Application" HBox.hgrow="ALWAYS">
+                 <font>
+                     <Font size="20.0" />
+                 </font>
+             </Label>
+         </HBox>
+         <ImageView fx:id="moreActionsImage" fitHeight="26.0" fitWidth="26.0" onMouseClicked="#onMoreActionsClicked"
+                    pickOnBounds="true" preserveRatio="true">
+             <Image url="@../../Images/more_vert_icon_black_18dp.png"/>
+         </ImageView>
+     </buttons>
+   </ButtonBar>
+    <HBox alignment="CENTER_LEFT" spacing="4.0" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="16.0" AnchorPane.topAnchor="60.0">
+        <ImageView fitHeight="26.0" fitWidth="26.0" onMouseClicked="#onSearchImageClicked" pickOnBounds="true" preserveRatio="true">
             <HBox.margin>
                 <Insets />
             </HBox.margin>
-        </Label>
-      <padding>
-         <Insets left="20.0" />
-      </padding>
-    </HBox>
-    <HBox alignment="CENTER_LEFT" spacing="4.0" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="16.0"
-          AnchorPane.topAnchor="60.0">
-        <ImageView fitHeight="26.0" fitWidth="26.0" onMouseClicked="#onSearchImageClicked" pickOnBounds="true"
-                   preserveRatio="true">
-            <HBox.margin>
-                <Insets/>
-            </HBox.margin>
-            <Image url="@../../Images/search_icon_black_18dp.png"/>
+            <Image url="@../../Images/search_icon_black_18dp.png" />
         </ImageView>
         <TextField fx:id="searchTextField" prefWidth="700.0" promptText="Cauta evenimente...">
            <opaqueInsets>
-               <Insets/>
+               <Insets />
            </opaqueInsets>
         </TextField>
     </HBox>
