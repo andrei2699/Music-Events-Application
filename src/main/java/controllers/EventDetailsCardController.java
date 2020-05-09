@@ -8,6 +8,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import main.LoggedUserData;
+import main.SceneSwitchController;
 import models.EventCardModel;
 import models.EventModel;
 import models.UserType;
@@ -60,6 +61,8 @@ public class EventDetailsCardController extends TableCell<MainPageController.Eve
     @FXML
     private HBox actionButtonsHBox;
 
+    private EventModel eventModel;
+
     public EventDetailsCardController() {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/components/eventDetailsCard.fxml"));
         fxmlLoader.setController(this);
@@ -76,13 +79,14 @@ public class EventDetailsCardController extends TableCell<MainPageController.Eve
         super.updateItem(eventCardModel, empty);
 
         if (!empty && eventCardModel != null) {
-            EventModel eventModel = eventCardModel.getEventModel();
+            eventModel = eventCardModel.getEventModel();
+
             eventNameLabel.setText(eventModel.getName());
             barNameLabel.setText(eventCardModel.getBarName());
             artistNameLabel.setText(eventCardModel.getArtistName());
             dateLabel.setText(eventModel.getDate().toString());
             startHourLabel.setText(eventModel.getStart_hour() + "");
-            numberOfSeatsLabel.setText(eventModel.getReserved_seats() + " / " + eventModel.getTotal_seats());
+            updateNumberOfSeats();
             descriptionLabel.setText(eventModel.getDescription());
 
             reserveTicketButton.setOnAction(this::onReserveTicketButtonClick);
@@ -103,27 +107,26 @@ public class EventDetailsCardController extends TableCell<MainPageController.Eve
         } else {
             setGraphic(null);
         }
-
-//        Platform.runLater(() -> {
-//
-//            Node plus = new Circle(10);
-//            Node minus = new Circle(2);
-//
-//            detailsTitlePane.graphicProperty().bind(
-//                    Bindings.when(detailsTitlePane.expandedProperty())
-//                            .then(minus)
-//                            .otherwise(plus));
-//            detailsTitlePane.lookup(".arrow").setVisible(false);
-//        });
     }
 
-    public void hideControlsForNotRegisteredUsers() {
+    private void updateNumberOfSeats() {
+        numberOfSeatsLabel.setText(eventModel.getReserved_seats() + " / " + eventModel.getTotal_seats());
+
+        if (eventModel.getAvailableSeats() <= 0) {
+            reserveTicketButton.setDisable(true);
+        }
+    }
+
+    private void hideControlsForNotRegisteredUsers() {
         eventCardVBox.getChildren().remove(actionButtonsHBox);
         eventCardVBox.getChildren().remove(actionButtonsSeparator);
         detailsTitledPaneContentVBox.getChildren().remove(numberOfSeatsHBox);
     }
 
     private void onReserveTicketButtonClick(ActionEvent actionEvent) {
-
+        SceneSwitchController.getInstance().showReservationPopup(eventModel.getAvailableSeats(), numberOfSeats -> {
+            eventModel.addReservedSeats(numberOfSeats);
+            updateNumberOfSeats();
+        });
     }
 }

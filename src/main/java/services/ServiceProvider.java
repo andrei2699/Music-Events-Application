@@ -1,9 +1,6 @@
 package services;
 
-import services.implementation.ArtistServiceImpl;
-import services.implementation.BarServiceImpl;
-import services.implementation.EventServiceImpl;
-import services.implementation.UserServiceImpl;
+import services.implementation.*;
 
 public final class ServiceProvider {
     private static final FileSystemManager fileSystemManager = new FileSystemManager();
@@ -11,6 +8,7 @@ public final class ServiceProvider {
     private static final BarService barService = new BarServiceImpl();
     private static final ArtistService artistService = new ArtistServiceImpl();
     private static final EventService eventService = new EventServiceImpl();
+    private static final ReservationService reservationService = new ReservationServiceImpl();
 
     private ServiceProvider() {
     }
@@ -31,5 +29,11 @@ public final class ServiceProvider {
         return artistService;
     }
 
-    public static EventService getEventService() { return eventService; }
+    public static EventService getEventService() {
+        return eventService;
+    }
+
+    public static ReservationService getReservationService() {
+        return reservationService;
+    }
 }
