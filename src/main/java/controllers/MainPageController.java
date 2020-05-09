@@ -12,6 +12,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import main.LoggedUserData;
 import main.SceneSwitchController;
+import models.EventCardModel;
 import models.EventModel;
 import models.UserModel;
 import models.UserType;
@@ -27,7 +28,7 @@ public class MainPageController extends ChangeableSceneController {
     public TableView<EventModelContainer> eventsTableView;
 
     @FXML
-    public TableColumn<EventModelContainer, EventModel> eventsTableColumn;
+    public TableColumn<EventModelContainer, EventCardModel> eventsTableColumn;
 
     @FXML
     public ImageView moreActionsImage;
@@ -70,9 +71,7 @@ public class MainPageController extends ChangeableSceneController {
 
         if (LoggedUserData.getInstance().isUserLogged()) {
             MenuItem goToProfileMenuItem = new CheckMenuItem("Vezi profil");
-
             goToProfileMenuItem.setOnAction(this::goEditProfile);
-
             moreActionsContextMenu.getItems().add(goToProfileMenuItem);
         }
 
@@ -88,7 +87,7 @@ public class MainPageController extends ChangeableSceneController {
         moreActionsContextMenu.getItems().add(goToLogin);
 
         eventsTableView.setPlaceholder(new Label(NO_CONTENT_TABLE_VIEW_LABEL));
-        eventsTableColumn.setCellValueFactory(new PropertyValueFactory<>("eventModel"));
+        eventsTableColumn.setCellValueFactory(new PropertyValueFactory<>("eventCardModel"));
         eventsTableColumn.setCellFactory(cell -> new EventDetailsCardController());
 
         searchTextField.textProperty().addListener(observable -> {
@@ -118,9 +117,9 @@ public class MainPageController extends ChangeableSceneController {
         ObservableList<EventModelContainer> eventModels = FXCollections.observableArrayList();
 
         for (int i = 0; i < 20; i++) {
-            EventModel model = new EventModel("Event" + i, "Bar Name " + i, "Artist Name " + i, "DateTime " + i, (i + 12) + "", i * 3);
+            EventCardModel model = new EventCardModel(new EventModel(i, 1, 2, "Event name " + i, "date " + i, i * 3, 10 * i));
             if (i % 2 == 0) {
-                model.setDescription("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
+                model.getEventModel().setDescription("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
             }
             eventModels.add(new EventModelContainer(model));
         }
@@ -129,20 +128,18 @@ public class MainPageController extends ChangeableSceneController {
     }
 
     public static class EventModelContainer {
-        private final EventModel eventModel;
+        private final EventCardModel eventCardModel;
 
-        public EventModelContainer(EventModel eventModel) {
-            this.eventModel = eventModel;
+        public EventModelContainer(EventCardModel eventModel) {
+            this.eventCardModel = eventModel;
         }
 
-        public EventModel getEventModel() {
-            return eventModel;
+        public EventCardModel getEventCardModel(){
+            return eventCardModel;
         }
 
         public boolean containsFilter(String filter) {
-            return eventModel.getEventName().contains(filter) ||
-                    eventModel.getArtistName().contains(filter) ||
-                    eventModel.getBarName().contains(filter);
+            return eventCardModel.containsFilter(filter);
         }
     }
 }

@@ -1,8 +1,8 @@
-package services.interfaces;
+package services;
 
 import models.UserModel;
 import models.UserType;
-import services.exceptions.UserExistsException;
+import services.implementation.UserExistsException;
 
 import java.util.List;
 

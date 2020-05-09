@@ -9,8 +9,8 @@ import main.SceneSwitchController;
 import models.UserModel;
 import models.UserType;
 import services.ServiceProvider;
-import services.exceptions.UserExistsException;
-import services.interfaces.UserService;
+import services.implementation.UserExistsException;
+import services.UserService;
 
 import java.net.URL;
 import java.util.ResourceBundle;
