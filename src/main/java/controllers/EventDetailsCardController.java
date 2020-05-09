@@ -82,7 +82,7 @@ public class EventDetailsCardController extends TableCell<MainPageController.Eve
             artistNameLabel.setText(eventCardModel.getArtistName());
             dateLabel.setText(eventModel.getDate().toString());
             startHourLabel.setText(eventModel.getStart_hour() + "");
-            numberOfSeatsLabel.setText(eventModel.getAvailableSeats() + " / " + eventModel.getTotal_seats());
+            numberOfSeatsLabel.setText(eventModel.getReserved_seats() + " / " + eventModel.getTotal_seats());
             descriptionLabel.setText(eventModel.getDescription());
 
             reserveTicketButton.setOnAction(this::onReserveTicketButtonClick);

@@ -23,7 +23,7 @@
         <Accordion>
             <panes>
                 <TitledPane fx:id="detailsTitlePane" text="Detalii">
-                    <AnchorPane  styleClass="root-pane">
+                    <AnchorPane styleClass="root-pane">
                         <VBox fx:id="detailsTitledPaneContentVBox" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="50.0" spacing="10.0">
                                 <Label text="Data:" />
@@ -34,7 +34,7 @@
                                 <Label fx:id="startHourLabel" text="Ora inceput value" />
                             </HBox>
                             <HBox fx:id="numberOfSeatsHBox" alignment="CENTER_LEFT" layoutX="10.0" layoutY="130.0" spacing="10.0">
-                                <Label text="Numar de locuri:" />
+                                <Label text="Numar de locuri ocupate:" />
                                 <Label fx:id="numberOfSeatsLabel" text="Numar value" />
                             </HBox>
                             <VBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="130.0" spacing="10.0">
