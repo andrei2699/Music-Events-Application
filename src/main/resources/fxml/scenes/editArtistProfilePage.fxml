@@ -47,7 +47,7 @@
                 <VBox.margin>
                     <Insets top="-15.0" />
                 </VBox.margin>
-                <Button mnemonicParsing="false" defaultButton="true" onAction="#onSaveChangesButtonClick" styleClass="button-raised" text="Salvează modificări" textAlignment="CENTER" />
+                <Button defaultButton="true" mnemonicParsing="false" onAction="#onSaveChangesButtonClick" styleClass="button-raised" text="Salvează modificări" textAlignment="CENTER" />
             </HBox>
          <padding>
             <Insets left="4.0" right="4.0" />
@@ -59,7 +59,7 @@
             </columnConstraints>
             <rowConstraints>
                 <RowConstraints maxHeight="332.0" minHeight="10.0" prefHeight="234.0" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="241.0" minHeight="10.0" prefHeight="166.0" vgrow="SOMETIMES" />
+            <RowConstraints />
 
             </rowConstraints>
             <GridPane fx:id="scheduleGridPane" alignment="CENTER" gridLinesVisible="true" prefHeight="177.0" prefWidth="480.0" GridPane.rowIndex="1">
@@ -89,7 +89,7 @@
                             <Insets left="10.0" />
                         </HBox.margin>
                     </Label>
-                    <TextField fx:id="emailField" alignment="CENTER" disable="true" prefWidth="300.0" promptText="example@email.com" text="example@email.com">
+                    <TextField fx:id="emailField" disable="true" prefWidth="300.0" promptText="example@email.com" text="example@email.com">
                         <HBox.margin>
                             <Insets left="42.0" />
                         </HBox.margin>
@@ -101,7 +101,7 @@
                             <Insets left="10.0" />
                         </HBox.margin>
                     </Label>
-                    <TextField fx:id="userTypeField" alignment="CENTER" disable="true" prefWidth="300.0" promptText="Tip Utilizator" text="Tip Utilizator">
+                    <TextField fx:id="userTypeField" disable="true" prefWidth="300.0" promptText="Tip Utilizator" text="Tip Utilizator">
                         <HBox.margin>
                             <Insets left="20.0" />
                         </HBox.margin>
@@ -131,8 +131,8 @@
                         </HBox.margin>
                     </TextArea>
                 </HBox>
-                <HBox>
-                    <Label text="Orar disponibilitate:">
+                <HBox alignment="BOTTOM_LEFT" prefHeight="74.0">
+                    <Label alignment="TOP_LEFT" text="Orar disponibilitate:">
                         <HBox.margin>
                             <Insets left="20.0" />
                         </HBox.margin>

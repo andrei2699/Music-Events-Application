@@ -50,7 +50,7 @@
 
             <PasswordField fx:id="confirmPasswordTextField" prefWidth="200.0" promptText="Confirmare Parola" GridPane.rowIndex="3" />
             <Label fx:id="confirmPasswordErrorLabel" styleClass="error-label" text="* Camp Obligatoriu" textFill="#eb2222" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <ComboBox fx:id="userTypeComboBox" prefWidth="150.0" promptText="Tip utilizator" GridPane.rowIndex="4" />
+            <ComboBox fx:id="userTypeComboBox" prefWidth="220.0" promptText="Tip utilizator" GridPane.rowIndex="4" />
         </GridPane>
         <HBox alignment="CENTER">
             <Label fx:id="emailInUseErrorLabel" styleClass="error-label" text="Adresă de email folosită!" textFill="#eb2222">
