@@ -16,9 +16,12 @@ import models.EventCardModel;
 import models.EventModel;
 import models.UserModel;
 import models.UserType;
+import services.EventService;
+import services.ServiceProvider;
 
 import java.net.URL;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class MainPageController extends ChangeableSceneController {
@@ -40,6 +43,8 @@ public class MainPageController extends ChangeableSceneController {
     private FilteredList<EventModelContainer> eventModelFilteredList;
 
     private ContextMenu moreActionsContextMenu;
+
+    private EventService eventService;
 
     @FXML
     public void onSearchImageClicked(MouseEvent mouseEvent) {
@@ -67,6 +72,8 @@ public class MainPageController extends ChangeableSceneController {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        eventService = ServiceProvider.getEventService();
+
         moreActionsContextMenu = new ContextMenu();
 
         if (LoggedUserData.getInstance().isBarManager() || LoggedUserData.getInstance().isArtist()) {
@@ -96,7 +103,7 @@ public class MainPageController extends ChangeableSceneController {
         eventsTableColumn.setCellValueFactory(new PropertyValueFactory<>("eventCardModel"));
         eventsTableColumn.setCellFactory(cell -> new EventDetailsCardController());
 
-        eventModelFilteredList = new FilteredList<>(getMockupEvents(), m -> true);
+        eventModelFilteredList = new FilteredList<>(getAllEvents(), m -> true);
         eventsTableView.setItems(eventModelFilteredList);
 
         searchTextField.textProperty().addListener(observable -> {
@@ -122,15 +129,12 @@ public class MainPageController extends ChangeableSceneController {
         }
     }
 
-    private ObservableList<EventModelContainer> getMockupEvents() {
+    private ObservableList<EventModelContainer> getAllEvents() {
         ObservableList<EventModelContainer> eventModels = FXCollections.observableArrayList();
 
-        for (int i = 0; i < 20; i++) {
-            EventCardModel model = new EventCardModel(new EventModel(i, 1, 2, "Event name " + i, LocalDate.now(), i * 3, 10 * i));
-            if (i % 2 == 0) {
-                model.getEventModel().setDescription("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
-            }
-            eventModels.add(new EventModelContainer(model));
+        List<EventModel> allEvents = eventService.getAllEvents();
+        for (EventModel eventModel : allEvents) {
+            eventModels.add(new EventModelContainer(eventModel));
         }
 
         return eventModels;
@@ -139,8 +143,8 @@ public class MainPageController extends ChangeableSceneController {
     public static class EventModelContainer {
         private final EventCardModel eventCardModel;
 
-        public EventModelContainer(EventCardModel eventModel) {
-            this.eventCardModel = eventModel;
+        public EventModelContainer(EventModel eventModel) {
+            this.eventCardModel = new EventCardModel(eventModel);
         }
 
         public EventCardModel getEventCardModel() {
