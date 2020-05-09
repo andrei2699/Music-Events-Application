@@ -11,6 +11,8 @@ public interface UserService {
 
     UserModel getUser(int id);
 
+    UserModel getArtist(String name);
+
     UserModel getUser(String email);
 
     void updateUser(UserModel model);

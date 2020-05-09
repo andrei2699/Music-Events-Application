@@ -2,6 +2,7 @@ package services;
 
 import models.EventModel;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public interface EventService {
@@ -13,11 +14,11 @@ public interface EventService {
 
     List<EventModel> getEventsUsingArtistId(int artist_id);
 
-    List<EventModel> getEventsWithDate(String date);
+    List<EventModel> getEventsWithDate(LocalDate date);
 
     void updateEvent(EventModel model);
 
-    void createEvent(EventModel artistModel);
+    void createEvent(int bar_id, int artist_id, String eventName, LocalDate date, int startHour, int totalSeats, String description);
 
     List<EventModel> getAllEvents();
 }

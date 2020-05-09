@@ -4,11 +4,12 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import models.EventModel;
+import services.EventService;
 import services.FileSystemManager;
 import services.ServiceProvider;
-import services.EventService;
 
 import java.nio.file.Path;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,7 +47,7 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public List<EventModel> getEventsWithDate(String date) {
+    public List<EventModel> getEventsWithDate(LocalDate date) {
         List<EventModel> allEvents = getAllEvents();
         List<EventModel> searchResults = new ArrayList<>();
         for (EventModel event : allEvents)
@@ -80,29 +81,28 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public void createEvent(EventModel eventModel) {
+    public void createEvent(int bar_id, int artist_id, String eventName, LocalDate date, int startHour, int totalSeats, String description) {
         FileSystemManager fileSystemManager = ServiceProvider.getFileSystemManager();
         Path eventsFilePath = fileSystemManager.getEventsFilePath();
         List<EventModel> events = getAllEvents();
-        boolean found = false;
 
         GsonBuilder gsonBuilder = new GsonBuilder();
         Gson gson = gsonBuilder.setPrettyPrinting().create();
 
+        int biggestId = -1;
         for (EventModel event : events) {
-            if (event.getId() == eventModel.getId()) {
-                found = true;
-                updateEvent(eventModel);
-                break;
+            if (event.getId() > biggestId) {
+                biggestId = event.getId();
             }
         }
 
-        if (!found) {
-            events.add(eventModel);
+        EventModel eventModel = new EventModel(biggestId + 1, bar_id, artist_id, eventName, date, startHour, totalSeats);
+        eventModel.setDescription(description);
 
-            String json = gson.toJson(events);
-            fileSystemManager.writeToFile(eventsFilePath, json);
-        }
+        events.add(eventModel);
+
+        String json = gson.toJson(events);
+        fileSystemManager.writeToFile(eventsFilePath, json);
     }
 
     @Override

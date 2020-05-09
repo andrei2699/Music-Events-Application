@@ -80,7 +80,7 @@ public class EventDetailsCardController extends TableCell<MainPageController.Eve
             eventNameLabel.setText(eventModel.getName());
             barNameLabel.setText(eventCardModel.getBarName());
             artistNameLabel.setText(eventCardModel.getArtistName());
-            dateLabel.setText(eventModel.getDate());
+            dateLabel.setText(eventModel.getDate().toString());
             startHourLabel.setText(eventModel.getStart_hour() + "");
             numberOfSeatsLabel.setText(eventModel.getAvailableSeats() + " / " + eventModel.getTotal_seats());
             descriptionLabel.setText(eventModel.getDescription());

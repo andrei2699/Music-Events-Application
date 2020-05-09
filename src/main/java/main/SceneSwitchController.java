@@ -19,7 +19,8 @@ public final class SceneSwitchController {
         BarProfileScene,
         ArtistProfileScene,
         EditBarProfileScene,
-        EditArtistProfileScene
+        EditArtistProfileScene,
+        CreateEventFormScene
     }
 
     private static final SceneSwitchController instance = new SceneSwitchController();

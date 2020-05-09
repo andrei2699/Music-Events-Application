@@ -18,6 +18,7 @@ import models.UserModel;
 import models.UserType;
 
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 public class MainPageController extends ChangeableSceneController {
@@ -56,8 +57,7 @@ public class MainPageController extends ChangeableSceneController {
 
     @Override
     public void onSceneChanged() {
-        eventModelFilteredList = new FilteredList<>(getMockupEvents(), m -> true);
-        eventsTableView.setItems(eventModelFilteredList);
+
     }
 
     @Override
@@ -69,10 +69,16 @@ public class MainPageController extends ChangeableSceneController {
     public void initialize(URL location, ResourceBundle resources) {
         moreActionsContextMenu = new ContextMenu();
 
-        if (LoggedUserData.getInstance().isUserLogged()) {
+        if (LoggedUserData.getInstance().isBarManager() || LoggedUserData.getInstance().isArtist()) {
             MenuItem goToProfileMenuItem = new CheckMenuItem("Vezi profil");
             goToProfileMenuItem.setOnAction(this::goEditProfile);
             moreActionsContextMenu.getItems().add(goToProfileMenuItem);
+        }
+
+        if (LoggedUserData.getInstance().isBarManager()) {
+            MenuItem goToCreateEventForm = new CheckMenuItem("Creaza eveniment");
+            goToCreateEventForm.setOnAction(event -> SceneSwitchController.getInstance().switchScene(SceneSwitchController.SceneType.CreateEventFormScene));
+            moreActionsContextMenu.getItems().add(goToCreateEventForm);
         }
 
         MenuItem goToLogin;
@@ -89,6 +95,9 @@ public class MainPageController extends ChangeableSceneController {
         eventsTableView.setPlaceholder(new Label(NO_CONTENT_TABLE_VIEW_LABEL));
         eventsTableColumn.setCellValueFactory(new PropertyValueFactory<>("eventCardModel"));
         eventsTableColumn.setCellFactory(cell -> new EventDetailsCardController());
+
+        eventModelFilteredList = new FilteredList<>(getMockupEvents(), m -> true);
+        eventsTableView.setItems(eventModelFilteredList);
 
         searchTextField.textProperty().addListener(observable -> {
             String filter = searchTextField.getText();
@@ -117,7 +126,7 @@ public class MainPageController extends ChangeableSceneController {
         ObservableList<EventModelContainer> eventModels = FXCollections.observableArrayList();
 
         for (int i = 0; i < 20; i++) {
-            EventCardModel model = new EventCardModel(new EventModel(i, 1, 2, "Event name " + i, "date " + i, i * 3, 10 * i));
+            EventCardModel model = new EventCardModel(new EventModel(i, 1, 2, "Event name " + i, LocalDate.now(), i * 3, 10 * i));
             if (i % 2 == 0) {
                 model.getEventModel().setDescription("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
             }
@@ -134,7 +143,7 @@ public class MainPageController extends ChangeableSceneController {
             this.eventCardModel = eventModel;
         }
 
-        public EventCardModel getEventCardModel(){
+        public EventCardModel getEventCardModel() {
             return eventCardModel;
         }
 

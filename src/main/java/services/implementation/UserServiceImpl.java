@@ -29,6 +29,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public UserModel getArtist(String name) {
+        List<UserModel> allUsers = getAllUsers();
+        return allUsers.stream().filter(u -> u.getType() == UserType.Artist && u.getName().equals(name)).findFirst().orElse(null);
+    }
+
+    @Override
     public UserModel getUser(String email) {
         List<UserModel> allUsers = getAllUsers();
         return allUsers.stream().filter(u -> u.getEmail().equals(email)).findFirst().orElse(null);
