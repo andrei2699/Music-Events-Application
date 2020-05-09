@@ -5,8 +5,10 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.Bounds;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import main.LoggedUserData;
 import main.SceneSwitchController;
@@ -29,13 +31,27 @@ public class MainPageController extends ChangeableSceneController {
     public TableColumn<EventModelContainer, EventCardModel> eventsTableColumn;
 
     @FXML
+    public ImageView moreActionsImage;
+
+    @FXML
     private TextField searchTextField;
 
     private FilteredList<EventModelContainer> eventModelFilteredList;
 
+    private ContextMenu moreActionsContextMenu;
+
     @FXML
     public void onSearchImageClicked(MouseEvent mouseEvent) {
         searchTextField.requestFocus();
+    }
+
+    @FXML
+    public void onMoreActionsClicked(MouseEvent mouseEvent) {
+        Bounds bounds = moreActionsImage.localToScreen(moreActionsImage.getBoundsInLocal());
+        double x = bounds.getMaxX();
+        double y = bounds.getMaxY();
+        moreActionsContextMenu.show(moreActionsImage, x, y);
+        moreActionsContextMenu.setX(x - moreActionsContextMenu.getWidth());
     }
 
     @Override
@@ -51,30 +67,28 @@ public class MainPageController extends ChangeableSceneController {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        moreActionsContextMenu = new ContextMenu();
+
+        if (LoggedUserData.getInstance().isUserLogged()) {
+            MenuItem goToProfileMenuItem = new CheckMenuItem("Vezi profil");
+            goToProfileMenuItem.setOnAction(this::goEditProfile);
+            moreActionsContextMenu.getItems().add(goToProfileMenuItem);
+        }
+
+        MenuItem goToLogin;
+        if (LoggedUserData.getInstance().isUserLogged()) {
+            goToLogin = new CheckMenuItem("Delogare");
+        } else {
+            goToLogin = new CheckMenuItem("Logare");
+        }
+
+        goToLogin.setOnAction(event -> SceneSwitchController.getInstance().switchScene(SceneSwitchController.SceneType.LoginScene));
+
+        moreActionsContextMenu.getItems().add(goToLogin);
 
         eventsTableView.setPlaceholder(new Label(NO_CONTENT_TABLE_VIEW_LABEL));
-
         eventsTableColumn.setCellValueFactory(new PropertyValueFactory<>("eventCardModel"));
         eventsTableColumn.setCellFactory(cell -> new EventDetailsCardController());
-
-
-//        for (EventModel model : eventModels) {
-//            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/components/eventDetailsCard.fxml"));
-//            EventDetailsCardController controller = new EventDetailsCardController(model);
-//            loader.setController(controller);
-//
-////            try {
-////                evenCardsContainer.getChildren().add(loader.load());
-////            } catch (IOException e) {
-////                e.printStackTrace();
-////            }
-//
-//            if (!LoggedUserData.getInstance().isUserLogged() ||
-//                    LoggedUserData.getInstance().getUserModel().getType() != UserType.RegularUser) {
-//                controller.hideControlsForNotRegisteredUsers();
-//            }
-//        }
-
 
         searchTextField.textProperty().addListener(observable -> {
             String filter = searchTextField.getText();

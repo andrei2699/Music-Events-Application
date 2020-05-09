@@ -35,12 +35,6 @@ public class LoginController extends ChangeableSceneController {
 
     private UserService userService;
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        userService = ServiceProvider.getUserService();
-        setAllLabelsInvisible();
-    }
-
     @FXML
     public void onLoginClick(ActionEvent actionEvent) {
         setAllLabelsInvisible();
@@ -83,6 +77,22 @@ public class LoginController extends ChangeableSceneController {
         SceneSwitchController.getInstance().switchScene(SceneSwitchController.SceneType.MainScene);
     }
 
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        userService = ServiceProvider.getUserService();
+        setAllLabelsInvisible();
+    }
+
+    @Override
+    public void onSceneChanged() {
+        LoggedUserData.getInstance().setUserModel(null);
+    }
+
+    @Override
+    public SceneSwitchController.SceneType getControlledSceneType() {
+        return SceneSwitchController.SceneType.LoginScene;
+    }
+
     private void setAllLabelsInvisible() {
         emailErrorLabel.setVisible(false);
         passwordErrorLabel.setVisible(false);
@@ -99,15 +109,5 @@ public class LoginController extends ChangeableSceneController {
         if (email == null)
             return false;
         return pat.matcher(email).matches();
-    }
-
-    @Override
-    public void onSceneChanged() {
-
-    }
-
-    @Override
-    public SceneSwitchController.SceneType getControlledSceneType() {
-        return SceneSwitchController.SceneType.LoginScene;
     }
 }
