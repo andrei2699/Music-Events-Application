@@ -82,4 +82,12 @@ public class EventModel {
     public int getReserved_seats() {
         return reserved_seats;
     }
+
+    public int getAvailableSeats() {
+        return total_seats - reserved_seats;
+    }
+
+    public void addReservedSeats(Integer numberOfSeats) {
+        reserved_seats += numberOfSeats;
+    }
 }

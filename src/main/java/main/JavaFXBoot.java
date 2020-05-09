@@ -13,7 +13,7 @@ public class JavaFXBoot extends Application {
 
         SceneSwitchController sceneSwitchController = SceneSwitchController.getInstance();
 
-        sceneSwitchController.setStage(primaryStage);
+        sceneSwitchController.setPrimaryStage(primaryStage);
         sceneSwitchController.addScene(SceneSwitchController.SceneType.MainScene, "/fxml/scenes/main.fxml");
 
         sceneSwitchController.addScene(SceneSwitchController.SceneType.RegisterScene, "/fxml/scenes/register.fxml");

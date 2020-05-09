@@ -93,7 +93,7 @@ public abstract class EditProfileAbstractController extends ChangeableSceneContr
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Alege poza profil");
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"));
-        return fileChooser.showOpenDialog(SceneSwitchController.getInstance().getStage());
+        return fileChooser.showOpenDialog(SceneSwitchController.getInstance().getPrimaryStage());
     }
 
     protected List<Interval> getIntervalsFromGrid(HBox[][] hBoxes) {
