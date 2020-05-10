@@ -15,7 +15,7 @@
           <Label fx:id="selectedSeatsLabel" layoutX="10.0" layoutY="10.0" styleClass="card-subtitle" text="30" />
         </HBox>
         <HBox>
-            <Slider fx:id="selectedSeatsSlider" snapToTicks="true" />
+            <Slider fx:id="selectedSeatsSlider" blockIncrement="1.0" majorTickUnit="1.0" minorTickCount="0" showTickLabels="true" snapToTicks="true" />
         </HBox>
         <HBox alignment="CENTER_RIGHT">
             <Button fx:id="reserveButton" defaultButton="true" mnemonicParsing="false" styleClass="button-raised" text="Rezerva" />

@@ -7,6 +7,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.stage.Stage;
+import main.SceneSwitchController;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -23,7 +24,7 @@ public class MakeReservationPopupWindowController implements Initializable {
     public Button reserveButton;
 
     private int maximumNumberOfSeats;
-    private IResponseCall<Integer> numberOfSeatsResponseCall;
+    private ISceneResponseCall<Integer> numberOfSeatsResponseCall;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -31,7 +32,7 @@ public class MakeReservationPopupWindowController implements Initializable {
         selectedSeatsLabel.setText("0");
 
         selectedSeatsSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
-            selectedSeatsSlider.setValue(newValue.intValue());
+//            selectedSeatsSlider.setValue(newValue.intValue());
             int intValue = (int) selectedSeatsSlider.getValue();
 
             selectedSeatsLabel.setText(String.valueOf(intValue));
@@ -44,7 +45,7 @@ public class MakeReservationPopupWindowController implements Initializable {
         this.maximumNumberOfSeats = maximumNumberOfSeats;
     }
 
-    public void setPopupResponseCall(IResponseCall<Integer> responseCall) {
+    public void setPopupResponseCall(ISceneResponseCall<Integer> responseCall) {
         this.numberOfSeatsResponseCall = responseCall;
     }
 
@@ -53,6 +54,6 @@ public class MakeReservationPopupWindowController implements Initializable {
             numberOfSeatsResponseCall.onResponseCall((int) selectedSeatsSlider.getValue());
         }
 
-        ((Stage) reserveButton.getScene().getWindow()).close();
+        SceneSwitchController.getInstance().closeReservationPopup();
     }
 }
