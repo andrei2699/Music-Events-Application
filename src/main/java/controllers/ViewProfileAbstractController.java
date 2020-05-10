@@ -24,9 +24,6 @@ public abstract class ViewProfileAbstractController extends AbstractProfilePageC
     public Label nameLabel;
 
     @FXML
-    public Label addressLabel;
-
-    @FXML
     public Label userTypeLabel;
 
     @FXML

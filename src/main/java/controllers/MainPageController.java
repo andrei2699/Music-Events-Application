@@ -176,9 +176,9 @@ public class MainPageController extends ChangeableSceneController {
 
         UserModel userModel = LoggedUserData.getInstance().getUserModel();
         if (userModel.getType() == UserType.Artist) {
-            SceneSwitchController.getInstance().switchScene(SceneSwitchController.SceneType.ViewArtistProfileScene);
+            SceneSwitchController.getInstance().switchScene(SceneSwitchController.SceneType.ViewArtistProfileScene,LoggedUserData.getInstance().getUserModel().getId());
         } else if (userModel.getType() == UserType.Manager) {
-            SceneSwitchController.getInstance().switchScene(SceneSwitchController.SceneType.ViewBarProfileScene);
+            SceneSwitchController.getInstance().switchScene(SceneSwitchController.SceneType.ViewBarProfileScene,LoggedUserData.getInstance().getUserModel().getId());
         }
     }
 
