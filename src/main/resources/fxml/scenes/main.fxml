@@ -41,7 +41,7 @@
                   <Insets left="10.0" top="20.0" />
                </VBox.margin>
             </HBox>
-                <TableView fx:id="eventsTableView" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="110.0">
+                <TableView fx:id="eventsTableView" prefHeight="430.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="110.0">
                     <columns>
                         <TableColumn fx:id="eventsTableColumn" editable="false" minWidth="160.0" prefWidth="-1.0" sortable="false" text="Evenimente Dispnibile" />
                     </columns>
@@ -51,6 +51,9 @@
                     <padding>
                         <Insets bottom="2.0" left="8.0" right="8.0" top="2.0" />
                     </padding>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
                 </TableView>
             </VBox>
         </Tab>
@@ -72,7 +75,7 @@
                         <Insets left="10.0" top="20.0" />
                     </VBox.margin>
                 </HBox>
-                <TableView fx:id="barsTableView" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="110.0">
+                <TableView fx:id="barsTableView" prefHeight="430.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="110.0">
                     <columns>
                         <TableColumn fx:id="barsTableColumn" editable="false" minWidth="160.0" prefWidth="-1.0" sortable="false" text="Localuri" />
                     </columns>
@@ -103,7 +106,7 @@
                         <Insets left="10.0" top="20.0" />
                     </VBox.margin>
                 </HBox>
-                <TableView fx:id="artistsTableView" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="110.0">
+                <TableView fx:id="artistsTableView" prefHeight="430.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="110.0">
                     <columns>
                         <TableColumn fx:id="artistsTableColumn" editable="false" minWidth="160.0" prefWidth="-1.0" sortable="false" text="Artiști" />
                     </columns>
