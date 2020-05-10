@@ -20,10 +20,10 @@ public abstract class ViewProfileAbstractController extends AbstractProfilePageC
     public Label emailLabel;
 
     @FXML
-    public TableView<EventModelContainer> eventsTableView;
+    public TableView<TableCardModel> eventsTableView;
 
     @FXML
-    public TableColumn<EventModelContainer, EventCardModel> eventsTableColumn;
+    public TableColumn<TableCardModel, EventCardModel> eventsTableColumn;
 
     @FXML
     public Button editProfilePageButton;

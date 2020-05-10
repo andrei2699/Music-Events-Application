@@ -3,9 +3,9 @@ package models;
 import java.time.LocalDate;
 
 public class EventModel {
-    private int id;
-    private int bar_manager_id;
-    private int artist_id;
+    private final int id;
+    private final int bar_manager_id;
+    private final int artist_id;
     private String name;
     private LocalDate date;
     private int start_hour;

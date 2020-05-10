@@ -1,12 +1,13 @@
 package models;
 
+import controllers.TableCardModel;
 import services.ServiceProvider;
 import services.UserService;
 
-public class EventCardModel {
-    private String barName;
-    private String artistName;
-    private EventModel eventModel;
+public class EventCardModel implements TableCardModel {
+    private final String barName;
+    private final String artistName;
+    private final EventModel eventModel;
 
     public EventCardModel(EventModel eventModel) {
         this.eventModel = eventModel;
@@ -33,4 +34,7 @@ public class EventCardModel {
                 getBarName().contains(filter);
     }
 
+    public EventCardModel getEventCardModel(){
+        return this;
+    }
 }

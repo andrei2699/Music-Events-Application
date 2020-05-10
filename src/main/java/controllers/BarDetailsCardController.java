@@ -13,7 +13,7 @@ import models.BarModel;
 
 import java.io.IOException;
 
-public class BarDetailsCardController extends TableCell<BarModelContainer, BarCardModel> {
+public class BarDetailsCardController extends TableCell<TableCardModel, TableCardModel> {
 
     @FXML
     private VBox barDetailsCardVBox;
@@ -41,10 +41,11 @@ public class BarDetailsCardController extends TableCell<BarModelContainer, BarCa
     }
 
     @Override
-    protected void updateItem(BarCardModel barCardModel, boolean empty) {
-        super.updateItem(barCardModel, empty);
+    protected void updateItem(TableCardModel tableCardModel, boolean empty) {
+        super.updateItem(tableCardModel, empty);
 
-        if (!empty && barCardModel != null) {
+        if (!empty && tableCardModel != null) {
+            BarCardModel barCardModel = (BarCardModel) tableCardModel;
             barModel = barCardModel.getBarModel();
             barNameLabel.setText(barCardModel.getBarName());
             adressLabel.setText(barCardModel.getBarModel().getAddress());
@@ -59,7 +60,7 @@ public class BarDetailsCardController extends TableCell<BarModelContainer, BarCa
     }
 
     private void onGoToProfilePageButtonClick(ActionEvent actionEvent) {
-        SceneSwitchController.getInstance().switchScene(SceneSwitchController.SceneType.ViewBarProfileScene,barModel.getUser_id());
+        SceneSwitchController.getInstance().switchScene(SceneSwitchController.SceneType.ViewBarProfileScene, barModel.getUser_id());
     }
 
 }
