@@ -1,6 +1,7 @@
 package main;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.stage.Stage;
 import services.ServiceProvider;
 
@@ -26,6 +27,7 @@ public class JavaFXBoot extends Application {
         sceneSwitchController.switchScene(SceneSwitchController.SceneType.LoginScene);
 
         primaryStage.setResizable(false);
+        primaryStage.setOnCloseRequest(event -> Platform.exit());
         primaryStage.show();
     }
 

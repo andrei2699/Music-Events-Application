@@ -1,7 +1,8 @@
 package main;
 
 import controllers.ChangeableSceneController;
-import controllers.IResponseCall;
+import controllers.ChangeableSceneWithUserModelController;
+import controllers.ISceneResponseCall;
 import controllers.MakeReservationPopupWindowController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -28,6 +29,8 @@ public final class SceneSwitchController {
     private static final SceneSwitchController instance = new SceneSwitchController();
 
     private Stage primaryStage;
+    private Stage reservationPopupStage;
+
     private final Map<SceneType, String> sceneMap = new HashMap<>();
 
     public static SceneSwitchController getInstance() {
@@ -53,15 +56,18 @@ public final class SceneSwitchController {
     public void switchScene(SceneType type, Integer userModelId) {
         Object controller = getControllerFromSwitchedScene(type);
 
-        if (controller instanceof ChangeableSceneController) {
-            ChangeableSceneController changeableSceneController = (ChangeableSceneController) controller;
+        if (controller instanceof ChangeableSceneWithUserModelController) {
+            ChangeableSceneWithUserModelController changeableSceneController = (ChangeableSceneWithUserModelController) controller;
 
-            changeableSceneController.setUserModelId(userModelId);
+            changeableSceneController.onSetUserModelId(userModelId);
             changeableSceneController.onSceneChanged();
         }
     }
 
-    public void showReservationPopup(int maximumNumberOfSeats, IResponseCall<Integer> responseCall) {
+    public void showReservationPopup(int maximumNumberOfSeats, ISceneResponseCall<Integer> responseCall) {
+
+        closeReservationPopup();
+
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/components/makeReservationPopupWindow.fxml"));
 
         MakeReservationPopupWindowController controller = new MakeReservationPopupWindowController();
@@ -71,13 +77,21 @@ public final class SceneSwitchController {
 
         try {
             Parent root = loader.load();
-            Stage reservationPopupStage = new Stage();
+            reservationPopupStage = new Stage();
+            reservationPopupStage.setResizable(false);
             reservationPopupStage.centerOnScreen();
             reservationPopupStage.setTitle("Rezervare");
             reservationPopupStage.setScene(new Scene(root));
             reservationPopupStage.showAndWait();
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    public void closeReservationPopup() {
+        if (reservationPopupStage != null) {
+            reservationPopupStage.close();
+            reservationPopupStage = null;
         }
     }
 
