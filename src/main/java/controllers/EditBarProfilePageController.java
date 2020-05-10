@@ -95,10 +95,12 @@ public class EditBarProfilePageController extends EditProfileAbstractController 
         }
 
         UserModel userModel = LoggedUserData.getInstance().getUserModel();
+        barService = ServiceProvider.getBarService();
 
         nameField.setText(userModel.getName());
         emailField.setText(userModel.getEmail());
         userTypeField.setText(userModel.getType().toString());
+
         BarModel barModel = barService.getBar(userModel.getId());
         if (barModel == null) {
             return;
