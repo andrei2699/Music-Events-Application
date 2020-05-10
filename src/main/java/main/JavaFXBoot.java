@@ -23,6 +23,7 @@ public class JavaFXBoot extends Application {
         sceneSwitchController.addScene(SceneSwitchController.SceneType.EditBarProfileScene, "/fxml/scenes/editBarProfilePage.fxml");
         sceneSwitchController.addScene(SceneSwitchController.SceneType.EditArtistProfileScene, "/fxml/scenes/editArtistProfilePage.fxml");
         sceneSwitchController.addScene(SceneSwitchController.SceneType.CreateEventFormScene, "/fxml/scenes/createEventForm.fxml");
+        sceneSwitchController.addScene(SceneSwitchController.SceneType.BarProfileScene, "/fxml/scenes/barProfilePage.fxml");
 
         sceneSwitchController.switchScene(SceneSwitchController.SceneType.LoginScene);
 

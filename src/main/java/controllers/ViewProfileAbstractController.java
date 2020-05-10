@@ -2,21 +2,22 @@ package controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import models.EventCardModel;
 
 public abstract class ViewProfileAbstractController extends AbstractProfilePageController {
-//    @FXML
-//    public TextField nameField;
-//
-//    @FXML
-//    public TextField emailField;
-//
-//    @FXML
-//    public TextField userTypeField;
+
+    @FXML
+    public Label nameLabel;
+
+    @FXML
+    public Label addressLabel;
+
+    @FXML
+    public Label userTypeLabel;
+
+    @FXML
+    public Label emailLabel;
 
     @FXML
     public TableView<EventModelContainer> eventsTableView;
