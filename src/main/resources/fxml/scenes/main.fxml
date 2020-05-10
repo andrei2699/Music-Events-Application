@@ -22,7 +22,7 @@
          </ImageView>
      </buttons>
    </ButtonBar>
-    <TabPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="60.0">
+    <TabPane tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="60.0">
         <Tab text="Evenimente">
             <VBox>
             <HBox alignment="CENTER_LEFT" fillHeight="false" spacing="4.0" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="16.0" AnchorPane.topAnchor="60.0">
