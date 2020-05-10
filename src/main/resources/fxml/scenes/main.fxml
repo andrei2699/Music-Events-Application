@@ -32,7 +32,7 @@
                     </HBox.margin>
                     <Image url="@../../Images/search_icon_black_18dp.png" />
                 </ImageView>
-                <TextField fx:id="searchTextField" prefWidth="700.0" promptText="Caută evenimente...">
+                <TextField fx:id="eventsSearchTextField" prefWidth="700.0" promptText="Caută evenimente...">
                     <opaqueInsets>
                         <Insets />
                     </opaqueInsets>

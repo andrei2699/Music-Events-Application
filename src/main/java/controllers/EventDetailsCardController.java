@@ -15,7 +15,7 @@ import models.UserType;
 
 import java.io.IOException;
 
-public class EventDetailsCardController extends TableCell<MainPageController.EventModelContainer, EventCardModel> {
+public class EventDetailsCardController extends TableCell<EventModelContainer, EventCardModel> {
 
     private static final double MIN_DESCRIPTION_LABEL_WIDTH = 240;
 
