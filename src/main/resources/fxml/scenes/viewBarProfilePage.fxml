@@ -30,14 +30,14 @@
             <children>
                <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0">
                   <children>
-                     <Label text="Numele" />
+                     <Label fx:id="nameLabel" text="Numele" />
                   </children>
                </HBox>
             </children>
             </VBox>
          <HBox alignment="BOTTOM_CENTER" prefHeight="100.0" prefWidth="200.0">
             <children>
-               <Button defaultButton="true" mnemonicParsing="false" styleClass="button-raised" text="Editează pagina de profil" fx:id="editProfilePageButton" />
+               <Button fx:id="editProfilePageButton" defaultButton="true" mnemonicParsing="false" styleClass="button-raised" text="Editează pagina de profil" />
             </children>
          </HBox>
             <HBox alignment="CENTER" prefHeight="5.0" prefWidth="200.0">
@@ -49,7 +49,7 @@
                 <Insets left="4.0" right="4.0" />
             </padding>
         </VBox>
-        <TabPane GridPane.columnIndex="1">
+        <TabPane tabClosingPolicy="UNAVAILABLE" GridPane.columnIndex="1">
             <Tab text="Detalii profil">
         <GridPane fx:id="grid" alignment="CENTER" GridPane.columnIndex="1">
             <columnConstraints>
@@ -93,7 +93,7 @@
             <children>
                <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                   <children>
-                     <Label text="adresa" />
+                     <Label fx:id="addressLabel" text="adresa" />
                   </children>
                </HBox>
                <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="1">
@@ -114,7 +114,7 @@
                </HBox>
                <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1">
                   <children>
-                     <Label text="emaill" />
+                     <Label fx:id="emailLabel" text="emaill" />
                   </children>
                </HBox>
                <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
@@ -127,7 +127,7 @@
                </HBox>
                <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                   <children>
-                     <Label text="tip" />
+                     <Label fx:id="userTypeLabel" text="tip" />
                   </children>
                </HBox>
                <HBox alignment="BOTTOM_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="3">
