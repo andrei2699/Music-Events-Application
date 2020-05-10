@@ -151,23 +151,22 @@ public class MainPageController extends ChangeableSceneController {
             }
         });
 
-        // artists table view
+//         artists table view
+        artistsTableView.setPlaceholder(new Label(NO_ARTISTS_TABLE_VIEW_LABEL));
+        artistsTableColumn.setCellValueFactory(new PropertyValueFactory<>("artistCardModel"));
+        artistsTableColumn.setCellFactory(cell -> new ArtistDetailsCardController());
 
-//        artistsTableView.setPlaceholder(new Label(NO_ARTISTS_TABLE_VIEW_LABEL));
-//        artistsTableColumn.setCellValueFactory(new PropertyValueFactory<>("artistCardModel"));
-//        artistsTableColumn.setCellFactory(cell -> new ArtistDetailsCardController());
-//
-//        artistModelFilteredList = new FilteredList<>(getAllArtists(), m -> true);
-//        artistsTableView.setItems(artistModelFilteredList);
-//
-//        artistSearchTextField.textProperty().addListener(observable -> {
-//            String filter = artistSearchTextField.getText();
-//            if (filter == null || filter.isEmpty() || filter.isBlank()) {
-//                artistModelFilteredList.setPredicate(m -> true);
-//            } else {
-//                artistModelFilteredList.setPredicate(m -> m.containsFilter(filter));
-//            }
-//        });
+        artistModelFilteredList = new FilteredList<>(getAllArtists(), m -> true);
+        artistsTableView.setItems(artistModelFilteredList);
+
+        artistSearchTextField.textProperty().addListener(observable -> {
+            String filter = artistSearchTextField.getText();
+            if (filter == null || filter.isEmpty() || filter.isBlank()) {
+                artistModelFilteredList.setPredicate(m -> true);
+            } else {
+                artistModelFilteredList.setPredicate(m -> m.containsFilter(filter));
+            }
+        });
     }
 
     public void goEditProfile(ActionEvent actionEvent) {
