@@ -7,6 +7,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
+<?import controllers.CardDetailsTableViewCustomControl?>
 <AnchorPane prefHeight="600.0" prefWidth="800.0" styleClass="root-pane" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MainPageController">
    <ButtonBar buttonMinWidth="60.0" prefHeight="60.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="0.0">
      <buttons>
@@ -41,20 +42,7 @@
                   <Insets left="10.0" top="20.0" />
                </VBox.margin>
             </HBox>
-                <TableView fx:id="eventsTableView" prefHeight="430.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="110.0">
-                    <columns>
-                        <TableColumn fx:id="eventsTableColumn" editable="false" minWidth="160.0" prefWidth="-1.0" sortable="false" text="Evenimente Dispnibile" />
-                    </columns>
-                    <columnResizePolicy>
-                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                    </columnResizePolicy>
-                    <padding>
-                        <Insets bottom="2.0" left="8.0" right="8.0" top="2.0" />
-                    </padding>
-               <VBox.margin>
-                  <Insets />
-               </VBox.margin>
-                </TableView>
+                <CardDetailsTableViewCustomControl fx:id="eventsCardDetailsTableViewControl"/>
             </VBox>
         </Tab>
         <Tab text="Localuri">
@@ -75,17 +63,7 @@
                         <Insets left="10.0" top="20.0" />
                     </VBox.margin>
                 </HBox>
-                <TableView fx:id="barsTableView" prefHeight="430.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="110.0">
-                    <columns>
-                        <TableColumn fx:id="barsTableColumn" editable="false" minWidth="160.0" prefWidth="-1.0" sortable="false" text="Localuri" />
-                    </columns>
-                    <columnResizePolicy>
-                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                    </columnResizePolicy>
-                    <padding>
-                        <Insets bottom="2.0" left="8.0" right="8.0" top="2.0" />
-                    </padding>
-                </TableView>
+                <CardDetailsTableViewCustomControl fx:id="barsCardDetailsTableViewControl"/>
             </VBox>
         </Tab>
         <Tab text="Artiști">
@@ -106,17 +84,7 @@
                         <Insets left="10.0" top="20.0" />
                     </VBox.margin>
                 </HBox>
-                <TableView fx:id="artistsTableView" prefHeight="430.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="110.0">
-                    <columns>
-                        <TableColumn fx:id="artistsTableColumn" editable="false" minWidth="160.0" prefWidth="-1.0" sortable="false" text="Artiști" />
-                    </columns>
-                    <columnResizePolicy>
-                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                    </columnResizePolicy>
-                    <padding>
-                        <Insets bottom="2.0" left="8.0" right="8.0" top="2.0" />
-                    </padding>
-                </TableView>
+                <CardDetailsTableViewCustomControl fx:id="artistsCardDetailsTableViewControl"/>
             </VBox>
         </Tab>
     </TabPane>

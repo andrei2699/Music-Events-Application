@@ -7,7 +7,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Bounds;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import main.LoggedUserData;
@@ -38,9 +37,16 @@ public class MainPageController extends ChangeableSceneController {
     @FXML
     public ImageView moreActionsImage;
 
-    private FilteredList<EventModelContainer> eventModelFilteredList;
-    private FilteredList<BarModelContainer> barModelFilteredList;
-    private FilteredList<ArtistModelContainer> artistModelFilteredList;
+    @FXML
+    public CardDetailsTableViewCustomControl eventsCardDetailsTableViewControl;
+    @FXML
+    public CardDetailsTableViewCustomControl barsCardDetailsTableViewControl;
+    @FXML
+    public CardDetailsTableViewCustomControl artistsCardDetailsTableViewControl;
+
+    private FilteredList<TableCardModel> eventModelFilteredList;
+    private FilteredList<TableCardModel> barModelFilteredList;
+    private FilteredList<TableCardModel> artistModelFilteredList;
 
     private ContextMenu moreActionsContextMenu;
 
