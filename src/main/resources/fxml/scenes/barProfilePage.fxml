@@ -6,7 +6,7 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="600.0" prefWidth="800.0" styleClass="root-pane" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.BarProfilePageController">
+<AnchorPane prefHeight="600.0" prefWidth="800.0" styleClass="root-pane" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ViewBarProfilePageController">
     <GridPane gridLinesVisible="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <columnConstraints>
             <ColumnConstraints hgrow="NEVER" maxWidth="345.0" minWidth="10.0" prefWidth="220.0" />
@@ -37,7 +37,7 @@
             </VBox>
          <HBox alignment="BOTTOM_CENTER" prefHeight="100.0" prefWidth="200.0">
             <children>
-               <Button defaultButton="true" mnemonicParsing="false" styleClass="button-raised" text="Editează pagina de profil" />
+               <Button defaultButton="true" mnemonicParsing="false" styleClass="button-raised" text="Editează pagina de profil" fx:id="editProfilePageButton" />
             </children>
          </HBox>
             <HBox alignment="CENTER" prefHeight="5.0" prefWidth="200.0">
