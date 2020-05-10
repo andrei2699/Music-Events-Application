@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox fx:id="barDetailsCardVBox" styleClass="card" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
+    <padding>
+        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+    </padding>
+    <Label fx:id="barNameLabel" styleClass="card-title" text="Bar Name" />
+    <VBox layoutX="32.0" layoutY="109.0" spacing="20.0" AnchorPane.bottomAnchor="80.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="60.0">
+        <HBox alignment="CENTER_LEFT" spacing="10.0">
+            <Label styleClass="title-label" text="Nume local:" />
+            <Label fx:id="barNameLabel" text="Nume Local value" />
+        </HBox>
+        <HBox alignment="CENTER_LEFT" spacing="10.0">
+            <Label text="Nume artist:" />
+            <Label fx:id="artistNameLabel" text="Nume Artist value" />
+        </HBox>
+        <VBox.margin>
+            <Insets top="20.0" />
+        </VBox.margin>
+    </VBox>
+    <Separator fx:id="actionButtonsSeparator" />
+    <HBox fx:id="actionButtonsHBox" alignment="CENTER_LEFT" spacing="10.0">
+        <Button fx:id="reserveTicketButton" defaultButton="true" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" styleClass="button-raised" text="Rezerva" />
+    </HBox>
+    <stylesheets>
+        <URL value="@../../css/material-fx-v0_3.css" />
+        <URL value="@../../css/stylesheet.css" />
+    </stylesheets>
+</VBox>
