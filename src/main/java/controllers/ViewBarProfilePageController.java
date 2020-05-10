@@ -24,6 +24,7 @@ public class ViewBarProfilePageController extends ViewProfileAbstractController 
         userTypeLabel.setText(userModel.getType().toString());
         emailLabel.setText(userModel.getEmail());
         addressLabel.setText(barModel.getAddress());
+        profilePhoto.setImage(getProfileImage(barModel.getPath_to_image()));
     }
 
     @Override
