@@ -12,7 +12,7 @@ public class ViewBarProfilePageController extends ViewProfileAbstractController 
     @Override
     protected void updateUIOnSceneChanged() {
         editProfilePageButton.setOnAction(this::onEditProfilePageButtonClick);
-        if (LoggedUserData.getInstance().getUserModel().getId() != userModel.getId()){
+        if (userModel == null || !LoggedUserData.getInstance().isUserLogged() || LoggedUserData.getInstance().getUserModel().getId() != userModel.getId()) {
             // ascunde butonul
         }
     }
@@ -24,7 +24,7 @@ public class ViewBarProfilePageController extends ViewProfileAbstractController 
 
     @Override
     public SceneSwitchController.SceneType getControlledSceneType() {
-        return SceneSwitchController.SceneType.BarProfileScene;
+        return SceneSwitchController.SceneType.ViewBarProfileScene;
     }
 
     @Override

@@ -1,21 +1,15 @@
 package controllers;
 
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.Separator;
 import javafx.scene.control.TableCell;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import main.LoggedUserData;
 import main.SceneSwitchController;
 import models.BarCardModel;
 import models.BarModel;
-import models.EventModel;
-import models.UserType;
 
 import java.io.IOException;
 
@@ -65,7 +59,7 @@ public class BarDetailsCardController extends TableCell<BarModelContainer, BarCa
     }
 
     private void onGoToProfilePageButtonClick(ActionEvent actionEvent) {
-        SceneSwitchController.getInstance().switchScene(SceneSwitchController.SceneType.BarProfileScene,barModel.getUser_id());
+        SceneSwitchController.getInstance().switchScene(SceneSwitchController.SceneType.ViewBarProfileScene,barModel.getUser_id());
     }
 
 }
