@@ -107,6 +107,7 @@ public class EditArtistProfilePageController extends EditProfileAbstractControll
         }
 
         UserModel userModel = LoggedUserData.getInstance().getUserModel();
+        artistService = ServiceProvider.getArtistService();
 
         nameField.setText(userModel.getName());
         emailField.setText(userModel.getEmail());

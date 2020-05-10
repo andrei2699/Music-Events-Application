@@ -38,7 +38,7 @@ public class ViewBarProfilePageController extends ViewProfileAbstractController 
 
     @Override
     protected void onEditProfilePageButtonClick(ActionEvent actionEvent) {
-        SceneSwitchController.getInstance().switchScene(SceneSwitchController.SceneType.EditArtistProfileScene);
+        SceneSwitchController.getInstance().switchScene(SceneSwitchController.SceneType.EditBarProfileScene);
     }
 
     @Override
