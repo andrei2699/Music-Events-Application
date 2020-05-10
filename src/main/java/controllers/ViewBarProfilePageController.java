@@ -33,7 +33,7 @@ public class ViewBarProfilePageController extends ViewProfileAbstractController 
 
     @Override
     public SceneSwitchController.SceneType getControlledSceneType() {
-        return SceneSwitchController.SceneType.BarProfileScene;
+        return SceneSwitchController.SceneType.ViewBarProfileScene;
     }
 
     @Override
