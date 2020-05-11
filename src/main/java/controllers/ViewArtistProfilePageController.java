@@ -6,9 +6,7 @@ import javafx.scene.control.Label;
 import main.LoggedUserData;
 import main.SceneSwitchController;
 import models.ArtistModel;
-import models.UserModel;
 import services.ArtistService;
-import services.BarService;
 import services.ServiceProvider;
 
 import java.net.URL;
@@ -17,7 +15,6 @@ import java.util.ResourceBundle;
 import static main.SceneSwitchController.SceneType.ViewArtistProfileScene;
 
 public class ViewArtistProfilePageController extends ViewProfileAbstractController {
-    private UserModel userModel;
     private ArtistModel artistModel;
 
     @FXML
@@ -32,8 +29,8 @@ public class ViewArtistProfilePageController extends ViewProfileAbstractControll
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         super.initialize(location, resources);
-        bandMembersLabel.setVisible(false);
-        membersLabel.setVisible(false);
+        editProfilePageButton.setOnAction(this::onEditProfilePageButtonClick);
+
         updateUIOnSceneChanged();
     }
 
@@ -44,31 +41,26 @@ public class ViewArtistProfilePageController extends ViewProfileAbstractControll
 
     @Override
     protected void updateUIOnSceneChanged() {
-        editProfilePageButton.setOnAction(this::onEditProfilePageButtonClick);
-        if (userModel==null || !LoggedUserData.getInstance().isUserLogged() || LoggedUserData.getInstance().getUserModel().getId() != userModel.getId()){
-            editProfilePageButton.setVisible(false);
-        }
-        if(userModel!=null) {
+        super.updateUIOnSceneChanged();
+
+        bandMembersLabel.setVisible(false);
+        membersLabel.setVisible(false);
+
+        if (userModel != null && artistModel != null) {
             nameLabel.setText(userModel.getName());
             userTypeLabel.setText(userModel.getType().toString());
             emailLabel.setText(userModel.getEmail());
             genreLabel.setText(artistModel.getGenre());
             profilePhoto.setImage(getProfileImage(artistModel.getPath_to_image()));
-            if(artistModel.getIs_band())
-            {
+
+            if (artistModel.getIs_band()) {
                 bandMembersLabel.setVisible(true);
                 membersLabel.setVisible(true);
                 bandMembersLabel.setText(artistModel.getMembers());
             }
-        }
-    }
 
-    @Override
-    public void onSetUserModelId(Integer userModelId) {
-        ArtistService artistService = ServiceProvider.getArtistService();
-        userModel = userService.getUser(userModelId);
-        artistModel = artistService.getArtist(userModel.getId());
-        updateUIOnSceneChanged();
+            eventsTableView.setItems(getAllFutureEventsLinkedWithId(userModel.getId()));
+        }
     }
 
     @Override
@@ -78,5 +70,14 @@ public class ViewArtistProfilePageController extends ViewProfileAbstractControll
     @Override
     public SceneSwitchController.SceneType getControlledSceneType() {
         return ViewArtistProfileScene;
+    }
+
+    @Override
+    public void onSetUserModelId(Integer userModelId) {
+        super.onSetUserModelId(userModelId);
+
+        ArtistService artistService = ServiceProvider.getArtistService();
+        artistModel = artistService.getArtist(userModel.getId());
+        updateUIOnSceneChanged();
     }
 }
