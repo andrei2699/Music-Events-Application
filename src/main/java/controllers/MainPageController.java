@@ -7,7 +7,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Bounds;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import main.LoggedUserData;
@@ -29,32 +28,25 @@ public class MainPageController extends ChangeableSceneController {
     private static final String NO_ARTISTS_TABLE_VIEW_LABEL = "Fara artisti";
 
     @FXML
-    public TableView<EventModelContainer> eventsTableView;
-    @FXML
-    public TableColumn<EventModelContainer, EventCardModel> eventsTableColumn;
-    @FXML
     public TextField eventsSearchTextField;
-
-    @FXML
-    public TableView<BarModelContainer> barsTableView;
-    @FXML
-    public TableColumn<BarModelContainer, BarCardModel> barsTableColumn;
     @FXML
     public TextField barSearchTextField;
-
-    @FXML
-    public TableView<ArtistModelContainer> artistsTableView;
-    @FXML
-    public TableColumn<ArtistModelContainer, ArtistCardModel> artistsTableColumn;
     @FXML
     public TextField artistSearchTextField;
 
     @FXML
     public ImageView moreActionsImage;
 
-    private FilteredList<EventModelContainer> eventModelFilteredList;
-    private FilteredList<BarModelContainer> barModelFilteredList;
-    private FilteredList<ArtistModelContainer> artistModelFilteredList;
+    @FXML
+    public CardDetailsTableViewCustomControl eventsCardDetailsTableViewControl;
+    @FXML
+    public CardDetailsTableViewCustomControl barsCardDetailsTableViewControl;
+    @FXML
+    public CardDetailsTableViewCustomControl artistsCardDetailsTableViewControl;
+
+    private FilteredList<TableCardModel> eventModelFilteredList;
+    private FilteredList<TableCardModel> barModelFilteredList;
+    private FilteredList<TableCardModel> artistModelFilteredList;
 
     private ContextMenu moreActionsContextMenu;
 
@@ -118,13 +110,8 @@ public class MainPageController extends ChangeableSceneController {
         moreActionsContextMenu.getItems().add(goToLogin);
 
         // events table view
-        eventsTableView.setPlaceholder(new Label(NO_EVENTS_TABLE_VIEW_LABEL));
-        eventsTableColumn.setCellValueFactory(new PropertyValueFactory<>("eventCardModel"));
-        eventsTableColumn.setCellFactory(cell -> new EventDetailsCardController());
 
         eventModelFilteredList = new FilteredList<>(getAllEvents(), m -> true);
-        eventsTableView.setItems(eventModelFilteredList);
-
         eventsSearchTextField.textProperty().addListener(observable -> {
             String filter = eventsSearchTextField.getText();
             if (filter == null || filter.isEmpty() || filter.isBlank()) {
@@ -134,14 +121,35 @@ public class MainPageController extends ChangeableSceneController {
             }
         });
 
+        eventsCardDetailsTableViewControl.setItems(eventModelFilteredList);
+        eventsCardDetailsTableViewControl.setTableColumnData(new TableColumnData() {
+            @Override
+            public String getTableColumnText() {
+                return "Evenimente Dispnibile";
+            }
+
+            @Override
+            public String getPropertyValueFactory() {
+                return "eventCardModel";
+            }
+
+            @Override
+            public String getNoContentLabelText() {
+                return NO_EVENTS_TABLE_VIEW_LABEL;
+            }
+
+            @Override
+            public TableCell<TableCardModel, TableCardModel> getCellFactory() {
+                return new EventDetailsCardController();
+            }
+
+        });
+        eventsCardDetailsTableViewControl.updateTable();
+
+
         // bars table view
-        barsTableView.setPlaceholder(new Label(NO_BARS_TABLE_VIEW_LABEL));
-        barsTableColumn.setCellValueFactory(new PropertyValueFactory<>("barCardModel"));
-        barsTableColumn.setCellFactory(cell -> new BarDetailsCardController());
 
         barModelFilteredList = new FilteredList<>(getAllBars(), m -> true);
-        barsTableView.setItems(barModelFilteredList);
-
         barSearchTextField.textProperty().addListener(observable -> {
             String filter = barSearchTextField.getText();
             if (filter == null || filter.isEmpty() || filter.isBlank()) {
@@ -151,14 +159,34 @@ public class MainPageController extends ChangeableSceneController {
             }
         });
 
+        barsCardDetailsTableViewControl.setItems(barModelFilteredList);
+        barsCardDetailsTableViewControl.setTableColumnData(new TableColumnData() {
+            @Override
+            public String getTableColumnText() {
+                return "Localuri";
+            }
+
+            @Override
+            public String getPropertyValueFactory() {
+                return "barCardModel";
+            }
+
+            @Override
+            public String getNoContentLabelText() {
+                return NO_BARS_TABLE_VIEW_LABEL;
+            }
+
+            @Override
+            public TableCell<TableCardModel, TableCardModel> getCellFactory() {
+                return new BarDetailsCardController();
+            }
+
+        });
+        barsCardDetailsTableViewControl.updateTable();
+
 //         artists table view
-        artistsTableView.setPlaceholder(new Label(NO_ARTISTS_TABLE_VIEW_LABEL));
-        artistsTableColumn.setCellValueFactory(new PropertyValueFactory<>("artistCardModel"));
-        artistsTableColumn.setCellFactory(cell -> new ArtistDetailsCardController());
 
         artistModelFilteredList = new FilteredList<>(getAllArtists(), m -> true);
-        artistsTableView.setItems(artistModelFilteredList);
-
         artistSearchTextField.textProperty().addListener(observable -> {
             String filter = artistSearchTextField.getText();
             if (filter == null || filter.isEmpty() || filter.isBlank()) {
@@ -167,6 +195,31 @@ public class MainPageController extends ChangeableSceneController {
                 artistModelFilteredList.setPredicate(m -> m.containsFilter(filter));
             }
         });
+
+        artistsCardDetailsTableViewControl.setItems(artistModelFilteredList);
+        artistsCardDetailsTableViewControl.setTableColumnData(new TableColumnData() {
+            @Override
+            public String getTableColumnText() {
+                return "Artisti";
+            }
+
+            @Override
+            public String getPropertyValueFactory() {
+                return "artistCardModel";
+            }
+
+            @Override
+            public String getNoContentLabelText() {
+                return NO_ARTISTS_TABLE_VIEW_LABEL;
+            }
+
+            @Override
+            public TableCell<TableCardModel, TableCardModel> getCellFactory() {
+                return new ArtistDetailsCardController();
+            }
+
+        });
+        artistsCardDetailsTableViewControl.updateTable();
     }
 
     public void goViewProfile(ActionEvent actionEvent) {
@@ -182,34 +235,34 @@ public class MainPageController extends ChangeableSceneController {
         }
     }
 
-    private ObservableList<EventModelContainer> getAllEvents() {
-        ObservableList<EventModelContainer> eventModels = FXCollections.observableArrayList();
+    private ObservableList<TableCardModel> getAllEvents() {
+        ObservableList<TableCardModel> eventModels = FXCollections.observableArrayList();
 
         List<EventModel> allEvents = eventService.getAllEvents();
         for (EventModel eventModel : allEvents) {
-            eventModels.add(new EventModelContainer(eventModel));
+            eventModels.add(new EventCardModel(eventModel));
         }
 
         return eventModels;
     }
 
-    private ObservableList<BarModelContainer> getAllBars() {
-        ObservableList<BarModelContainer> barModels = FXCollections.observableArrayList();
+    private ObservableList<TableCardModel> getAllBars() {
+        ObservableList<TableCardModel> barModels = FXCollections.observableArrayList();
 
         List<BarModel> allEvents = barService.getAllBars();
         for (BarModel barModel : allEvents) {
-            barModels.add(new BarModelContainer(barModel));
+            barModels.add(new BarCardModel(barModel));
         }
 
         return barModels;
     }
 
-    private ObservableList<ArtistModelContainer> getAllArtists() {
-        ObservableList<ArtistModelContainer> artistModels = FXCollections.observableArrayList();
+    private ObservableList<TableCardModel> getAllArtists() {
+        ObservableList<TableCardModel> artistModels = FXCollections.observableArrayList();
 
         List<ArtistModel> allEvents = artistService.getAllArtists();
         for (ArtistModel artistModel : allEvents) {
-            artistModels.add(new ArtistModelContainer(artistModel));
+            artistModels.add(new ArtistCardModel(artistModel));
         }
 
         return artistModels;

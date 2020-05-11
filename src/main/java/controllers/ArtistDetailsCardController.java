@@ -16,7 +16,8 @@ import models.BarModel;
 
 import java.io.IOException;
 
-public class ArtistDetailsCardController extends TableCell<ArtistModelContainer, ArtistCardModel> {
+public class ArtistDetailsCardController extends TableCell<TableCardModel, TableCardModel> {
+
     @FXML
     private VBox artistDetailsCardVBox;
 
@@ -49,10 +50,11 @@ public class ArtistDetailsCardController extends TableCell<ArtistModelContainer,
     }
 
     @Override
-    protected void updateItem(ArtistCardModel artistCardModel, boolean empty) {
-        super.updateItem(artistCardModel, empty);
+    protected void updateItem(TableCardModel tableCardModel, boolean empty) {
+        super.updateItem(tableCardModel, empty);
 
-        if (!empty && artistCardModel != null) {
+        if (!empty && tableCardModel != null) {
+          ArtistCardModel artistCardModel = (ArtistCardModel) tableCardModel;
             artistModel = artistCardModel.getArtistModel();
             artistNameLabel.setText(artistCardModel.getArtistName());
             genreLabel.setText(artistCardModel.getArtistModel().getGenre());

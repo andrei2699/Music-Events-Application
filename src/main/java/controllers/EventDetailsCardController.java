@@ -15,7 +15,7 @@ import models.UserType;
 
 import java.io.IOException;
 
-public class EventDetailsCardController extends TableCell<EventModelContainer, EventCardModel> {
+public class EventDetailsCardController extends TableCell<TableCardModel, TableCardModel> {
 
     private static final double MIN_DESCRIPTION_LABEL_WIDTH = 240;
 
@@ -75,10 +75,13 @@ public class EventDetailsCardController extends TableCell<EventModelContainer, E
     }
 
     @Override
-    protected void updateItem(EventCardModel eventCardModel, boolean empty) {
-        super.updateItem(eventCardModel, empty);
+    protected void updateItem(TableCardModel tableCardModel, boolean empty) {
+        super.updateItem(tableCardModel, empty);
 
-        if (!empty && eventCardModel != null) {
+        if (!empty && tableCardModel != null) {
+
+            EventCardModel eventCardModel = (EventCardModel) tableCardModel;
+
             eventModel = eventCardModel.getEventModel();
 
             eventNameLabel.setText(eventModel.getName());

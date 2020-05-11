@@ -1,9 +1,10 @@
 package models;
 
+import controllers.TableCardModel;
 import services.ServiceProvider;
 import services.UserService;
 
-public class ArtistCardModel implements FilterableModel {
+public class ArtistCardModel implements TableCardModel {
     private final String artistName;
     private final ArtistModel artistModel;
 
@@ -23,5 +24,9 @@ public class ArtistCardModel implements FilterableModel {
 
     public boolean containsFilter(String filter) {
         return getArtistName().contains(filter);
+    }
+
+    public ArtistCardModel getArtistCardModel() {
+        return this;
     }
 }
