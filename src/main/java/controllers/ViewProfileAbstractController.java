@@ -33,7 +33,7 @@ public abstract class ViewProfileAbstractController extends AbstractProfilePageC
     public TableView<TableCardModel> eventsTableView;
 
     @FXML
-    public TableColumn<TableCardModel, EventCardModel> eventsTableColumn;
+    public TableColumn<TableCardModel, TableCardModel> eventsTableColumn;
 
     @FXML
     public Button editProfilePageButton;
@@ -50,16 +50,16 @@ public abstract class ViewProfileAbstractController extends AbstractProfilePageC
         eventsTableView.setItems(getAllFutureEvents());
     }
 
-    private ObservableList<EventModelContainer> getAllFutureEvents() {
+    private ObservableList<TableCardModel> getAllFutureEvents() {
         EventService eventService = ServiceProvider.getEventService();
 
-        ObservableList<EventModelContainer> eventModels = FXCollections.observableArrayList();
+        ObservableList<TableCardModel> eventModels = FXCollections.observableArrayList();
 
         List<EventModel> allEvents = eventService.getAllEvents();
         for (EventModel eventModel : allEvents) {
 
             if (eventModel.getDate().compareTo(LocalDate.now()) >= 0 && eventModel.getStart_hour() > LocalTime.now().getHour()) {
-                eventModels.add(new EventModelContainer(eventModel));
+                eventModels.add(new EventCardModel(eventModel));
             }
         }
 
