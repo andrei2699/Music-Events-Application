@@ -1,7 +1,7 @@
 package main;
 
 import models.UserModel;
-import models.UserType;
+import models.other.UserType;
 
 public class LoggedUserData {
     private static final LoggedUserData instance = new LoggedUserData();

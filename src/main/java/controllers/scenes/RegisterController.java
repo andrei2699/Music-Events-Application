@@ -1,16 +1,17 @@
-package controllers;
+package controllers.scenes;
 
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import main.LoggedUserData;
 import main.SceneSwitchController;
 import models.UserModel;
-import models.UserType;
+import models.other.UserType;
 import services.ServiceProvider;
-import services.implementation.UserExistsException;
 import services.UserService;
+import services.implementation.UserExistsException;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -18,7 +19,7 @@ import java.util.regex.Pattern;
 
 import static main.SceneSwitchController.SceneType.*;
 
-public class RegisterController extends ChangeableSceneController {
+public class RegisterController implements Initializable {
 
     private static final String REQUIRED_FIELD_ERROR_MESSAGE = "* Camp Obligatoriu";
     private static final String INVALID_EMAIL_ERROR_MESSAGE = "* Adresa de email invalida";
@@ -169,15 +170,5 @@ public class RegisterController extends ChangeableSceneController {
 
     private void showErrorLabel(Label label) {
         label.setVisible(true);
-    }
-
-    @Override
-    public void onSceneChanged() {
-
-    }
-
-    @Override
-    public SceneSwitchController.SceneType getControlledSceneType() {
-        return RegisterScene;
     }
 }

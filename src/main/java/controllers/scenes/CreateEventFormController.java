@@ -1,14 +1,14 @@
-package controllers;
+package controllers.scenes;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import main.LoggedUserData;
 import main.SceneSwitchController;
-import models.EventModel;
 import models.UserModel;
 import services.EventService;
 import services.ServiceProvider;
@@ -17,10 +17,9 @@ import services.UserService;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import static main.SceneSwitchController.SceneType.CreateEventFormScene;
 import static main.SceneSwitchController.SceneType.MainScene;
 
-public class CreateEventFormController extends ChangeableSceneController {
+public class CreateEventFormController implements Initializable {
     private static final String REQUIRED_FIELD_ERROR_MESSAGE = "* Camp Obligatoriu";
     private static final String INVALID_ARTIST_NAME_ERROR_MESSAGE = "* Artist/formatie inexistent(a)";
 
@@ -79,28 +78,13 @@ public class CreateEventFormController extends ChangeableSceneController {
 
         startHourComboBox.setItems(FXCollections.observableArrayList(hours));
 
-        seatNumberField.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue,
-                                String newValue) {
-                if (!newValue.matches("\\d*")) {
-                    seatNumberField.setText(newValue.replaceAll("[^\\d]", ""));
-                }
+        seatNumberField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                seatNumberField.setText(newValue.replaceAll("[^\\d]", ""));
             }
         });
 
         barNameField.setText(LoggedUserData.getInstance().getUserModel().getName());
-    }
-
-
-    @Override
-    public void onSceneChanged() {
-
-    }
-
-    @Override
-    public SceneSwitchController.SceneType getControlledSceneType() {
-        return CreateEventFormScene;
     }
 
     @FXML

@@ -1,5 +1,7 @@
 package models;
 
+import models.other.UserType;
+
 public class UserModel {
 
     private int id;
@@ -40,20 +42,8 @@ public class UserModel {
         this.id = id;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     public void setName(String name) {
         this.name = name;
-    }
-
-    public void setType(UserType type) {
-        this.type = type;
     }
 
     @Override

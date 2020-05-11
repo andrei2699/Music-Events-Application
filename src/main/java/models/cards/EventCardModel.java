@@ -1,6 +1,6 @@
-package models;
+package models.cards;
 
-import controllers.TableCardModel;
+import models.EventModel;
 import services.ServiceProvider;
 import services.UserService;
 
@@ -34,7 +34,7 @@ public class EventCardModel implements TableCardModel {
                 getBarName().contains(filter);
     }
 
-    public EventCardModel getEventCardModel(){
+    public EventCardModel getEventCardModel() {
         return this;
     }
 }

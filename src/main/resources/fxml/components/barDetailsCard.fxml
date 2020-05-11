@@ -13,7 +13,7 @@
     <VBox layoutX="32.0" layoutY="109.0" spacing="20.0" AnchorPane.bottomAnchor="80.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="60.0">
         <HBox alignment="CENTER_LEFT" spacing="10.0">
             <Label styleClass="title-label" text="Adresa local:" />
-            <Label fx:id="adressLabel" text="Adresa" />
+            <Label fx:id="addressLabel" text="Adresa" />
         </HBox>
         <VBox.margin>
             <Insets top="20.0" />

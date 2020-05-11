@@ -1,9 +1,8 @@
 package main;
 
-import controllers.ChangeableSceneController;
-import controllers.ChangeableSceneWithUserModelController;
-import controllers.ISceneResponseCall;
-import controllers.MakeReservationPopupWindowController;
+import controllers.components.MakeReservationPopupWindowController;
+import controllers.scenes.ChangeableSceneWithUserModelController;
+import controllers.scenes.ISceneResponseCall;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -46,11 +45,7 @@ public final class SceneSwitchController {
     }
 
     public void switchScene(SceneType type) {
-        Object controller = getControllerFromSwitchedScene(type);
-
-        if (controller instanceof ChangeableSceneController) {
-            ((ChangeableSceneController) controller).onSceneChanged();
-        }
+        getControllerFromSwitchedScene(type);
     }
 
     public void switchScene(SceneType type, Integer userModelId) {
@@ -60,7 +55,6 @@ public final class SceneSwitchController {
             ChangeableSceneWithUserModelController changeableSceneController = (ChangeableSceneWithUserModelController) controller;
 
             changeableSceneController.onSetUserModelId(userModelId);
-            changeableSceneController.onSceneChanged();
         }
     }
 

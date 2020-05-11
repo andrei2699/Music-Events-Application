@@ -1,4 +1,4 @@
-package controllers;
+package controllers.components;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -8,8 +8,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.layout.VBox;
 import main.SceneSwitchController;
-import models.BarCardModel;
 import models.BarModel;
+import models.cards.BarCardModel;
+import models.cards.TableCardModel;
 
 import java.io.IOException;
 
@@ -22,7 +23,7 @@ public class BarDetailsCardController extends TableCell<TableCardModel, TableCar
     private Label barNameLabel;
 
     @FXML
-    private Label adressLabel;
+    private Label addressLabel;
 
     @FXML
     private Button goToProfilePageButton;
@@ -48,10 +49,9 @@ public class BarDetailsCardController extends TableCell<TableCardModel, TableCar
             BarCardModel barCardModel = (BarCardModel) tableCardModel;
             barModel = barCardModel.getBarModel();
             barNameLabel.setText(barCardModel.getBarName());
-            adressLabel.setText(barCardModel.getBarModel().getAddress());
+            addressLabel.setText(barCardModel.getBarModel().getAddress());
 
             goToProfilePageButton.setOnAction(this::onGoToProfilePageButtonClick);
-
 
             setGraphic(barDetailsCardVBox);
         } else {
@@ -62,5 +62,4 @@ public class BarDetailsCardController extends TableCell<TableCardModel, TableCar
     private void onGoToProfilePageButtonClick(ActionEvent actionEvent) {
         SceneSwitchController.getInstance().switchScene(SceneSwitchController.SceneType.ViewBarProfileScene, barModel.getUser_id());
     }
-
 }

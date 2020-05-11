@@ -1,6 +1,6 @@
-package models;
+package models.cards;
 
-import controllers.TableCardModel;
+import models.BarModel;
 import services.ServiceProvider;
 import services.UserService;
 
@@ -23,10 +23,10 @@ public class BarCardModel implements TableCardModel {
     }
 
     public boolean containsFilter(String filter) {
-        return getBarName().contains(filter);
+        return getBarName().contains(filter)||getBarModel().getAddress().contains(filter);
     }
 
-    public BarCardModel getBarCardModel(){
+    public BarCardModel getBarCardModel() {
         return this;
     }
 }

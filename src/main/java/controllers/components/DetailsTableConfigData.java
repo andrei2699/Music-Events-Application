@@ -1,16 +1,9 @@
-package controllers;
+package controllers.components;
 
 import javafx.scene.control.TableCell;
+import models.cards.TableCardModel;
 
 public abstract class DetailsTableConfigData {
-
-    private static final String NO_EVENTS_TABLE_VIEW_LABEL = "Fara evenimente";
-    private static final String NO_BARS_TABLE_VIEW_LABEL = "Fara localuri";
-    private static final String NO_ARTISTS_TABLE_VIEW_LABEL = "Fara artisti";
-
-
-    private DetailsTableConfigData() {
-    }
 
     public abstract String getTableColumnText();
 
@@ -21,7 +14,7 @@ public abstract class DetailsTableConfigData {
     public abstract TableCell<TableCardModel, TableCardModel> getCellFactory();
 
 
-    public static DetailsTableConfigData getEventTableColumnData(){
+    public static DetailsTableConfigData getEventTableColumnData() {
         return new DetailsTableConfigData() {
             @Override
             public String getTableColumnText() {
@@ -35,18 +28,17 @@ public abstract class DetailsTableConfigData {
 
             @Override
             public String getNoContentLabelText() {
-                return NO_EVENTS_TABLE_VIEW_LABEL;
+                return "Fara evenimente";
             }
 
             @Override
             public TableCell<TableCardModel, TableCardModel> getCellFactory() {
                 return new EventDetailsCardController();
             }
-
         };
     }
 
-    public static DetailsTableConfigData getBarTableColumnData(){
+    public static DetailsTableConfigData getBarTableColumnData() {
         return new DetailsTableConfigData() {
             @Override
             public String getTableColumnText() {
@@ -60,7 +52,7 @@ public abstract class DetailsTableConfigData {
 
             @Override
             public String getNoContentLabelText() {
-                return NO_BARS_TABLE_VIEW_LABEL;
+                return "Fara localuri";
             }
 
             @Override
@@ -71,7 +63,7 @@ public abstract class DetailsTableConfigData {
         };
     }
 
-    public static DetailsTableConfigData getArtistTableColumnData(){
+    public static DetailsTableConfigData getArtistTableColumnData() {
         return new DetailsTableConfigData() {
             @Override
             public String getTableColumnText() {
@@ -85,14 +77,13 @@ public abstract class DetailsTableConfigData {
 
             @Override
             public String getNoContentLabelText() {
-                return NO_ARTISTS_TABLE_VIEW_LABEL;
+                return "Fara artisti";
             }
 
             @Override
             public TableCell<TableCardModel, TableCardModel> getCellFactory() {
                 return new ArtistDetailsCardController();
             }
-
         };
     }
 }

@@ -15,12 +15,10 @@
             <Label styleClass="title-label" text="Genul muzical:" />
             <Label fx:id="genreLabel" text="gen" />
         </HBox>
-      <HBox fx:id="bandMembersHBox" spacing="10.0">
-         <children>
-            <Label text="Membrii formatiei:" />
-            <Label fx:id="bandMemebersLabel" text="membrii" />
-         </children>
-      </HBox>
+        <HBox fx:id="bandMembersHBox" spacing="10.0">
+            <Label text="Membrii formatiei:"/>
+            <Label fx:id="bandMembersLabel" text="membrii"/>
+        </HBox>
         <VBox.margin>
             <Insets top="20.0" />
         </VBox.margin>

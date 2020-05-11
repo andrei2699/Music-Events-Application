@@ -1,4 +1,4 @@
-package models;
+package models.other;
 
 public enum UserType {
     RegularUser("Utilizator obisnuit"), // utilizator obisnuit

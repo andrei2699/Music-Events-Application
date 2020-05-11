@@ -1,7 +1,8 @@
-package controllers;
+package controllers.scenes;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import main.LoggedUserData;
@@ -13,7 +14,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.regex.Pattern;
 
-public class LoginController extends ChangeableSceneController {
+public class LoginController implements Initializable {
 
     private static final String REQUIRED_FIELD_ERROR_MESSAGE = "* Camp Obligatoriu";
     private static final String INVALID_EMAIL_ERROR_MESSAGE = "* Adresa de email invalida";
@@ -34,6 +35,13 @@ public class LoginController extends ChangeableSceneController {
     public Label passwordErrorLabel;
 
     private UserService userService;
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        userService = ServiceProvider.getUserService();
+        LoggedUserData.getInstance().setUserModel(null);
+        setAllLabelsInvisible();
+    }
 
     @FXML
     public void onLoginClick(ActionEvent actionEvent) {
@@ -75,22 +83,6 @@ public class LoginController extends ChangeableSceneController {
     @FXML
     public void onSkipPageButtonClick(ActionEvent actionEvent) {
         SceneSwitchController.getInstance().switchScene(SceneSwitchController.SceneType.MainScene);
-    }
-
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        userService = ServiceProvider.getUserService();
-        setAllLabelsInvisible();
-    }
-
-    @Override
-    public void onSceneChanged() {
-        LoggedUserData.getInstance().setUserModel(null);
-    }
-
-    @Override
-    public SceneSwitchController.SceneType getControlledSceneType() {
-        return SceneSwitchController.SceneType.LoginScene;
     }
 
     private void setAllLabelsInvisible() {

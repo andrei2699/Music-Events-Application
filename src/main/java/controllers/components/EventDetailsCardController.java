@@ -1,4 +1,4 @@
-package controllers;
+package controllers.components;
 
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -9,14 +9,13 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import main.LoggedUserData;
 import main.SceneSwitchController;
-import models.EventCardModel;
 import models.EventModel;
-import models.UserType;
+import models.cards.EventCardModel;
+import models.cards.TableCardModel;
 
 import java.io.IOException;
 
 public class EventDetailsCardController extends TableCell<TableCardModel, TableCardModel> {
-
     private static final double MIN_DESCRIPTION_LABEL_WIDTH = 240;
 
     @FXML
@@ -102,7 +101,7 @@ public class EventDetailsCardController extends TableCell<TableCardModel, TableC
                 descriptionLabel.setPrefWidth(width);
             });
 
-            if (!LoggedUserData.getInstance().isUserLogged() || LoggedUserData.getInstance().getUserModel().getType() != UserType.RegularUser) {
+            if (!LoggedUserData.getInstance().isRegularUser()) {
                 hideControlsForNotRegisteredUsers();
             }
 

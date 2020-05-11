@@ -4,7 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import models.UserModel;
-import models.UserType;
+import models.other.UserType;
 import services.FileSystemManager;
 import services.ServiceProvider;
 import services.UserService;

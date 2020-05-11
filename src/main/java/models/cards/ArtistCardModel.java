@@ -1,6 +1,6 @@
-package models;
+package models.cards;
 
-import controllers.TableCardModel;
+import models.ArtistModel;
 import services.ServiceProvider;
 import services.UserService;
 
@@ -23,7 +23,7 @@ public class ArtistCardModel implements TableCardModel {
     }
 
     public boolean containsFilter(String filter) {
-        return getArtistName().contains(filter);
+        return getArtistName().contains(filter) || getArtistModel().getGenre().contains(filter);
     }
 
     public ArtistCardModel getArtistCardModel() {

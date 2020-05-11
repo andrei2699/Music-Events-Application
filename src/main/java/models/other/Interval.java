@@ -1,4 +1,6 @@
-package models;
+package models.other;
+
+import models.other.DaysOfWeek;
 
 public class Interval {
 

@@ -1,12 +1,12 @@
-package controllers;
+package controllers.components;
 
+import controllers.scenes.ISceneResponseCall;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
-import javafx.stage.Stage;
 import main.SceneSwitchController;
 
 import java.net.URL;
@@ -32,7 +32,6 @@ public class MakeReservationPopupWindowController implements Initializable {
         selectedSeatsLabel.setText("0");
 
         selectedSeatsSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
-//            selectedSeatsSlider.setValue(newValue.intValue());
             int intValue = (int) selectedSeatsSlider.getValue();
 
             selectedSeatsLabel.setText(String.valueOf(intValue));

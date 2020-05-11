@@ -1,22 +1,24 @@
-package controllers;
+package controllers.scenes;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import main.LoggedUserData;
-import main.SceneSwitchController;
 import models.ArtistModel;
-import models.Interval;
+import models.other.Interval;
 import models.UserModel;
-import services.ServiceProvider;
 import services.ArtistService;
+import services.ServiceProvider;
 
 import java.io.File;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class EditArtistProfilePageController extends EditProfileAbstractController {
+public class EditArtistProfilePageController extends AbstractEditProfilePageController {
 
     @FXML
     public TextField genreField;
@@ -50,13 +52,7 @@ public class EditArtistProfilePageController extends EditProfileAbstractControll
     }
 
     @Override
-    public SceneSwitchController.SceneType getControlledSceneType() {
-        return SceneSwitchController.SceneType.EditArtistProfileScene;
-    }
-
-    @Override
     public void onChoosePhotoButtonClick(ActionEvent actionEvent) {
-
         File selectedFile = openFileChooser();
         if (selectedFile != null) {
             artistModel.setPath_to_image(selectedFile.getPath());
@@ -67,16 +63,21 @@ public class EditArtistProfilePageController extends EditProfileAbstractControll
     }
 
     @Override
-    protected void updateUIOnSceneChanged() {
-        fillFieldsWithValuesFromLoggedUserData();
-        List<Interval> intervals;
-        if (artistModel == null) {
-            intervals = null;
-        } else {
-            intervals = artistModel.getIntervals();
-        }
+    protected void updateUIOnInitialize() {
+        super.updateUIOnInitialize();
 
-        gridHBoxes = fillScheduleGridPane(scheduleGridPane, intervals);
+        if (artistModel != null) {
+            bandMembersField.setText(artistModel.getMembers());
+            bandCheckBox.setSelected(artistModel.isIs_band());
+            onSelectBandCheckBoxClick(null);
+
+            genreField.setText(artistModel.getGenre());
+            profilePhoto.setImage(getProfileImage(artistModel.getPath_to_image()));
+
+            List<Interval> intervals = artistModel.getIntervals();
+
+            gridHBoxes = fillScheduleGridPane(scheduleGridPane, intervals);
+        }
     }
 
     @Override
@@ -98,31 +99,6 @@ public class EditArtistProfilePageController extends EditProfileAbstractControll
 
         artistService.updateArtist(artistModel);
         userService.updateUser(userModel);
-    }
-
-    @Override
-    protected void fillFieldsWithValuesFromLoggedUserData() {
-        if (!LoggedUserData.getInstance().isUserLogged()) {
-            return;
-        }
-
-        UserModel userModel = LoggedUserData.getInstance().getUserModel();
-        artistService = ServiceProvider.getArtistService();
-
-        nameField.setText(userModel.getName());
-        emailField.setText(userModel.getEmail());
-        userTypeField.setText(userModel.getType().toString());
-        ArtistModel artistModel = artistService.getArtist(userModel.getId());
-        if (artistModel == null) {
-            return;
-        }
-
-        bandMembersField.setText(artistModel.getMembers());
-        bandCheckBox.setSelected(artistModel.isIs_band());
-        onSelectBandCheckBoxClick(null);
-
-        genreField.setText(artistModel.getGenre());
-        profilePhoto.setImage(getProfileImage(artistModel.getPath_to_image()));
     }
 
     public void onSelectBandCheckBoxClick(ActionEvent actionEvent) {
