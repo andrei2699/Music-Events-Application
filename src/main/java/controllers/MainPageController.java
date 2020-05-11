@@ -88,7 +88,7 @@ public class MainPageController extends ChangeableSceneController {
 
         if (LoggedUserData.getInstance().isBarManager() || LoggedUserData.getInstance().isArtist()) {
             MenuItem goToProfileMenuItem = new CheckMenuItem("Vezi profil");
-            goToProfileMenuItem.setOnAction(this::goEditProfile);
+            goToProfileMenuItem.setOnAction(this::goViewProfile);
             moreActionsContextMenu.getItems().add(goToProfileMenuItem);
         }
 
@@ -222,16 +222,16 @@ public class MainPageController extends ChangeableSceneController {
         artistsCardDetailsTableViewControl.updateTable();
     }
 
-    public void goEditProfile(ActionEvent actionEvent) {
+    public void goViewProfile(ActionEvent actionEvent) {
         if (!LoggedUserData.getInstance().isUserLogged()) {
             return;
         }
 
         UserModel userModel = LoggedUserData.getInstance().getUserModel();
         if (userModel.getType() == UserType.Artist) {
-            SceneSwitchController.getInstance().switchScene(SceneSwitchController.SceneType.EditArtistProfileScene);
+            SceneSwitchController.getInstance().switchScene(SceneSwitchController.SceneType.ViewArtistProfileScene,LoggedUserData.getInstance().getUserModel().getId());
         } else if (userModel.getType() == UserType.Manager) {
-            SceneSwitchController.getInstance().switchScene(SceneSwitchController.SceneType.EditBarProfileScene);
+            SceneSwitchController.getInstance().switchScene(SceneSwitchController.SceneType.ViewBarProfileScene,LoggedUserData.getInstance().getUserModel().getId());
         }
     }
 
