@@ -1,5 +1,7 @@
 package models;
 
+import models.other.Interval;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,18 +17,6 @@ public class BarModel {
         this.address = address;
         this.path_to_image = "";
         this.intervals = new ArrayList<>();
-    }
-
-    public void addInterval(Interval interval) {
-        intervals.add(interval);
-    }
-
-    public void deleteInterval(DaysOfWeek day) {
-        intervals.removeIf(i -> i.getDay().equals(day));
-    }
-
-    public void clearInterval() {
-        intervals.clear();
     }
 
     public int getUser_id() {

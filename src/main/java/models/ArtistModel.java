@@ -1,5 +1,7 @@
 package models;
 
+import models.other.Interval;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,15 +20,6 @@ public class ArtistModel {
         this.genre = genre;
         this.path_to_image = "";
         this.members = "";
-        this.intervals = new ArrayList<>();
-    }
-
-    public ArtistModel(int user_id, boolean is_band, String genre, String members) {
-        this.user_id = user_id;
-        this.is_band = is_band;
-        this.genre = genre;
-        this.members = members;
-        this.path_to_image = "";
         this.intervals = new ArrayList<>();
     }
 

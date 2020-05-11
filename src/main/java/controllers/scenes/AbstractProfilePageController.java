@@ -1,4 +1,4 @@
-package controllers;
+package controllers.scenes;
 
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -6,13 +6,12 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import models.DaysOfWeek;
-import models.Interval;
+import models.other.DaysOfWeek;
+import models.other.Interval;
 import services.ServiceProvider;
 import services.UserService;
 
@@ -24,7 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import static models.DaysOfWeek.NumberOfDays;
+import static models.other.DaysOfWeek.NumberOfDays;
 
 public abstract class AbstractProfilePageController extends ChangeableSceneWithUserModelController {
     private static final String IMAGES_DEFAULT_USER_PHOTO = "/Images/defaultUserPhoto.png";
@@ -42,9 +41,10 @@ public abstract class AbstractProfilePageController extends ChangeableSceneWithU
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         userService = ServiceProvider.getUserService();
+        updateUIOnInitialize();
     }
 
-    protected abstract void updateUIOnSceneChanged();
+    protected abstract void updateUIOnInitialize();
 
     protected List<Interval> getIntervalsFromGrid(HBox[][] hBoxes) {
 

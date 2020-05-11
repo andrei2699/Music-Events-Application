@@ -1,4 +1,4 @@
-package controllers;
+package controllers.components;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -9,10 +9,9 @@ import javafx.scene.control.TableCell;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import main.SceneSwitchController;
-import models.ArtistCardModel;
 import models.ArtistModel;
-import models.BarCardModel;
-import models.BarModel;
+import models.cards.ArtistCardModel;
+import models.cards.TableCardModel;
 
 import java.io.IOException;
 
@@ -28,7 +27,7 @@ public class ArtistDetailsCardController extends TableCell<TableCardModel, Table
     private Label genreLabel;
 
     @FXML
-    private Label bandMemebersLabel;
+    private Label bandMembersLabel;
 
     @FXML
     private HBox bandMembersHBox;
@@ -54,24 +53,20 @@ public class ArtistDetailsCardController extends TableCell<TableCardModel, Table
         super.updateItem(tableCardModel, empty);
 
         if (!empty && tableCardModel != null) {
-          ArtistCardModel artistCardModel = (ArtistCardModel) tableCardModel;
+            ArtistCardModel artistCardModel = (ArtistCardModel) tableCardModel;
             artistModel = artistCardModel.getArtistModel();
             artistNameLabel.setText(artistCardModel.getArtistName());
             genreLabel.setText(artistCardModel.getArtistModel().getGenre());
 
             boolean isBand = artistCardModel.getArtistModel().getIs_band();
-            if(isBand)
-            {
+            if (isBand) {
                 bandMembersHBox.setVisible(true);
-                bandMemebersLabel.setText(artistCardModel.getArtistModel().getMembers());
-            }
-            else
-            {
+                bandMembersLabel.setText(artistCardModel.getArtistModel().getMembers());
+            } else {
                 bandMembersHBox.setVisible(false);
             }
 
             goToProfilePageButton.setOnAction(this::onGoToProfilePageButtonClick);
-
 
             setGraphic(artistDetailsCardVBox);
         } else {
@@ -80,6 +75,6 @@ public class ArtistDetailsCardController extends TableCell<TableCardModel, Table
     }
 
     private void onGoToProfilePageButtonClick(ActionEvent actionEvent) {
-        SceneSwitchController.getInstance().switchScene(SceneSwitchController.SceneType.ViewArtistProfileScene,artistModel.getUser_id());
+        SceneSwitchController.getInstance().switchScene(SceneSwitchController.SceneType.ViewArtistProfileScene, artistModel.getUser_id());
     }
 }

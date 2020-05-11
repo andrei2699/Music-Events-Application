@@ -1,7 +1,7 @@
 package utils;
 
-import controllers.DetailsTableConfigData;
-import controllers.TableCardModel;
+import controllers.components.DetailsTableConfigData;
+import models.cards.TableCardModel;
 import javafx.collections.transformation.FilteredList;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -22,11 +22,11 @@ public final class CardTableFiller {
         tableView.setItems(modelFilteredList);
     }
 
-    public static void setTableData(TableView<TableCardModel> tableView, TableColumn<TableCardModel, TableCardModel> tableColumn, DetailsTableConfigData columnData) {
-        tableView.setPlaceholder(new Label(columnData.getNoContentLabelText()));
-        tableColumn.setCellValueFactory(new PropertyValueFactory<>(columnData.getPropertyValueFactory()));
-        tableColumn.setCellFactory(cell -> columnData.getCellFactory());
-        tableColumn.setText(columnData.getTableColumnText());
+    public static void setTableData(TableView<TableCardModel> tableView, TableColumn<TableCardModel, TableCardModel> tableColumn, DetailsTableConfigData tableConfigData) {
+        tableView.setPlaceholder(new Label(tableConfigData.getNoContentLabelText()));
+        tableColumn.setCellValueFactory(new PropertyValueFactory<>(tableConfigData.getPropertyValueFactory()));
+        tableColumn.setCellFactory(cell -> tableConfigData.getCellFactory());
+        tableColumn.setText(tableConfigData.getTableColumnText());
     }
 
     public static void linkSearchFieldAndFilteredList(TextField searchTextField, FilteredList<TableCardModel> filteredList) {

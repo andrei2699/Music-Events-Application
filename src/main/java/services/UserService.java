@@ -1,7 +1,7 @@
 package services;
 
 import models.UserModel;
-import models.UserType;
+import models.other.UserType;
 import services.implementation.UserExistsException;
 
 import java.util.List;

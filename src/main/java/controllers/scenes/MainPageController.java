@@ -1,10 +1,13 @@
-package controllers;
+package controllers.scenes;
 
+import controllers.components.DetailsTableConfigData;
+import models.cards.TableCardModel;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.geometry.Bounds;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
@@ -12,6 +15,10 @@ import javafx.scene.input.MouseEvent;
 import main.LoggedUserData;
 import main.SceneSwitchController;
 import models.*;
+import models.cards.ArtistCardModel;
+import models.cards.BarCardModel;
+import models.cards.EventCardModel;
+import models.other.UserType;
 import services.ArtistService;
 import services.BarService;
 import services.EventService;
@@ -22,7 +29,7 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class MainPageController extends ChangeableSceneController {
+public class MainPageController implements Initializable {
 
     @FXML
     public TableView<TableCardModel> eventsTableView;
@@ -58,30 +65,6 @@ public class MainPageController extends ChangeableSceneController {
     private EventService eventService;
     private BarService barService;
     private ArtistService artistService;
-
-    @FXML
-    public void onSearchImageClicked(MouseEvent mouseEvent) {
-        eventsSearchTextField.requestFocus();
-    }
-
-    @FXML
-    public void onMoreActionsClicked(MouseEvent mouseEvent) {
-        Bounds bounds = moreActionsImage.localToScreen(moreActionsImage.getBoundsInLocal());
-        double x = bounds.getMaxX();
-        double y = bounds.getMaxY();
-        moreActionsContextMenu.show(moreActionsImage, x, y);
-        moreActionsContextMenu.setX(x - moreActionsContextMenu.getWidth());
-    }
-
-    @Override
-    public void onSceneChanged() {
-
-    }
-
-    @Override
-    public SceneSwitchController.SceneType getControlledSceneType() {
-        return SceneSwitchController.SceneType.MainScene;
-    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -129,6 +112,19 @@ public class MainPageController extends ChangeableSceneController {
         CardTableFiller.setupTable(artistSearchTextField, artistModelFilteredList, artistsTableView, artistsTableColumn, DetailsTableConfigData.getArtistTableColumnData());
     }
 
+    @FXML
+    public void onSearchImageClicked(MouseEvent mouseEvent) {
+        eventsSearchTextField.requestFocus();
+    }
+
+    @FXML
+    public void onMoreActionsClicked(MouseEvent mouseEvent) {
+        Bounds bounds = moreActionsImage.localToScreen(moreActionsImage.getBoundsInLocal());
+        double x = bounds.getMaxX();
+        double y = bounds.getMaxY();
+        moreActionsContextMenu.show(moreActionsImage, x, y);
+        moreActionsContextMenu.setX(x - moreActionsContextMenu.getWidth());
+    }
 
     public void goViewProfile(ActionEvent actionEvent) {
         if (!LoggedUserData.getInstance().isUserLogged()) {

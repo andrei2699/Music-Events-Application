@@ -6,7 +6,7 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="600.0" prefWidth="800.0" styleClass="root-pane" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ViewBarProfilePageController">
+<AnchorPane prefHeight="600.0" prefWidth="800.0" styleClass="root-pane" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.scenes.ViewBarProfilePageController">
     <GridPane gridLinesVisible="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <columnConstraints>
             <ColumnConstraints hgrow="NEVER" maxWidth="345.0" minWidth="10.0" prefWidth="220.0" />
@@ -27,7 +27,7 @@
                     <Insets />
                 </VBox.margin>
                 <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0">
-                    <Label fx:id="nameLabel" text="Numele" />
+                    <Label fx:id="nameLabel" styleClass="card-title" text="Numele" />
                 </HBox>
             </VBox>
             <HBox alignment="BOTTOM_CENTER" prefHeight="100.0" prefWidth="200.0">
@@ -74,8 +74,8 @@
                     </GridPane>
                     <GridPane prefHeight="303.0" prefWidth="500.0">
                         <columnConstraints>
-                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="245.0" minWidth="10.0" prefWidth="130.0" />
-                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="370.0" minWidth="10.0" prefWidth="370.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="245.0" minWidth="10.0" prefWidth="143.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="370.0" minWidth="10.0" prefWidth="347.0" />
                         </columnConstraints>
                         <rowConstraints>
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -87,37 +87,37 @@
                             <Insets left="10.0" />
                         </GridPane.margin>
                         <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                            <Label fx:id="addressLabel" text="adresa" />
+                            <Label fx:id="addressLabel" styleClass="card-subtitle" text="adresa" />
                         </HBox>
                         <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="1">
-                            <Label text="Adresa localului">
+                            <Label styleClass="card-subtitle" text="Adresa localului:">
                                 <HBox.margin>
                                     <Insets />
                                 </HBox.margin>
                             </Label>
                         </HBox>
                         <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="2">
-                            <Label text="Tip utilizator">
+                            <Label styleClass="card-subtitle" text="Tip utilizator:">
                                 <HBox.margin>
                                     <Insets />
                                 </HBox.margin>
                             </Label>
                         </HBox>
                         <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1">
-                            <Label fx:id="emailLabel" text="emaill" />
+                            <Label fx:id="emailLabel" styleClass="card-subtitle" text="emaill" />
                         </HBox>
                         <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
-                            <Label text="Adresa de e-mail">
+                            <Label styleClass="card-subtitle" text="Adresa de e-mail:">
                                 <HBox.margin>
                                     <Insets />
                                 </HBox.margin>
                             </Label>
                         </HBox>
                         <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                            <Label fx:id="userTypeLabel" text="tip" />
+                            <Label fx:id="userTypeLabel" styleClass="card-subtitle" text="tip" />
                         </HBox>
                         <HBox alignment="BOTTOM_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="3">
-                            <Label text="Orar disponibilitati">
+                            <Label styleClass="card-subtitle" text="Orar disponibilitati">
                                 <HBox.margin>
                                     <Insets />
                                 </HBox.margin>

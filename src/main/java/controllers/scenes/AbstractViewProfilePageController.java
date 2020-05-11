@@ -1,16 +1,19 @@
-package controllers;
+package controllers.scenes;
 
+import controllers.components.DetailsTableConfigData;
+import models.cards.TableCardModel;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import main.LoggedUserData;
-import models.EventCardModel;
+import models.cards.EventCardModel;
 import models.EventModel;
 import models.UserModel;
-import services.ArtistService;
 import services.EventService;
 import services.ServiceProvider;
 import utils.CardTableFiller;
@@ -21,7 +24,7 @@ import java.time.LocalTime;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public abstract class ViewProfileAbstractController extends AbstractProfilePageController {
+public abstract class AbstractViewProfilePageController extends AbstractProfilePageController {
 
     @FXML
     public Label nameLabel;
@@ -48,20 +51,27 @@ public abstract class ViewProfileAbstractController extends AbstractProfilePageC
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         super.initialize(location, resources);
-
+        editProfilePageButton.setOnAction(this::onEditProfilePageButtonClick);
         CardTableFiller.setTableData(eventsTableView, eventsTableColumn, DetailsTableConfigData.getEventTableColumnData());
     }
 
     @Override
     public void onSetUserModelId(Integer userModelId) {
         userModel = userService.getUser(userModelId);
-        updateUIOnSceneChanged();
+        updateUIOnInitialize();
     }
 
     @Override
-    protected void updateUIOnSceneChanged() {
+    protected void updateUIOnInitialize() {
         boolean buttonInvisible = userModel == null || !LoggedUserData.getInstance().isUserLogged() || LoggedUserData.getInstance().getUserModel().getId() != userModel.getId();
         editProfilePageButton.setVisible(!buttonInvisible);
+
+        if (userModel != null) {
+            nameLabel.setText(userModel.getName());
+            userTypeLabel.setText(userModel.getType().toString());
+            emailLabel.setText(userModel.getEmail());
+            eventsTableView.setItems(getAllFutureEventsLinkedWithId(userModel.getId()));
+        }
     }
 
     protected final ObservableList<TableCardModel> getAllFutureEventsLinkedWithId(int id) {
@@ -73,7 +83,9 @@ public abstract class ViewProfileAbstractController extends AbstractProfilePageC
         for (EventModel eventModel : allEvents) {
 
             if (eventModel.getArtist_id() == id || eventModel.getBar_manager_id() == id) {
-                if (eventModel.getDate().compareTo(LocalDate.now()) >= 0 && eventModel.getStart_hour() > LocalTime.now().getHour()) {
+                if (eventModel.getDate().compareTo(LocalDate.now()) > 0) {
+                    eventModels.add(new EventCardModel(eventModel));
+                } else if (eventModel.getDate().compareTo(LocalDate.now()) == 0 && eventModel.getStart_hour() > LocalTime.now().getHour()) {
                     eventModels.add(new EventCardModel(eventModel));
                 }
             }

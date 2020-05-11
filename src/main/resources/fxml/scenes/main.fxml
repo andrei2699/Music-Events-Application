@@ -7,7 +7,7 @@
 <?import javafx.scene.text.Font?>
 <?import java.net.URL?>
 
-<AnchorPane prefHeight="600.0" prefWidth="800.0" styleClass="root-pane" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MainPageController">
+<AnchorPane prefHeight="600.0" prefWidth="800.0" styleClass="root-pane" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.scenes.MainPageController">
    <ButtonBar buttonMinWidth="60.0" prefHeight="60.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="0.0">
      <buttons>
          <HBox alignment="CENTER_LEFT">

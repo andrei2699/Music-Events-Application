@@ -1,22 +1,21 @@
-package controllers;
+package controllers.scenes;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import main.LoggedUserData;
-import main.SceneSwitchController;
 import models.BarModel;
-import models.Interval;
+import models.other.Interval;
 import models.UserModel;
-import services.ServiceProvider;
 import services.BarService;
+import services.ServiceProvider;
 
 import java.io.File;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class EditBarProfilePageController extends EditProfileAbstractController {
+public class EditBarProfilePageController extends AbstractEditProfilePageController {
 
     @FXML
     public TextField addressField;
@@ -41,32 +40,26 @@ public class EditBarProfilePageController extends EditProfileAbstractController 
     }
 
     @Override
-    public SceneSwitchController.SceneType getControlledSceneType() {
-        return SceneSwitchController.SceneType.EditBarProfileScene;
-    }
-
-    @Override
     public void onChoosePhotoButtonClick(ActionEvent actionEvent) {
         File selectedFile = openFileChooser();
         if (selectedFile != null) {
             barModel.setPath_to_image(selectedFile.getPath());
             profilePhoto.setImage(getProfileImage(selectedFile.getPath()));
-
             barService.updateBar(barModel);
         }
     }
 
     @Override
-    protected void updateUIOnSceneChanged() {
-        fillFieldsWithValuesFromLoggedUserData();
-        List<Interval> intervals;
-        if (barModel == null) {
-            intervals = null;
-        } else {
-            intervals = barModel.getIntervals();
-        }
+    protected void updateUIOnInitialize() {
+        super.updateUIOnInitialize();
 
-        gridHBoxes = fillScheduleGridPane(scheduleGridPane, intervals);
+        if (barModel != null) {
+            addressField.setText(barModel.getAddress());
+            profilePhoto.setImage(getProfileImage(barModel.getPath_to_image()));
+            List<Interval> intervals = barModel.getIntervals();
+
+            gridHBoxes = fillScheduleGridPane(scheduleGridPane, intervals);
+        }
     }
 
     @Override
@@ -86,27 +79,5 @@ public class EditBarProfilePageController extends EditProfileAbstractController 
 
         barService.updateBar(barModel);
         userService.updateUser(userModel);
-    }
-
-    @Override
-    protected void fillFieldsWithValuesFromLoggedUserData() {
-        if (!LoggedUserData.getInstance().isUserLogged()) {
-            return;
-        }
-
-        UserModel userModel = LoggedUserData.getInstance().getUserModel();
-        barService = ServiceProvider.getBarService();
-
-        nameField.setText(userModel.getName());
-        emailField.setText(userModel.getEmail());
-        userTypeField.setText(userModel.getType().toString());
-
-        BarModel barModel = barService.getBar(userModel.getId());
-        if (barModel == null) {
-            return;
-        }
-
-        addressField.setText(barModel.getAddress());
-        profilePhoto.setImage(getProfileImage(barModel.getPath_to_image()));
     }
 }
