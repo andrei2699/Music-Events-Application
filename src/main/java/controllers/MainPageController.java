@@ -16,6 +16,7 @@ import services.ArtistService;
 import services.BarService;
 import services.EventService;
 import services.ServiceProvider;
+import utils.CardTableFiller;
 
 import java.net.URL;
 import java.util.List;
@@ -23,26 +24,30 @@ import java.util.ResourceBundle;
 
 public class MainPageController extends ChangeableSceneController {
 
-    private static final String NO_EVENTS_TABLE_VIEW_LABEL = "Fara evenimente";
-    private static final String NO_BARS_TABLE_VIEW_LABEL = "Fara localuri";
-    private static final String NO_ARTISTS_TABLE_VIEW_LABEL = "Fara artisti";
-
+    @FXML
+    public TableView<TableCardModel> eventsTableView;
+    @FXML
+    public TableColumn<TableCardModel, TableCardModel> eventsTableColumn;
     @FXML
     public TextField eventsSearchTextField;
+
     @FXML
     public TextField barSearchTextField;
     @FXML
+    public TableView<TableCardModel> artistsTableView;
+    @FXML
+    public TableColumn<TableCardModel, TableCardModel> artistsTableColumn;
+
+    @FXML
     public TextField artistSearchTextField;
+    @FXML
+    public TableView<TableCardModel> barsTableView;
+    @FXML
+    public TableColumn<TableCardModel, TableCardModel> barsTableColumn;
 
     @FXML
     public ImageView moreActionsImage;
 
-    @FXML
-    public CardDetailsTableViewCustomControl eventsCardDetailsTableViewControl;
-    @FXML
-    public CardDetailsTableViewCustomControl barsCardDetailsTableViewControl;
-    @FXML
-    public CardDetailsTableViewCustomControl artistsCardDetailsTableViewControl;
 
     private FilteredList<TableCardModel> eventModelFilteredList;
     private FilteredList<TableCardModel> barModelFilteredList;
@@ -110,117 +115,20 @@ public class MainPageController extends ChangeableSceneController {
         moreActionsContextMenu.getItems().add(goToLogin);
 
         // events table view
-
         eventModelFilteredList = new FilteredList<>(getAllEvents(), m -> true);
-        eventsSearchTextField.textProperty().addListener(observable -> {
-            String filter = eventsSearchTextField.getText();
-            if (filter == null || filter.isEmpty() || filter.isBlank()) {
-                eventModelFilteredList.setPredicate(m -> true);
-            } else {
-                eventModelFilteredList.setPredicate(m -> m.containsFilter(filter));
-            }
-        });
-
-        eventsCardDetailsTableViewControl.setItems(eventModelFilteredList);
-        eventsCardDetailsTableViewControl.setTableColumnData(new TableColumnData() {
-            @Override
-            public String getTableColumnText() {
-                return "Evenimente Dispnibile";
-            }
-
-            @Override
-            public String getPropertyValueFactory() {
-                return "eventCardModel";
-            }
-
-            @Override
-            public String getNoContentLabelText() {
-                return NO_EVENTS_TABLE_VIEW_LABEL;
-            }
-
-            @Override
-            public TableCell<TableCardModel, TableCardModel> getCellFactory() {
-                return new EventDetailsCardController();
-            }
-
-        });
-        eventsCardDetailsTableViewControl.updateTable();
+        CardTableFiller.setupTable(eventsSearchTextField, eventModelFilteredList, eventsTableView, eventsTableColumn, DetailsTableConfigData.getEventTableColumnData());
 
 
         // bars table view
-
         barModelFilteredList = new FilteredList<>(getAllBars(), m -> true);
-        barSearchTextField.textProperty().addListener(observable -> {
-            String filter = barSearchTextField.getText();
-            if (filter == null || filter.isEmpty() || filter.isBlank()) {
-                barModelFilteredList.setPredicate(m -> true);
-            } else {
-                barModelFilteredList.setPredicate(m -> m.containsFilter(filter));
-            }
-        });
+        CardTableFiller.setupTable(barSearchTextField, barModelFilteredList, barsTableView, barsTableColumn, DetailsTableConfigData.getBarTableColumnData());
 
-        barsCardDetailsTableViewControl.setItems(barModelFilteredList);
-        barsCardDetailsTableViewControl.setTableColumnData(new TableColumnData() {
-            @Override
-            public String getTableColumnText() {
-                return "Localuri";
-            }
 
-            @Override
-            public String getPropertyValueFactory() {
-                return "barCardModel";
-            }
-
-            @Override
-            public String getNoContentLabelText() {
-                return NO_BARS_TABLE_VIEW_LABEL;
-            }
-
-            @Override
-            public TableCell<TableCardModel, TableCardModel> getCellFactory() {
-                return new BarDetailsCardController();
-            }
-
-        });
-        barsCardDetailsTableViewControl.updateTable();
-
-//         artists table view
-
+        // artists table view
         artistModelFilteredList = new FilteredList<>(getAllArtists(), m -> true);
-        artistSearchTextField.textProperty().addListener(observable -> {
-            String filter = artistSearchTextField.getText();
-            if (filter == null || filter.isEmpty() || filter.isBlank()) {
-                artistModelFilteredList.setPredicate(m -> true);
-            } else {
-                artistModelFilteredList.setPredicate(m -> m.containsFilter(filter));
-            }
-        });
-
-        artistsCardDetailsTableViewControl.setItems(artistModelFilteredList);
-        artistsCardDetailsTableViewControl.setTableColumnData(new TableColumnData() {
-            @Override
-            public String getTableColumnText() {
-                return "Artisti";
-            }
-
-            @Override
-            public String getPropertyValueFactory() {
-                return "artistCardModel";
-            }
-
-            @Override
-            public String getNoContentLabelText() {
-                return NO_ARTISTS_TABLE_VIEW_LABEL;
-            }
-
-            @Override
-            public TableCell<TableCardModel, TableCardModel> getCellFactory() {
-                return new ArtistDetailsCardController();
-            }
-
-        });
-        artistsCardDetailsTableViewControl.updateTable();
+        CardTableFiller.setupTable(artistSearchTextField, artistModelFilteredList, artistsTableView, artistsTableColumn, DetailsTableConfigData.getArtistTableColumnData());
     }
+
 
     public void goViewProfile(ActionEvent actionEvent) {
         if (!LoggedUserData.getInstance().isUserLogged()) {
@@ -229,9 +137,9 @@ public class MainPageController extends ChangeableSceneController {
 
         UserModel userModel = LoggedUserData.getInstance().getUserModel();
         if (userModel.getType() == UserType.Artist) {
-            SceneSwitchController.getInstance().switchScene(SceneSwitchController.SceneType.ViewArtistProfileScene,LoggedUserData.getInstance().getUserModel().getId());
+            SceneSwitchController.getInstance().switchScene(SceneSwitchController.SceneType.ViewArtistProfileScene, LoggedUserData.getInstance().getUserModel().getId());
         } else if (userModel.getType() == UserType.Manager) {
-            SceneSwitchController.getInstance().switchScene(SceneSwitchController.SceneType.ViewBarProfileScene,LoggedUserData.getInstance().getUserModel().getId());
+            SceneSwitchController.getInstance().switchScene(SceneSwitchController.SceneType.ViewBarProfileScene, LoggedUserData.getInstance().getUserModel().getId());
         }
     }
 

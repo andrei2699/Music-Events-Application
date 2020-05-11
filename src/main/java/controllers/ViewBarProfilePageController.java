@@ -15,7 +15,6 @@ import java.util.ResourceBundle;
 
 public class ViewBarProfilePageController extends ViewProfileAbstractController {
 
-    private UserModel userModel;
     private BarModel barModel;
 
     @FXML
@@ -24,21 +23,23 @@ public class ViewBarProfilePageController extends ViewProfileAbstractController 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         super.initialize(location, resources);
+        editProfilePageButton.setOnAction(this::onEditProfilePageButtonClick);
+
         updateUIOnSceneChanged();
     }
 
     @Override
     protected void updateUIOnSceneChanged() {
-        editProfilePageButton.setOnAction(this::onEditProfilePageButtonClick);
-        if (userModel==null || !LoggedUserData.getInstance().isUserLogged() || LoggedUserData.getInstance().getUserModel().getId() != userModel.getId()){
-            editProfilePageButton.setVisible(false);
-        }
-        if(userModel!=null) {
+        super.updateUIOnSceneChanged();
+
+        if (userModel != null && barModel != null) {
             nameLabel.setText(userModel.getName());
             userTypeLabel.setText(userModel.getType().toString());
             emailLabel.setText(userModel.getEmail());
             addressLabel.setText(barModel.getAddress());
             profilePhoto.setImage(getProfileImage(barModel.getPath_to_image()));
+
+            eventsTableView.setItems(getAllFutureEventsLinkedWithId(userModel.getId()));
         }
     }
 
@@ -58,8 +59,9 @@ public class ViewBarProfilePageController extends ViewProfileAbstractController 
 
     @Override
     public void onSetUserModelId(Integer userModelId) {
+        super.onSetUserModelId(userModelId);
+
         BarService barService = ServiceProvider.getBarService();
-        userModel = userService.getUser(userModelId);
         barModel = barService.getBar(userModel.getId());
         updateUIOnSceneChanged();
     }
