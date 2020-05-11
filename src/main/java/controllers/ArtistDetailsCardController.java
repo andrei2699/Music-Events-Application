@@ -53,7 +53,7 @@ public class ArtistDetailsCardController extends TableCell<TableCardModel, Table
     protected void updateItem(TableCardModel tableCardModel, boolean empty) {
         super.updateItem(tableCardModel, empty);
 
-        if (!empty && artistCardModel != null) {
+        if (!empty && tableCardModel != null) {
           ArtistCardModel artistCardModel = (ArtistCardModel) tableCardModel;
             artistModel = artistCardModel.getArtistModel();
             artistNameLabel.setText(artistCardModel.getArtistName());
