@@ -20,6 +20,11 @@ public final class ApplicationResourceStrings {
     public static final String MAKE_RESERVATION_POPUP_WINDOW_FXML_PATH = "/fxml/components/makeReservationPopupWindow.fxml";
 
     public static final String CHOOSE_PROFILE_PICTURE_TEXT = "Alege poza profil";
+    public static final String VIEW_PROFILE_TEXT = "Vezi profil";
+    public static final String CREATE_EVENT_TEXT = "Creaza eveniment";
+    public static final String MAIN_PAGE_TEXT = "Pagina principala";
+    public static final String LOG_OUT_TEXT = "Delogare";
+    public static final String LOG_IN_TEXT = "Logare";
 
     public static final String IMAGES_DEFAULT_USER_PHOTO_PATH = "/Images/defaultUserPhoto.png";
 
