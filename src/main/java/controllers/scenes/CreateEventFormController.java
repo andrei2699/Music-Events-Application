@@ -1,7 +1,5 @@
 package controllers.scenes;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -17,12 +15,10 @@ import services.UserService;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import static main.SceneSwitchController.SceneType.MainScene;
+import static main.ApplicationResourceStrings.INVALID_ARTIST_NAME_ERROR_MESSAGE;
+import static main.ApplicationResourceStrings.REQUIRED_FIELD_ERROR_MESSAGE;
 
 public class CreateEventFormController implements Initializable {
-    private static final String REQUIRED_FIELD_ERROR_MESSAGE = "* Camp Obligatoriu";
-    private static final String INVALID_ARTIST_NAME_ERROR_MESSAGE = "* Artist/formatie inexistent(a)";
-
     @FXML
     public TextField eventNameField;
 
@@ -125,7 +121,7 @@ public class CreateEventFormController implements Initializable {
                     artistUserModel.getId(), eventNameField.getText(), datePicker.getValue(),
                     startHourComboBox.getValue(), numberOfSeats, descriptionField.getText());
 
-            SceneSwitchController.getInstance().switchScene(MainScene);
+            SceneSwitchController.getInstance().loadFXMLToMainPage(SceneSwitchController.SceneType.MainSceneContent);
         }
     }
 

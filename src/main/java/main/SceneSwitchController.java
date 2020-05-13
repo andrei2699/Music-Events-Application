@@ -6,11 +6,14 @@ import controllers.scenes.ISceneResponseCall;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+
+import static main.ApplicationResourceStrings.MAKE_RESERVATION_POPUP_WINDOW_FXML_PATH;
 
 public final class SceneSwitchController {
 
@@ -18,17 +21,19 @@ public final class SceneSwitchController {
         MainScene,
         RegisterScene,
         LoginScene,
-        ViewBarProfileScene,
-        ViewArtistProfileScene,
-        EditBarProfileScene,
-        EditArtistProfileScene,
-        CreateEventFormScene
+        MainSceneContent,
+        ViewBarProfileContentScene,
+        ViewArtistProfileContentScene,
+        EditBarProfileContentScene,
+        EditArtistProfileContentScene,
+        CreateEventFormContentScene
     }
 
     private static final SceneSwitchController instance = new SceneSwitchController();
 
     private Stage primaryStage;
     private Stage reservationPopupStage;
+    private Pane mainPageContentPane;
 
     private final Map<SceneType, String> sceneMap = new HashMap<>();
 
@@ -36,20 +41,28 @@ public final class SceneSwitchController {
         return instance;
     }
 
+    public void setMainPageContentPane(Pane pageContent) {
+        mainPageContentPane = pageContent;
+    }
+
     public void setPrimaryStage(Stage primaryStage) {
         this.primaryStage = primaryStage;
+    }
+
+    public Stage getPrimaryStage() {
+        return primaryStage;
     }
 
     public void addScene(SceneType type, String pathToFXMLFile) {
         sceneMap.put(type, pathToFXMLFile);
     }
 
-    public void switchScene(SceneType type) {
-        getControllerFromSwitchedScene(type);
+    public void loadFXMLToMainPage(SceneType sceneType) {
+        changeMainPageContent(sceneType);
     }
 
-    public void switchScene(SceneType type, Integer userModelId) {
-        Object controller = getControllerFromSwitchedScene(type);
+    public void loadFXMLToMainPage(SceneType sceneType, Integer userModelId) {
+        Object controller = changeMainPageContent(sceneType);
 
         if (controller instanceof ChangeableSceneWithUserModelController) {
             ChangeableSceneWithUserModelController changeableSceneController = (ChangeableSceneWithUserModelController) controller;
@@ -58,11 +71,23 @@ public final class SceneSwitchController {
         }
     }
 
+    public void switchToMainScene() {
+        switchScene(SceneType.MainScene);
+    }
+
+    public void switchToRegisterScene() {
+        switchScene(SceneType.RegisterScene);
+    }
+
+    public void switchToLoginScene() {
+        switchScene(SceneType.LoginScene);
+    }
+
     public void showReservationPopup(int maximumNumberOfSeats, ISceneResponseCall<Integer> responseCall) {
 
         closeReservationPopup();
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/components/makeReservationPopupWindow.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(MAKE_RESERVATION_POPUP_WINDOW_FXML_PATH));
 
         MakeReservationPopupWindowController controller = new MakeReservationPopupWindowController();
         controller.setPopupResponseCall(responseCall);
@@ -89,24 +114,38 @@ public final class SceneSwitchController {
         }
     }
 
-    public Stage getPrimaryStage() {
-        return primaryStage;
+    private Object changeMainPageContent(SceneType sceneType) {
+        FXMLLoader fxmlLoader = loadFXML(sceneType);
+        Parent root;
+        if (fxmlLoader != null) {
+            root = fxmlLoader.getRoot();
+            mainPageContentPane.getChildren().clear();
+            mainPageContentPane.getChildren().add(root);
+            return fxmlLoader.getController();
+        }
+        return null;
     }
 
-    private Object getControllerFromSwitchedScene(SceneType type) {
+    private FXMLLoader loadFXML(SceneType type) {
         if (sceneMap.containsKey(type)) {
-            primaryStage.setTitle(type.toString());
+
             String path = sceneMap.get(type);
             FXMLLoader loader = new FXMLLoader(getClass().getResource(path));
             try {
-                Parent root = loader.load();
-                Scene scene = new Scene(root);
-                primaryStage.setScene(scene);
+                loader.load();
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            return loader.getController();
+            return loader;
         }
         return null;
+    }
+
+    private void switchScene(SceneType type) {
+        FXMLLoader fxmlLoader = loadFXML(type);
+        if (fxmlLoader != null) {
+            Scene scene = new Scene(fxmlLoader.getRoot());
+            primaryStage.setScene(scene);
+        }
     }
 }

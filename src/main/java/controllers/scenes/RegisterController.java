@@ -17,13 +17,10 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.regex.Pattern;
 
+import static main.ApplicationResourceStrings.*;
 import static main.SceneSwitchController.SceneType.*;
 
 public class RegisterController implements Initializable {
-
-    private static final String REQUIRED_FIELD_ERROR_MESSAGE = "* Camp Obligatoriu";
-    private static final String INVALID_EMAIL_ERROR_MESSAGE = "* Adresa de email invalida";
-    private static final String PASSWORDS_DONT_MATCH_ERROR_MESSAGE = "* Cele doua parole nu sunt identice";
 
     @FXML
     public TextField nameTextField;
@@ -73,7 +70,7 @@ public class RegisterController implements Initializable {
     }
 
     public void onGoToLoginPageClick(ActionEvent actionEvent) {
-        SceneSwitchController.getInstance().switchScene(SceneSwitchController.SceneType.LoginScene);
+        SceneSwitchController.getInstance().switchToLoginScene();
     }
 
     public void onCreateAccountClick(ActionEvent actionEvent) {
@@ -118,12 +115,11 @@ public class RegisterController implements Initializable {
                 UserModel user = userService.createUser(emailTextField.getText(), passwordTextField.getText(), nameTextField.getText(), userTypeComboBox.getValue());
                 LoggedUserData.getInstance().setUserModel(user);
 
+                SceneSwitchController.getInstance().switchToMainScene();
                 if (user.getType() == UserType.Manager) {
-                    SceneSwitchController.getInstance().switchScene(EditBarProfileScene);
+                    SceneSwitchController.getInstance().loadFXMLToMainPage(EditBarProfileContentScene);
                 } else if (user.getType() == UserType.Artist) {
-                    SceneSwitchController.getInstance().switchScene(EditArtistProfileScene);
-                } else {
-                    SceneSwitchController.getInstance().switchScene(MainScene);
+                    SceneSwitchController.getInstance().loadFXMLToMainPage(EditArtistProfileContentScene);
                 }
             } catch (UserExistsException e) {
                 showErrorLabel(emailInUseErrorLabel);
@@ -132,7 +128,7 @@ public class RegisterController implements Initializable {
     }
 
     public void onSkipPageButtonClick(ActionEvent actionEvent) {
-        SceneSwitchController.getInstance().switchScene(SceneSwitchController.SceneType.MainScene);
+        SceneSwitchController.getInstance().switchToMainScene();
     }
 
     private boolean validateEmailAddress(String email) {

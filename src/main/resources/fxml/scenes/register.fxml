@@ -60,7 +60,7 @@
             </Label>
         </HBox>
         <HBox alignment="BOTTOM_CENTER" spacing="30.0">
-            <Button fx:id="createAccountButton" mnemonicParsing="false" onAction="#onCreateAccountClick" styleClass="button-raised" text="Creează Cont" />
+            <Button defaultButton="true" fx:id="createAccountButton" mnemonicParsing="false" onAction="#onCreateAccountClick" styleClass="button-raised" text="Creează Cont" />
             <VBox alignment="TOP_CENTER" spacing="10.0">
                 <Label text="Ai deja un cont?" />
 
@@ -69,7 +69,7 @@
         </HBox>
     </VBox>
     <HBox alignment="CENTER_RIGHT" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="10.0">
-        <Button defaultButton="true" mnemonicParsing="false" onAction="#onSkipPageButtonClick" styleClass="button-raised" text="Continuă fără înregistrare" />
+        <Button mnemonicParsing="false" onAction="#onSkipPageButtonClick" styleClass="button-raised" text="Continuă fără înregistrare" />
     </HBox>
    <stylesheets>
       <URL value="@../../css/material-fx-v0_3.css" />

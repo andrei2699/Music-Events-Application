@@ -14,11 +14,10 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.regex.Pattern;
 
+import static main.ApplicationResourceStrings.INVALID_EMAIL_ERROR_MESSAGE;
+import static main.ApplicationResourceStrings.REQUIRED_FIELD_ERROR_MESSAGE;
+
 public class LoginController implements Initializable {
-
-    private static final String REQUIRED_FIELD_ERROR_MESSAGE = "* Camp Obligatoriu";
-    private static final String INVALID_EMAIL_ERROR_MESSAGE = "* Adresa de email invalida";
-
     @FXML
     public TextField emailTextField;
 
@@ -77,12 +76,12 @@ public class LoginController implements Initializable {
 
     @FXML
     public void onGoToRegisterPageClick(ActionEvent actionEvent) {
-        SceneSwitchController.getInstance().switchScene(SceneSwitchController.SceneType.RegisterScene);
+        SceneSwitchController.getInstance().switchToRegisterScene();
     }
 
     @FXML
     public void onSkipPageButtonClick(ActionEvent actionEvent) {
-        SceneSwitchController.getInstance().switchScene(SceneSwitchController.SceneType.MainScene);
+        SceneSwitchController.getInstance().switchToMainScene();
     }
 
     private void setAllLabelsInvisible() {
