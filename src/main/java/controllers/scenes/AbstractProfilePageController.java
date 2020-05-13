@@ -23,10 +23,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import static main.ApplicationResourceStrings.IMAGES_DEFAULT_USER_PHOTO_PATH;
 import static models.other.DaysOfWeek.NumberOfDays;
 
 public abstract class AbstractProfilePageController extends ChangeableSceneWithUserModelController {
-    private static final String IMAGES_DEFAULT_USER_PHOTO = "/Images/defaultUserPhoto.png";
 
     @FXML
     public ImageView profilePhoto;
@@ -134,7 +134,7 @@ public abstract class AbstractProfilePageController extends ChangeableSceneWithU
     protected Image getProfileImage(String pathToImageFile) {
         if (pathToImageFile.isEmpty()) {
             try {
-                pathToImageFile = Paths.get(getClass().getResource(IMAGES_DEFAULT_USER_PHOTO).toURI()).toString();
+                pathToImageFile = Paths.get(getClass().getResource(IMAGES_DEFAULT_USER_PHOTO_PATH).toURI()).toString();
             } catch (URISyntaxException e) {
                 e.printStackTrace();
             }

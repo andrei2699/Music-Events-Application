@@ -15,6 +15,8 @@ import models.cards.TableCardModel;
 
 import java.io.IOException;
 
+import static main.ApplicationResourceStrings.ARTIST_DETAILS_CARD_FXML_PATH;
+
 public class ArtistDetailsCardController extends TableCell<TableCardModel, TableCardModel> {
 
     @FXML
@@ -38,7 +40,7 @@ public class ArtistDetailsCardController extends TableCell<TableCardModel, Table
     private ArtistModel artistModel;
 
     public ArtistDetailsCardController() {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/components/artistDetailsCard.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(ARTIST_DETAILS_CARD_FXML_PATH));
         fxmlLoader.setController(this);
 
         try {
@@ -75,6 +77,6 @@ public class ArtistDetailsCardController extends TableCell<TableCardModel, Table
     }
 
     private void onGoToProfilePageButtonClick(ActionEvent actionEvent) {
-        SceneSwitchController.getInstance().switchScene(SceneSwitchController.SceneType.ViewArtistProfileScene, artistModel.getUser_id());
+        SceneSwitchController.getInstance().loadFXMLToMainPage(SceneSwitchController.SceneType.ViewArtistProfileContentScene, artistModel.getUser_id());
     }
 }

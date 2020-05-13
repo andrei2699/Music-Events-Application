@@ -10,6 +10,8 @@ import models.UserModel;
 
 import java.io.File;
 
+import static main.ApplicationResourceStrings.CHOOSE_PROFILE_PICTURE_TEXT;
+
 public abstract class AbstractEditProfilePageController extends AbstractProfilePageController {
     @FXML
     public TextField nameField;
@@ -42,14 +44,9 @@ public abstract class AbstractEditProfilePageController extends AbstractProfileP
 
     }
 
-    public void onGoToStartPageButtonClick(ActionEvent actionEvent) {
-        onSaveChangesButtonClick(actionEvent);
-        SceneSwitchController.getInstance().switchScene(SceneSwitchController.SceneType.MainScene);
-    }
-
     protected final File openFileChooser() {
         FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Alege poza profil");
+        fileChooser.setTitle(CHOOSE_PROFILE_PICTURE_TEXT);
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"));
         return fileChooser.showOpenDialog(SceneSwitchController.getInstance().getPrimaryStage());
     }

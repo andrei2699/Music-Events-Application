@@ -14,6 +14,8 @@ import models.cards.TableCardModel;
 
 import java.io.IOException;
 
+import static main.ApplicationResourceStrings.BAR_DETAILS_CARD_FXML_PATH;
+
 public class BarDetailsCardController extends TableCell<TableCardModel, TableCardModel> {
 
     @FXML
@@ -31,7 +33,7 @@ public class BarDetailsCardController extends TableCell<TableCardModel, TableCar
     private BarModel barModel;
 
     public BarDetailsCardController() {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/components/barDetailsCard.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(BAR_DETAILS_CARD_FXML_PATH));
         fxmlLoader.setController(this);
 
         try {
@@ -60,6 +62,6 @@ public class BarDetailsCardController extends TableCell<TableCardModel, TableCar
     }
 
     private void onGoToProfilePageButtonClick(ActionEvent actionEvent) {
-        SceneSwitchController.getInstance().switchScene(SceneSwitchController.SceneType.ViewBarProfileScene, barModel.getUser_id());
+        SceneSwitchController.getInstance().loadFXMLToMainPage(SceneSwitchController.SceneType.ViewBarProfileContentScene, barModel.getUser_id());
     }
 }

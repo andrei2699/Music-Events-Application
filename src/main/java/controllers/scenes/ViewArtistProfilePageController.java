@@ -22,7 +22,7 @@ public class ViewArtistProfilePageController extends AbstractViewProfilePageCont
 
     @Override
     protected void onEditProfilePageButtonClick(ActionEvent actionEvent) {
-        SceneSwitchController.getInstance().switchScene(SceneSwitchController.SceneType.EditArtistProfileScene);
+        SceneSwitchController.getInstance().loadFXMLToMainPage(SceneSwitchController.SceneType.EditArtistProfileContentScene);
     }
 
     @Override

@@ -1,125 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.*?>
 <?import javafx.geometry.*?>
+<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.Font?>
-<?import java.net.URL?>
+<?import javafx.scene.text.*?>
 
 <AnchorPane prefHeight="600.0" prefWidth="800.0" styleClass="root-pane" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.scenes.MainPageController">
-   <ButtonBar buttonMinWidth="60.0" prefHeight="60.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="0.0">
-     <buttons>
-         <HBox alignment="CENTER_LEFT">
-             <Label prefWidth="3000.0" text="Music Events Application" HBox.hgrow="ALWAYS">
-                 <font>
-                     <Font size="20.0" />
-                 </font>
-             </Label>
-         </HBox>
-         <ImageView fx:id="moreActionsImage" fitHeight="26.0" fitWidth="26.0" onMouseClicked="#onMoreActionsClicked" pickOnBounds="true" preserveRatio="true">
-             <Image url="@../../Images/more_vert_icon_black_18dp.png" />
-         </ImageView>
-     </buttons>
-   </ButtonBar>
-    <TabPane tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="60.0">
-        <Tab text="Evenimente">
-            <VBox>
-            <HBox alignment="CENTER_LEFT" fillHeight="false" spacing="4.0" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="16.0" AnchorPane.topAnchor="60.0">
-                <ImageView fitHeight="26.0" fitWidth="26.0" onMouseClicked="#onSearchImageClicked" pickOnBounds="true" preserveRatio="true">
-                    <HBox.margin>
-                        <Insets />
-                    </HBox.margin>
-                    <Image url="@../../Images/search_icon_black_18dp.png" />
-                </ImageView>
-                <TextField fx:id="eventsSearchTextField" prefWidth="700.0" promptText="Caută evenimente...">
-                    <opaqueInsets>
-                        <Insets />
-                    </opaqueInsets>
-                </TextField>
-               <VBox.margin>
-                  <Insets left="10.0" top="20.0" />
-               </VBox.margin>
+    <ButtonBar buttonMinWidth="60.0" prefHeight="60.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="0.0">
+        <buttons>
+            <HBox alignment="CENTER_LEFT">
+                <Label onMouseClicked="#onTitleClick" prefWidth="3000.0" text="Music Events Application" HBox.hgrow="ALWAYS">
+                    <font>
+                        <Font size="20.0" />
+                    </font>
+               <cursor>
+                  <Cursor fx:constant="OPEN_HAND" />
+               </cursor>
+                </Label>
             </HBox>
-                <TableView fx:id="eventsTableView" prefHeight="430.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="110.0">
-                    <columns>
-                        <TableColumn fx:id="eventsTableColumn" editable="false" minWidth="160.0" prefWidth="-1.0" sortable="false" text="Evenimente Dispnibile" />
-                    </columns>
-                    <columnResizePolicy>
-                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                    </columnResizePolicy>
-                    <padding>
-                        <Insets bottom="2.0" left="8.0" right="8.0" top="2.0" />
-                    </padding>
-                    <VBox.margin>
-                        <Insets />
-                    </VBox.margin>
-                </TableView>
-            </VBox>
-        </Tab>
-        <Tab text="Localuri">
-            <VBox>
-                <HBox alignment="CENTER_LEFT" fillHeight="false" spacing="4.0" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="16.0" AnchorPane.topAnchor="60.0">
-                    <ImageView fitHeight="26.0" fitWidth="26.0" onMouseClicked="#onSearchImageClicked" pickOnBounds="true" preserveRatio="true">
-                        <HBox.margin>
-                            <Insets />
-                        </HBox.margin>
-                        <Image url="@../../Images/search_icon_black_18dp.png" />
-                    </ImageView>
-                    <TextField fx:id="barSearchTextField" prefWidth="700.0" promptText="Caută localuri...">
-                        <opaqueInsets>
-                            <Insets />
-                        </opaqueInsets>
-                    </TextField>
-                    <VBox.margin>
-                        <Insets left="10.0" top="20.0" />
-                    </VBox.margin>
-                </HBox>
-                <TableView fx:id="barsTableView" prefHeight="430.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="110.0">
-                    <columns>
-                        <TableColumn fx:id="barsTableColumn" editable="false" minWidth="160.0" prefWidth="-1.0" sortable="false" text="Localuri" />
-                    </columns>
-                    <columnResizePolicy>
-                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                    </columnResizePolicy>
-                    <padding>
-                        <Insets bottom="2.0" left="8.0" right="8.0" top="2.0" />
-                    </padding>
-                </TableView>
-            </VBox>
-        </Tab>
-        <Tab text="Artiști">
-            <VBox>
-                <HBox alignment="CENTER_LEFT" fillHeight="false" spacing="4.0" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="16.0" AnchorPane.topAnchor="60.0">
-                    <ImageView fitHeight="26.0" fitWidth="26.0" onMouseClicked="#onSearchImageClicked" pickOnBounds="true" preserveRatio="true">
-                        <HBox.margin>
-                            <Insets />
-                        </HBox.margin>
-                        <Image url="@../../Images/search_icon_black_18dp.png" />
-                    </ImageView>
-                    <TextField fx:id="artistSearchTextField" prefWidth="700.0" promptText="Caută artiști...">
-                        <opaqueInsets>
-                            <Insets />
-                        </opaqueInsets>
-                    </TextField>
-                    <VBox.margin>
-                        <Insets left="10.0" top="20.0" />
-                    </VBox.margin>
-                </HBox>
-                <TableView fx:id="artistsTableView" prefHeight="430.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="110.0">
-                    <columns>
-                        <TableColumn fx:id="artistsTableColumn" editable="false" minWidth="160.0" prefWidth="-1.0" sortable="false" text="Artiști" />
-                    </columns>
-                    <columnResizePolicy>
-                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                    </columnResizePolicy>
-                    <padding>
-                        <Insets bottom="2.0" left="8.0" right="8.0" top="2.0" />
-                    </padding>
-                </TableView>
-            </VBox>
-        </Tab>
-    </TabPane>
+            <ImageView fx:id="moreActionsImage" fitHeight="26.0" fitWidth="26.0" onMouseClicked="#onMoreActionsClicked" pickOnBounds="true" preserveRatio="true">
+                <Image url="@../../Images/more_vert_icon_black_18dp.png" />
+            </ImageView>
+        </buttons>
+    </ButtonBar>
+    <AnchorPane fx:id="pageContent" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="60.0">
+      <padding>
+         <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
+      </padding></AnchorPane>
     <stylesheets>
         <URL value="@../../css/material-fx-v0_3.css" />
         <URL value="@../../css/stylesheet.css" />

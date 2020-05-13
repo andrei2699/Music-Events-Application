@@ -15,6 +15,8 @@ import models.cards.TableCardModel;
 
 import java.io.IOException;
 
+import static main.ApplicationResourceStrings.EVENT_DETAILS_CARD_FXML_PATH;
+
 public class EventDetailsCardController extends TableCell<TableCardModel, TableCardModel> {
     private static final double MIN_DESCRIPTION_LABEL_WIDTH = 240;
 
@@ -63,7 +65,7 @@ public class EventDetailsCardController extends TableCell<TableCardModel, TableC
     private EventModel eventModel;
 
     public EventDetailsCardController() {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/components/eventDetailsCard.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(EVENT_DETAILS_CARD_FXML_PATH));
         fxmlLoader.setController(this);
 
         try {

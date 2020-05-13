@@ -27,7 +27,7 @@ public class ViewBarProfilePageController extends AbstractViewProfilePageControl
 
     @Override
     protected void onEditProfilePageButtonClick(ActionEvent actionEvent) {
-        SceneSwitchController.getInstance().switchScene(SceneSwitchController.SceneType.EditBarProfileScene);
+        SceneSwitchController.getInstance().loadFXMLToMainPage(SceneSwitchController.SceneType.EditBarProfileContentScene);
     }
 
     @Override
