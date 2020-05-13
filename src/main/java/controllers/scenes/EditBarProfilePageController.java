@@ -36,6 +36,8 @@ public class EditBarProfilePageController extends AbstractEditProfilePageControl
                 barModel = new BarModel(userModel.getId(), "");
             }
             barService.createBar(barModel);
+
+            updateUIOnInitialize();
         }
     }
 
