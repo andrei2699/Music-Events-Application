@@ -48,6 +48,8 @@ public class EditArtistProfilePageController extends AbstractEditProfilePageCont
                 artistModel = new ArtistModel(userModel.getId(), false, "");
             }
             artistService.createArtist(artistModel);
+
+            updateUIOnInitialize();
         }
     }
 
