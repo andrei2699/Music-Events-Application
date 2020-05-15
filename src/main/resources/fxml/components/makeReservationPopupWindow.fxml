@@ -2,23 +2,33 @@
 
 <?import java.lang.*?>
 <?import java.net.*?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="200.0" prefWidth="250.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
-    <VBox alignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+<AnchorPane prefHeight="200.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
+    <VBox alignment="TOP_CENTER" spacing="8.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <HBox>
             <Label styleClass="card-title" text="Rezerva bilet" />
         </HBox>
         <HBox spacing="10.0">
             <Label styleClass="card-subtitle" text="Numar locuri:" />
-          <Label fx:id="selectedSeatsLabel" layoutX="10.0" layoutY="10.0" styleClass="card-subtitle" text="30" />
+         <TextField fx:id="selectedTextField" prefWidth="80.0" />
         </HBox>
         <HBox>
-            <Slider fx:id="selectedSeatsSlider" blockIncrement="1.0" majorTickUnit="1.0" minorTickCount="0" showTickLabels="true" snapToTicks="true" />
+            <Slider fx:id="selectedSeatsSlider" blockIncrement="1.0" majorTickUnit="1.0" max="35.0" min="1.0" minorTickCount="0" prefWidth="300.0" snapToTicks="true">
+            <HBox.margin>
+               <Insets />
+            </HBox.margin></Slider>
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
         </HBox>
         <HBox alignment="CENTER_RIGHT">
             <Button fx:id="reserveButton" defaultButton="true" mnemonicParsing="false" styleClass="button-raised" text="Rezerva" />
+         <VBox.margin>
+            <Insets top="8.0" />
+         </VBox.margin>
         </HBox>
     </VBox>
     <stylesheets>

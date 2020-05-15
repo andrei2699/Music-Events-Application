@@ -7,7 +7,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -101,6 +103,7 @@ public final class SceneSwitchController {
             reservationPopupStage.centerOnScreen();
             reservationPopupStage.setTitle("Rezervare");
             reservationPopupStage.setScene(new Scene(root));
+            reservationPopupStage.initModality(Modality.APPLICATION_MODAL);
             reservationPopupStage.showAndWait();
         } catch (IOException e) {
             e.printStackTrace();
