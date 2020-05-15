@@ -74,7 +74,7 @@ public class EventServiceImpl implements EventService {
         List<EventModel> events = getAllEvents();
 
         GsonBuilder gsonBuilder = new GsonBuilder();
-        Gson gson = gsonBuilder.create();
+        Gson gson = gsonBuilder.setPrettyPrinting().create();
 
         for (EventModel event : events) {
             if (event.getId() == model.getId()) {
