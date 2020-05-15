@@ -21,6 +21,7 @@ import utils.CardTableFiller;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -76,18 +77,12 @@ public abstract class AbstractViewProfilePageController extends AbstractProfileP
 
     protected final ObservableList<TableCardModel> getAllFutureEventsLinkedWithId(int id) {
         EventService eventService = ServiceProvider.getEventService();
-
         ObservableList<TableCardModel> eventModels = FXCollections.observableArrayList();
+        List<EventModel> allEvents = eventService.getEventsStartingFrom(LocalDate.now(), LocalTime.now().getHour());
 
-        List<EventModel> allEvents = eventService.getAllEvents();
         for (EventModel eventModel : allEvents) {
-
             if (eventModel.getArtist_id() == id || eventModel.getBar_manager_id() == id) {
-                if (eventModel.getDate().compareTo(LocalDate.now()) > 0) {
-                    eventModels.add(new EventCardModel(eventModel));
-                } else if (eventModel.getDate().compareTo(LocalDate.now()) == 0 && eventModel.getStart_hour() > LocalTime.now().getHour()) {
-                    eventModels.add(new EventCardModel(eventModel));
-                }
+                eventModels.add(new EventCardModel(eventModel));
             }
         }
 
