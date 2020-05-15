@@ -26,6 +26,8 @@ import services.ServiceProvider;
 import utils.CardTableFiller;
 
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -94,8 +96,7 @@ public class MainPageContentController implements Initializable {
 
     private ObservableList<TableCardModel> getAllEvents() {
         ObservableList<TableCardModel> eventModels = FXCollections.observableArrayList();
-
-        List<EventModel> allEvents = eventService.getAllEvents();
+        List<EventModel> allEvents = eventService.getEventsStartingFrom(LocalDate.now(), LocalTime.now().getHour());
         for (EventModel eventModel : allEvents) {
             eventModels.add(new EventCardModel(eventModel));
         }

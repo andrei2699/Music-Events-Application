@@ -1,8 +1,13 @@
 package services;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import models.EventModel;
+import models.cards.EventCardModel;
+import models.cards.TableCardModel;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 public interface EventService {
@@ -14,7 +19,7 @@ public interface EventService {
 
     List<EventModel> getEventsUsingArtistId(int artist_id);
 
-    List<EventModel> getEventsWithDate(LocalDate date);
+    List<EventModel> getEventsStartingFrom(LocalDate date, int startHour);
 
     void updateEvent(EventModel model);
 

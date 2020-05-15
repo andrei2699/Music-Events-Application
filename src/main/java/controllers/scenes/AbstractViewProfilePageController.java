@@ -77,19 +77,12 @@ public abstract class AbstractViewProfilePageController extends AbstractProfileP
 
     protected final ObservableList<TableCardModel> getAllFutureEventsLinkedWithId(int id) {
         EventService eventService = ServiceProvider.getEventService();
-
         ObservableList<TableCardModel> eventModels = FXCollections.observableArrayList();
+        List<EventModel> allEvents = eventService.getEventsStartingFrom(LocalDate.now(), LocalTime.now().getHour());
 
-        List<EventModel> allEvents = eventService.getAllEvents();
         for (EventModel eventModel : allEvents) {
-
             if (eventModel.getArtist_id() == id || eventModel.getBar_manager_id() == id) {
-                LocalDate parseLocalDate = LocalDate.parse(eventModel.getDate());
-                if (parseLocalDate.compareTo(LocalDate.now()) > 0) {
-                    eventModels.add(new EventCardModel(eventModel));
-                } else if (parseLocalDate.compareTo(LocalDate.now()) == 0 && eventModel.getStart_hour() > LocalTime.now().getHour()) {
-                    eventModels.add(new EventCardModel(eventModel));
-                }
+                eventModels.add(new EventCardModel(eventModel));
             }
         }
 
