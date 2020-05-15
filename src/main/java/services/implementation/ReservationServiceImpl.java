@@ -9,7 +9,6 @@ import services.ReservationService;
 import services.ServiceProvider;
 
 import java.nio.file.Path;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,46 +19,6 @@ public class ReservationServiceImpl implements ReservationService {
         List<ReservationModel> searchResults = new ArrayList<>();
         for (ReservationModel reservation : allReservations)
             if (reservation.getUser_id() == user_id)
-                searchResults.add(reservation);
-        return searchResults;
-    }
-
-    @Override
-    public List<ReservationModel> getReservationUsingEventId(int event_id) {
-        List<ReservationModel> allReservations = getAllReservations();
-        List<ReservationModel> searchResults = new ArrayList<>();
-        for (ReservationModel reservation : allReservations)
-            if (reservation.getEvent_id() == event_id)
-                searchResults.add(reservation);
-        return searchResults;
-    }
-
-    @Override
-    public List<ReservationModel> getReservationUsingArtistId(int artist_id) {
-        List<ReservationModel> allReservations = getAllReservations();
-        List<ReservationModel> searchResults = new ArrayList<>();
-        for (ReservationModel reservation : allReservations)
-            if (ServiceProvider.getEventService().getEventUsingEventId(reservation.getEvent_id()).getArtist_id() == artist_id)
-                searchResults.add(reservation);
-        return searchResults;
-    }
-
-    @Override
-    public List<ReservationModel> getReservationUsingBarId(int bar_manager_id) {
-        List<ReservationModel> allReservations = getAllReservations();
-        List<ReservationModel> searchResults = new ArrayList<>();
-        for (ReservationModel reservation : allReservations)
-            if (ServiceProvider.getEventService().getEventUsingEventId(reservation.getEvent_id()).getBar_manager_id() == bar_manager_id)
-                searchResults.add(reservation);
-        return searchResults;
-    }
-
-    @Override
-    public List<ReservationModel> getReservationUsingDate(LocalDate date) {
-        List<ReservationModel> allReservations = getAllReservations();
-        List<ReservationModel> searchResults = new ArrayList<>();
-        for (ReservationModel reservation : allReservations)
-            if (ServiceProvider.getEventService().getEventUsingEventId(reservation.getEvent_id()).getDate().equals(date.toString()))
                 searchResults.add(reservation);
         return searchResults;
     }
@@ -93,7 +52,7 @@ public class ReservationServiceImpl implements ReservationService {
             }
         }
 
-        ReservationModel reservationModel = new ReservationModel(biggestId+1,userId,eventId,numberOfSeats);
+        ReservationModel reservationModel = new ReservationModel(biggestId + 1, userId, eventId, numberOfSeats);
 
         reservations.add(reservationModel);
 

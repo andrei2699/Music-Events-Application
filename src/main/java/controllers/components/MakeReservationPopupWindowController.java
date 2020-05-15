@@ -1,16 +1,10 @@
 package controllers.components;
 
 import controllers.scenes.ISceneResponseCall;
-import javafx.application.Platform;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import main.SceneSwitchController;
@@ -70,7 +64,6 @@ public class MakeReservationPopupWindowController implements Initializable {
         if (numberOfSeatsResponseCall != null) {
             numberOfSeatsResponseCall.onResponseCall((int) selectedSeatsSlider.getValue());
         }
-
         SceneSwitchController.getInstance().closeReservationPopup();
     }
 }
