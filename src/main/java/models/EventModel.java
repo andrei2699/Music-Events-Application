@@ -1,19 +1,17 @@
 package models;
 
-import java.time.LocalDate;
-
 public class EventModel {
     private final int id;
     private final int bar_manager_id;
     private final int artist_id;
     private String name;
-    private LocalDate date;
+    private String date;
     private int start_hour;
     private String description;
     private int total_seats;
     private int reserved_seats;
 
-    public EventModel(int id, int barManagerId, int artistId, String name, LocalDate date, int startHour, int totalSeats) {
+    public EventModel(int id, int barManagerId, int artistId, String name, String date, int startHour, int totalSeats) {
         this.id = id;
         this.bar_manager_id = barManagerId;
         this.artist_id = artistId;
@@ -27,7 +25,7 @@ public class EventModel {
         this.name = name;
     }
 
-    public void setDate(LocalDate date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
@@ -63,7 +61,7 @@ public class EventModel {
         return name;
     }
 
-    public LocalDate getDate() {
+    public String getDate() {
         return date;
     }
 

@@ -81,7 +81,7 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public void createEvent(int bar_id, int artist_id, String eventName, LocalDate date, int startHour, int totalSeats, String description) {
+    public void createEvent(int bar_id, int artist_id, String eventName, String date, int startHour, int totalSeats, String description) {
         FileSystemManager fileSystemManager = ServiceProvider.getFileSystemManager();
         Path eventsFilePath = fileSystemManager.getEventsFilePath();
         List<EventModel> events = getAllEvents();
