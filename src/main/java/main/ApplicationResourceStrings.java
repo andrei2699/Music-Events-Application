@@ -17,6 +17,7 @@ public final class ApplicationResourceStrings {
     public static final String EVENT_DETAILS_CARD_FXML_PATH = "/fxml/components/eventDetailsCard.fxml";
     public static final String BAR_DETAILS_CARD_FXML_PATH = "/fxml/components/barDetailsCard.fxml";
     public static final String ARTIST_DETAILS_CARD_FXML_PATH = "/fxml/components/artistDetailsCard.fxml";
+    public static final String RESERVATION_DETAILS_CARD_FXML_PATH = "/fxml/components/reservationDetailsCard.fxml";
 
     public static final String MAKE_RESERVATION_POPUP_WINDOW_FXML_PATH = "/fxml/components/makeReservationPopupWindow.fxml";
 

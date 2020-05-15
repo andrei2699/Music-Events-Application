@@ -15,19 +15,19 @@
             <Label styleClass="title-label" text="Nume local:" />
             <Label fx:id="barNameLabel" text="local" />
         </HBox>
-        <HBox fx:id="bandMembersHBox" spacing="10.0">
+        <HBox spacing="10.0">
             <Label text="Nume artist:" />
             <Label fx:id="artistNameLabel" text="artist" />
         </HBox>
-        <HBox fx:id="bandMembersHBox1" layoutX="10.0" layoutY="50.0" spacing="10.0">
+        <HBox layoutX="10.0" layoutY="50.0" spacing="10.0">
             <Label text="Nume locuri:"/>
             <Label fx:id="numberOfSeatsLabel" text="locuri"/>
         </HBox>
-        <HBox fx:id="bandMembersHBox11" layoutX="10.0" layoutY="90.0" spacing="10.0">
+        <HBox layoutX="10.0" layoutY="90.0" spacing="10.0">
             <Label text="Data:"/>
             <Label fx:id="dateLabel" text="data"/>
         </HBox>
-        <HBox fx:id="bandMembersHBox111" layoutX="10.0" layoutY="130.0" spacing="10.0">
+        <HBox layoutX="10.0" layoutY="130.0" spacing="10.0">
             <Label text="Ora de inceput:"/>
             <Label fx:id="startHourLabel" text="ora"/>
         </HBox>

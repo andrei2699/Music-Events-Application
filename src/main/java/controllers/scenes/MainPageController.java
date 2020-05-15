@@ -88,7 +88,7 @@ public class MainPageController implements Initializable {
         } else if (userModel.getType() == UserType.Manager) {
             SceneSwitchController.getInstance().loadFXMLToMainPage(SceneSwitchController.SceneType.ViewBarProfileContentScene, LoggedUserData.getInstance().getUserModel().getId());
         } else {
-            SceneSwitchController.getInstance().loadFXMLToMainPage(SceneSwitchController.SceneType.ViewBarProfileContentScene, LoggedUserData.getInstance().getUserModel().getId());
+            SceneSwitchController.getInstance().loadFXMLToMainPage(SceneSwitchController.SceneType.ViewRegularUserContentScene);
         }
     }
 }
