@@ -49,7 +49,7 @@ public class MainPageController implements Initializable {
         SceneSwitchController.getInstance().setMainPageContentPane(pageContent);
         SceneSwitchController.getInstance().loadFXMLToMainPage(SceneSwitchController.SceneType.MainSceneContent);
 
-        if (LoggedUserData.getInstance().isBarManager() || LoggedUserData.getInstance().isArtist()) {
+        if (LoggedUserData.getInstance().isUserLogged()) {
             MenuItem goToProfileMenuItem = new MenuItem(VIEW_PROFILE_TEXT);
             goToProfileMenuItem.setOnAction(this::goViewProfile);
             moreActionsContextMenu.getItems().add(goToProfileMenuItem);
@@ -87,6 +87,8 @@ public class MainPageController implements Initializable {
             SceneSwitchController.getInstance().loadFXMLToMainPage(SceneSwitchController.SceneType.ViewArtistProfileContentScene, LoggedUserData.getInstance().getUserModel().getId());
         } else if (userModel.getType() == UserType.Manager) {
             SceneSwitchController.getInstance().loadFXMLToMainPage(SceneSwitchController.SceneType.ViewBarProfileContentScene, LoggedUserData.getInstance().getUserModel().getId());
+        } else {
+            SceneSwitchController.getInstance().loadFXMLToMainPage(SceneSwitchController.SceneType.ViewRegularUserContentScene);
         }
     }
 }

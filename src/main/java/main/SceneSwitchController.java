@@ -26,6 +26,7 @@ public final class SceneSwitchController {
         MainSceneContent,
         ViewBarProfileContentScene,
         ViewArtistProfileContentScene,
+        ViewRegularUserContentScene,
         EditBarProfileContentScene,
         EditArtistProfileContentScene,
         CreateEventFormContentScene

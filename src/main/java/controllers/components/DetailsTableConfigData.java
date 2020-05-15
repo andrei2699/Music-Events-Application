@@ -86,4 +86,28 @@ public abstract class DetailsTableConfigData {
             }
         };
     }
+
+    public static DetailsTableConfigData getReservationTableColumnData() {
+        return new DetailsTableConfigData() {
+            @Override
+            public String getTableColumnText() {
+                return "Rezervari";
+            }
+
+            @Override
+            public String getPropertyValueFactory() {
+                return "reservationCardModel";
+            }
+
+            @Override
+            public String getNoContentLabelText() {
+                return "Fara rezervari";
+            }
+
+            @Override
+            public TableCell<TableCardModel, TableCardModel> getCellFactory() {
+                return new ReservationDetailsCardController();
+            }
+        };
+    }
 }
