@@ -31,8 +31,8 @@ public class ViewBarProfilePageController extends AbstractViewProfilePageControl
     }
 
     @Override
-    public void onSetUserModelId(Integer userModelId) {
-        super.onSetUserModelId(userModelId);
+    public void onSetModelId(Integer modelId) {
+        super.onSetModelId(modelId);
 
         BarService barService = ServiceProvider.getBarService();
         barModel = barService.getBar(userModel.getId());

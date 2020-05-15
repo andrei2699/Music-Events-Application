@@ -26,7 +26,7 @@ import java.util.ResourceBundle;
 import static main.ApplicationResourceStrings.IMAGES_DEFAULT_USER_PHOTO_PATH;
 import static models.other.DaysOfWeek.NumberOfDays;
 
-public abstract class AbstractProfilePageController extends ChangeableSceneWithUserModelController {
+public abstract class AbstractProfilePageController extends ChangeableSceneWithModelController {
 
     @FXML
     public ImageView profilePhoto;

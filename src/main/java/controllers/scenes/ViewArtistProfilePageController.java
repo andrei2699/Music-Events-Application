@@ -45,8 +45,8 @@ public class ViewArtistProfilePageController extends AbstractViewProfilePageCont
     }
 
     @Override
-    public void onSetUserModelId(Integer userModelId) {
-        super.onSetUserModelId(userModelId);
+    public void onSetModelId(Integer modelId) {
+        super.onSetModelId(modelId);
 
         ArtistService artistService = ServiceProvider.getArtistService();
         artistModel = artistService.getArtist(userModel.getId());
