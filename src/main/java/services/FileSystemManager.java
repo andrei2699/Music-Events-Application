@@ -38,30 +38,12 @@ public final class FileSystemManager {
         if (!Files.exists(dataDirectoryPath)) {
             Files.createDirectories(dataDirectoryPath);
         }
-
-        Path usersFilePath = dataDirectoryPath.resolve(USERS_JSON_FILE_NAME);
-        if (!Files.exists(usersFilePath)) {
-            Files.createFile(usersFilePath);
-            writeEmptyJSONArrayToFile(usersFilePath);
-        }
-
-        Path barsFilePath = dataDirectoryPath.resolve(BARS_JSON_FILE_NAME);
-        if (!Files.exists(barsFilePath)) {
-            Files.createFile(barsFilePath);
-            writeEmptyJSONArrayToFile(barsFilePath);
-        }
-
-        Path artistsFilePath = dataDirectoryPath.resolve(ARTISTS_JSON_FILE_NAME);
-        if (!Files.exists(artistsFilePath)) {
-            Files.createFile(artistsFilePath);
-            writeEmptyJSONArrayToFile(artistsFilePath);
-        }
-
-        Path eventsFilePath = dataDirectoryPath.resolve(EVENTS_JSON_FILE_NAME);
-        if (!Files.exists(eventsFilePath)) {
-            Files.createFile(eventsFilePath);
-            writeEmptyJSONArrayToFile(eventsFilePath);
-        }
+        
+        createJsonFileFromPath(dataDirectoryPath, USERS_JSON_FILE_NAME);
+        createJsonFileFromPath(dataDirectoryPath, EVENTS_JSON_FILE_NAME);
+        createJsonFileFromPath(dataDirectoryPath, ARTISTS_JSON_FILE_NAME);
+        createJsonFileFromPath(dataDirectoryPath, BARS_JSON_FILE_NAME);
+        createJsonFileFromPath(dataDirectoryPath, RESERVATIONS_JSON_FILE_NAME);
     }
 
     public String readFileContent(Path path) {
@@ -110,5 +92,13 @@ public final class FileSystemManager {
         if (!Files.exists(path)) return;
 
         Files.writeString(path, "[]");
+    }
+
+    private void createJsonFileFromPath(Path dataDirectoryPath, String path) throws IOException {
+        Path filePath = dataDirectoryPath.resolve(path);
+        if (!Files.exists(filePath)) {
+            Files.createFile(filePath);
+            writeEmptyJSONArrayToFile(filePath);
+        }
     }
 }
