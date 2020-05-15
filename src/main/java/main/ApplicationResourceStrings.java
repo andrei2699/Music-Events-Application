@@ -7,8 +7,9 @@ public final class ApplicationResourceStrings {
 
     public static final String LOGIN_FXML_PATH = "/fxml/scenes/login.fxml";
     public static final String MAIN_SCENE_CONTENT_FXML_PATH = "/fxml/scenes/sceneContents/mainSceneContent.fxml";
-    public static final String VIEW_BAR_SCENE_CONTENT_FXML_PATH = "/fxml/scenes/sceneContents/viewBarProfilePage.fxml";
-    public static final String VIEW_ARTIST_SCENE_CONTENT_FXML_PATH = "/fxml/scenes/sceneContents/viewArtistProfilePage.fxml";
+    public static final String VIEW_BAR_PROFILE_SCENE_CONTENT_FXML_PATH = "/fxml/scenes/sceneContents/viewBarProfilePage.fxml";
+    public static final String VIEW_REGULAR_USER_SCENE_CONTENT_FXML_PATH = "/fxml/scenes/sceneContents/viewRegularUserProfilePage.fxml";
+    public static final String VIEW_ARTIST_PROFILE_SCENE_CONTENT_FXML_PATH = "/fxml/scenes/sceneContents/viewArtistProfilePage.fxml";
     public static final String EDIT_BAR_SCENE_CONTENT_FXML_PATH = "/fxml/scenes/sceneContents/editBarProfilePage.fxml";
     public static final String EDIT_ARTIST_SCENE_CONTENT_FXML_PATH = "/fxml/scenes/sceneContents/editArtistProfilePage.fxml";
     public static final String CREATE_EVENT_SCENE_CONTENT_FXML_PATH = "/fxml/scenes/sceneContents/createEventForm.fxml";

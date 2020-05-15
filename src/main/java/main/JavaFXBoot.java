@@ -23,8 +23,9 @@ public class JavaFXBoot extends Application {
         sceneSwitchController.addScene(SceneSwitchController.SceneType.RegisterScene, REGISTER_SCENE_FXML_PATH);
         sceneSwitchController.addScene(SceneSwitchController.SceneType.LoginScene, LOGIN_FXML_PATH);
 
-        sceneSwitchController.addScene(SceneSwitchController.SceneType.ViewBarProfileContentScene, VIEW_BAR_SCENE_CONTENT_FXML_PATH);
-        sceneSwitchController.addScene(SceneSwitchController.SceneType.ViewArtistProfileContentScene, VIEW_ARTIST_SCENE_CONTENT_FXML_PATH);
+        sceneSwitchController.addScene(SceneSwitchController.SceneType.ViewBarProfileContentScene, VIEW_BAR_PROFILE_SCENE_CONTENT_FXML_PATH);
+        sceneSwitchController.addScene(SceneSwitchController.SceneType.ViewArtistProfileContentScene, VIEW_ARTIST_PROFILE_SCENE_CONTENT_FXML_PATH);
+        sceneSwitchController.addScene(SceneSwitchController.SceneType.ViewRegularUserContentScene, VIEW_REGULAR_USER_SCENE_CONTENT_FXML_PATH);
 
         sceneSwitchController.addScene(SceneSwitchController.SceneType.EditBarProfileContentScene, EDIT_BAR_SCENE_CONTENT_FXML_PATH);
         sceneSwitchController.addScene(SceneSwitchController.SceneType.EditArtistProfileContentScene, EDIT_ARTIST_SCENE_CONTENT_FXML_PATH);
