@@ -82,8 +82,8 @@ public class EventServiceImpl implements EventService {
                 event.setDescription(model.getDescription());
                 event.setName(model.getName());
                 event.setStart_hour(model.getStart_hour());
-                event.setTotal_seats(event.getTotal_seats());
-                event.setReserved_seats(event.getReserved_seats());
+                event.setTotal_seats(model.getTotal_seats());
+                event.setReserved_seats(model.getReserved_seats());
                 break;
             }
         }
