@@ -1,10 +1,10 @@
 package models;
 
 public class ReservationModel {
-    private int reservation_id;
-    private int user_id;
-    private int event_id;
-    private int reserved_seats;
+    private final int reservation_id;
+    private final int user_id;
+    private final int event_id;
+    private final int reserved_seats;
 
     public ReservationModel(int reservation_id, int user_id, int event_id, int reserved_seats) {
         this.reservation_id = reservation_id;
