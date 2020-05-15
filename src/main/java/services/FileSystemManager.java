@@ -38,7 +38,7 @@ public final class FileSystemManager {
         if (!Files.exists(dataDirectoryPath)) {
             Files.createDirectories(dataDirectoryPath);
         }
-        
+
         createJsonFileFromPath(dataDirectoryPath, USERS_JSON_FILE_NAME);
         createJsonFileFromPath(dataDirectoryPath, EVENTS_JSON_FILE_NAME);
         createJsonFileFromPath(dataDirectoryPath, ARTISTS_JSON_FILE_NAME);
