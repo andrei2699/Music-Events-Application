@@ -1,12 +1,18 @@
 package controllers.components;
 
 import controllers.scenes.ISceneResponseCall;
+import javafx.application.Platform;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
+import javafx.scene.control.TextField;
 import main.SceneSwitchController;
 
 import java.net.URL;
@@ -18,10 +24,10 @@ public class MakeReservationPopupWindowController implements Initializable {
     public Slider selectedSeatsSlider;
 
     @FXML
-    public Label selectedSeatsLabel;
+    public Button reserveButton;
 
     @FXML
-    public Button reserveButton;
+    public TextField selectedTextField;
 
     private int maximumNumberOfSeats;
     private ISceneResponseCall<Integer> numberOfSeatsResponseCall;
@@ -29,12 +35,24 @@ public class MakeReservationPopupWindowController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         selectedSeatsSlider.setMax(maximumNumberOfSeats);
-        selectedSeatsLabel.setText("0");
+        selectedTextField.setText("1");
+
+
+        selectedTextField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                selectedTextField.setText(newValue.replaceAll("[^\\d]", ""));
+            }
+            try {
+                selectedSeatsSlider.setValue(Double.parseDouble(selectedTextField.getText()));
+            } catch (NumberFormatException ignored) {
+
+            }
+        });
 
         selectedSeatsSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
             int intValue = (int) selectedSeatsSlider.getValue();
 
-            selectedSeatsLabel.setText(String.valueOf(intValue));
+            selectedTextField.setText(String.valueOf(intValue));
         });
 
         reserveButton.setOnAction(this::onReserveButtonClick);

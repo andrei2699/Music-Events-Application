@@ -118,7 +118,7 @@ public class CreateEventFormController implements Initializable {
         if (canSaveDetails) {
             int numberOfSeats = Integer.parseInt(seatNumberField.getText());
             eventService.createEvent(LoggedUserData.getInstance().getUserModel().getId(),
-                    artistUserModel.getId(), eventNameField.getText(), datePicker.getValue(),
+                    artistUserModel.getId(), eventNameField.getText(), datePicker.getValue().toString(),
                     startHourComboBox.getValue(), numberOfSeats, descriptionField.getText());
 
             SceneSwitchController.getInstance().loadFXMLToMainPage(SceneSwitchController.SceneType.MainSceneContent);

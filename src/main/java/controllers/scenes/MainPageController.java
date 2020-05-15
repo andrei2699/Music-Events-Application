@@ -17,6 +17,8 @@ import models.other.UserType;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import static main.ApplicationResourceStrings.*;
+
 public class MainPageController implements Initializable {
     @FXML
     public AnchorPane pageContent;
@@ -48,29 +50,28 @@ public class MainPageController implements Initializable {
         SceneSwitchController.getInstance().loadFXMLToMainPage(SceneSwitchController.SceneType.MainSceneContent);
 
         if (LoggedUserData.getInstance().isBarManager() || LoggedUserData.getInstance().isArtist()) {
-            MenuItem goToProfileMenuItem = new MenuItem("Vezi profil");
+            MenuItem goToProfileMenuItem = new MenuItem(VIEW_PROFILE_TEXT);
             goToProfileMenuItem.setOnAction(this::goViewProfile);
             moreActionsContextMenu.getItems().add(goToProfileMenuItem);
         }
 
         if (LoggedUserData.getInstance().isBarManager()) {
-            MenuItem goToCreateEventForm = new MenuItem("Creaza eveniment");
+            MenuItem goToCreateEventForm = new MenuItem(CREATE_EVENT_TEXT);
             goToCreateEventForm.setOnAction(event -> SceneSwitchController.getInstance().loadFXMLToMainPage(SceneSwitchController.SceneType.CreateEventFormContentScene));
             moreActionsContextMenu.getItems().add(goToCreateEventForm);
         }
 
-        MenuItem goToMainPageContent = new MenuItem("Spre pagina principala");
+        MenuItem goToMainPageContent = new MenuItem(MAIN_PAGE_TEXT);
         goToMainPageContent.setOnAction((actionEvent) -> onTitleClick(null));
         moreActionsContextMenu.getItems().add(goToMainPageContent);
 
         MenuItem goToLogin;
         if (LoggedUserData.getInstance().isUserLogged()) {
-            goToLogin = new MenuItem("Delogare");
+            goToLogin = new MenuItem(LOG_OUT_TEXT);
         } else {
-            goToLogin = new MenuItem("Logare");
+            goToLogin = new MenuItem(LOG_IN_TEXT);
         }
 
-//        goToLogin.setOnAction(event -> SceneSwitchController.getInstance().loadFXMLToMainPage(SceneSwitchController.SceneType.LoginScene));
         goToLogin.setOnAction(event -> SceneSwitchController.getInstance().switchToLoginScene());
 
         moreActionsContextMenu.getItems().add(goToLogin);
