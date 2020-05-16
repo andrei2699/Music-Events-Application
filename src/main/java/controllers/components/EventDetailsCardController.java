@@ -13,6 +13,8 @@ import models.BarModel;
 import models.EventModel;
 import models.cards.EventCardModel;
 import models.cards.TableCardModel;
+import models.other.UserType;
+import services.EventService;
 import services.ReservationService;
 import services.ServiceProvider;
 
@@ -94,7 +96,7 @@ public class EventDetailsCardController extends TableCell<TableCardModel, TableC
             eventNameLabel.setText(eventModel.getName());
             barNameLabel.setText(eventCardModel.getBarName());
             artistNameLabel.setText(eventCardModel.getArtistName());
-            dateLabel.setText(eventModel.getDate().toString());
+            dateLabel.setText(eventModel.getDate());
             startHourLabel.setText(eventModel.getStart_hour() + "");
             updateNumberOfSeats();
             descriptionLabel.setText(eventModel.getDescription());
@@ -151,6 +153,10 @@ public class EventDetailsCardController extends TableCell<TableCardModel, TableC
         SceneSwitchController.getInstance().showReservationPopup(eventModel.getAvailableSeats(), numberOfSeats -> {
             eventModel.addReservedSeats(numberOfSeats);
             updateNumberOfSeats();
+
+            EventService eventService = ServiceProvider.getEventService();
+            eventService.updateEvent(eventModel);
+
             ReservationService reservationService = ServiceProvider.getReservationService();
             reservationService.makeReservation(LoggedUserData.getInstance().getUserModel().getId(), eventModel.getId(), numberOfSeats);
         });
