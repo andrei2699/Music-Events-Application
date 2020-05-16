@@ -14,6 +14,16 @@ import java.util.List;
 
 public class ReservationServiceImpl implements ReservationService {
     @Override
+    public List<ReservationModel> getReservationUsingEventId(int event_id) {
+        List<ReservationModel> allReservations = getAllReservations();
+        List<ReservationModel> searchResults = new ArrayList<>();
+        for (ReservationModel reservation : allReservations)
+            if (reservation.getEvent_id()==event_id)
+                searchResults.add(reservation);
+        return searchResults;
+    }
+
+    @Override
     public List<ReservationModel> getReservationUsingUserId(int user_id) {
         List<ReservationModel> allReservations = getAllReservations();
         List<ReservationModel> searchResults = new ArrayList<>();
