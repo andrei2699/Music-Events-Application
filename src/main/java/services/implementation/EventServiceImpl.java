@@ -74,7 +74,7 @@ public class EventServiceImpl implements EventService {
         List<EventModel> events = getAllEvents();
 
         GsonBuilder gsonBuilder = new GsonBuilder();
-        Gson gson = gsonBuilder.create();
+        Gson gson = gsonBuilder.setPrettyPrinting().create();
 
         for (EventModel event : events) {
             if (event.getId() == model.getId()) {
@@ -82,7 +82,8 @@ public class EventServiceImpl implements EventService {
                 event.setDescription(model.getDescription());
                 event.setName(model.getName());
                 event.setStart_hour(model.getStart_hour());
-                event.setTotal_seats(event.getTotal_seats());
+                event.setTotal_seats(model.getTotal_seats());
+                event.setReserved_seats(model.getReserved_seats());
                 break;
             }
         }

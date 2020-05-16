@@ -91,7 +91,7 @@ public abstract class DetailsTableConfigData {
         return new DetailsTableConfigData() {
             @Override
             public String getTableColumnText() {
-                return "Rezervari";
+                return "Rezervarile mele";
             }
 
             @Override
