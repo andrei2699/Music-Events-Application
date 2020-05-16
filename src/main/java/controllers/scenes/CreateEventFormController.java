@@ -7,18 +7,22 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import main.LoggedUserData;
 import main.SceneSwitchController;
+import models.ArtistModel;
+import models.EventModel;
 import models.UserModel;
 import services.EventService;
 import services.ServiceProvider;
 import services.UserService;
 
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 import static main.ApplicationResourceStrings.INVALID_ARTIST_NAME_ERROR_MESSAGE;
 import static main.ApplicationResourceStrings.REQUIRED_FIELD_ERROR_MESSAGE;
 
-public class CreateEventFormController implements Initializable {
+public class CreateEventFormController extends ChangeableSceneWithModelController {
+    public static final String FORMULAR_EDITARE_EVENIMENT="Formular editare eveniment";
     @FXML
     public TextField eventNameField;
 
@@ -50,6 +54,9 @@ public class CreateEventFormController implements Initializable {
     public Label dateErrorLabel;
 
     @FXML
+    public Label titleLabel;
+
+    @FXML
     public ComboBox<Integer> startHourComboBox;
 
     @FXML
@@ -58,6 +65,8 @@ public class CreateEventFormController implements Initializable {
     private EventService eventService;
 
     private UserService userService;
+
+    private EventModel eventModel;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -116,11 +125,24 @@ public class CreateEventFormController implements Initializable {
             canSaveDetails = false;
         }
         if (canSaveDetails) {
-            int numberOfSeats = Integer.parseInt(seatNumberField.getText());
-            eventService.createEvent(LoggedUserData.getInstance().getUserModel().getId(),
-                    artistUserModel.getId(), eventNameField.getText(), datePicker.getValue().toString(),
-                    startHourComboBox.getValue(), numberOfSeats, descriptionField.getText());
+            if (eventModel == null) {
+                int numberOfSeats = Integer.parseInt(seatNumberField.getText());
+                eventService.createEvent(LoggedUserData.getInstance().getUserModel().getId(),
+                        artistUserModel.getId(), eventNameField.getText(), datePicker.getValue().toString(),
+                        startHourComboBox.getValue(), numberOfSeats, descriptionField.getText());
 
+                SceneSwitchController.getInstance().loadFXMLToMainPage(SceneSwitchController.SceneType.MainSceneContent);
+            }
+        }else {
+            int numberOfSeats = Integer.parseInt(seatNumberField.getText());
+
+            eventModel.setName(eventNameField.getText());
+            eventModel.setDescription(descriptionField.getText());
+            eventModel.setTotal_seats(numberOfSeats);
+            eventModel.setStart_hour(startHourComboBox.getValue());
+            eventModel.setDate(datePicker.getValue().toString());
+
+            eventService.updateEvent(eventModel);
             SceneSwitchController.getInstance().loadFXMLToMainPage(SceneSwitchController.SceneType.MainSceneContent);
         }
     }
@@ -142,4 +164,23 @@ public class CreateEventFormController implements Initializable {
         label.setText(text);
     }
 
+    @Override
+    public void onSetModelId(Integer modelId) {
+        titleLabel.setText(FORMULAR_EDITARE_EVENIMENT);
+
+        eventModel = eventService.getEventUsingEventId(modelId);
+        if (eventModel == null)
+            return;
+
+        UserModel artistModel=userService.getUser(eventModel.getArtist_id());
+        artistNameField.setText(artistModel.getName());
+        eventNameField.setText(eventModel.getName());
+        startHourComboBox.setValue(eventModel.getStart_hour());
+        datePicker.setValue(LocalDate.parse(eventModel.getDate()));
+        seatNumberField.setText(eventModel.getTotal_seats_string());
+        descriptionField.setText(eventModel.getDescription());
+
+        barNameField.setDisable(true);
+        artistNameField.setDisable(true);
+    }
 }

@@ -27,7 +27,7 @@ public abstract class AbstractEditProfilePageController extends AbstractProfileP
     protected abstract void onChoosePhotoButtonClick(ActionEvent actionEvent);
 
     @Override
-    public void onSetUserModelId(Integer userModelId) {
+    public void onSetModelId(Integer modelId) {
     }
 
     @Override

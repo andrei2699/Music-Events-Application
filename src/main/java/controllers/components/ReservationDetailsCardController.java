@@ -5,6 +5,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.layout.VBox;
+import models.EventModel;
+import models.ReservationModel;
 import models.cards.ReservationCardModel;
 import models.cards.TableCardModel;
 
@@ -45,21 +47,21 @@ public class ReservationDetailsCardController extends TableCell<TableCardModel, 
         }
     }
 
-
     @Override
     protected void updateItem(TableCardModel tableCardModel, boolean empty) {
         super.updateItem(tableCardModel, empty);
 
         if (!empty && tableCardModel != null) {
             ReservationCardModel reservationCardModel = (ReservationCardModel) tableCardModel;
-//            ReservationModel reservationModel = reservationCardModel.getArtistModel();
-//
-//            eventNameLabel.setText();
-//            barNameLabel.setText();
-//            artistNameLabel.setText();
-//            numberOfSeatsLabel.setText();
-//            dateLabel.setText();
-//            startHourLabel.setText();
+            ReservationModel reservationModel = reservationCardModel.getReservationModel();
+            EventModel eventModel = reservationCardModel.getEventModel();
+
+            eventNameLabel.setText(eventModel.getName());
+            barNameLabel.setText(reservationCardModel.getBarName());
+            artistNameLabel.setText(reservationCardModel.getArtistName());
+            numberOfSeatsLabel.setText(reservationModel.getReserved_seats() + "");
+            dateLabel.setText(eventModel.getDate());
+            startHourLabel.setText(eventModel.getStart_hour() + "");
 
             setGraphic(reservationDetailsCardVBox);
         } else {
