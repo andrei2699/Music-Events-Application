@@ -77,11 +77,11 @@ public class RegisterController implements Initializable {
         setAllLabelsInvisible();
         boolean canCreateAccount = true;
 
-        if (nameTextField.getText().isEmpty()) {
+        if (nameTextField.getText().isEmpty() || nameTextField.getText().isBlank()) {
             showErrorLabel(nameErrorLabel);
             canCreateAccount = false;
         }
-        if (emailTextField.getText().isEmpty()) {
+        if (emailTextField.getText().isEmpty() || emailTextField.getText().isBlank()) {
             showErrorLabel(emailErrorLabel, REQUIRED_FIELD_ERROR_MESSAGE);
             canCreateAccount = false;
         }
@@ -90,12 +90,12 @@ public class RegisterController implements Initializable {
             canCreateAccount = false;
         }
 
-        if (passwordTextField.getText().isEmpty()) {
+        if (passwordTextField.getText().isEmpty() || passwordTextField.getText().isBlank()) {
             showErrorLabel(passwordErrorLabel);
             canCreateAccount = false;
         }
 
-        if (confirmPasswordTextField.getText().isEmpty()) {
+        if (confirmPasswordTextField.getText().isEmpty() || confirmPasswordTextField.getText().isBlank()) {
             showErrorLabel(confirmPasswordErrorLabel, REQUIRED_FIELD_ERROR_MESSAGE);
             canCreateAccount = false;
         }

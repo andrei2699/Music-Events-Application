@@ -47,7 +47,7 @@ public class LoginController implements Initializable {
         setAllLabelsInvisible();
         boolean canLogin = true;
 
-        if (emailTextField.getText().isEmpty()) {
+        if (emailTextField.getText().isEmpty() || emailTextField.getText().isBlank()) {
             emailErrorLabel.setText(REQUIRED_FIELD_ERROR_MESSAGE);
             emailErrorLabel.setVisible(true);
             canLogin = false;
@@ -59,7 +59,7 @@ public class LoginController implements Initializable {
             canLogin = false;
         }
 
-        if (passwordTextField.getText().isEmpty()) {
+        if (passwordTextField.getText().isEmpty() || passwordTextField.getText().isBlank()) {
             passwordErrorLabel.setVisible(true);
             canLogin = false;
         }
