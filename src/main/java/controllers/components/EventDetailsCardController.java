@@ -100,6 +100,7 @@ public class EventDetailsCardController extends TableCell<TableCardModel, TableC
             descriptionLabel.setText(eventModel.getDescription());
 
             reserveTicketButton.setOnAction(this::onReserveTicketButtonClick);
+            editEventButton.setOnAction(this::onEditEventButtonClick);
 
             Platform.runLater(() -> {
                 double width = detailsTitledPaneContentVBox.getWidth();
@@ -116,7 +117,11 @@ public class EventDetailsCardController extends TableCell<TableCardModel, TableC
                 if (eventModel.getBar_manager_id() != LoggedUserData.getInstance().getUserModel().getId()) {
                     hideControlsForNotRegUserOrBar();
                 } else {
+                    if (ServiceProvider.getReservationService().getReservationUsingEventId(eventModel.getId()).size() > 0) {
+                        editEventButton.setDisable(true);
+                    }
                     actionButtonsHBox.getChildren().remove(reserveTicketButton);
+
                 }
             } else {
                 hideControlsForNotRegUserOrBar();
@@ -149,5 +154,9 @@ public class EventDetailsCardController extends TableCell<TableCardModel, TableC
             ReservationService reservationService = ServiceProvider.getReservationService();
             reservationService.makeReservation(LoggedUserData.getInstance().getUserModel().getId(), eventModel.getId(), numberOfSeats);
         });
+    }
+
+    private void onEditEventButtonClick(ActionEvent actionEvent) {
+        SceneSwitchController.getInstance().loadFXMLToMainPage(SceneSwitchController.SceneType.CreateEventFormContentScene, eventModel.getId());
     }
 }
