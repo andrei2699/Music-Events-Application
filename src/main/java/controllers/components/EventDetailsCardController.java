@@ -9,20 +9,16 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import main.LoggedUserData;
 import main.SceneSwitchController;
+import models.BarModel;
 import models.EventModel;
-import models.ReservationModel;
-import models.UserModel;
 import models.cards.EventCardModel;
 import models.cards.TableCardModel;
-import models.other.UserType;
 import services.ReservationService;
 import services.ServiceProvider;
 
 import java.io.IOException;
 
 import static main.ApplicationResourceStrings.EVENT_DETAILS_CARD_FXML_PATH;
-import static main.SceneSwitchController.SceneType.EditArtistProfileContentScene;
-import static main.SceneSwitchController.SceneType.EditBarProfileContentScene;
 
 public class EventDetailsCardController extends TableCell<TableCardModel, TableCardModel> {
     private static final double MIN_DESCRIPTION_LABEL_WIDTH = 240;
@@ -56,6 +52,9 @@ public class EventDetailsCardController extends TableCell<TableCardModel, TableC
 
     @FXML
     private Button reserveTicketButton;
+
+    @FXML
+    private Button editEventButton;
 
     @FXML
     private Separator actionButtonsSeparator;
@@ -110,8 +109,17 @@ public class EventDetailsCardController extends TableCell<TableCardModel, TableC
                 descriptionLabel.setPrefWidth(width);
             });
 
-            if (!LoggedUserData.getInstance().isRegularUser()) {
-                hideControlsForNotRegisteredUsers();
+            if (LoggedUserData.getInstance().isRegularUser()) {
+                actionButtonsHBox.getChildren().remove(editEventButton);
+            } else if (LoggedUserData.getInstance().isBarManager()) {
+
+                if (eventModel.getBar_manager_id() != LoggedUserData.getInstance().getUserModel().getId()) {
+                    hideControlsForNotRegUserOrBar();
+                } else {
+                    actionButtonsHBox.getChildren().remove(reserveTicketButton);
+                }
+            } else {
+                hideControlsForNotRegUserOrBar();
             }
 
             setGraphic(eventCardVBox);
@@ -128,7 +136,7 @@ public class EventDetailsCardController extends TableCell<TableCardModel, TableC
         }
     }
 
-    private void hideControlsForNotRegisteredUsers() {
+    private void hideControlsForNotRegUserOrBar() {
         eventCardVBox.getChildren().remove(actionButtonsHBox);
         eventCardVBox.getChildren().remove(actionButtonsSeparator);
         detailsTitledPaneContentVBox.getChildren().remove(numberOfSeatsHBox);
