@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import main.LoggedUserData;
+import main.SceneSwitchController;
 import models.BarModel;
 import models.other.Interval;
 import models.UserModel;
@@ -81,5 +82,7 @@ public class EditBarProfilePageController extends AbstractEditProfilePageControl
 
         barService.updateBar(barModel);
         userService.updateUser(userModel);
+
+        SceneSwitchController.getInstance().loadFXMLToMainPage(SceneSwitchController.SceneType.ViewBarProfileContentScene, barModel.getUser_id());
     }
 }

@@ -7,6 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import main.LoggedUserData;
+import main.SceneSwitchController;
 import models.ArtistModel;
 import models.other.Interval;
 import models.UserModel;
@@ -101,6 +102,8 @@ public class EditArtistProfilePageController extends AbstractEditProfilePageCont
 
         artistService.updateArtist(artistModel);
         userService.updateUser(userModel);
+
+        SceneSwitchController.getInstance().loadFXMLToMainPage(SceneSwitchController.SceneType.ViewArtistProfileContentScene, artistModel.getUser_id());
     }
 
     public void onSelectBandCheckBoxClick(ActionEvent actionEvent) {
