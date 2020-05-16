@@ -133,6 +133,17 @@ public class CreateEventFormController extends ChangeableSceneWithModelControlle
 
                 SceneSwitchController.getInstance().loadFXMLToMainPage(SceneSwitchController.SceneType.MainSceneContent);
             }
+        }else {
+            int numberOfSeats = Integer.parseInt(seatNumberField.getText());
+
+            eventModel.setName(eventNameField.getText());
+            eventModel.setDescription(descriptionField.getText());
+            eventModel.setTotal_seats(numberOfSeats);
+            eventModel.setStart_hour(startHourComboBox.getValue());
+            eventModel.setDate(datePicker.getValue().toString());
+
+            eventService.updateEvent(eventModel);
+            SceneSwitchController.getInstance().loadFXMLToMainPage(SceneSwitchController.SceneType.MainSceneContent);
         }
     }
 
