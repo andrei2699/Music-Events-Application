@@ -9,7 +9,7 @@
     <ScrollPane fitToWidth="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <HBox alignment="CENTER">
-                <Label styleClass="card-title" text="Formular creare eveniment" />
+                <Label fx:id="titleLabel" styleClass="card-title" text="Formular creare eveniment" />
             <padding>
                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
             </padding>
@@ -107,7 +107,7 @@
                 <VBox.margin>
                     <Insets top="20.0" />
                 </VBox.margin>
-                <Button mnemonicParsing="false" defaultButton="true" onAction="#onSaveDetailsButtonClick" styleClass="button-raised" text="Salvează detalii">
+                <Button defaultButton="true" mnemonicParsing="false" onAction="#onSaveDetailsButtonClick" styleClass="button-raised" text="Salvează detalii">
                     <HBox.margin>
                         <Insets bottom="15.0" right="15.0" />
                     </HBox.margin>
