@@ -57,8 +57,8 @@ public abstract class AbstractViewProfilePageController extends AbstractProfileP
     }
 
     @Override
-    public void onSetUserModelId(Integer userModelId) {
-        userModel = userService.getUser(userModelId);
+    public void onSetModelId(Integer modelId) {
+        userModel = userService.getUser(modelId);
         updateUIOnInitialize();
     }
 

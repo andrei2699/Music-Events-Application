@@ -1,5 +1,7 @@
 package models;
 
+import java.time.LocalDate;
+
 public class EventModel {
     private final int id;
     private final int bar_manager_id;
@@ -75,6 +77,10 @@ public class EventModel {
 
     public int getTotal_seats() {
         return total_seats;
+    }
+
+    public String getTotal_seats_string() {
+        return total_seats + "";
     }
 
     public int getReserved_seats() {

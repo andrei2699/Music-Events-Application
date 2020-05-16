@@ -1,7 +1,7 @@
 package main;
 
 import controllers.components.MakeReservationPopupWindowController;
-import controllers.scenes.ChangeableSceneWithUserModelController;
+import controllers.scenes.ChangeableSceneWithModelController;
 import controllers.scenes.ISceneResponseCall;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -9,7 +9,6 @@ import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -64,13 +63,13 @@ public final class SceneSwitchController {
         changeMainPageContent(sceneType);
     }
 
-    public void loadFXMLToMainPage(SceneType sceneType, Integer userModelId) {
+    public void loadFXMLToMainPage(SceneType sceneType, Integer modelId) {
         Object controller = changeMainPageContent(sceneType);
 
-        if (controller instanceof ChangeableSceneWithUserModelController) {
-            ChangeableSceneWithUserModelController changeableSceneController = (ChangeableSceneWithUserModelController) controller;
+        if (controller instanceof ChangeableSceneWithModelController) {
+            ChangeableSceneWithModelController changeableSceneController = (ChangeableSceneWithModelController) controller;
 
-            changeableSceneController.onSetUserModelId(userModelId);
+            changeableSceneController.onSetModelId(modelId);
         }
     }
 

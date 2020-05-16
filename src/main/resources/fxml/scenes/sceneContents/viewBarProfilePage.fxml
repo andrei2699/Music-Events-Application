@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.*?>
 
 <AnchorPane prefHeight="540.0" prefWidth="800.0" styleClass="root-pane" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.scenes.ViewBarProfilePageController">
-    <GridPane gridLinesVisible="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+    <GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <columnConstraints>
             <ColumnConstraints hgrow="NEVER" maxWidth="345.0" minWidth="10.0" prefWidth="220.0" />
             <ColumnConstraints hgrow="ALWAYS" maxWidth="Infinity" minWidth="10.0" prefWidth="480.0" />
@@ -15,33 +15,6 @@
         <rowConstraints>
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
         </rowConstraints>
-        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="15.0">
-            <ImageView fx:id="profilePhoto" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-                <VBox.margin>
-                    <Insets top="40.0" />
-                </VBox.margin>
-                <Image url="@../../../Images/defaultUserPhoto.png" />
-            </ImageView>
-            <VBox alignment="TOP_CENTER" prefHeight="215.0" prefWidth="200.0" spacing="15.0" VBox.vgrow="ALWAYS">
-                <VBox.margin>
-                    <Insets />
-                </VBox.margin>
-                <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0">
-                    <Label fx:id="nameLabel" styleClass="card-title" text="Numele" />
-                </HBox>
-            </VBox>
-            <HBox alignment="BOTTOM_CENTER" prefHeight="100.0" prefWidth="200.0">
-                <Button fx:id="editProfilePageButton" defaultButton="true" mnemonicParsing="false" styleClass="button-raised" text="Editează pagina de profil" />
-            </HBox>
-            <HBox alignment="CENTER" prefHeight="5.0" prefWidth="200.0">
-                <padding>
-                    <Insets bottom="10.0" left="10.0" top="10.0" />
-                </padding>
-            </HBox>
-            <padding>
-                <Insets left="4.0" right="4.0" />
-            </padding>
-        </VBox>
         <TabPane tabClosingPolicy="UNAVAILABLE" GridPane.columnIndex="1">
             <Tab text="Detalii profil">
                 <GridPane alignment="CENTER" GridPane.columnIndex="1">
@@ -145,6 +118,47 @@
                 </VBox>
             </Tab>
         </TabPane>
+        <HBox prefHeight="100.0" prefWidth="200.0" spacing="14.0">
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="15.0">
+                <Separator prefWidth="200.0">
+                    <VBox.margin>
+                        <Insets top="-16.0"/>
+                    </VBox.margin>
+                </Separator>
+                <ImageView fx:id="profilePhoto" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true"
+                           preserveRatio="true">
+                    <VBox.margin>
+                        <Insets top="40.0"/>
+                    </VBox.margin>
+                    <Image url="@../../../Images/defaultUserPhoto.png"/>
+                </ImageView>
+                <VBox alignment="TOP_CENTER" prefHeight="215.0" prefWidth="200.0" spacing="15.0" VBox.vgrow="ALWAYS">
+                    <VBox.margin>
+                        <Insets/>
+                    </VBox.margin>
+                    <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0">
+                        <Label fx:id="nameLabel" styleClass="card-title" text="Numele"/>
+                    </HBox>
+                </VBox>
+                <HBox alignment="BOTTOM_CENTER" prefHeight="100.0" prefWidth="200.0">
+                    <Button fx:id="editProfilePageButton" defaultButton="true" mnemonicParsing="false"
+                            styleClass="button-raised" text="Editează pagina de profil"/>
+                </HBox>
+                <HBox alignment="CENTER" prefHeight="5.0" prefWidth="200.0">
+                    <padding>
+                        <Insets bottom="10.0" left="10.0" top="10.0"/>
+                    </padding>
+                </HBox>
+                <padding>
+                    <Insets left="4.0" right="4.0"/>
+                </padding>
+            </VBox>
+            <Separator orientation="VERTICAL" prefHeight="200.0">
+                <HBox.margin>
+                    <Insets bottom="-15.0" top="20.0"/>
+                </HBox.margin>
+            </Separator>
+        </HBox>
     </GridPane>
     <stylesheets>
         <URL value="@../../../css/material-fx-v0_3.css" />

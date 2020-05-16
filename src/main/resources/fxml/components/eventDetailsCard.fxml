@@ -53,6 +53,7 @@
     <Separator fx:id="actionButtonsSeparator" />
     <HBox fx:id="actionButtonsHBox" alignment="CENTER_LEFT" spacing="10.0">
         <Button fx:id="reserveTicketButton" defaultButton="true" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" styleClass="button-raised" text="Rezerva" />
+      <Button fx:id="editEventButton" defaultButton="true" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" styleClass="button-raised" text="Editează eveniment" />
     </HBox>
     <stylesheets>
         <URL value="@../../css/material-fx-v0_3.css" />
