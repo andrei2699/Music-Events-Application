@@ -3,18 +3,13 @@ package services.implementation;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import models.EventModel;
-import models.cards.EventCardModel;
-import models.cards.TableCardModel;
+import services.AbstractFileSystem;
 import services.EventService;
-import services.FileSystemManager;
 import services.ServiceProvider;
 
 import java.nio.file.Path;
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -69,8 +64,8 @@ public class EventServiceImpl implements EventService {
 
     @Override
     public void updateEvent(EventModel model) {
-        FileSystemManager fileSystemManager = ServiceProvider.getFileSystemManager();
-        Path eventsFilePath = fileSystemManager.getEventsFilePath();
+        AbstractFileSystem fileSystemManager = ServiceProvider.getFileSystemManager();
+        Path eventsFilePath = AbstractFileSystem.getEventsFilePath();
         List<EventModel> events = getAllEvents();
 
         GsonBuilder gsonBuilder = new GsonBuilder();
@@ -94,8 +89,8 @@ public class EventServiceImpl implements EventService {
 
     @Override
     public void createEvent(int bar_id, int artist_id, String eventName, String date, int startHour, int totalSeats, String description) {
-        FileSystemManager fileSystemManager = ServiceProvider.getFileSystemManager();
-        Path eventsFilePath = fileSystemManager.getEventsFilePath();
+        AbstractFileSystem fileSystemManager = ServiceProvider.getFileSystemManager();
+        Path eventsFilePath = AbstractFileSystem.getEventsFilePath();
         List<EventModel> events = getAllEvents();
 
         GsonBuilder gsonBuilder = new GsonBuilder();
@@ -119,8 +114,8 @@ public class EventServiceImpl implements EventService {
 
     @Override
     public List<EventModel> getAllEvents() {
-        FileSystemManager fileSystemManager = ServiceProvider.getFileSystemManager();
-        Path eventsFilePath = fileSystemManager.getEventsFilePath();
+        AbstractFileSystem fileSystemManager = ServiceProvider.getFileSystemManager();
+        Path eventsFilePath = AbstractFileSystem.getEventsFilePath();
         String jsonFileContent = fileSystemManager.readFileContent(eventsFilePath);
 
         GsonBuilder gsonBuilder = new GsonBuilder();

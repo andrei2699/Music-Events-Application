@@ -3,7 +3,7 @@ package services;
 import services.implementation.*;
 
 public final class ServiceProvider {
-    private static final FileSystemManager fileSystemManager = new FileSystemManager();
+    private static final AbstractFileSystem fileSystemManager = new FileSystemManager();
     private static final UserService userService = new UserServiceImpl();
     private static final BarService barService = new BarServiceImpl();
     private static final ArtistService artistService = new ArtistServiceImpl();
@@ -13,7 +13,7 @@ public final class ServiceProvider {
     private ServiceProvider() {
     }
 
-    public static FileSystemManager getFileSystemManager() {
+    public static AbstractFileSystem getFileSystemManager() {
         return fileSystemManager;
     }
 

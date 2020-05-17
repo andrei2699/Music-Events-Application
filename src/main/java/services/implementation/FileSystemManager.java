@@ -1,11 +1,13 @@
-package services;
+package services.implementation;
+
+import services.AbstractFileSystem;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-public final class FileSystemManager {
+public final class FileSystemManager extends AbstractFileSystem {
     public static final String USER_FOLDER = System.getProperty("user.home");
 
     private static final String APPLICATION_FOLDER = ".MusicEventsApplication";
@@ -23,9 +25,7 @@ public final class FileSystemManager {
         return Paths.get(APPLICATION_HOME_PATH.toFile().getPath(), path);
     }
 
-    FileSystemManager() {
-    }
-
+    @Override
     public void createJSONFiles() throws IOException {
 
         Path dataDirectoryPath = getPathToFile(DATA_FOLDER_NAME);
@@ -40,6 +40,7 @@ public final class FileSystemManager {
         createJsonFileFromPath(dataDirectoryPath, RESERVATIONS_JSON_FILE_NAME);
     }
 
+    @Override
     public String readFileContent(Path path) {
         String result = "";
         if (Files.exists(path)) {
@@ -52,6 +53,7 @@ public final class FileSystemManager {
         return result;
     }
 
+    @Override
     public void writeToFile(Path path, String content) {
         if (Files.exists(path)) {
             try {
@@ -60,26 +62,6 @@ public final class FileSystemManager {
                 e.printStackTrace();
             }
         }
-    }
-
-    public Path getUsersFilePath() {
-        return getPathToFile(DATA_FOLDER_NAME, USERS_JSON_FILE_NAME);
-    }
-
-    public Path getBarsFilePath() {
-        return getPathToFile(DATA_FOLDER_NAME, BARS_JSON_FILE_NAME);
-    }
-
-    public Path getArtistsFilePath() {
-        return getPathToFile(DATA_FOLDER_NAME, ARTISTS_JSON_FILE_NAME);
-    }
-
-    public Path getEventsFilePath() {
-        return getPathToFile(DATA_FOLDER_NAME, EVENTS_JSON_FILE_NAME);
-    }
-
-    public Path getReservationsFilePath() {
-        return getPathToFile(DATA_FOLDER_NAME, RESERVATIONS_JSON_FILE_NAME);
     }
 
     private void writeEmptyJSONArrayToFile(Path path) throws IOException {

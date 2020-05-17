@@ -5,7 +5,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import models.UserModel;
 import models.other.UserType;
-import services.FileSystemManager;
+import services.AbstractFileSystem;
 import services.ServiceProvider;
 import services.UserService;
 import utils.StringEncryptor;
@@ -42,8 +42,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void updateUser(UserModel model) {
-        FileSystemManager fileSystemManager = ServiceProvider.getFileSystemManager();
-        Path usersFilePath = fileSystemManager.getUsersFilePath();
+        AbstractFileSystem fileSystemManager = ServiceProvider.getFileSystemManager();
+        Path usersFilePath = AbstractFileSystem.getUsersFilePath();
         List<UserModel> users = getAllUsers();
 
         GsonBuilder gsonBuilder = new GsonBuilder();
@@ -62,8 +62,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserModel createUser(String email, String password, String userName, UserType userType) throws UserExistsException {
-        FileSystemManager fileSystemManager = ServiceProvider.getFileSystemManager();
-        Path usersFilePath = fileSystemManager.getUsersFilePath();
+        AbstractFileSystem fileSystemManager = ServiceProvider.getFileSystemManager();
+        Path usersFilePath = AbstractFileSystem.getUsersFilePath();
         List<UserModel> users = getAllUsers();
 
         GsonBuilder gsonBuilder = new GsonBuilder();
@@ -102,8 +102,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<UserModel> getAllUsers() {
-        FileSystemManager fileSystemManager = ServiceProvider.getFileSystemManager();
-        Path usersFilePath = fileSystemManager.getUsersFilePath();
+        AbstractFileSystem fileSystemManager = ServiceProvider.getFileSystemManager();
+        Path usersFilePath = AbstractFileSystem.getUsersFilePath();
         String jsonFileContent = fileSystemManager.readFileContent(usersFilePath);
 
         GsonBuilder gsonBuilder = new GsonBuilder();

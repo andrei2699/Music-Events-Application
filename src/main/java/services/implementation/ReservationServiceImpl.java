@@ -4,7 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import models.ReservationModel;
-import services.FileSystemManager;
+import services.AbstractFileSystem;
 import services.ReservationService;
 import services.ServiceProvider;
 
@@ -35,8 +35,8 @@ public class ReservationServiceImpl implements ReservationService {
 
     @Override
     public List<ReservationModel> getAllReservations() {
-        FileSystemManager fileSystemManager = ServiceProvider.getFileSystemManager();
-        Path reservationFilesPath = fileSystemManager.getReservationsFilePath();
+        AbstractFileSystem fileSystemManager = ServiceProvider.getFileSystemManager();
+        Path reservationFilesPath = AbstractFileSystem.getReservationsFilePath();
         String jsonFileContent = fileSystemManager.readFileContent(reservationFilesPath);
 
         GsonBuilder gsonBuilder = new GsonBuilder();
@@ -48,8 +48,8 @@ public class ReservationServiceImpl implements ReservationService {
 
     @Override
     public void makeReservation(int userId, int eventId, int numberOfSeats) {
-        FileSystemManager fileSystemManager = ServiceProvider.getFileSystemManager();
-        Path reservationsFilesPath = fileSystemManager.getReservationsFilePath();
+        AbstractFileSystem fileSystemManager = ServiceProvider.getFileSystemManager();
+        Path reservationsFilesPath = AbstractFileSystem.getReservationsFilePath();
         List<ReservationModel> reservations = getAllReservations();
 
         GsonBuilder gsonBuilder = new GsonBuilder();

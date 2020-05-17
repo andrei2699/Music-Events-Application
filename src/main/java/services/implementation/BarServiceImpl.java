@@ -4,7 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import models.BarModel;
-import services.FileSystemManager;
+import services.AbstractFileSystem;
 import services.ServiceProvider;
 import services.BarService;
 
@@ -32,8 +32,8 @@ public class BarServiceImpl implements BarService {
 
     @Override
     public void updateBar(BarModel model) {
-        FileSystemManager fileSystemManager = ServiceProvider.getFileSystemManager();
-        Path barsFilePath = fileSystemManager.getBarsFilePath();
+        AbstractFileSystem fileSystemManager = ServiceProvider.getFileSystemManager();
+        Path barsFilePath = AbstractFileSystem.getBarsFilePath();
         List<BarModel> bars = getAllBars();
 
         GsonBuilder gsonBuilder = new GsonBuilder();
@@ -54,8 +54,8 @@ public class BarServiceImpl implements BarService {
 
     @Override
     public void createBar(BarModel barModel) {
-        FileSystemManager fileSystemManager = ServiceProvider.getFileSystemManager();
-        Path barsFilePath = fileSystemManager.getBarsFilePath();
+        AbstractFileSystem fileSystemManager = ServiceProvider.getFileSystemManager();
+        Path barsFilePath = AbstractFileSystem.getBarsFilePath();
         List<BarModel> bars = getAllBars();
         boolean found = false;
 
@@ -79,8 +79,8 @@ public class BarServiceImpl implements BarService {
 
     @Override
     public List<BarModel> getAllBars() {
-        FileSystemManager fileSystemManager = ServiceProvider.getFileSystemManager();
-        Path barsFilePath = fileSystemManager.getBarsFilePath();
+        AbstractFileSystem fileSystemManager = ServiceProvider.getFileSystemManager();
+        Path barsFilePath = AbstractFileSystem.getBarsFilePath();
         String jsonFileContent = fileSystemManager.readFileContent(barsFilePath);
 
         GsonBuilder gsonBuilder = new GsonBuilder();
