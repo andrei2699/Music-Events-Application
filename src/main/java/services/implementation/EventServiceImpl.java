@@ -4,7 +4,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import models.EventModel;
-import services.AbstractFileSystem;
 import services.EventService;
 import services.ServiceProvider;
 
@@ -64,8 +63,8 @@ public class EventServiceImpl implements EventService {
 
     @Override
     public void updateEvent(EventModel model) {
-        AbstractFileSystem fileSystemManager = ServiceProvider.getFileSystemManager();
-        Path eventsFilePath = AbstractFileSystem.getEventsFilePath();
+        FileSystemManager fileSystemManager = ServiceProvider.getFileSystemManager();
+        Path eventsFilePath = FileSystemManager.getEventsFilePath();
         List<EventModel> events = getAllEvents();
 
         GsonBuilder gsonBuilder = new GsonBuilder();
@@ -89,8 +88,8 @@ public class EventServiceImpl implements EventService {
 
     @Override
     public void createEvent(int bar_id, int artist_id, String eventName, String date, int startHour, int totalSeats, String description) {
-        AbstractFileSystem fileSystemManager = ServiceProvider.getFileSystemManager();
-        Path eventsFilePath = AbstractFileSystem.getEventsFilePath();
+        FileSystemManager fileSystemManager = ServiceProvider.getFileSystemManager();
+        Path eventsFilePath = FileSystemManager.getEventsFilePath();
         List<EventModel> events = getAllEvents();
 
         GsonBuilder gsonBuilder = new GsonBuilder();
@@ -114,8 +113,8 @@ public class EventServiceImpl implements EventService {
 
     @Override
     public List<EventModel> getAllEvents() {
-        AbstractFileSystem fileSystemManager = ServiceProvider.getFileSystemManager();
-        Path eventsFilePath = AbstractFileSystem.getEventsFilePath();
+        FileSystemManager fileSystemManager = ServiceProvider.getFileSystemManager();
+        Path eventsFilePath = FileSystemManager.getEventsFilePath();
         String jsonFileContent = fileSystemManager.readFileContent(eventsFilePath);
 
         GsonBuilder gsonBuilder = new GsonBuilder();

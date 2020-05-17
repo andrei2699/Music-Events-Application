@@ -12,6 +12,8 @@ public class JavaFXBoot extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
 
+        ServiceProvider.setUsingMockupFileSystem(false);
+
         ServiceProvider.getFileSystemManager().createJSONFiles();
 
         SceneSwitchController sceneSwitchController = SceneSwitchController.getInstance();

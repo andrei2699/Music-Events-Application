@@ -4,7 +4,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import models.ArtistModel;
-import services.AbstractFileSystem;
 import services.ServiceProvider;
 import services.ArtistService;
 
@@ -31,8 +30,8 @@ public class ArtistServiceImpl implements ArtistService {
 
     @Override
     public void updateArtist(ArtistModel model) {
-        AbstractFileSystem fileSystemManager = ServiceProvider.getFileSystemManager();
-        Path artistsFilePath = AbstractFileSystem.getArtistsFilePath();
+        FileSystemManager fileSystemManager = ServiceProvider.getFileSystemManager();
+        Path artistsFilePath = FileSystemManager.getArtistsFilePath();
         List<ArtistModel> artists = getAllArtists();
 
         GsonBuilder gsonBuilder = new GsonBuilder();
@@ -57,8 +56,8 @@ public class ArtistServiceImpl implements ArtistService {
 
     @Override
     public void createArtist(ArtistModel artistModel) {
-        AbstractFileSystem fileSystemManager = ServiceProvider.getFileSystemManager();
-        Path artistsFilePath = AbstractFileSystem.getArtistsFilePath();
+        FileSystemManager fileSystemManager = ServiceProvider.getFileSystemManager();
+        Path artistsFilePath = FileSystemManager.getArtistsFilePath();
         List<ArtistModel> artists = getAllArtists();
         boolean found = false;
 
@@ -83,8 +82,8 @@ public class ArtistServiceImpl implements ArtistService {
 
     @Override
     public List<ArtistModel> getAllArtists() {
-        AbstractFileSystem fileSystemManager = ServiceProvider.getFileSystemManager();
-        Path artistsFilePath = AbstractFileSystem.getArtistsFilePath();
+        FileSystemManager fileSystemManager = ServiceProvider.getFileSystemManager();
+        Path artistsFilePath = FileSystemManager.getArtistsFilePath();
         String jsonFileContent = fileSystemManager.readFileContent(artistsFilePath);
 
         GsonBuilder gsonBuilder = new GsonBuilder();
