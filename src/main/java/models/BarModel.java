@@ -5,22 +5,17 @@ import models.other.Interval;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BarModel {
+public class BarModel extends EntityModel {
 
-    private int user_id;
     private String address;
     private String path_to_image;
     private List<Interval> intervals;
 
     public BarModel(int user_id, String address) {
-        this.user_id = user_id;
+        super(user_id);
         this.address = address;
         this.path_to_image = "";
         this.intervals = new ArrayList<>();
-    }
-
-    public int getUser_id() {
-        return user_id;
     }
 
     public String getAddress() {
