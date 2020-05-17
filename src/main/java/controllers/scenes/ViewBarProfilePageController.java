@@ -5,7 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import main.SceneSwitchController;
 import models.BarModel;
-import services.BarService;
+import services.IBarService;
 import services.ServiceProvider;
 
 public class ViewBarProfilePageController extends AbstractViewProfilePageController {
@@ -34,7 +34,7 @@ public class ViewBarProfilePageController extends AbstractViewProfilePageControl
     public void onSetModelId(Integer modelId) {
         super.onSetModelId(modelId);
 
-        BarService barService = ServiceProvider.getBarService();
+        IBarService barService = ServiceProvider.getBarService();
         barModel = barService.getBar(userModel.getId());
         updateUIOnInitialize();
     }

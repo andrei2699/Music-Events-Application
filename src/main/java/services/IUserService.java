@@ -6,7 +6,7 @@ import services.implementation.UserExistsException;
 
 import java.util.List;
 
-public interface UserService {
+public interface IUserService {
     boolean validateUserCredentials(String email, String password);
 
     UserModel getUser(int id);

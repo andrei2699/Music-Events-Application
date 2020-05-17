@@ -4,7 +4,7 @@ import models.BarModel;
 
 import java.util.List;
 
-public interface BarService {
+public interface IBarService {
     BarModel getBar(int user_id);
 
     List<BarModel> getBars(String address);

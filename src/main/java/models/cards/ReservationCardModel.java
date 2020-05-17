@@ -2,7 +2,7 @@ package models.cards;
 
 import models.EventModel;
 import models.ReservationModel;
-import services.EventService;
+import services.IEventService;
 import services.ServiceProvider;
 import services.IUserService;
 
@@ -16,7 +16,7 @@ public class ReservationCardModel implements TableCardModel {
         this.reservationModel = reservationModel;
 
         IUserService userService = ServiceProvider.getUserService();
-        EventService eventService = ServiceProvider.getEventService();
+        IEventService eventService = ServiceProvider.getEventService();
 
         eventModel = eventService.getEventUsingEventId(reservationModel.getEvent_id());
         barName = userService.getUser(eventModel.getBar_manager_id()).getName();

@@ -12,11 +12,10 @@ import main.LoggedUserData;
 import models.EventModel;
 import models.ReservationModel;
 import models.UserModel;
-import models.cards.EventCardModel;
 import models.cards.ReservationCardModel;
 import models.cards.TableCardModel;
-import services.EventService;
-import services.ReservationService;
+import services.IEventService;
+import services.IReservationService;
 import services.ServiceProvider;
 import utils.CardTableFiller;
 
@@ -40,8 +39,8 @@ public class ViewRegularUserProfilePageController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         CardTableFiller.setTableData(reservationsTableView, reservationsTableColumn, DetailsTableConfigData.getReservationTableColumnData());
 
-        ReservationService reservationService = ServiceProvider.getReservationService();
-        EventService eventService = ServiceProvider.getEventService();
+        IReservationService reservationService = ServiceProvider.getReservationService();
+        IEventService eventService = ServiceProvider.getEventService();
         UserModel userModel = LoggedUserData.getInstance().getUserModel();
 
         if (userModel != null) {

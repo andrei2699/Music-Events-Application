@@ -1,16 +1,11 @@
 package services;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import models.EventModel;
-import models.cards.EventCardModel;
-import models.cards.TableCardModel;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.List;
 
-public interface EventService {
+public interface IEventService {
     EventModel getEventUsingEventId(int id);
 
     EventModel getEventUsingEventName(String name);

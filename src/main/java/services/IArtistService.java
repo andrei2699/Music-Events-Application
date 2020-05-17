@@ -4,7 +4,7 @@ import models.ArtistModel;
 
 import java.util.List;
 
-public interface ArtistService {
+public interface IArtistService {
     ArtistModel getArtist(int user_id);
 
     List<ArtistModel> getArtists(String genre);

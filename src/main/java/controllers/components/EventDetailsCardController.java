@@ -9,13 +9,11 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import main.LoggedUserData;
 import main.SceneSwitchController;
-import models.BarModel;
 import models.EventModel;
 import models.cards.EventCardModel;
 import models.cards.TableCardModel;
-import models.other.UserType;
-import services.EventService;
-import services.ReservationService;
+import services.IEventService;
+import services.IReservationService;
 import services.ServiceProvider;
 
 import java.io.IOException;
@@ -154,10 +152,10 @@ public class EventDetailsCardController extends TableCell<TableCardModel, TableC
             eventModel.addReservedSeats(numberOfSeats);
             updateNumberOfSeats();
 
-            EventService eventService = ServiceProvider.getEventService();
+            IEventService eventService = ServiceProvider.getEventService();
             eventService.updateEvent(eventModel);
 
-            ReservationService reservationService = ServiceProvider.getReservationService();
+            IReservationService reservationService = ServiceProvider.getReservationService();
             reservationService.makeReservation(LoggedUserData.getInstance().getUserModel().getId(), eventModel.getId(), numberOfSeats);
         });
     }
