@@ -2,7 +2,7 @@ package models.cards;
 
 import models.EventModel;
 import services.ServiceProvider;
-import services.UserService;
+import services.IUserService;
 
 public class EventCardModel implements TableCardModel {
     private final String barName;
@@ -11,7 +11,7 @@ public class EventCardModel implements TableCardModel {
 
     public EventCardModel(EventModel eventModel) {
         this.eventModel = eventModel;
-        UserService userService = ServiceProvider.getUserService();
+        IUserService userService = ServiceProvider.getUserService();
         barName = userService.getUser(eventModel.getBar_manager_id()).getName();
         artistName = userService.getUser(eventModel.getArtist_id()).getName();
     }

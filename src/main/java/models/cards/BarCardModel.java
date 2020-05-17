@@ -2,7 +2,7 @@ package models.cards;
 
 import models.BarModel;
 import services.ServiceProvider;
-import services.UserService;
+import services.IUserService;
 
 public class BarCardModel implements TableCardModel {
     private final String barName;
@@ -10,8 +10,8 @@ public class BarCardModel implements TableCardModel {
 
     public BarCardModel(BarModel barModel) {
         this.barModel = barModel;
-        UserService userService = ServiceProvider.getUserService();
-        barName = userService.getUser(this.barModel.getUser_id()).getName();
+        IUserService userService = ServiceProvider.getUserService();
+        barName = userService.getUser(this.barModel.getId()).getName();
     }
 
     public String getBarName() {
