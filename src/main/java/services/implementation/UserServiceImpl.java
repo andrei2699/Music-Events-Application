@@ -1,19 +1,20 @@
 package services.implementation;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
 import models.UserModel;
 import models.other.UserType;
-import services.FileSystemManager;
-import services.ServiceProvider;
-import services.UserService;
+import repository.IRepository;
+import services.IUserService;
 import utils.StringEncryptor;
 
-import java.nio.file.Path;
 import java.util.List;
 
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements IUserService {
+
+    private final IRepository<UserModel> userRepository;
+
+    public UserServiceImpl(IRepository<UserModel> userRepository) {
+        this.userRepository = userRepository;
+    }
 
     @Override
     public boolean validateUserCredentials(String email, String password) {
@@ -42,32 +43,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void updateUser(UserModel model) {
-        FileSystemManager fileSystemManager = ServiceProvider.getFileSystemManager();
-        Path usersFilePath = fileSystemManager.getUsersFilePath();
-        List<UserModel> users = getAllUsers();
-
-        GsonBuilder gsonBuilder = new GsonBuilder();
-        Gson gson = gsonBuilder.setPrettyPrinting().create();
-
-        for (UserModel user : users) {
-            if (user.getEmail().equals(model.getEmail())) {
-                user.setName(model.getName());
-                break;
-            }
-        }
-
-        String json = gson.toJson(users);
-        fileSystemManager.writeToFile(usersFilePath, json);
+        userRepository.update(model);
     }
 
     @Override
     public UserModel createUser(String email, String password, String userName, UserType userType) throws UserExistsException {
-        FileSystemManager fileSystemManager = ServiceProvider.getFileSystemManager();
-        Path usersFilePath = fileSystemManager.getUsersFilePath();
         List<UserModel> users = getAllUsers();
-
-        GsonBuilder gsonBuilder = new GsonBuilder();
-        Gson gson = gsonBuilder.setPrettyPrinting().create();
 
         int biggestId = -1;
         for (UserModel user : users) {
@@ -80,10 +61,7 @@ public class UserServiceImpl implements UserService {
         }
         UserModel userModel = new UserModel(biggestId + 1, email, StringEncryptor.encrypt(email, password), userName, userType);
 
-        users.add(userModel);
-
-        String json = gson.toJson(users);
-        fileSystemManager.writeToFile(usersFilePath, json);
+        userRepository.create(userModel);
 
         return userModel;
     }
@@ -102,15 +80,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<UserModel> getAllUsers() {
-        FileSystemManager fileSystemManager = ServiceProvider.getFileSystemManager();
-        Path usersFilePath = fileSystemManager.getUsersFilePath();
-        String jsonFileContent = fileSystemManager.readFileContent(usersFilePath);
-
-        GsonBuilder gsonBuilder = new GsonBuilder();
-        Gson gson = gsonBuilder.create();
-
-        return gson.fromJson(jsonFileContent, new TypeToken<List<UserModel>>() {
-        }.getType());
+        return userRepository.getAll();
     }
 
 }

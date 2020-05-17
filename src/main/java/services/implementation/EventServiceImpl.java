@@ -1,24 +1,21 @@
 package services.implementation;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import models.EventModel;
-import models.cards.EventCardModel;
-import models.cards.TableCardModel;
-import services.EventService;
-import services.FileSystemManager;
-import services.ServiceProvider;
+import repository.IRepository;
+import services.IEventService;
 
-import java.nio.file.Path;
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EventServiceImpl implements EventService {
+public class EventServiceImpl implements IEventService {
+
+    private final IRepository<EventModel> eventRepository;
+
+    public EventServiceImpl(IRepository<EventModel> eventRepository) {
+        this.eventRepository = eventRepository;
+    }
+
     @Override
     public EventModel getEventUsingEventId(int id) {
         List<EventModel> allEvents = getAllEvents();
@@ -69,37 +66,12 @@ public class EventServiceImpl implements EventService {
 
     @Override
     public void updateEvent(EventModel model) {
-        FileSystemManager fileSystemManager = ServiceProvider.getFileSystemManager();
-        Path eventsFilePath = fileSystemManager.getEventsFilePath();
-        List<EventModel> events = getAllEvents();
-
-        GsonBuilder gsonBuilder = new GsonBuilder();
-        Gson gson = gsonBuilder.setPrettyPrinting().create();
-
-        for (EventModel event : events) {
-            if (event.getId() == model.getId()) {
-                event.setDate(model.getDate());
-                event.setDescription(model.getDescription());
-                event.setName(model.getName());
-                event.setStart_hour(model.getStart_hour());
-                event.setTotal_seats(model.getTotal_seats());
-                event.setReserved_seats(model.getReserved_seats());
-                break;
-            }
-        }
-
-        String json = gson.toJson(events);
-        fileSystemManager.writeToFile(eventsFilePath, json);
+        eventRepository.update(model);
     }
 
     @Override
     public void createEvent(int bar_id, int artist_id, String eventName, String date, int startHour, int totalSeats, String description) {
-        FileSystemManager fileSystemManager = ServiceProvider.getFileSystemManager();
-        Path eventsFilePath = fileSystemManager.getEventsFilePath();
         List<EventModel> events = getAllEvents();
-
-        GsonBuilder gsonBuilder = new GsonBuilder();
-        Gson gson = gsonBuilder.setPrettyPrinting().create();
 
         int biggestId = -1;
         for (EventModel event : events) {
@@ -111,22 +83,11 @@ public class EventServiceImpl implements EventService {
         EventModel eventModel = new EventModel(biggestId + 1, bar_id, artist_id, eventName, date, startHour, totalSeats);
         eventModel.setDescription(description);
 
-        events.add(eventModel);
-
-        String json = gson.toJson(events);
-        fileSystemManager.writeToFile(eventsFilePath, json);
+        eventRepository.create(eventModel);
     }
 
     @Override
     public List<EventModel> getAllEvents() {
-        FileSystemManager fileSystemManager = ServiceProvider.getFileSystemManager();
-        Path eventsFilePath = fileSystemManager.getEventsFilePath();
-        String jsonFileContent = fileSystemManager.readFileContent(eventsFilePath);
-
-        GsonBuilder gsonBuilder = new GsonBuilder();
-        Gson gson = gsonBuilder.create();
-
-        return gson.fromJson(jsonFileContent, new TypeToken<List<EventModel>>() {
-        }.getType());
+        return eventRepository.getAll();
     }
 }

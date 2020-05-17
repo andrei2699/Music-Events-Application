@@ -2,7 +2,7 @@ package models.cards;
 
 import models.ArtistModel;
 import services.ServiceProvider;
-import services.UserService;
+import services.IUserService;
 
 public class ArtistCardModel implements TableCardModel {
     private final String artistName;
@@ -10,8 +10,8 @@ public class ArtistCardModel implements TableCardModel {
 
     public ArtistCardModel(ArtistModel artistModel) {
         this.artistModel = artistModel;
-        UserService userService = ServiceProvider.getUserService();
-        artistName = userService.getUser(this.artistModel.getUser_id()).getName();
+        IUserService userService = ServiceProvider.getUserService();
+        artistName = userService.getUser(this.artistModel.getId()).getName();
     }
 
     public String getArtistName() {

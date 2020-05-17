@@ -11,7 +11,7 @@ import main.SceneSwitchController;
 import models.ArtistModel;
 import models.other.Interval;
 import models.UserModel;
-import services.ArtistService;
+import services.IArtistService;
 import services.ServiceProvider;
 
 import java.io.File;
@@ -33,7 +33,7 @@ public class EditArtistProfilePageController extends AbstractEditProfilePageCont
     @FXML
     public CheckBox bandCheckBox;
 
-    private ArtistService artistService;
+    private IArtistService artistService;
 
     private ArtistModel artistModel;
 
@@ -103,7 +103,7 @@ public class EditArtistProfilePageController extends AbstractEditProfilePageCont
         artistService.updateArtist(artistModel);
         userService.updateUser(userModel);
 
-        SceneSwitchController.getInstance().loadFXMLToMainPage(SceneSwitchController.SceneType.ViewArtistProfileContentScene, artistModel.getUser_id());
+        SceneSwitchController.getInstance().loadFXMLToMainPage(SceneSwitchController.SceneType.ViewArtistProfileContentScene, artistModel.getId());
     }
 
     public void onSelectBandCheckBoxClick(ActionEvent actionEvent) {

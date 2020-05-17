@@ -1,9 +1,6 @@
 package models;
 
-import java.time.LocalDate;
-
-public class EventModel {
-    private final int id;
+public class EventModel extends EntityModel {
     private final int bar_manager_id;
     private final int artist_id;
     private String name;
@@ -14,7 +11,7 @@ public class EventModel {
     private int reserved_seats;
 
     public EventModel(int id, int barManagerId, int artistId, String name, String date, int startHour, int totalSeats) {
-        this.id = id;
+        super(id);
         this.bar_manager_id = barManagerId;
         this.artist_id = artistId;
         this.name = name;
@@ -45,10 +42,6 @@ public class EventModel {
 
     public void setReserved_seats(int reserved_seats) {
         this.reserved_seats = reserved_seats;
-    }
-
-    public int getId() {
-        return id;
     }
 
     public int getBar_manager_id() {

@@ -4,7 +4,7 @@ import models.ReservationModel;
 
 import java.util.List;
 
-public interface ReservationService {
+public interface IReservationService {
     List<ReservationModel> getReservationUsingEventId(int event_id);
 
     List<ReservationModel> getReservationUsingUserId(int user_id);

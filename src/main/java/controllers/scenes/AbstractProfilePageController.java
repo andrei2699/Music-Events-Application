@@ -13,7 +13,7 @@ import javafx.scene.layout.HBox;
 import models.other.DaysOfWeek;
 import models.other.Interval;
 import services.ServiceProvider;
-import services.UserService;
+import services.IUserService;
 
 import java.io.File;
 import java.net.URISyntaxException;
@@ -36,7 +36,7 @@ public abstract class AbstractProfilePageController extends ChangeableSceneWithM
 
     protected HBox[][] gridHBoxes;
 
-    protected UserService userService;
+    protected IUserService userService;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

@@ -5,23 +5,17 @@ import models.cards.TableCardModel;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Bounds;
 import javafx.scene.control.*;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import main.LoggedUserData;
-import main.SceneSwitchController;
 import models.*;
 import models.cards.ArtistCardModel;
 import models.cards.BarCardModel;
 import models.cards.EventCardModel;
-import models.other.UserType;
-import services.ArtistService;
-import services.BarService;
-import services.EventService;
+import services.IArtistService;
+import services.IBarService;
+import services.IEventService;
 import services.ServiceProvider;
 import utils.CardTableFiller;
 
@@ -54,9 +48,9 @@ public class MainPageContentController implements Initializable {
     @FXML
     public TableColumn<TableCardModel, TableCardModel> barsTableColumn;
 
-    private EventService eventService;
-    private BarService barService;
-    private ArtistService artistService;
+    private IEventService eventService;
+    private IBarService barService;
+    private IArtistService artistService;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

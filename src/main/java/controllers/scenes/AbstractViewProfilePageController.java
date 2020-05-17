@@ -14,14 +14,13 @@ import main.LoggedUserData;
 import models.cards.EventCardModel;
 import models.EventModel;
 import models.UserModel;
-import services.EventService;
+import services.IEventService;
 import services.ServiceProvider;
 import utils.CardTableFiller;
 
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -76,7 +75,7 @@ public abstract class AbstractViewProfilePageController extends AbstractProfileP
     }
 
     protected final ObservableList<TableCardModel> getAllFutureEventsLinkedWithId(int id) {
-        EventService eventService = ServiceProvider.getEventService();
+        IEventService eventService = ServiceProvider.getEventService();
         ObservableList<TableCardModel> eventModels = FXCollections.observableArrayList();
         List<EventModel> allEvents = eventService.getEventsStartingFrom(LocalDate.now(), LocalTime.now().getHour());
 

@@ -3,16 +3,14 @@ package controllers.scenes;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import main.LoggedUserData;
 import main.SceneSwitchController;
-import models.ArtistModel;
 import models.EventModel;
 import models.UserModel;
-import services.EventService;
+import services.IEventService;
 import services.ServiceProvider;
-import services.UserService;
+import services.IUserService;
 
 import java.net.URL;
 import java.time.LocalDate;
@@ -62,9 +60,9 @@ public class CreateEventFormController extends ChangeableSceneWithModelControlle
     @FXML
     public TextField seatNumberField;
 
-    private EventService eventService;
+    private IEventService eventService;
 
-    private UserService userService;
+    private IUserService userService;
 
     private EventModel eventModel;
 

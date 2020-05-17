@@ -8,7 +8,7 @@ import main.SceneSwitchController;
 import models.BarModel;
 import models.other.Interval;
 import models.UserModel;
-import services.BarService;
+import services.IBarService;
 import services.ServiceProvider;
 
 import java.io.File;
@@ -21,7 +21,7 @@ public class EditBarProfilePageController extends AbstractEditProfilePageControl
     @FXML
     public TextField addressField;
 
-    private BarService barService;
+    private IBarService barService;
 
     private BarModel barModel;
 
@@ -83,6 +83,6 @@ public class EditBarProfilePageController extends AbstractEditProfilePageControl
         barService.updateBar(barModel);
         userService.updateUser(userModel);
 
-        SceneSwitchController.getInstance().loadFXMLToMainPage(SceneSwitchController.SceneType.ViewBarProfileContentScene, barModel.getUser_id());
+        SceneSwitchController.getInstance().loadFXMLToMainPage(SceneSwitchController.SceneType.ViewBarProfileContentScene, barModel.getId());
     }
 }

@@ -5,9 +5,8 @@ import models.other.Interval;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ArtistModel {
+public class ArtistModel extends EntityModel {
 
-    private final int user_id;
     private boolean is_band;
     private String path_to_image;
     private String genre;
@@ -15,7 +14,7 @@ public class ArtistModel {
     private String members; //solo artists do not have any members
 
     public ArtistModel(int user_id, boolean is_band, String genre) {
-        this.user_id = user_id;
+        super(user_id);
         this.is_band = is_band;
         this.genre = genre;
         this.path_to_image = "";
@@ -45,10 +44,6 @@ public class ArtistModel {
 
     public void setIs_band(boolean is_band) {
         this.is_band = is_band;
-    }
-
-    public int getUser_id() {
-        return user_id;
     }
 
     public boolean getIs_band() {

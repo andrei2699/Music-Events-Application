@@ -5,7 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import main.SceneSwitchController;
 import models.ArtistModel;
-import services.ArtistService;
+import services.IArtistService;
 import services.ServiceProvider;
 
 public class ViewArtistProfilePageController extends AbstractViewProfilePageController {
@@ -48,7 +48,7 @@ public class ViewArtistProfilePageController extends AbstractViewProfilePageCont
     public void onSetModelId(Integer modelId) {
         super.onSetModelId(modelId);
 
-        ArtistService artistService = ServiceProvider.getArtistService();
+        IArtistService artistService = ServiceProvider.getArtistService();
         artistModel = artistService.getArtist(userModel.getId());
         updateUIOnInitialize();
     }
