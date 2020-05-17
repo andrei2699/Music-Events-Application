@@ -10,7 +10,6 @@ public final class FileSystemManager {
 
     private static final String APPLICATION_FOLDER = ".MusicEventsApplication";
     private static final String DATA_FOLDER_NAME = "data";
-    private static final String IMAGES_FOLDER_NAME = "images";
 
     private static final String USERS_JSON_FILE_NAME = "users.json";
     private static final String BARS_JSON_FILE_NAME = "bars.json"; //localuri
@@ -28,11 +27,6 @@ public final class FileSystemManager {
     }
 
     public void createJSONFiles() throws IOException {
-
-        Path imagesDirectoryPath = getPathToFile(IMAGES_FOLDER_NAME);
-        if (!Files.exists(imagesDirectoryPath)) {
-            Files.createDirectories(imagesDirectoryPath);
-        }
 
         Path dataDirectoryPath = getPathToFile(DATA_FOLDER_NAME);
         if (!Files.exists(dataDirectoryPath)) {
