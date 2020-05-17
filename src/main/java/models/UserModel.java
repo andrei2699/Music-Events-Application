@@ -2,6 +2,8 @@ package models;
 
 import models.other.UserType;
 
+import java.util.Objects;
+
 public class UserModel extends EntityModel {
 
     private final String email;
@@ -44,5 +46,21 @@ public class UserModel extends EntityModel {
     @Override
     public String toString() {
         return "UserModel [" + "id=" + id + ", email=" + email + ", name=" + name + ", type=" + type + ']';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        UserModel userModel = (UserModel) o;
+        return Objects.equals(email, userModel.email) &&
+                Objects.equals(password, userModel.password) &&
+                Objects.equals(name, userModel.name) &&
+                type == userModel.type;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(email, password, name, type);
     }
 }
