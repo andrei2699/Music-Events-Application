@@ -2,7 +2,7 @@ package services.implementation;
 
 import models.UserModel;
 import models.other.UserType;
-import repository.IUserRepository;
+import repository.IRepository;
 import services.IUserService;
 import utils.StringEncryptor;
 
@@ -10,9 +10,9 @@ import java.util.List;
 
 public class UserServiceImpl implements IUserService {
 
-    private final IUserRepository userRepository;
+    private final IRepository<UserModel> userRepository;
 
-    public UserServiceImpl(IUserRepository userRepository) {
+    public UserServiceImpl(IRepository<UserModel> userRepository) {
         this.userRepository = userRepository;
     }
 

@@ -1,16 +1,16 @@
 package services.implementation;
 
 import models.ArtistModel;
-import repository.IArtistRepository;
+import repository.IRepository;
 import services.IArtistService;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ArtistServiceImpl implements IArtistService {
-    private final IArtistRepository artistRepository;
+    private final IRepository<ArtistModel> artistRepository;
 
-    public ArtistServiceImpl(IArtistRepository artistRepository) {
+    public ArtistServiceImpl(IRepository<ArtistModel> artistRepository) {
         this.artistRepository = artistRepository;
     }
 

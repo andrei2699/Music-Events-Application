@@ -1,7 +1,7 @@
 package services.implementation;
 
 import models.ReservationModel;
-import repository.IReservationRepository;
+import repository.IRepository;
 import services.IReservationService;
 
 import java.util.ArrayList;
@@ -9,9 +9,9 @@ import java.util.List;
 
 public class ReservationServiceImpl implements IReservationService {
 
-    private final IReservationRepository reservationRepository;
+    private final IRepository<ReservationModel> reservationRepository;
 
-    public ReservationServiceImpl(IReservationRepository reservationRepository) {
+    public ReservationServiceImpl(IRepository<ReservationModel> reservationRepository) {
         this.reservationRepository = reservationRepository;
     }
 

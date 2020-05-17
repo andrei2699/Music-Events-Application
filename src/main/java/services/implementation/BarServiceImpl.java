@@ -1,7 +1,7 @@
 package services.implementation;
 
 import models.BarModel;
-import repository.IBarRepository;
+import repository.IRepository;
 import services.IBarService;
 
 import java.util.ArrayList;
@@ -9,9 +9,9 @@ import java.util.List;
 
 public class BarServiceImpl implements IBarService {
 
-    private final IBarRepository barRepository;
+    private final IRepository<BarModel> barRepository;
 
-    public BarServiceImpl(IBarRepository barRepository) {
+    public BarServiceImpl(IRepository<BarModel> barRepository) {
         this.barRepository = barRepository;
     }
 

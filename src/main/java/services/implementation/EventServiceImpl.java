@@ -1,7 +1,7 @@
 package services.implementation;
 
 import models.EventModel;
-import repository.IEventRepository;
+import repository.IRepository;
 import services.IEventService;
 
 import java.time.LocalDate;
@@ -10,9 +10,9 @@ import java.util.List;
 
 public class EventServiceImpl implements IEventService {
 
-    private final IEventRepository eventRepository;
+    private final IRepository<EventModel> eventRepository;
 
-    public EventServiceImpl(IEventRepository eventRepository) {
+    public EventServiceImpl(IRepository<EventModel> eventRepository) {
         this.eventRepository = eventRepository;
     }
 
