@@ -10,11 +10,7 @@ import static main.ApplicationResourceStrings.*;
 public class JavaFXBoot extends Application {
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
-
-        ServiceProvider.setUsingMockupFileSystem(false);
-
-        ServiceProvider.getFileSystemManager().createJSONFiles();
+    public void start(Stage primaryStage) {
 
         SceneSwitchController sceneSwitchController = SceneSwitchController.getInstance();
 

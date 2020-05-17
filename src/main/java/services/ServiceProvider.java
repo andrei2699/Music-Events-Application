@@ -1,53 +1,36 @@
 package services;
 
+import repository.implemenation.*;
 import services.implementation.*;
 
 public final class ServiceProvider {
-    private static final FileSystemManager fileSystemManager = new FileSystemManager(new JSONStoreStrategy());
-    private static final UserService userService = new UserServiceImpl();
-    private static final BarService barService = new BarServiceImpl();
-    private static final ArtistService artistService = new ArtistServiceImpl();
-    private static final EventService eventService = new EventServiceImpl();
-    private static final ReservationService reservationService = new ReservationServiceImpl();
-
-//    private static final UserService userService = new UserServiceImpl();
-//    private static final BarService barService = new BarServiceImpl();
-//    private static final ArtistService artistService = new ArtistServiceImpl();
-//    private static final EventService eventService = new EventServiceImpl();
-//    private static final ReservationService reservationService = new ReservationServiceImpl();
+    private static final IStorageManager storageManager = new FileSystemManager();
+    private static final IUserService userService = new UserServiceImpl(new UserRepository(storageManager));
+    private static final IBarService barService = new BarServiceImpl(new BarRepository(storageManager));
+    private static final IArtistService artistService = new ArtistServiceImpl(new ArtistRepository(storageManager));
+    private static final IEventService eventService = new EventServiceImpl(new EventRepository(storageManager));
+    private static final IReservationService reservationService = new ReservationServiceImpl(new ReservationRepository(storageManager));
 
     private ServiceProvider() {
     }
 
-    public static FileSystemManager getFileSystemManager() {
-        return fileSystemManager;
-    }
-
-    public static UserService getUserService() {
+    public static IUserService getUserService() {
         return userService;
     }
 
-    public static BarService getBarService() {
+    public static IBarService getBarService() {
         return barService;
     }
 
-    public static ArtistService getArtistService() {
+    public static IArtistService getArtistService() {
         return artistService;
     }
 
-    public static EventService getEventService() {
+    public static IEventService getEventService() {
         return eventService;
     }
 
-    public static ReservationService getReservationService() {
+    public static IReservationService getReservationService() {
         return reservationService;
-    }
-
-    public static void setUsingMockupFileSystem(boolean usingMockupFileSystem) {
-        if (usingMockupFileSystem) {
-            fileSystemManager.setStoreStrategy(new MockupStoreStrategy());
-        } else {
-            fileSystemManager.setStoreStrategy(new JSONStoreStrategy());
-        }
     }
 }
