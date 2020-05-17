@@ -2,6 +2,8 @@ package models.other;
 
 import models.other.DaysOfWeek;
 
+import java.util.Objects;
+
 public class Interval {
 
     private DaysOfWeek day;
@@ -36,5 +38,20 @@ public class Interval {
 
     public void setEnd_hour(Integer end_hour) {
         this.end_hour = end_hour;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Interval interval = (Interval) o;
+        return day == interval.day &&
+                Objects.equals(start_hour, interval.start_hour) &&
+                Objects.equals(end_hour, interval.end_hour);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(day, start_hour, end_hour);
     }
 }

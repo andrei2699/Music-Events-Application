@@ -34,6 +34,11 @@ public class JSONRepository<T extends EntityModel> implements IRepository<T> {
     @Override
     public T create(T entity) {
         List<T> allData = getAll();
+
+        if (allData == null) {
+            allData = new ArrayList<>();
+        }
+
         allData.add(entity);
 
         GsonBuilder gsonBuilder = new GsonBuilder();
@@ -49,11 +54,21 @@ public class JSONRepository<T extends EntityModel> implements IRepository<T> {
     public T update(T entity) {
         List<T> allData = getAll();
 
+        if (allData == null) {
+            return null;
+        }
+
+        boolean updated = false;
         for (int i = 0; i < allData.size(); i++) {
             if (allData.get(i).getId() == entity.getId()) {
                 allData.set(i, entity);
+                updated = true;
                 break;
             }
+        }
+
+        if (!updated) {
+            return null;
         }
 
         GsonBuilder gsonBuilder = new GsonBuilder();
