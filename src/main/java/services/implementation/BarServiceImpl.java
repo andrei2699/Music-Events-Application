@@ -18,36 +18,47 @@ public class BarServiceImpl implements IBarService {
     @Override
     public BarModel getBar(int user_id) {
         List<BarModel> allBars = getAllBars();
+
+        if (allBars == null)
+            return null;
+
         return allBars.stream().filter(b -> b.getId() == user_id).findFirst().orElse(null);
     }
 
     @Override
     public List<BarModel> getBars(String address) {
         List<BarModel> allBars = getAllBars();
+
+        if (allBars == null)
+            return new ArrayList<>();
+
         List<BarModel> searchResults = new ArrayList<>();
+
         for (BarModel bar : allBars)
             if (bar.getAddress().contains(address))
                 searchResults.add(bar);
+
         return searchResults;
     }
 
     @Override
-    public void updateBar(BarModel model) {
-        barRepository.update(model);
+    public BarModel updateBar(BarModel model) {
+        return barRepository.update(model);
     }
 
     @Override
-    public void createBar(BarModel barModel) {
+    public BarModel createBar(BarModel barModel) {
         List<BarModel> bars = getAllBars();
+
+        if (bars == null)
+            return barRepository.create(barModel);
 
         for (BarModel bar : bars) {
             if (bar.getId() == barModel.getId()) {
-                updateBar(barModel);
-                return;
+                return updateBar(barModel);
             }
         }
-
-        barRepository.create(barModel);
+        return barRepository.create(barModel);
     }
 
     @Override

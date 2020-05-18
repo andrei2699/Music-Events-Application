@@ -9,9 +9,9 @@ public interface IBarService {
 
     List<BarModel> getBars(String address);
 
-    void updateBar(BarModel model);
+    BarModel updateBar(BarModel model);
 
-    void createBar(BarModel barModel);
+    BarModel createBar(BarModel barModel);
 
     List<BarModel> getAllBars();
 }
