@@ -8,7 +8,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
-import repository.implemenation.JSONRepository;
+import repository.IRepository;
 import services.IUserService;
 import utils.StringEncryptor;
 
@@ -21,14 +21,14 @@ import static org.mockito.Mockito.when;
 @RunWith(MockitoJUnitRunner.class)
 public class UserServiceTest {
     @Mock
-    private JSONRepository<UserModel> jsonRepository;
+    private IRepository<UserModel> repository;
 
     private IUserService userService;
 
     @Before
 
     public void setUp() {
-        userService = new UserServiceImpl(jsonRepository);
+        userService = new UserServiceImpl(repository);
     }
 
     @After
@@ -41,7 +41,7 @@ public class UserServiceTest {
         List<UserModel> userModels = new ArrayList<>();
 
 
-        when(jsonRepository.getAll()).thenReturn(userModels);
+        when(repository.getAll()).thenReturn(userModels);
         List<UserModel> allUsers = userService.getAllUsers();
 
         assertEquals("Size not the same", userModels.size(), allUsers.size());
@@ -66,14 +66,14 @@ public class UserServiceTest {
         userModels.add(new UserModel(44, "emadfghil4@hhh.ww", "passwo44r1d4", "Nume 74", UserType.Artist));
         userModels.add(new UserModel(78, "emaaaail4@hhh.ww", "password4jjf", "Nume 41", UserType.Manager));
 
-        when(jsonRepository.getAll()).thenReturn(userModels);
+        when(repository.getAll()).thenReturn(userModels);
 
         assertTrue(userService.existsUser("email1@emial.com"));
         assertTrue(userService.existsUser("e124mail4@hhh.ru"));
         assertTrue(userService.existsUser("emaaaail4@hhh.ww"));
         assertFalse(userService.existsUser("nonexisting@email.com"));
 
-        when(jsonRepository.getAll()).thenReturn(null);
+        when(repository.getAll()).thenReturn(null);
         assertFalse(userService.existsUser("email@e.com"));
     }
 
@@ -86,14 +86,14 @@ public class UserServiceTest {
         userModels.add(new UserModel(44, "emadfghil4@hhh.ww", "passwo44r1d4", "Nume 74", UserType.Artist));
         userModels.add(new UserModel(78, "emaaaail4@hhh.ww", "password4jjf", "Nume 41", UserType.Manager));
 
-        when(jsonRepository.getAll()).thenReturn(userModels);
+        when(repository.getAll()).thenReturn(userModels);
 
         assertTrue(userService.existsUser(1));
         assertTrue(userService.existsUser(7));
         assertTrue(userService.existsUser(78));
         assertFalse(userService.existsUser(120));
 
-        when(jsonRepository.getAll()).thenReturn(null);
+        when(repository.getAll()).thenReturn(null);
         assertFalse(userService.existsUser(3));
     }
 
@@ -109,7 +109,7 @@ public class UserServiceTest {
         userModels.add(new UserModel(44, "emadfghil4@hhh.ww", "passwo44r1d4", "Nume 74", UserType.Artist));
         userModels.add(new UserModel(78, "emaaaail4@hhh.ww", "password4jjf", "Nume 41", UserType.Manager));
 
-        when(jsonRepository.getAll()).thenReturn(userModels);
+        when(repository.getAll()).thenReturn(userModels);
 
         userService.createUser("emai65@ggaa.ro", "newPassword", "My Name", UserType.RegularUser);
     }
@@ -126,7 +126,7 @@ public class UserServiceTest {
         userModels.add(new UserModel(44, "emadfghil4@hhh.ww", "passwo44r1d4", "Nume 74", UserType.Artist));
         userModels.add(new UserModel(78, "emaaaail4@hhh.ww", "password4jjf", "Nume 41", UserType.Manager));
 
-        when(jsonRepository.getAll()).thenReturn(userModels);
+        when(repository.getAll()).thenReturn(userModels);
 
         try {
             String email = "newEmail@ggaa.ro";
@@ -149,7 +149,7 @@ public class UserServiceTest {
     @Test()
     public void testCreateUserInEmptyFile() {
 
-        when(jsonRepository.getAll()).thenReturn(new ArrayList<>());
+        when(repository.getAll()).thenReturn(new ArrayList<>());
 
         try {
             String email = "newEmail@ggaa.ro";
@@ -166,7 +166,7 @@ public class UserServiceTest {
             fail("Existing user");
         }
 
-        when(jsonRepository.getAll()).thenReturn(null);
+        when(repository.getAll()).thenReturn(null);
 
         try {
             String email = "newEmail@ggaa.ro";
@@ -190,7 +190,7 @@ public class UserServiceTest {
         userModels.add(new UserModel(7, "e124mail4@hhh.ru", "passwor44d4", "Nume 46", UserType.RegularUser));
         userModels.add(new UserModel(78, "emaaaail4@hhh.ww", "password4jjf", "Nume 41", UserType.Artist));
 
-        when(jsonRepository.getAll()).thenReturn(userModels);
+        when(repository.getAll()).thenReturn(userModels);
 
         UserModel user = userService.getUser("email1@emial.com");
         assertEquals(1, user.getId());
@@ -209,7 +209,7 @@ public class UserServiceTest {
 
         assertNull(userService.getUser("nonexisting@email.com"));
 
-        when(jsonRepository.getAll()).thenReturn(null);
+        when(repository.getAll()).thenReturn(null);
         assertNull(userService.getUser("email@e.com"));
     }
 
@@ -224,7 +224,7 @@ public class UserServiceTest {
         userModels.add(new UserModel(61, "e12h1l4@h765.ru", "passwor4424124", "Nume 42226", UserType.RegularUser));
         userModels.add(new UserModel(78, "emaaaail4@hhh.ww", "password4jjf", "Nume 41", UserType.Artist));
 
-        when(jsonRepository.getAll()).thenReturn(userModels);
+        when(repository.getAll()).thenReturn(userModels);
 
         UserModel user = userService.getUser(1);
         assertEquals(1, user.getId());
@@ -243,7 +243,7 @@ public class UserServiceTest {
 
         assertNull(userService.getUser(104));
 
-        when(jsonRepository.getAll()).thenReturn(null);
+        when(repository.getAll()).thenReturn(null);
         assertNull(userService.getUser(661));
     }
 
@@ -257,14 +257,14 @@ public class UserServiceTest {
         userModels.add(new UserModel(73, "e124mail4@hhh.ru", "passwor412134d4", "Nume 46", UserType.RegularUser));
         userModels.add(new UserModel(78, "emaaaail4@hhh.ww", "password4jjf", "Nume 41", UserType.Artist));
 
-        when(jsonRepository.getAll()).thenReturn(userModels);
+        when(repository.getAll()).thenReturn(userModels);
 
         assertNull(userService.getArtist("Nume 1"));
         assertNotNull(userService.getArtist("Nume 15"));
         assertNull(userService.getArtist("Nume 351"));
         assertNotNull(userService.getArtist("Nume 41"));
 
-        when(jsonRepository.getAll()).thenReturn(null);
+        when(repository.getAll()).thenReturn(null);
         assertNull(userService.getArtist("Nume 11"));
     }
 
@@ -278,7 +278,7 @@ public class UserServiceTest {
         userModels.add(new UserModel(73, "e124mail4@hhh.ru", StringEncryptor.encrypt("e124mail4@hhh.ru", "passwor412134d4"), "Nume 46", UserType.RegularUser));
         userModels.add(new UserModel(78, "emaaaail4@hhh.ww", StringEncryptor.encrypt("emaaaail4@hhh.ww", "password4jjf"), "Nume 41", UserType.Artist));
 
-        when(jsonRepository.getAll()).thenReturn(userModels);
+        when(repository.getAll()).thenReturn(userModels);
 
         assertTrue(userService.validateUserCredentials("email1@emial.com", "password1"));
         assertTrue(userService.validateUserCredentials("emai6875@ggaa.ro", "passwor2572d3"));
@@ -288,7 +288,7 @@ public class UserServiceTest {
         assertFalse(userService.validateUserCredentials("emaaaail4@hhh.ww", "password188"));
 
 
-        when(jsonRepository.getAll()).thenReturn(null);
+        when(repository.getAll()).thenReturn(null);
         assertFalse(userService.validateUserCredentials("Nume 11", "parola"));
     }
 }
