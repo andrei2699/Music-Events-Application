@@ -19,6 +19,10 @@ public class ReservationServiceImpl implements IReservationService {
     public List<ReservationModel> getReservationUsingEventId(int event_id) {
         List<ReservationModel> allReservations = getAllReservations();
         List<ReservationModel> searchResults = new ArrayList<>();
+
+        if (allReservations == null)
+            return searchResults;
+
         for (ReservationModel reservation : allReservations)
             if (reservation.getEvent_id() == event_id)
                 searchResults.add(reservation);
@@ -29,6 +33,10 @@ public class ReservationServiceImpl implements IReservationService {
     public List<ReservationModel> getReservationUsingUserId(int user_id) {
         List<ReservationModel> allReservations = getAllReservations();
         List<ReservationModel> searchResults = new ArrayList<>();
+
+        if (allReservations == null)
+            return searchResults;
+
         for (ReservationModel reservation : allReservations)
             if (reservation.getUser_id() == user_id)
                 searchResults.add(reservation);
@@ -45,9 +53,13 @@ public class ReservationServiceImpl implements IReservationService {
         List<ReservationModel> reservations = getAllReservations();
 
         int biggestId = -1;
-        for (ReservationModel reservation : reservations) {
-            if (reservation.getId() > biggestId) {
-                biggestId = reservation.getId();
+
+        if (reservations != null) {
+
+            for (ReservationModel reservation : reservations) {
+                if (reservation.getId() > biggestId) {
+                    biggestId = reservation.getId();
+                }
             }
         }
 
