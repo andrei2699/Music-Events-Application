@@ -9,9 +9,9 @@ public interface IArtistService {
 
     List<ArtistModel> getArtists(String genre);
 
-    void updateArtist(ArtistModel model);
+    ArtistModel updateArtist(ArtistModel model);
 
-    void createArtist(ArtistModel artistModel);
+    ArtistModel createArtist(ArtistModel artistModel);
 
     List<ArtistModel> getAllArtists();
 }

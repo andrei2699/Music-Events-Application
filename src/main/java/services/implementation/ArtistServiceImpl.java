@@ -17,36 +17,45 @@ public class ArtistServiceImpl implements IArtistService {
     @Override
     public ArtistModel getArtist(int user_id) {
         List<ArtistModel> allArtists = getAllArtists();
+
+        if (allArtists == null)
+            return null;
+
         return allArtists.stream().filter(a -> a.getId() == user_id).findFirst().orElse(null);
     }
 
     @Override
     public List<ArtistModel> getArtists(String genre) {
         List<ArtistModel> allArtists = getAllArtists();
+
+        if (allArtists == null)
+            return new ArrayList<>();
+
         List<ArtistModel> searchResults = new ArrayList<>();
         for (ArtistModel artist : allArtists)
-            if (artist.getGenre().equals(genre))
+            if (artist.getGenre().contains(genre))
                 searchResults.add(artist);
         return searchResults;
     }
 
     @Override
-    public void updateArtist(ArtistModel model) {
-        artistRepository.update(model);
+    public ArtistModel updateArtist(ArtistModel model) {
+        return artistRepository.update(model);
     }
 
     @Override
-    public void createArtist(ArtistModel artistModel) {
+    public ArtistModel createArtist(ArtistModel artistModel) {
         List<ArtistModel> artists = getAllArtists();
+
+        if (artists == null)
+            return artistRepository.create(artistModel);
 
         for (ArtistModel artist : artists) {
             if (artist.getId() == artistModel.getId()) {
-                updateArtist(artistModel);
-                return;
+                return updateArtist(artistModel);
             }
         }
-
-        artistRepository.create(artistModel);
+        return artistRepository.create(artistModel);
     }
 
     @Override
