@@ -26,7 +26,6 @@ public class UserServiceTest {
     private IUserService userService;
 
     @Before
-
     public void setUp() {
         userService = new UserServiceImpl(repository);
     }
@@ -39,20 +38,12 @@ public class UserServiceTest {
     @Test
     public void testGetAllUsers() {
         List<UserModel> userModels = new ArrayList<>();
-
+        userModels.add(new UserModel(4, "email3@ggaa.ro", "password13", "Nume 31", UserType.Manager));
+        userModels.add(new UserModel(7, "e124mail4@hhh.ru", "passwor44d4", "Nume 46", UserType.RegularUser));
+        userModels.add(new UserModel(44, "emadfghil4@hhh.ww", "passwo44r1d4", "Nume 74", UserType.Artist));
 
         when(repository.getAll()).thenReturn(userModels);
-        List<UserModel> allUsers = userService.getAllUsers();
-
-        assertEquals("Size not the same", userModels.size(), allUsers.size());
-
-
-        for (int i = 0; i < allUsers.size(); i++) {
-            UserModel actual = allUsers.get(i);
-            UserModel expected = userModels.get(i);
-
-            assertEquals("Not Same model", expected, actual);
-        }
+        assertEquals("Different list", userModels, userService.getAllUsers());
     }
 
     @Test
@@ -286,7 +277,6 @@ public class UserServiceTest {
 
         assertFalse(userService.validateUserCredentials("emai6875@ggaa.ro", "password4jjf"));
         assertFalse(userService.validateUserCredentials("emaaaail4@hhh.ww", "password188"));
-
 
         when(repository.getAll()).thenReturn(null);
         assertFalse(userService.validateUserCredentials("Nume 11", "parola"));

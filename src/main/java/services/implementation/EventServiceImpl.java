@@ -19,12 +19,16 @@ public class EventServiceImpl implements IEventService {
     @Override
     public EventModel getEventUsingEventId(int id) {
         List<EventModel> allEvents = getAllEvents();
+        if (allEvents == null)
+            return null;
         return allEvents.stream().filter(e -> e.getId() == id).findFirst().orElse(null);
     }
 
     @Override
     public EventModel getEventUsingEventName(String name) {
         List<EventModel> allEvents = getAllEvents();
+        if (allEvents == null)
+            return null;
         return allEvents.stream().filter(e -> e.getName().equals(name)).findFirst().orElse(null);
     }
 
@@ -32,6 +36,10 @@ public class EventServiceImpl implements IEventService {
     public List<EventModel> getEventsUsingBarId(int bar_manager_id) {
         List<EventModel> allEvents = getAllEvents();
         List<EventModel> searchResults = new ArrayList<>();
+
+        if (allEvents == null)
+            return searchResults;
+
         for (EventModel event : allEvents)
             if (event.getBar_manager_id() == bar_manager_id)
                 searchResults.add(event);
@@ -42,6 +50,10 @@ public class EventServiceImpl implements IEventService {
     public List<EventModel> getEventsUsingArtistId(int artist_id) {
         List<EventModel> allEvents = getAllEvents();
         List<EventModel> searchResults = new ArrayList<>();
+
+        if (allEvents == null)
+            return searchResults;
+
         for (EventModel event : allEvents)
             if (event.getArtist_id() == artist_id)
                 searchResults.add(event);
@@ -53,6 +65,9 @@ public class EventServiceImpl implements IEventService {
         List<EventModel> allEvents = getAllEvents();
         List<EventModel> searchResults = new ArrayList<>();
 
+        if (allEvents == null)
+            return searchResults;
+
         for (EventModel event : allEvents) {
             LocalDate parseLocalDate = LocalDate.parse(event.getDate());
             if (parseLocalDate.compareTo(date) > 0) {
@@ -61,6 +76,13 @@ public class EventServiceImpl implements IEventService {
                 searchResults.add(event);
             }
         }
+
+        searchResults.sort((event1, event2) -> {
+            if (event1.getDate().equals(event2.getDate())) {
+                return event1.getStart_hour() - event2.getStart_hour();
+            }
+            return event1.getDate().compareTo(event2.getDate());
+        });
         return searchResults;
     }
 
@@ -70,8 +92,11 @@ public class EventServiceImpl implements IEventService {
     }
 
     @Override
-    public void createEvent(int bar_id, int artist_id, String eventName, String date, int startHour, int totalSeats, String description) {
+    public EventModel createEvent(int bar_id, int artist_id, String eventName, String date, int startHour, int totalSeats, String description) {
         List<EventModel> events = getAllEvents();
+
+        if (events == null)
+            events = new ArrayList<>();
 
         int biggestId = -1;
         for (EventModel event : events) {
@@ -80,10 +105,9 @@ public class EventServiceImpl implements IEventService {
             }
         }
 
-        EventModel eventModel = new EventModel(biggestId + 1, bar_id, artist_id, eventName, date, startHour, totalSeats);
-        eventModel.setDescription(description);
+        EventModel eventModel = new EventModel(biggestId + 1, bar_id, artist_id, eventName, date, startHour, totalSeats, description);
 
-        eventRepository.create(eventModel);
+        return eventRepository.create(eventModel);
     }
 
     @Override
