@@ -1,5 +1,7 @@
 package models;
 
+import java.util.Objects;
+
 public class EventModel extends EntityModel {
     private final int bar_manager_id;
     private final int artist_id;
@@ -86,5 +88,25 @@ public class EventModel extends EntityModel {
 
     public void addReservedSeats(Integer numberOfSeats) {
         reserved_seats += numberOfSeats;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        EventModel that = (EventModel) o;
+        return bar_manager_id == that.bar_manager_id &&
+                artist_id == that.artist_id &&
+                start_hour == that.start_hour &&
+                total_seats == that.total_seats &&
+                reserved_seats == that.reserved_seats &&
+                Objects.equals(name, that.name) &&
+                Objects.equals(date, that.date) &&
+                Objects.equals(description, that.description);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(bar_manager_id, artist_id, name, date, start_hour, description, total_seats, reserved_seats);
     }
 }
