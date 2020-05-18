@@ -12,7 +12,7 @@ public class EventModel extends EntityModel {
     private int total_seats;
     private int reserved_seats;
 
-    public EventModel(int id, int barManagerId, int artistId, String name, String date, int startHour, int totalSeats) {
+    public EventModel(int id, int barManagerId, int artistId, String name, String date, int startHour, int totalSeats, String description) {
         super(id);
         this.bar_manager_id = barManagerId;
         this.artist_id = artistId;
@@ -20,6 +20,11 @@ public class EventModel extends EntityModel {
         this.date = date;
         this.start_hour = startHour;
         this.total_seats = totalSeats;
+        this.description = description;
+    }
+
+    public EventModel(int id, int barManagerId, int artistId, String name, String date, int startHour, int totalSeats) {
+        this(id, barManagerId, artistId, name, date, startHour, totalSeats, "");
     }
 
     public void setName(String name) {

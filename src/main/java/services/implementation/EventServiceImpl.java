@@ -65,6 +65,9 @@ public class EventServiceImpl implements IEventService {
         List<EventModel> allEvents = getAllEvents();
         List<EventModel> searchResults = new ArrayList<>();
 
+        if (allEvents == null)
+            return searchResults;
+
         for (EventModel event : allEvents) {
             LocalDate parseLocalDate = LocalDate.parse(event.getDate());
             if (parseLocalDate.compareTo(date) > 0) {
@@ -73,6 +76,13 @@ public class EventServiceImpl implements IEventService {
                 searchResults.add(event);
             }
         }
+
+        searchResults.sort((event1, event2) -> {
+            if (event1.getDate().equals(event2.getDate())) {
+                return event1.getStart_hour() - event2.getStart_hour();
+            }
+            return event1.getDate().compareTo(event2.getDate());
+        });
         return searchResults;
     }
 
@@ -82,7 +92,7 @@ public class EventServiceImpl implements IEventService {
     }
 
     @Override
-    public void createEvent(int bar_id, int artist_id, String eventName, String date, int startHour, int totalSeats, String description) {
+    public EventModel createEvent(int bar_id, int artist_id, String eventName, String date, int startHour, int totalSeats, String description) {
         List<EventModel> events = getAllEvents();
 
         if (events == null)
@@ -95,10 +105,9 @@ public class EventServiceImpl implements IEventService {
             }
         }
 
-        EventModel eventModel = new EventModel(biggestId + 1, bar_id, artist_id, eventName, date, startHour, totalSeats);
-        eventModel.setDescription(description);
+        EventModel eventModel = new EventModel(biggestId + 1, bar_id, artist_id, eventName, date, startHour, totalSeats, description);
 
-        eventRepository.create(eventModel);
+        return eventRepository.create(eventModel);
     }
 
     @Override
