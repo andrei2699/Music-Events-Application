@@ -2,21 +2,17 @@ package repository.implemenation;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
 import models.BarModel;
 import models.EventModel;
 import models.ReservationModel;
 import models.UserModel;
 import models.other.DaysOfWeek;
 import models.other.Interval;
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
+import repository.IRepository;
 import services.IStorageManager;
 
 import java.util.ArrayList;
@@ -34,17 +30,17 @@ public class JSONRepositoryTest {
 
     @Test
     public void testEmptyGetAll() {
-        JSONRepository<UserModel> jsonRepository = new JSONRepository<>(UserModel.class, storageManager);
+        IRepository<UserModel> repository = new JSONRepository<>(UserModel.class, storageManager);
         when(storageManager.readContent("UserModel.json")).thenReturn("[]");
 
-        List<UserModel> all = jsonRepository.getAll();
+        List<UserModel> all = repository.getAll();
 
         assertEquals("Empty repository", 0, all.size());
     }
 
     @Test
     public void testNotEmptyGetAll() {
-        JSONRepository<BarModel> jsonRepository = new JSONRepository<>(BarModel.class, storageManager);
+        IRepository<BarModel> repository = new JSONRepository<>(BarModel.class, storageManager);
         List<BarModel> barModels = new ArrayList<>();
 
         BarModel barModel1 = new BarModel(4, "adresa1");
@@ -68,7 +64,7 @@ public class JSONRepositoryTest {
         String json = gson.toJson(barModels);
         when(storageManager.readContent("BarModel.json")).thenReturn(json);
 
-        List<BarModel> all = jsonRepository.getAll();
+        List<BarModel> all = repository.getAll();
 
         assertEquals("Empty repository", barModels.size(), all.size());
 
@@ -89,7 +85,7 @@ public class JSONRepositoryTest {
 
     @Test
     public void testCreate() {
-        JSONRepository<EventModel> jsonRepository = new JSONRepository<>(EventModel.class, storageManager);
+        IRepository<EventModel> repository = new JSONRepository<>(EventModel.class, storageManager);
         EventModel eventModel = new EventModel(2, 4, 5, "Eveniment 1", "2020-06-12", 0, 30);
 
         List<EventModel> events = new ArrayList<>();
@@ -101,28 +97,28 @@ public class JSONRepositoryTest {
         String json = gson.toJson(events);
         when(storageManager.readContent("EventModel.json")).thenReturn(json);
 
-        EventModel resulted = jsonRepository.create(eventModel);
+        EventModel resulted = repository.create(eventModel);
 
         assertEquals("Not Same models", eventModel, resulted);
     }
 
     @Test
     public void testCreateInEmptyFile() {
-        JSONRepository<EventModel> jsonRepository = new JSONRepository<>(EventModel.class, storageManager);
+        IRepository<EventModel> repository = new JSONRepository<>(EventModel.class, storageManager);
         EventModel eventModel = new EventModel(8, 22, 415, "Eveniment 15", "2020-06-22", 22, 300);
 
         when(storageManager.readContent("EventModel.json")).thenReturn("[]");
-        EventModel resulted = jsonRepository.create(eventModel);
+        EventModel resulted = repository.create(eventModel);
         assertEquals("Not Same models", eventModel, resulted);
 
         when(storageManager.readContent("EventModel.json")).thenReturn(null);
-        resulted = jsonRepository.create(eventModel);
+        resulted = repository.create(eventModel);
         assertEquals("Not Same models", eventModel, resulted);
     }
 
     @Test
     public void testUpdate() {
-        JSONRepository<ReservationModel> jsonRepository = new JSONRepository<>(ReservationModel.class, storageManager);
+        IRepository<ReservationModel> repository = new JSONRepository<>(ReservationModel.class, storageManager);
         ReservationModel reservationModel = new ReservationModel(4, 2, 6, 100);
 
         List<ReservationModel> reservations = new ArrayList<>();
@@ -135,14 +131,14 @@ public class JSONRepositoryTest {
         String json = gson.toJson(reservations);
         when(storageManager.readContent("ReservationModel.json")).thenReturn(json);
 
-        ReservationModel resulted = jsonRepository.update(reservationModel);
+        ReservationModel resulted = repository.update(reservationModel);
 
         assertEquals("Not Same models", reservationModel, resulted);
     }
 
     @Test
     public void testUpdateNotInFile() {
-        JSONRepository<ReservationModel> jsonRepository = new JSONRepository<>(ReservationModel.class, storageManager);
+        IRepository<ReservationModel> repository = new JSONRepository<>(ReservationModel.class, storageManager);
         ReservationModel reservationModel = new ReservationModel(4, 2, 6, 100);
 
         List<ReservationModel> reservations = new ArrayList<>();
@@ -155,19 +151,19 @@ public class JSONRepositoryTest {
         String json = gson.toJson(reservations);
         when(storageManager.readContent("ReservationModel.json")).thenReturn(json);
 
-        ReservationModel resulted = jsonRepository.update(reservationModel);
+        ReservationModel resulted = repository.update(reservationModel);
 
         assertNull("Not Same models", resulted);
     }
 
     @Test
     public void testUpdateInEmptyFile() {
-        JSONRepository<ReservationModel> jsonRepository = new JSONRepository<>(ReservationModel.class, storageManager);
+        IRepository<ReservationModel> repository = new JSONRepository<>(ReservationModel.class, storageManager);
         ReservationModel reservationModel = new ReservationModel(4, 2, 6, 100);
 
         when(storageManager.readContent("ReservationModel.json")).thenReturn(null);
 
-        ReservationModel resulted = jsonRepository.update(reservationModel);
+        ReservationModel resulted = repository.update(reservationModel);
 
         assertNull("Not Same models", resulted);
     }
