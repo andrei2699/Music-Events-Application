@@ -124,11 +124,11 @@ public class BarServiceTest {
 
         when(repository.getAll()).thenReturn(new ArrayList<>());
 
-        assertEquals(0,barService.getBars("B").size());
+        assertEquals(0, barService.getBars("B").size());
 
         when(repository.getAll()).thenReturn(null);
 
-        assertEquals(0,barService.getBars("Lunei").size());
+        assertEquals(0, barService.getBars("Lunei").size());
     }
 
     @Test
@@ -136,7 +136,7 @@ public class BarServiceTest {
         when(repository.getAll()).thenReturn(null);
         try {
             barService.createBar(new BarModel(99, "Stelelor 11"));
-        }catch(NullPointerException e){
+        } catch (NullPointerException e) {
             fail("Created Bar in Null List of Bars");
         }
     }

@@ -21,7 +21,7 @@ public class BarServiceImpl implements IBarService {
 
         if (allBars == null)
             return null;
-        
+
         return allBars.stream().filter(b -> b.getId() == user_id).findFirst().orElse(null);
     }
 
@@ -50,8 +50,8 @@ public class BarServiceImpl implements IBarService {
     public BarModel createBar(BarModel barModel) {
         List<BarModel> bars = getAllBars();
 
-        if(bars==null)
-           return barRepository.create(barModel);
+        if (bars == null)
+            return barRepository.create(barModel);
 
         for (BarModel bar : bars) {
             if (bar.getId() == barModel.getId()) {
