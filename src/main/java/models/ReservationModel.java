@@ -1,5 +1,7 @@
 package models;
 
+import java.util.Objects;
+
 public class ReservationModel extends EntityModel {
     private final int user_id;
     private final int event_id;
@@ -22,5 +24,20 @@ public class ReservationModel extends EntityModel {
 
     public int getReserved_seats() {
         return reserved_seats;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ReservationModel that = (ReservationModel) o;
+        return user_id == that.user_id &&
+                event_id == that.event_id &&
+                reserved_seats == that.reserved_seats;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(user_id, event_id, reserved_seats);
     }
 }
