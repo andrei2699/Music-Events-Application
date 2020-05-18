@@ -44,8 +44,6 @@ public class UserServiceTest {
 
         when(repository.getAll()).thenReturn(userModels);
         assertEquals("Different list", userModels, userService.getAllUsers());
-
-        when(repository.getAll()).thenReturn(null);
     }
 
     @Test
