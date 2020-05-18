@@ -4,6 +4,7 @@ import models.other.Interval;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class ArtistModel extends EntityModel {
 
@@ -64,5 +65,22 @@ public class ArtistModel extends EntityModel {
 
     public String getMembers() {
         return members;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ArtistModel that = (ArtistModel) o;
+        return is_band == that.is_band &&
+                Objects.equals(path_to_image, that.path_to_image) &&
+                Objects.equals(genre, that.genre) &&
+                Objects.equals(intervals, that.intervals) &&
+                Objects.equals(members, that.members);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(is_band, path_to_image, genre, intervals, members);
     }
 }
