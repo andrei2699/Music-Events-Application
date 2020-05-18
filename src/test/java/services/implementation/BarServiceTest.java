@@ -88,7 +88,7 @@ public class BarServiceTest {
     }
 
     @Test
-    public void getBarUsingId() {
+    public void testGetBarUsingId() {
         when(repository.getAll()).thenReturn(barModels);
         assertEquals(barModels.get(5), barService.getBar(64));
         assertEquals(barModels.get(2), barService.getBar(12));
@@ -103,7 +103,7 @@ public class BarServiceTest {
     }
 
     @Test
-    public void getBarUsingAddress() {
+    public void testGetBarUsingAddress() {
         when(repository.getAll()).thenReturn(barModels);
 
         //search for M
