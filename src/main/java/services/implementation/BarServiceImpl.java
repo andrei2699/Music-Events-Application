@@ -18,20 +18,26 @@ public class BarServiceImpl implements IBarService {
     @Override
     public BarModel getBar(int user_id) {
         List<BarModel> allBars = getAllBars();
+
         if (allBars == null)
             return null;
+        
         return allBars.stream().filter(b -> b.getId() == user_id).findFirst().orElse(null);
     }
 
     @Override
     public List<BarModel> getBars(String address) {
         List<BarModel> allBars = getAllBars();
+
         if (allBars == null)
             return new ArrayList<>();
+
         List<BarModel> searchResults = new ArrayList<>();
+
         for (BarModel bar : allBars)
             if (bar.getAddress().contains(address))
                 searchResults.add(bar);
+
         return searchResults;
     }
 
@@ -43,8 +49,8 @@ public class BarServiceImpl implements IBarService {
     @Override
     public BarModel createBar(BarModel barModel) {
         List<BarModel> bars = getAllBars();
-        if(bars==null)
 
+        if(bars==null)
            return barRepository.create(barModel);
 
         for (BarModel bar : bars) {
