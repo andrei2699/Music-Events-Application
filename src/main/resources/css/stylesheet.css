@@ -10,7 +10,7 @@
 }
 
 .message-sender {
-    -fx-background-color: #DDE0E5;
+    -fx-background-color: -swatch-400;
 }
 
 .message-sender > .label {
@@ -18,9 +18,9 @@
 }
 
 .message-receiver {
-    -fx-background-color: #2791f3;
+    -fx-background-color: -swatch-100;
 }
 
 .message-receiver > .label {
-    -fx-text-fill: #8F8F8F;
+    -fx-text-fill: white;
 }
