@@ -19,6 +19,8 @@ public final class ApplicationResourceStrings {
     public static final String BAR_DETAILS_CARD_FXML_PATH = "/fxml/components/barDetailsCard.fxml";
     public static final String ARTIST_DETAILS_CARD_FXML_PATH = "/fxml/components/artistDetailsCard.fxml";
     public static final String RESERVATION_DETAILS_CARD_FXML_PATH = "/fxml/components/reservationDetailsCard.fxml";
+    public static final String DISCUSSION_HEADER_CHAT_CARD_FXML_PATH = "/fxml/components/discussionChatHeaderCard.fxml";
+    public static final String DISCUSSION_MESSAGE_CARD_FXML_PATH = "/fxml/components/discussionMessageCard.fxml";
 
     public static final String MAKE_RESERVATION_POPUP_WINDOW_FXML_PATH = "/fxml/components/makeReservationPopupWindow.fxml";
 
@@ -28,6 +30,7 @@ public final class ApplicationResourceStrings {
     public static final String MAIN_PAGE_TEXT = "Pagina principala";
     public static final String LOG_OUT_TEXT = "Delogare";
     public static final String LOG_IN_TEXT = "Logare";
+    public static final String CONVERSATION_WITH_TEXT = "Conversatie cu";
 
     public static final String IMAGES_DEFAULT_USER_PHOTO_PATH = "/Images/defaultUserPhoto.png";
 

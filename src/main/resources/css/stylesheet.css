@@ -13,14 +13,14 @@
     -fx-background-color: -swatch-400;
 }
 
-.message-sender > .label {
-    -fx-text-fill: #45444A;
+.message-sender > * > .label {
+    -fx-text-fill: white;
 }
 
 .message-receiver {
     -fx-background-color: -swatch-100;
 }
 
-.message-receiver > .label {
-    -fx-text-fill: white;
+.message-receiver > * > .label {
+    -fx-text-fill: #45444A;
 }
