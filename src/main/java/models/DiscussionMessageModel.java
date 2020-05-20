@@ -1,14 +1,14 @@
-package models.other;
+package models;
 
 public class DiscussionMessageModel {
     private final String date;
     private final String text;
-    private final int senderId;
+    private final boolean isSender;
 
-    public DiscussionMessageModel(String date, String text, int senderId) {
+    public DiscussionMessageModel(String date, String text, boolean isSender) {
         this.date = date;
         this.text = text;
-        this.senderId = senderId;
+        this.isSender = isSender;
     }
 
     public String getDate() {
@@ -19,7 +19,7 @@ public class DiscussionMessageModel {
         return text;
     }
 
-    public int getSenderId() {
-        return senderId;
+    public boolean isSender() {
+        return isSender;
     }
 }

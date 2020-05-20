@@ -2,24 +2,29 @@ package controllers.components;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
+import javafx.scene.control.TableCell;
 import javafx.scene.layout.HBox;
-import models.other.DiscussionMessageModel;
+import javafx.scene.layout.VBox;
+import models.DiscussionMessageModel;
+import models.cards.DiscussionMessageCardModel;
+import models.cards.TableCardModel;
 
 import java.io.IOException;
 
 import static main.ApplicationResourceStrings.DISCUSSION_MESSAGE_CARD_FXML_PATH;
 
-public class DiscussionMessageCardController extends ListCell<DiscussionMessageModel> {
+public class DiscussionMessageCardController extends TableCell<TableCardModel, TableCardModel> {
     @FXML
-    public HBox messageHBox;
+    public HBox messageCardHBox;
+    @FXML
+    public VBox messageVBox;
     @FXML
     public Label messageLabel;
     @FXML
     public Label dateLabel;
-
-    private Integer senderId;
 
     public DiscussionMessageCardController() {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(DISCUSSION_MESSAGE_CARD_FXML_PATH));
@@ -33,26 +38,28 @@ public class DiscussionMessageCardController extends ListCell<DiscussionMessageM
     }
 
     @Override
-    protected void updateItem(DiscussionMessageModel item, boolean empty) {
-        super.updateItem(item, empty);
+    protected void updateItem(TableCardModel tableCardModel, boolean empty) {
+        super.updateItem(tableCardModel, empty);
 
-        if (empty || item == null) {
+        if (empty || tableCardModel == null) {
             setGraphic(null);
         } else {
-            messageLabel.setText(item.getText());
-            dateLabel.setText(item.getDate());
+            DiscussionMessageCardModel discussionMessageCardModel = (DiscussionMessageCardModel) tableCardModel;
+            DiscussionMessageModel discussionMessageModel = discussionMessageCardModel.getDiscussionMessageModel();
 
-            if (item.getSenderId() == senderId) {
-                messageHBox.getStyleClass().add("message-sender");
+            messageLabel.setText(discussionMessageModel.getText());
+            dateLabel.setText(discussionMessageModel.getDate());
+
+            messageVBox.getStyleClass().clear();
+            if (discussionMessageModel.isSender()) {
+                messageVBox.getStyleClass().add("message-sender");
+                messageCardHBox.setAlignment(Pos.CENTER_RIGHT);
             } else {
-                messageHBox.getStyleClass().add("message-receiver");
+                messageVBox.getStyleClass().add("message-receiver");
+                messageCardHBox.setAlignment(Pos.CENTER_LEFT);
             }
 
-            setGraphic(messageHBox);
+            setGraphic(messageCardHBox);
         }
-    }
-
-    public void setSenderId(Integer senderId) {
-        this.senderId = senderId;
     }
 }

@@ -7,6 +7,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
+import models.cards.DiscussionHeaderCardModel;
 import models.cards.TableCardModel;
 
 import java.io.IOException;
@@ -18,8 +20,11 @@ public class DiscussionChatHeaderCardController extends TableCell<TableCardModel
     public ImageView profilePictureImage;
     @FXML
     public Label nameLabel;
+    @FXML
+    public HBox chatHeaderHBox;
 
-    private ISceneResponseCall<Integer> onClickResponseCall;
+    private ISceneResponseCall<DiscussionHeaderCardModel> onClickResponseCall;
+    private DiscussionHeaderCardModel discussionHeaderCardModel;
 
     public DiscussionChatHeaderCardController() {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(DISCUSSION_HEADER_CHAT_CARD_FXML_PATH));
@@ -32,14 +37,30 @@ public class DiscussionChatHeaderCardController extends TableCell<TableCardModel
         }
     }
 
-    @FXML
-    public void onMouseClicked(MouseEvent mouseEvent) {
-        if (onClickResponseCall != null) {
-            onClickResponseCall.onResponseCall(0);
+    @Override
+    protected void updateItem(TableCardModel tableCardModel, boolean empty) {
+        super.updateItem(tableCardModel, empty);
+
+        if (!empty && tableCardModel != null) {
+
+            discussionHeaderCardModel = (DiscussionHeaderCardModel) tableCardModel;
+
+            chatHeaderHBox.setOnMouseClicked(this::onMouseClicked);
+
+            setGraphic(chatHeaderHBox);
+        } else {
+            setGraphic(null);
         }
     }
 
-    public void setOnClickResponseCall(ISceneResponseCall<Integer> onClickResponseCall) {
+    @FXML
+    public void onMouseClicked(MouseEvent mouseEvent) {
+        if (onClickResponseCall != null) {
+            onClickResponseCall.onResponseCall(discussionHeaderCardModel);
+        }
+    }
+
+    public void setOnClickResponseCall(ISceneResponseCall<DiscussionHeaderCardModel> onClickResponseCall) {
         this.onClickResponseCall = onClickResponseCall;
     }
 }
