@@ -23,36 +23,6 @@
             </padding>
         </TableView>
         <ListView fx:id="messagesListView">
-            <HBox alignment="CENTER_LEFT">
-                <Label text="Hallo"/>
-            </HBox>
-            <HBox alignment="CENTER_LEFT">
-                <Label text="Hallo"/>
-            </HBox>
-            <HBox alignment="CENTER_RIGHT">
-                <Label text="Hallo"/>
-            </HBox>
-            <HBox alignment="CENTER_RIGHT">
-                <Label text="Hallo"/>
-            </HBox>
-            <HBox alignment="CENTER_LEFT">
-                <Label text="Hallo"/>
-            </HBox>
-            <HBox alignment="CENTER_LEFT">
-                <Label text="Hallo"/>
-            </HBox>
-            <HBox alignment="CENTER_RIGHT">
-                <Label text="Hallo"/>
-            </HBox>
-            <HBox alignment="CENTER_RIGHT">
-                <Label text="Hallo"/>
-            </HBox>
-            <HBox alignment="CENTER_RIGHT">
-                <Label text="Hallo"/>
-            </HBox>
-            <HBox alignment="CENTER_RIGHT">
-                <Label text="Hallo"/>
-            </HBox>
         </ListView>
     </SplitPane>
 
