@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<HBox alignment="CENTER_LEFT" onMouseClicked="#onMouseClicked" spacing="10.0" styleClass="card" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.components.ConversationChatHeaderCardController">
+    <ImageView fx:id="profilePictureImage" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="0.0">
+        <Image url="@../../Images/defaultUserPhoto.png" />
+        <viewport>
+            <Rectangle2D />
+        </viewport>
+    </ImageView>
+    <HBox alignment="CENTER" prefWidth="200.0">
+        <Label fx:id="nameLabel" text="Name ">
+            <font>
+                <Font size="20.0" />
+            </font>
+        </Label>
+    </HBox>
+
+    <stylesheets>
+        <URL value="@../../css/material-fx-v0_3.css" />
+        <URL value="@../../css/stylesheet.css" />
+    </stylesheets>
+</HBox>
