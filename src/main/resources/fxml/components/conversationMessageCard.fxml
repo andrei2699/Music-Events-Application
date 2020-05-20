@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+
+<HBox fx:id="messageHBox" alignment="CENTER_LEFT" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.components.ConversationMessageCardController">
+    <Label fx:id="messageLabel" text="Acesta este un mesaj">
+        <padding>
+            <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+        </padding>
+    </Label>
+   <stylesheets>
+      <URL value="@../../css/material-fx-v0_3.css" />
+      <URL value="@../../css/stylesheet.css" />
+   </stylesheets>
+   <styleClass>
+       <String fx:value="card" />
+       <String fx:value="message-receiver" />
+   </styleClass>
+</HBox>
