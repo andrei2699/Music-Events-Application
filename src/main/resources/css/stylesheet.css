@@ -8,3 +8,19 @@
     -fx-background-radius: 5 5 0 0, 4 4 0 0, 3 3 0 0;
     -fx-padding: 0.166667em 0.833333em 0.25em 0.833333em; /* 2 10 3 10 */
 }
+
+.message-sender {
+    -fx-background-color: #DDE0E5;
+}
+
+.message-sender > .label {
+    -fx-text-fill: #45444A;
+}
+
+.message-receiver {
+    -fx-background-color: #2791f3;
+}
+
+.message-receiver > .label {
+    -fx-text-fill: #8F8F8;
+}
