@@ -13,6 +13,7 @@ public final class ApplicationResourceStrings {
     public static final String EDIT_BAR_SCENE_CONTENT_FXML_PATH = "/fxml/scenes/sceneContents/editBarProfilePage.fxml";
     public static final String EDIT_ARTIST_SCENE_CONTENT_FXML_PATH = "/fxml/scenes/sceneContents/editArtistProfilePage.fxml";
     public static final String CREATE_EVENT_SCENE_CONTENT_FXML_PATH = "/fxml/scenes/sceneContents/createEventForm.fxml";
+    public static final String CHAT_SCENE_CONTENT = "/fxml/scenes/sceneContents/chatPageContent.fxml";
 
     public static final String EVENT_DETAILS_CARD_FXML_PATH = "/fxml/components/eventDetailsCard.fxml";
     public static final String BAR_DETAILS_CARD_FXML_PATH = "/fxml/components/barDetailsCard.fxml";
