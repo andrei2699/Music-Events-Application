@@ -1,7 +1,7 @@
 package services;
 
 import models.*;
-import repository.implemenation.*;
+import repository.implemenation.JSONRepository;
 import services.implementation.*;
 
 public final class ServiceProvider {
@@ -11,7 +11,7 @@ public final class ServiceProvider {
     private static final IArtistService artistService = new ArtistServiceImpl(new JSONRepository<>(ArtistModel.class, storageManager));
     private static final IEventService eventService = new EventServiceImpl(new JSONRepository<>(EventModel.class, storageManager));
     private static final IReservationService reservationService = new ReservationServiceImpl(new JSONRepository<>(ReservationModel.class, storageManager));
-
+    private static final IDiscussionService discussionService = new DiscussionServiceImpl(new JSONRepository<>(DiscussionModel.class, storageManager));
     private ServiceProvider() {
     }
 
@@ -34,4 +34,9 @@ public final class ServiceProvider {
     public static IReservationService getReservationService() {
         return reservationService;
     }
+
+    public static IDiscussionService getDiscussionService() {
+        return discussionService;
+    }
+
 }
