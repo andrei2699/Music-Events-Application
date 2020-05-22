@@ -31,6 +31,9 @@ public final class ApplicationResourceStrings {
     public static final String LOG_OUT_TEXT = "Delogare";
     public static final String LOG_IN_TEXT = "Logare";
     public static final String CONVERSATION_WITH_TEXT = "Conversatie cu";
+    public static final String SEARCH_FOR_EVENTS_TEXT = "Cauta evenimente...";
+    public static final String SEARCH_FOR_BARS_TEXT = "Cauta localuri...";
+    public static final String SEARCH_FOR_ARTISTS_TEXT = "Cauta artisti...";
 
     public static final String DAY_TEXT = "Zi";
     public static final String START_TEXT = "Inceput";

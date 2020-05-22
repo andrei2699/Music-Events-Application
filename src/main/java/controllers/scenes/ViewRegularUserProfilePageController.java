@@ -1,6 +1,7 @@
 package controllers.scenes;
 
 import controllers.components.DetailsTableConfigData;
+import controllers.components.cardsTableView.CardsTableViewController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -27,17 +28,14 @@ import java.util.ResourceBundle;
 
 public class ViewRegularUserProfilePageController implements Initializable {
     @FXML
-    public TableView<TableCardModel> reservationsTableView;
-
-    @FXML
-    public TableColumn<TableCardModel, TableCardModel> reservationsTableColumn;
+    public CardsTableViewController reservationsTableViewController;
 
     @FXML
     public Label nameLabel;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        CardTableFiller.setTableData(reservationsTableView, reservationsTableColumn, DetailsTableConfigData.getReservationTableColumnData());
+        reservationsTableViewController.setColumnData(DetailsTableConfigData.getReservationTableColumnData());
 
         IReservationService reservationService = ServiceProvider.getReservationService();
         IEventService eventService = ServiceProvider.getEventService();
@@ -52,12 +50,12 @@ public class ViewRegularUserProfilePageController implements Initializable {
             List<EventModel> allFutureEvents = eventService.getEventsStartingFrom(LocalDate.now(), LocalTime.now().getHour());
 
             for (ReservationModel reservationModel : reservations) {
-                if (allFutureEvents.stream().anyMatch(e->e.getId() == reservationModel.getEvent_id())) {
+                if (allFutureEvents.stream().anyMatch(e -> e.getId() == reservationModel.getEvent_id())) {
                     reservationCardModels.add(new ReservationCardModel(reservationModel));
                 }
             }
 
-            reservationsTableView.setItems(reservationCardModels);
+            reservationsTableViewController.setItems(reservationCardModels);
         }
     }
 }
