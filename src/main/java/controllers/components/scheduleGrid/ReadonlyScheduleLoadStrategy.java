@@ -2,6 +2,7 @@ package controllers.components.scheduleGrid;
 
 import javafx.collections.FXCollections;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import models.other.DaysOfWeek;
 import models.other.Interval;
@@ -9,8 +10,7 @@ import models.other.Interval;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EditableScheduleLoadStrategy extends ScheduleGridLoadStrategy {
-
+public class ReadonlyScheduleLoadStrategy extends ScheduleGridLoadStrategy {
     @Override
     public List<Interval> getIntervalsFromGrid(HBox[][] gridHBoxes) {
         if (gridHBoxes == null) {
@@ -24,19 +24,19 @@ public class EditableScheduleLoadStrategy extends ScheduleGridLoadStrategy {
         }
 
         for (int column = 1; column < gridHBoxes.length; column++) {
-            ComboBox startHourComboBox = (ComboBox) gridHBoxes[column][1].getChildren().get(0);
-            ComboBox endHourComboBox = (ComboBox) gridHBoxes[column][2].getChildren().get(0);
+            Label startHourLabel = (Label) gridHBoxes[column][1].getChildren().get(0);
+            Label endHourLabel = (Label) gridHBoxes[column][2].getChildren().get(0);
 
-            if (startHourComboBox.getValue() == null) {
+            if (startHourLabel.getText() == null || startHourLabel.getText().isBlank() || startHourLabel.getText().isEmpty()) {
                 intervals.get(column - 1).setStart_hour(null);
             } else {
-                intervals.get(column - 1).setStart_hour(Integer.parseInt(startHourComboBox.getValue().toString()));
+                intervals.get(column - 1).setStart_hour(Integer.parseInt(startHourLabel.getText()));
             }
 
-            if (endHourComboBox.getValue() == null) {
+            if (endHourLabel.getText() == null || endHourLabel.getText().isEmpty() || endHourLabel.getText().isEmpty()) {
                 intervals.get(column - 1).setEnd_hour(null);
             } else {
-                intervals.get(column - 1).setEnd_hour(Integer.parseInt(endHourComboBox.getValue().toString()));
+                intervals.get(column - 1).setEnd_hour(Integer.parseInt(endHourLabel.getText()));
             }
         }
 
@@ -47,18 +47,26 @@ public class EditableScheduleLoadStrategy extends ScheduleGridLoadStrategy {
     public void fillScheduleGridPane(HBox[][] gridHBoxes, List<Interval> intervals) {
         for (int column = 1; column < gridHBoxes.length; column++) {
             for (int row = 1; row < gridHBoxes[column].length; row++) {
-                ComboBox<Integer> comboBox = new ComboBox<>();
+                Label label = new Label();
 
                 if (intervals != null && intervals.size() > 0) {
                     Interval interval = intervals.get(column - 1);
                     if (row == 1 && interval != null) {
-                        comboBox.setValue(interval.getStart_hour());
+                        if (interval.getStart_hour() == null) {
+                            label.setText("");
+                        } else {
+                            label.setText(interval.getStart_hour() + "");
+                        }
                     } else if (row == 2 && interval != null) {
-                        comboBox.setValue(interval.getEnd_hour());
+                        if (interval.getEnd_hour() == null) {
+                            label.setText("");
+
+                        } else {
+                            label.setText(interval.getEnd_hour() + "");
+                        }
                     }
                 }
-                comboBox.setItems(FXCollections.observableArrayList(hours));
-                gridHBoxes[column][row].getChildren().add(comboBox);
+                gridHBoxes[column][row].getChildren().add(label);
             }
         }
     }
