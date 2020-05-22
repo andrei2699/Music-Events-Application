@@ -50,7 +50,6 @@ public abstract class AbstractEditProfilePageController extends AbstractProfileP
         nameField.setText(userModel.getName());
         emailField.setText(userModel.getEmail());
         userTypeField.setText(userModel.getType().toString());
-
     }
 
     protected final File openFileChooser() {

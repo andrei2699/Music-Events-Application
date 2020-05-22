@@ -45,5 +45,4 @@ public abstract class AbstractProfilePageController extends ChangeableSceneWithM
         File file = new File(pathToImageFile);
         return new Image(file.toURI().toString(), true);
     }
-
 }
