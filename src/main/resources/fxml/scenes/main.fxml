@@ -21,7 +21,7 @@
                </cursor>
                 </Label>
             </HBox>
-         <ImageView fx:id="notificationImage" fitHeight="26.0" fitWidth="26.0" onMouseClicked="#onNotificationClick" pickOnBounds="true" preserveRatio="true">
+         <ImageView fx:id="messageImage" fitHeight="26.0" fitWidth="26.0" onMouseClicked="#onMessageClick" pickOnBounds="true" preserveRatio="true">
             <Image url="@../../Images/outline_chat_bubble_outline_black_18dp.png" />
          </ImageView>
             <ImageView fx:id="moreActionsImage" fitHeight="26.0" fitWidth="26.0" onMouseClicked="#onMoreActionsClicked" pickOnBounds="true" preserveRatio="true">

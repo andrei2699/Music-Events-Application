@@ -92,6 +92,6 @@ public class MainPageController implements Initializable {
         }
     }
 
-    public void onNotificationClick(MouseEvent mouseEvent) {
+    public void onMessageClick(MouseEvent mouseEvent) {
     }
 }
