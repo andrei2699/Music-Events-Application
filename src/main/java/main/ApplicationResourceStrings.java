@@ -32,6 +32,10 @@ public final class ApplicationResourceStrings {
     public static final String LOG_IN_TEXT = "Logare";
     public static final String CONVERSATION_WITH_TEXT = "Conversatie cu";
 
+    public static final String DAY_TEXT = "Zi";
+    public static final String START_TEXT = "Inceput";
+    public static final String END_TEXT = "Sfarsit";
+
     public static final String IMAGES_DEFAULT_USER_PHOTO_PATH = "/Images/defaultUserPhoto.png";
 
     public static final String REQUIRED_FIELD_ERROR_MESSAGE = "* Camp Obligatoriu";
