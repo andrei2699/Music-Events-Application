@@ -13,7 +13,5 @@ public interface IDiscussionService {
 
     DiscussionModel createDiscussion(DiscussionModel discussionModel);
 
-    List<DiscussionModel> getDiscussionUsingArtistId(int artist_id);
-
-    List<DiscussionModel> getDiscussionsUsingBarId(int bar_manager_id);
+    List<DiscussionModel> getDiscussionsUsingId(int id);
 }
