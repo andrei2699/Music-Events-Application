@@ -9,8 +9,8 @@ import javafx.scene.control.TextField;
 import main.LoggedUserData;
 import main.SceneSwitchController;
 import models.ArtistModel;
-import models.other.Interval;
 import models.UserModel;
+import models.other.Interval;
 import services.IArtistService;
 import services.ServiceProvider;
 
@@ -79,7 +79,7 @@ public class EditArtistProfilePageController extends AbstractEditProfilePageCont
 
             List<Interval> intervals = artistModel.getIntervals();
 
-            gridHBoxes = fillScheduleGridPane(scheduleGridPane, intervals);
+            scheduleGridController.setIntervals(intervals);
         }
     }
 
@@ -89,7 +89,7 @@ public class EditArtistProfilePageController extends AbstractEditProfilePageCont
             return;
         }
 
-        List<Interval> intervalsFromGridPane = getIntervalsFromGrid(gridHBoxes);
+        List<Interval> intervalsFromGridPane = scheduleGridController.getIntervalsFromGrid();
         UserModel userModel = LoggedUserData.getInstance().getUserModel();
 
         artistModel.setGenre(genreField.getText());
