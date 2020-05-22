@@ -19,4 +19,16 @@ public class CardsTableViewController {
     public void setColumnData(DetailsTableConfigData detailsTableConfigData) {
         CardTableFiller.setTableData(cardsTableView, cardsTableColumn, detailsTableConfigData);
     }
+
+    public void clearItems() {
+        cardsTableView.getItems().clear();
+    }
+
+    public void scrollTo(int index) {
+        cardsTableView.scrollTo(index);
+    }
+
+    public void setColumnText(String text) {
+        cardsTableColumn.setText(text);
+    }
 }
