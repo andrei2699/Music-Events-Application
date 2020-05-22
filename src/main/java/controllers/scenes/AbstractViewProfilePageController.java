@@ -1,24 +1,21 @@
 package controllers.scenes;
 
 import controllers.components.DetailsTableConfigData;
-import controllers.components.scheduleGrid.EditableScheduleLoadStrategy;
+import controllers.components.cardsTableView.CardsTableViewController;
 import controllers.components.scheduleGrid.ReadonlyScheduleLoadStrategy;
-import models.cards.TableCardModel;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
 import main.LoggedUserData;
-import models.cards.EventCardModel;
 import models.EventModel;
 import models.UserModel;
+import models.cards.EventCardModel;
+import models.cards.TableCardModel;
 import services.IEventService;
 import services.ServiceProvider;
-import utils.CardTableFiller;
 
 import java.net.URL;
 import java.time.LocalDate;
@@ -51,8 +48,8 @@ public abstract class AbstractViewProfilePageController extends AbstractProfileP
     public void initialize(URL location, ResourceBundle resources) {
         super.initialize(location, resources);
         editProfilePageButton.setOnAction(this::onEditProfilePageButtonClick);
-      
-        CardTableFiller.setTableData(eventsTableView, eventsTableColumn, DetailsTableConfigData.getEventTableColumnData());
+
+        eventsTableViewController.setColumnData(DetailsTableConfigData.getEventTableColumnData());
 
         scheduleGridController.setLoadStrategy(new ReadonlyScheduleLoadStrategy());
     }
