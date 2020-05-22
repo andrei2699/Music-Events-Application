@@ -1,12 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.net.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="540.0" prefWidth="800.0" styleClass="root-pane" xmlns="http://javafx.com/javafx/10.0.2-internal"
+<AnchorPane prefHeight="540.0" prefWidth="800.0" styleClass="root-pane" xmlns="http://javafx.com/javafx/11.0.1"
             xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.scenes.ViewBarProfilePageController">
     <GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
               AnchorPane.topAnchor="0.0">
@@ -73,7 +85,7 @@
                                 </HBox.margin>
                             </Label>
                         </HBox>
-                        <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="2">
+                        <HBox prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="2">
                             <Label styleClass="card-subtitle" text="Tip utilizator:">
                                 <HBox.margin>
                                     <Insets/>
@@ -83,7 +95,7 @@
                         <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1">
                             <Label fx:id="emailLabel" styleClass="card-subtitle" text="emaill"/>
                         </HBox>
-                        <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+                        <HBox alignment="BOTTOM_LEFT" prefHeight="100.0" prefWidth="200.0">
                             <Label styleClass="card-subtitle" text="Adresa de e-mail:">
                                 <HBox.margin>
                                     <Insets/>
@@ -105,6 +117,12 @@
                             </Label>
                         </HBox>
                     </GridPane>
+                    <HBox GridPane.rowIndex="1">
+                        <fx:include fx:id="scheduleGrid" source="../../components/scheduleGrid.fxml"/>
+                        <GridPane.margin>
+                            <Insets/>
+                        </GridPane.margin>
+                    </HBox>
                 </GridPane>
             </Tab>
             <Tab text="Evenimente">

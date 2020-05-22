@@ -35,6 +35,10 @@ public final class ApplicationResourceStrings {
     public static final String SEARCH_FOR_BARS_TEXT = "Cauta localuri...";
     public static final String SEARCH_FOR_ARTISTS_TEXT = "Cauta artisti...";
 
+    public static final String DAY_TEXT = "Zi";
+    public static final String START_TEXT = "Inceput";
+    public static final String END_TEXT = "Sfarsit";
+
     public static final String IMAGES_DEFAULT_USER_PHOTO_PATH = "/Images/defaultUserPhoto.png";
 
     public static final String REQUIRED_FIELD_ERROR_MESSAGE = "* Camp Obligatoriu";

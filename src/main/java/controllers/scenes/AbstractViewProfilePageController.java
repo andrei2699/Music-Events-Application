@@ -1,7 +1,8 @@
 package controllers.scenes;
 
 import controllers.components.DetailsTableConfigData;
-import controllers.components.cardsTableView.CardsTableViewController;
+import controllers.components.scheduleGrid.EditableScheduleLoadStrategy;
+import controllers.components.scheduleGrid.ReadonlyScheduleLoadStrategy;
 import models.cards.TableCardModel;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -50,7 +51,10 @@ public abstract class AbstractViewProfilePageController extends AbstractProfileP
     public void initialize(URL location, ResourceBundle resources) {
         super.initialize(location, resources);
         editProfilePageButton.setOnAction(this::onEditProfilePageButtonClick);
-        eventsTableViewController.setColumnData(DetailsTableConfigData.getEventTableColumnData());
+      
+        CardTableFiller.setTableData(eventsTableView, eventsTableColumn, DetailsTableConfigData.getEventTableColumnData());
+
+        scheduleGridController.setLoadStrategy(new ReadonlyScheduleLoadStrategy());
     }
 
     @Override

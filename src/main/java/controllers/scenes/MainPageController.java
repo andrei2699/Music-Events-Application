@@ -91,4 +91,7 @@ public class MainPageController implements Initializable {
             SceneSwitchController.getInstance().loadFXMLToMainPage(SceneSwitchController.SceneType.ViewRegularUserContentScene);
         }
     }
+
+    public void onMessageClick(MouseEvent mouseEvent) {
+    }
 }
