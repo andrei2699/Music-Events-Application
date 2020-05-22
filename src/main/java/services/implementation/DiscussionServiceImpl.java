@@ -50,7 +50,7 @@ public class DiscussionServiceImpl implements IDiscussionService {
     }
 
     @Override
-    public List<DiscussionModel> getDiscussionUsingArtistId(int artist_id) {
+    public List<DiscussionModel> getDiscussionsUsingId(int user_id) {
         List<DiscussionModel> allDiscussions = getAllDiscussions();
 
         if (allDiscussions == null)
@@ -58,26 +58,13 @@ public class DiscussionServiceImpl implements IDiscussionService {
 
         List<DiscussionModel> searchResults = new ArrayList<>();
 
-        for (DiscussionModel discussion : allDiscussions)
-            if (discussion.getArtist_id() == artist_id)
-                searchResults.add(discussion);
-
-        return searchResults;
-    }
-
-    @Override
-    public List<DiscussionModel> getDiscussionsUsingBarId(int bar_manager_id) {
-        List<DiscussionModel> allDiscussions = getAllDiscussions();
-
-        if (allDiscussions == null)
-            return new ArrayList<>();
-
-        List<DiscussionModel> searchResults = new ArrayList<>();
-
-        for (DiscussionModel discussion : allDiscussions)
-            if (discussion.getBar_manager_id() == bar_manager_id)
-                searchResults.add(discussion);
-
+        for (DiscussionModel discussion : allDiscussions) {
+            List<Integer> ids = discussion.getIds();
+            for (Integer id : ids ) {
+                if (user_id == id)
+                    searchResults.add(discussion);
+            }
+        }
         return searchResults;
     }
 }
