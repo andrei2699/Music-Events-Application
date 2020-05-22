@@ -60,7 +60,7 @@ public class DiscussionServiceImpl implements IDiscussionService {
 
         for (DiscussionModel discussion : allDiscussions) {
             List<Integer> ids = discussion.getIds();
-            for (Integer id : ids ) {
+            for (Integer id : ids) {
                 if (user_id == id)
                     searchResults.add(discussion);
             }

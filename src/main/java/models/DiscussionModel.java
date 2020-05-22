@@ -17,7 +17,9 @@ public class DiscussionModel extends EntityModel {
         messages = new ArrayList<>();
     }
 
-    public List<Integer> getIds() { return ids; }
+    public List<Integer> getIds() {
+        return ids;
+    }
 
     public List<Message> getMessages() {
         return messages;
