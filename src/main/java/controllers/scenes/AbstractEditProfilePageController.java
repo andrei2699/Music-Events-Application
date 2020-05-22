@@ -1,5 +1,6 @@
 package controllers.scenes;
 
+import controllers.components.scheduleGrid.EditableScheduleLoadStrategy;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
@@ -9,6 +10,8 @@ import main.SceneSwitchController;
 import models.UserModel;
 
 import java.io.File;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 import static main.ApplicationResourceStrings.CHOOSE_PROFILE_PICTURE_TEXT;
 
@@ -28,6 +31,12 @@ public abstract class AbstractEditProfilePageController extends AbstractProfileP
 
     @Override
     public void onSetModelId(Integer modelId) {
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        super.initialize(location, resources);
+        scheduleGridController.setLoadStrategy(new EditableScheduleLoadStrategy());
     }
 
     @Override
