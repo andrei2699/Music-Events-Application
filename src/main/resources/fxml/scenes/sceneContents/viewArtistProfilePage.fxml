@@ -151,17 +151,7 @@
             </Tab>
             <Tab text="Evenimente">
                 <VBox>
-                    <TableView fx:id="eventsTableView" prefHeight="550.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="110.0">
-                        <columns>
-                            <TableColumn fx:id="eventsTableColumn" editable="false" minWidth="160.0" prefWidth="-1.0" sortable="false" text="Evenimente viitoare" />
-                        </columns>
-                        <columnResizePolicy>
-                            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                        </columnResizePolicy>
-                        <padding>
-                            <Insets bottom="2.0" left="8.0" right="8.0" top="2.0" />
-                        </padding>
-                    </TableView>
+                    <fx:include source="../../components/cardsTableView.fxml" fx:id="eventsTableView"/>
                 </VBox>
             </Tab>
         </TabPane>

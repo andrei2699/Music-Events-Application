@@ -1,6 +1,7 @@
 package controllers.scenes;
 
 import controllers.components.DetailsTableConfigData;
+import controllers.components.cardsTableView.CardsTableViewController;
 import models.cards.TableCardModel;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -36,10 +37,7 @@ public abstract class AbstractViewProfilePageController extends AbstractProfileP
     public Label emailLabel;
 
     @FXML
-    public TableView<TableCardModel> eventsTableView;
-
-    @FXML
-    public TableColumn<TableCardModel, TableCardModel> eventsTableColumn;
+    public CardsTableViewController eventsTableViewController;
 
     @FXML
     public Button editProfilePageButton;
@@ -52,7 +50,7 @@ public abstract class AbstractViewProfilePageController extends AbstractProfileP
     public void initialize(URL location, ResourceBundle resources) {
         super.initialize(location, resources);
         editProfilePageButton.setOnAction(this::onEditProfilePageButtonClick);
-        CardTableFiller.setTableData(eventsTableView, eventsTableColumn, DetailsTableConfigData.getEventTableColumnData());
+        eventsTableViewController.setColumnData(DetailsTableConfigData.getEventTableColumnData());
     }
 
     @Override
@@ -70,7 +68,7 @@ public abstract class AbstractViewProfilePageController extends AbstractProfileP
             nameLabel.setText(userModel.getName());
             userTypeLabel.setText(userModel.getType().toString());
             emailLabel.setText(userModel.getEmail());
-            eventsTableView.setItems(getAllFutureEventsLinkedWithId(userModel.getId()));
+            eventsTableViewController.setItems(getAllFutureEventsLinkedWithId(userModel.getId()));
         }
     }
 
