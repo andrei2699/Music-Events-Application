@@ -28,7 +28,8 @@ public final class SceneSwitchController {
         ViewRegularUserContentScene,
         EditBarProfileContentScene,
         EditArtistProfileContentScene,
-        CreateEventFormContentScene
+        CreateEventFormContentScene,
+        ChatContentScene
     }
 
     private static final SceneSwitchController instance = new SceneSwitchController();
