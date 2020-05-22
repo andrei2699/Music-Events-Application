@@ -1,18 +1,21 @@
 package controllers.scenes;
 
 import controllers.components.DetailsTableConfigData;
-import models.cards.TableCardModel;
+import controllers.components.cardsTableView.CardsTableViewWithSearchbarController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
-import models.*;
+import main.ApplicationResourceStrings;
+import models.ArtistModel;
+import models.BarModel;
+import models.EventModel;
 import models.cards.ArtistCardModel;
 import models.cards.BarCardModel;
 import models.cards.EventCardModel;
+import models.cards.TableCardModel;
 import services.IArtistService;
 import services.IBarService;
 import services.IEventService;
@@ -25,28 +28,16 @@ import java.time.LocalTime;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import static main.ApplicationResourceStrings.*;
+
 public class MainPageContentController implements Initializable {
 
     @FXML
-    public TableView<TableCardModel> eventsTableView;
+    public CardsTableViewWithSearchbarController eventsTableViewWithSearchbarController;
     @FXML
-    public TableColumn<TableCardModel, TableCardModel> eventsTableColumn;
+    public CardsTableViewWithSearchbarController barsTableViewWithSearchbarController;
     @FXML
-    public TextField eventsSearchTextField;
-
-    @FXML
-    public TextField barSearchTextField;
-    @FXML
-    public TableView<TableCardModel> artistsTableView;
-    @FXML
-    public TableColumn<TableCardModel, TableCardModel> artistsTableColumn;
-
-    @FXML
-    public TextField artistSearchTextField;
-    @FXML
-    public TableView<TableCardModel> barsTableView;
-    @FXML
-    public TableColumn<TableCardModel, TableCardModel> barsTableColumn;
+    public CardsTableViewWithSearchbarController artistsTableViewWithSearchbarController;
 
     private IEventService eventService;
     private IBarService barService;
@@ -60,32 +51,15 @@ public class MainPageContentController implements Initializable {
 
         // events table view
         FilteredList<TableCardModel> eventModelFilteredList = new FilteredList<>(getAllEvents(), m -> true);
-        CardTableFiller.setupTable(eventsSearchTextField, eventModelFilteredList, eventsTableView, eventsTableColumn, DetailsTableConfigData.getEventTableColumnData());
-
+        eventsTableViewWithSearchbarController.setupTableData(SEARCH_FOR_EVENTS_TEXT, eventModelFilteredList, DetailsTableConfigData.getEventTableColumnData());
 
         // bars table view
         FilteredList<TableCardModel> barModelFilteredList = new FilteredList<>(getAllBars(), m -> true);
-        CardTableFiller.setupTable(barSearchTextField, barModelFilteredList, barsTableView, barsTableColumn, DetailsTableConfigData.getBarTableColumnData());
-
+        barsTableViewWithSearchbarController.setupTableData(SEARCH_FOR_BARS_TEXT, barModelFilteredList, DetailsTableConfigData.getBarTableColumnData());
 
         // artists table view
         FilteredList<TableCardModel> artistModelFilteredList = new FilteredList<>(getAllArtists(), m -> true);
-        CardTableFiller.setupTable(artistSearchTextField, artistModelFilteredList, artistsTableView, artistsTableColumn, DetailsTableConfigData.getArtistTableColumnData());
-    }
-
-    @FXML
-    public void onSearchEventImageClicked(MouseEvent mouseEvent) {
-        eventsSearchTextField.requestFocus();
-    }
-
-    @FXML
-    public void onSearchBarImageClicked(MouseEvent mouseEvent) {
-        barSearchTextField.requestFocus();
-    }
-
-    @FXML
-    public void onSearchArtistImageClicked(MouseEvent mouseEvent) {
-        artistSearchTextField.requestFocus();
+        artistsTableViewWithSearchbarController.setupTableData(SEARCH_FOR_ARTISTS_TEXT, artistModelFilteredList, DetailsTableConfigData.getArtistTableColumnData());
     }
 
     private ObservableList<TableCardModel> getAllEvents() {
