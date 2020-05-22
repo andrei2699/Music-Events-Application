@@ -1,6 +1,7 @@
 package services.implementation;
 
 import models.DiscussionModel;
+import models.other.Message;
 import repository.IRepository;
 import services.IDiscussionService;
 
@@ -66,5 +67,21 @@ public class DiscussionServiceImpl implements IDiscussionService {
             }
         }
         return searchResults;
+    }
+
+    public boolean checkNewMessage(int user_id) {
+        List<DiscussionModel> discussions = getDiscussionsUsingId(user_id);
+
+        if (discussions == null)
+            return false;
+
+        for (DiscussionModel discussion : discussions) {
+            List<Message> messages = discussion.getMessages();
+            if (messages == null)
+                return false;
+            if (!messages.get(messages.size() - 1).isSeen() && messages.get(messages.size() - 1).getSender_id() != user_id)
+                return true;
+        }
+        return false;
     }
 }

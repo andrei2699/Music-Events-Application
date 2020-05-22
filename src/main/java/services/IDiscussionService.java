@@ -14,4 +14,6 @@ public interface IDiscussionService {
     DiscussionModel createDiscussion(DiscussionModel discussionModel);
 
     List<DiscussionModel> getDiscussionsUsingId(int id);
+
+    boolean checkNewMessage(int user_id);
 }
