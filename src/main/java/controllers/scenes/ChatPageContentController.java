@@ -3,19 +3,17 @@ package controllers.scenes;
 import controllers.components.DetailsTableConfigData;
 import controllers.components.DiscussionChatHeaderCardController;
 import controllers.components.DiscussionMessageCardController;
+import controllers.components.cardsTableView.CardsTableViewController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import models.DiscussionMessageModel;
 import models.DiscussionModel;
 import models.cards.DiscussionHeaderCardModel;
 import models.cards.DiscussionMessageCardModel;
 import models.cards.TableCardModel;
-import models.DiscussionMessageModel;
-import utils.CardTableFiller;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -26,18 +24,16 @@ import static main.ApplicationResourceStrings.CONVERSATION_WITH_TEXT;
 
 public class ChatPageContentController implements Initializable {
     @FXML
-    public TableView<TableCardModel> discussionHeaderTableView;
+    public CardsTableViewController discussionHeaderTableViewController;
+
     @FXML
-    public TableColumn<TableCardModel, TableCardModel> discussionHeaderTableColumn;
-    @FXML
-    public TableView<TableCardModel> messagesTableView;
-    @FXML
-    public TableColumn<TableCardModel, TableCardModel> messagesTableColumn;
+    public CardsTableViewController messagesTableViewController;
+
 
     @Override
-
     public void initialize(URL location, ResourceBundle resources) {
-        CardTableFiller.setTableData(discussionHeaderTableView, discussionHeaderTableColumn, new DetailsTableConfigData() {
+
+        discussionHeaderTableViewController.setColumnData(new DetailsTableConfigData() {
             @Override
             public String getTableColumnText() {
                 return "Conversatii";
@@ -60,8 +56,7 @@ public class ChatPageContentController implements Initializable {
                 return headerController;
             }
         });
-
-        CardTableFiller.setTableData(messagesTableView, messagesTableColumn, new DetailsTableConfigData() {
+        messagesTableViewController.setColumnData(new DetailsTableConfigData() {
             @Override
             public String getTableColumnText() {
                 return "Conversatie";
@@ -84,10 +79,10 @@ public class ChatPageContentController implements Initializable {
         });
 
         ObservableList<TableCardModel> discussions = FXCollections.observableArrayList();
-        discussions.add(new DiscussionHeaderCardModel(new DiscussionModel(1,21,19)));
-        discussions.add(new DiscussionHeaderCardModel(new DiscussionModel(2,4,9)));
-        discussions.add(new DiscussionHeaderCardModel(new DiscussionModel(3,16,27)));
-        discussionHeaderTableView.setItems(discussions);
+        discussions.add(new DiscussionHeaderCardModel(new DiscussionModel(1, 21, 19)));
+        discussions.add(new DiscussionHeaderCardModel(new DiscussionModel(2, 4, 9)));
+        discussions.add(new DiscussionHeaderCardModel(new DiscussionModel(3, 16, 27)));
+        discussionHeaderTableViewController.setItems(discussions);
 //        discussionHeaderTableView.setItems();
 //        switchConversation(1);
     }
@@ -107,9 +102,9 @@ public class ChatPageContentController implements Initializable {
             discussionMessageModels.add(new DiscussionMessageCardModel(messageModel));
         }
 
-        messagesTableColumn.setText(CONVERSATION_WITH_TEXT + " " + headerCardModel.toString());
-        messagesTableView.getItems().clear();
-        messagesTableView.setItems(discussionMessageModels);
-        messagesTableView.scrollTo(discussionMessageModels.size()-1);
+        messagesTableViewController.setColumnText(CONVERSATION_WITH_TEXT + " " + headerCardModel.toString());
+        messagesTableViewController.clearItems();
+        messagesTableViewController.setItems(discussionMessageModels);
+        messagesTableViewController.scrollTo(discussionMessageModels.size() - 1);
     }
 }

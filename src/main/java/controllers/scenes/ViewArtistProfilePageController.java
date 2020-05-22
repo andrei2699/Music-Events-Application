@@ -41,6 +41,8 @@ public class ViewArtistProfilePageController extends AbstractViewProfilePageCont
                 membersLabel.setVisible(true);
                 bandMembersLabel.setText(artistModel.getMembers());
             }
+
+            scheduleGridController.setIntervals(artistModel.getIntervals());
         }
     }
 

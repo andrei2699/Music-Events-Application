@@ -22,6 +22,7 @@ public class ViewBarProfilePageController extends AbstractViewProfilePageControl
         if (barModel != null) {
             addressLabel.setText(barModel.getAddress());
             profilePhoto.setImage(getProfileImage(barModel.getPath_to_image()));
+            scheduleGridController.setIntervals(barModel.getIntervals());
         }
     }
 
