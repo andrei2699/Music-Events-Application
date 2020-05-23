@@ -109,13 +109,7 @@ public class DiscussionServiceTest {
     public void testCreateDiscussion() {
         when(repository.getAll()).thenReturn(null);
         try {
-            DiscussionModel model = new DiscussionModel(12, 5, 6);
-            List<Message> messages = new ArrayList<>();
-            messages.add(new Message("05:11 - 2020-07-11", "Salut", 5));
-            messages.add(new Message("05:12 - 2020-07-11", "Salut", 6));
-            model.setMessages(messages);
-
-            discussionService.createDiscussion(model);
+            discussionService.createDiscussion(5,6);
         } catch (NullPointerException e) {
             fail();
         }
