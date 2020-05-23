@@ -1,18 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.SplitPane?>
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
-<?import java.net.URL?>
-<AnchorPane prefHeight="540.0" prefWidth="800.0" styleClass="root-pane" xmlns="http://javafx.com/javafx/10.0.2-internal"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.scenes.ChatPageContentController">
-    <SplitPane dividerPositions="0.3" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-               AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-        <fx:include fx:id="discussionHeaderTableView" source="../../components/cardsTableView.fxml"/>
-        <fx:include fx:id="messagesTableView" source="../../components/cardsTableView.fxml"/>
+
+<AnchorPane prefHeight="540.0" prefWidth="800.0" styleClass="root-pane" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.scenes.ChatPageContentController">
+    <SplitPane dividerPositions="0.3" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <fx:include fx:id="discussionHeaderTableView" source="../../components/cardsTableView.fxml" />
+        <AnchorPane>
+            <fx:include fx:id="messagesTableView" source="../../components/cardsTableView.fxml" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+            <HBox alignment="CENTER_LEFT" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                <padding>
+                    <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
+                </padding>
+                <TextField prefWidth="600.0" promptText="Scrieti un mesaj" />
+                <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                    <Image url="@../../../Images/send_icon_black_18dp.png" />
+                </ImageView>
+            </HBox>
+        </AnchorPane>
     </SplitPane>
 
     <stylesheets>
-        <URL value="@../../../css/material-fx-v0_3.css"/>
-        <URL value="@../../../css/stylesheet.css"/>
+        <URL value="@../../../css/material-fx-v0_3.css" />
+        <URL value="@../../../css/stylesheet.css" />
     </stylesheets>
 </AnchorPane>
