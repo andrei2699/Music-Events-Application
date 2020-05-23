@@ -6,17 +6,25 @@ import controllers.components.DiscussionMessageCardController;
 import controllers.components.cardsTableView.CardsTableViewController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableCell;
-import models.DiscussionMessageModel;
+import javafx.scene.control.TextField;
+import main.LoggedUserData;
 import models.DiscussionModel;
 import models.cards.DiscussionHeaderCardModel;
 import models.cards.DiscussionMessageCardModel;
 import models.cards.TableCardModel;
+import models.other.Message;
+import services.IDiscussionService;
+import services.ServiceProvider;
+import utils.StringValidator;
 
 import java.net.URL;
-import java.util.ArrayList;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -25,13 +33,20 @@ import static main.ApplicationResourceStrings.CONVERSATION_WITH_TEXT;
 public class ChatPageContentController implements Initializable {
     @FXML
     public CardsTableViewController discussionHeaderTableViewController;
-
     @FXML
     public CardsTableViewController messagesTableViewController;
+    @FXML
+    public TextField enterMessageTextField;
+    @FXML
+    public Button sendButton;
 
+    private DiscussionHeaderCardModel openedHeaderCardModel;
+    private IDiscussionService discussionService;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        discussionService = ServiceProvider.getDiscussionService();
+        enterMessageTextField.requestFocus();
 
         discussionHeaderTableViewController.setColumnData(new DetailsTableConfigData() {
             @Override
@@ -78,29 +93,56 @@ public class ChatPageContentController implements Initializable {
             }
         });
 
-        ObservableList<TableCardModel> discussions = FXCollections.observableArrayList();
-        discussions.add(new DiscussionHeaderCardModel(new DiscussionModel(1, 21, 19)));
-        discussions.add(new DiscussionHeaderCardModel(new DiscussionModel(2, 4, 9)));
-        discussions.add(new DiscussionHeaderCardModel(new DiscussionModel(3, 16, 27)));
-        discussionHeaderTableViewController.setItems(discussions);
-//        discussionHeaderTableView.setItems();
-//        switchConversation(1);
+        ObservableList<TableCardModel> discussionsCards = FXCollections.observableArrayList();
+        if (LoggedUserData.getInstance().isUserLogged()) {
+            List<DiscussionModel> discussions = discussionService.getDiscussionsUsingId(LoggedUserData.getInstance().getUserModel().getId());
+            for (DiscussionModel discussionModel : discussions) {
+                discussionsCards.add(new DiscussionHeaderCardModel(discussionModel));
+            }
+        }
+
+        discussionHeaderTableViewController.setItems(discussionsCards);
+
+        try {
+            switchConversation((DiscussionHeaderCardModel) discussionHeaderTableViewController.getItem(0));
+        } catch (IndexOutOfBoundsException ignored) {
+            enterMessageTextField.setDisable(true);
+            sendButton.setDisable(true);
+        }
+    }
+
+    @FXML
+    public void onSendButtonClick(ActionEvent actionEvent) {
+        if (openedHeaderCardModel != null && LoggedUserData.getInstance().isUserLogged() && StringValidator.isStringNotEmpty(enterMessageTextField.getText())) {
+            DiscussionModel discussionModel = openedHeaderCardModel.getDiscussionModel();
+            LocalTime nowTime = LocalTime.now();
+            LocalDate nowDate = LocalDate.now();
+            String date = nowTime.getHour() + ":" + nowTime.getMinute() + " - " + nowDate.toString();
+            discussionModel.addMessage(new Message(date, enterMessageTextField.getText(), LoggedUserData.getInstance().getUserModel().getId()));
+
+            discussionService.updateDiscussion(discussionModel);
+            switchConversation(openedHeaderCardModel);
+
+            enterMessageTextField.setText("");
+        }
     }
 
     private void switchConversation(DiscussionHeaderCardModel headerCardModel) {
-        List<DiscussionMessageModel> messages = new ArrayList<>();
-        messages.add(new DiscussionMessageModel("05-06-2020", "Salut", true));
-        messages.add(new DiscussionMessageModel("05-06-2020", "Ce faci ?", true));
-        messages.add(new DiscussionMessageModel("05-06-2020", "Bine", false));
-        messages.add(new DiscussionMessageModel("05-06-2020", "Ma bucur", true));
-        messages.add(new DiscussionMessageModel("05-07-2020", "Azi e soare afara", false));
-        messages.add(new DiscussionMessageModel("05-07-2020", "Intr-adevar", false));
-        messages.add(new DiscussionMessageModel("05-07-2020", "Super", true));
+        openedHeaderCardModel = headerCardModel;
+        if (headerCardModel == null || !LoggedUserData.getInstance().isUserLogged())
+            return;
 
         ObservableList<TableCardModel> discussionMessageModels = FXCollections.observableArrayList();
-        for (DiscussionMessageModel messageModel : messages) {
-            discussionMessageModels.add(new DiscussionMessageCardModel(messageModel));
+        List<Message> messages = headerCardModel.getDiscussionModel().getMessages();
+
+        for (Message message : messages) {
+            boolean isSender = message.getSender_id() == LoggedUserData.getInstance().getUserModel().getId();
+            if (!isSender) {
+                message.setSeen(true);
+            }
+            discussionMessageModels.add(new DiscussionMessageCardModel(message, isSender));
         }
+        discussionService.updateDiscussion(headerCardModel.getDiscussionModel());
 
         messagesTableViewController.setColumnText(CONVERSATION_WITH_TEXT + " " + headerCardModel.toString());
         messagesTableViewController.clearItems();
