@@ -13,7 +13,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TextField;
 import main.LoggedUserData;
-import models.DiscussionMessageModel;
 import models.DiscussionModel;
 import models.cards.DiscussionHeaderCardModel;
 import models.cards.DiscussionMessageCardModel;
@@ -26,7 +25,6 @@ import utils.StringValidator;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -95,11 +93,15 @@ public class ChatPageContentController implements Initializable {
             }
         });
 
-        ObservableList<TableCardModel> discussions = FXCollections.observableArrayList();
-        discussions.add(new DiscussionHeaderCardModel(new DiscussionModel(1, 3, 1)));
-        discussions.add(new DiscussionHeaderCardModel(new DiscussionModel(2, 0, 4)));
-        discussions.add(new DiscussionHeaderCardModel(new DiscussionModel(3, 0, 1)));
-        discussionHeaderTableViewController.setItems(discussions);
+        ObservableList<TableCardModel> discussionsCards = FXCollections.observableArrayList();
+        if (LoggedUserData.getInstance().isUserLogged()) {
+            List<DiscussionModel> discussions = discussionService.getDiscussionsUsingId(LoggedUserData.getInstance().getUserModel().getId());
+            for (DiscussionModel discussionModel : discussions) {
+                discussionsCards.add(new DiscussionHeaderCardModel(discussionModel));
+            }
+        }
+
+        discussionHeaderTableViewController.setItems(discussionsCards);
 
         try {
             switchConversation((DiscussionHeaderCardModel) discussionHeaderTableViewController.getItem(0));
@@ -127,19 +129,20 @@ public class ChatPageContentController implements Initializable {
 
     private void switchConversation(DiscussionHeaderCardModel headerCardModel) {
         openedHeaderCardModel = headerCardModel;
-        List<DiscussionMessageModel> messages = new ArrayList<>();
-        messages.add(new DiscussionMessageModel("05-06-2020", "Salut", true));
-        messages.add(new DiscussionMessageModel("05-06-2020", "Ce faci ?", true));
-        messages.add(new DiscussionMessageModel("05-06-2020", "Bine", false));
-        messages.add(new DiscussionMessageModel("05-06-2020", "Ma bucur", true));
-        messages.add(new DiscussionMessageModel("05-07-2020", "Azi e soare afara", false));
-        messages.add(new DiscussionMessageModel("05-07-2020", "Intr-adevar", false));
-        messages.add(new DiscussionMessageModel("05-07-2020", "Super", true));
+        if (headerCardModel == null || !LoggedUserData.getInstance().isUserLogged())
+            return;
 
         ObservableList<TableCardModel> discussionMessageModels = FXCollections.observableArrayList();
-        for (DiscussionMessageModel messageModel : messages) {
-            discussionMessageModels.add(new DiscussionMessageCardModel(messageModel));
+        List<Message> messages = headerCardModel.getDiscussionModel().getMessages();
+
+        for (Message message : messages) {
+            boolean isSender = message.getSender_id() == LoggedUserData.getInstance().getUserModel().getId();
+            if (!isSender) {
+                message.setSeen(true);
+            }
+            discussionMessageModels.add(new DiscussionMessageCardModel(message, isSender));
         }
+        discussionService.updateDiscussion(headerCardModel.getDiscussionModel());
 
         messagesTableViewController.setColumnText(CONVERSATION_WITH_TEXT + " " + headerCardModel.toString());
         messagesTableViewController.clearItems();
