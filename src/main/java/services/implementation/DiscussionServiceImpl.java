@@ -45,6 +45,10 @@ public class DiscussionServiceImpl implements IDiscussionService {
         for (DiscussionModel discussion : allDiscussions) {
             if (discussion.getId() == discussionModel.getId()) {
                 return updateDiscussion(discussionModel);
+            } else if (discussionModel.getIds().size() == 2 &&
+                    discussion.getIds().contains(discussionModel.getIds().get(0)) &&
+                    discussion.getIds().contains(discussionModel.getIds().get(1))) {
+                return updateDiscussion(discussionModel);
             }
         }
         return discussionRepository.create(discussionModel);
@@ -77,7 +81,7 @@ public class DiscussionServiceImpl implements IDiscussionService {
 
         for (DiscussionModel discussion : discussions) {
             List<Message> messages = discussion.getMessages();
-            if (messages == null)
+            if (messages == null || messages.size() == 0)
                 return false;
             if (!messages.get(messages.size() - 1).isSeen() && messages.get(messages.size() - 1).getSender_id() != user_id)
                 return true;
