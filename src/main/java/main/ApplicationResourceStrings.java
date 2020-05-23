@@ -13,7 +13,7 @@ public final class ApplicationResourceStrings {
     public static final String EDIT_BAR_SCENE_CONTENT_FXML_PATH = "/fxml/scenes/sceneContents/editBarProfilePage.fxml";
     public static final String EDIT_ARTIST_SCENE_CONTENT_FXML_PATH = "/fxml/scenes/sceneContents/editArtistProfilePage.fxml";
     public static final String CREATE_EVENT_SCENE_CONTENT_FXML_PATH = "/fxml/scenes/sceneContents/createEventForm.fxml";
-    public static final String CHAT_SCENE_CONTENT = "/fxml/scenes/sceneContents/chatPageContent.fxml";
+    public static final String CHAT_SCENE_CONTENT_FXML_PATH = "/fxml/scenes/sceneContents/chatPageContent.fxml";
 
     public static final String EVENT_DETAILS_CARD_FXML_PATH = "/fxml/components/eventDetailsCard.fxml";
     public static final String BAR_DETAILS_CARD_FXML_PATH = "/fxml/components/barDetailsCard.fxml";
@@ -40,6 +40,8 @@ public final class ApplicationResourceStrings {
     public static final String END_TEXT = "Sfarsit";
 
     public static final String IMAGES_DEFAULT_USER_PHOTO_PATH = "/Images/defaultUserPhoto.png";
+    public static final String IMAGE_FOR_NO_MESSAGES_PATH = "/Images/outline_chat_bubble_outline_black_18dp.png";
+    public static final String IMAGE_FOR_NEW_MESSAGES_PATH = "/Images/outline_chat_black_18dp.png";
 
     public static final String REQUIRED_FIELD_ERROR_MESSAGE = "* Camp Obligatoriu";
     public static final String INVALID_EMAIL_ERROR_MESSAGE = "* Adresa de email invalida";

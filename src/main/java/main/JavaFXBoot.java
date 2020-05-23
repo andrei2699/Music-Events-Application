@@ -3,7 +3,6 @@ package main;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
-import services.ServiceProvider;
 
 import static main.ApplicationResourceStrings.*;
 
@@ -27,7 +26,9 @@ public class JavaFXBoot extends Application {
 
         sceneSwitchController.addScene(SceneSwitchController.SceneType.EditBarProfileContentScene, EDIT_BAR_SCENE_CONTENT_FXML_PATH);
         sceneSwitchController.addScene(SceneSwitchController.SceneType.EditArtistProfileContentScene, EDIT_ARTIST_SCENE_CONTENT_FXML_PATH);
+
         sceneSwitchController.addScene(SceneSwitchController.SceneType.CreateEventFormContentScene, CREATE_EVENT_SCENE_CONTENT_FXML_PATH);
+        sceneSwitchController.addScene(SceneSwitchController.SceneType.ChatContentScene, CHAT_SCENE_CONTENT_FXML_PATH);
 
         sceneSwitchController.switchToLoginScene();
 

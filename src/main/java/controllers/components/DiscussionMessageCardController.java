@@ -4,13 +4,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListCell;
 import javafx.scene.control.TableCell;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import models.DiscussionMessageModel;
 import models.cards.DiscussionMessageCardModel;
 import models.cards.TableCardModel;
+import models.other.Message;
 
 import java.io.IOException;
 
@@ -45,13 +44,13 @@ public class DiscussionMessageCardController extends TableCell<TableCardModel, T
             setGraphic(null);
         } else {
             DiscussionMessageCardModel discussionMessageCardModel = (DiscussionMessageCardModel) tableCardModel;
-            DiscussionMessageModel discussionMessageModel = discussionMessageCardModel.getDiscussionMessageModel();
+            Message message = discussionMessageCardModel.getMessage();
 
-            messageLabel.setText(discussionMessageModel.getText());
-            dateLabel.setText(discussionMessageModel.getDate());
+            messageLabel.setText(message.getText());
+            dateLabel.setText(message.getDate());
 
             messageVBox.getStyleClass().clear();
-            if (discussionMessageModel.isSender()) {
+            if (discussionMessageCardModel.isSender()) {
                 messageVBox.getStyleClass().add("message-sender");
                 messageCardHBox.setAlignment(Pos.CENTER_RIGHT);
             } else {

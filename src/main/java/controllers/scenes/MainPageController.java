@@ -6,6 +6,7 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Bounds;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -13,6 +14,8 @@ import main.LoggedUserData;
 import main.SceneSwitchController;
 import models.UserModel;
 import models.other.UserType;
+import services.IDiscussionService;
+import services.ServiceProvider;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -27,6 +30,13 @@ public class MainPageController implements Initializable {
     public ImageView moreActionsImage;
 
     private ContextMenu moreActionsContextMenu;
+
+    @FXML
+    private ImageView messageImage;
+
+    private Image noMessages = new Image(IMAGE_FOR_NO_MESSAGES_PATH);
+
+    private Image newMessages = new Image(IMAGE_FOR_NEW_MESSAGES_PATH);
 
     @FXML
     public void onMoreActionsClicked(MouseEvent mouseEvent) {
@@ -75,6 +85,8 @@ public class MainPageController implements Initializable {
         goToLogin.setOnAction(event -> SceneSwitchController.getInstance().switchToLoginScene());
 
         moreActionsContextMenu.getItems().add(goToLogin);
+
+        setMessageImage();
     }
 
     private void goViewProfile(ActionEvent actionEvent) {
@@ -92,6 +104,22 @@ public class MainPageController implements Initializable {
         }
     }
 
+    public void setMessageImage() {
+        if (!LoggedUserData.getInstance().isBarManager() && !LoggedUserData.getInstance().isArtist()) {
+            messageImage.setVisible(false);
+            return;
+        }
+        UserModel user = LoggedUserData.getInstance().getUserModel();
+        IDiscussionService discussionService = ServiceProvider.getDiscussionService();
+        if (discussionService.checkNewMessage(user.getId()))
+            messageImage.setImage(newMessages);
+        else
+            messageImage.setImage(noMessages);
+    }
+
     public void onMessageClick(MouseEvent mouseEvent) {
+        messageImage.setImage(noMessages);
+        UserModel user = LoggedUserData.getInstance().getUserModel();
+        SceneSwitchController.getInstance().loadFXMLToMainPage(SceneSwitchController.SceneType.ChatContentScene, user.getId());
     }
 }

@@ -31,4 +31,8 @@ public class CardsTableViewController {
     public void setColumnText(String text) {
         cardsTableColumn.setText(text);
     }
+
+    public TableCardModel getItem(int index) {
+        return cardsTableView.getItems().get(index);
+    }
 }

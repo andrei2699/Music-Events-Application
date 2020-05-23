@@ -1,16 +1,22 @@
 package models.cards;
 
-import models.DiscussionMessageModel;
+import models.other.Message;
 
 public class DiscussionMessageCardModel implements TableCardModel {
-    private final DiscussionMessageModel discussionMessageModel;
+    private final Message message;
+    private final boolean isSender;
 
-    public DiscussionMessageCardModel(DiscussionMessageModel discussionModel) {
-        this.discussionMessageModel = discussionModel;
+    public DiscussionMessageCardModel(Message message, boolean isSender) {
+        this.message = message;
+        this.isSender = isSender;
     }
 
-    public DiscussionMessageModel getDiscussionMessageModel() {
-        return discussionMessageModel;
+    public Message getMessage() {
+        return message;
+    }
+
+    public boolean isSender() {
+        return isSender;
     }
 
     public boolean containsFilter(String filter) {

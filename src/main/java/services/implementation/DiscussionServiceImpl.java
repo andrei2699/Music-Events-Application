@@ -1,7 +1,7 @@
 package services.implementation;
 
 import models.DiscussionModel;
-import models.EventModel;
+import models.other.Message;
 import repository.IRepository;
 import services.IDiscussionService;
 
@@ -36,26 +36,21 @@ public class DiscussionServiceImpl implements IDiscussionService {
     }
 
     @Override
-    public DiscussionModel createDiscussion(int bar_manager_id, int artist_id) {
-        List<DiscussionModel> discussions = getAllDiscussions();
+    public DiscussionModel createDiscussion(DiscussionModel discussionModel) {
+        List<DiscussionModel> allDiscussions = getAllDiscussions();
 
-        if (discussions == null)
-            discussions = new ArrayList<>();
+        if (allDiscussions == null)
+            return discussionRepository.create(discussionModel);
 
-        int biggestId = -1;
-        for (DiscussionModel discussion : discussions) {
-            if (discussion.getId() > biggestId) {
-                biggestId = discussion.getId();
-            }
-            if(discussion.getIds().contains(bar_manager_id) && discussion.getIds().contains(artist_id)) {
-                DiscussionModel discussionModel = new DiscussionModel(discussion.getId(),bar_manager_id,artist_id);
-                discussionModel.setMessages(discussion.getMessages());
-                return discussionRepository.update(discussionModel);
+        for (DiscussionModel discussion : allDiscussions) {
+            if (discussion.getId() == discussionModel.getId()) {
+                return updateDiscussion(discussionModel);
+            } else if (discussionModel.getIds().size() == 2 &&
+                    discussion.getIds().contains(discussionModel.getIds().get(0)) &&
+                    discussion.getIds().contains(discussionModel.getIds().get(1))) {
+                return updateDiscussion(discussionModel);
             }
         }
-
-        DiscussionModel discussionModel = new DiscussionModel(biggestId + 1, bar_manager_id, artist_id);
-
         return discussionRepository.create(discussionModel);
     }
 
@@ -76,5 +71,21 @@ public class DiscussionServiceImpl implements IDiscussionService {
             }
         }
         return searchResults;
+    }
+
+    public boolean checkNewMessage(int user_id) {
+        List<DiscussionModel> discussions = getDiscussionsUsingId(user_id);
+
+        if (discussions == null)
+            return false;
+
+        for (DiscussionModel discussion : discussions) {
+            List<Message> messages = discussion.getMessages();
+            if (messages == null || messages.size() == 0)
+                return false;
+            if (!messages.get(messages.size() - 1).isSeen() && messages.get(messages.size() - 1).getSender_id() != user_id)
+                return true;
+        }
+        return false;
     }
 }
