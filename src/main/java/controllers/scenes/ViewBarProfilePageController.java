@@ -3,9 +3,11 @@ package controllers.scenes;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import main.LoggedUserData;
 import main.SceneSwitchController;
 import models.BarModel;
 import services.IBarService;
+import services.IDiscussionService;
 import services.ServiceProvider;
 
 public class ViewBarProfilePageController extends AbstractViewProfilePageController {
@@ -19,6 +21,9 @@ public class ViewBarProfilePageController extends AbstractViewProfilePageControl
     protected void updateUIOnInitialize() {
         super.updateUIOnInitialize();
 
+        boolean startChatButtonInvisible = userModel == null || !LoggedUserData.getInstance().isUserLogged() || LoggedUserData.getInstance().isBarManager();
+        startChatButton.setVisible(!startChatButtonInvisible);
+
         if (barModel != null) {
             addressLabel.setText(barModel.getAddress());
             profilePhoto.setImage(getProfileImage(barModel.getPath_to_image()));
@@ -29,6 +34,13 @@ public class ViewBarProfilePageController extends AbstractViewProfilePageControl
     @Override
     protected void onEditProfilePageButtonClick(ActionEvent actionEvent) {
         SceneSwitchController.getInstance().loadFXMLToMainPage(SceneSwitchController.SceneType.EditBarProfileContentScene);
+    }
+
+    @Override
+    protected void onStartChatButtonClick(ActionEvent actionEvent) {
+        IDiscussionService discussionService = ServiceProvider.getDiscussionService();
+        discussionService.createDiscussion(barModel.getId(), LoggedUserData.getInstance().getUserModel().getId());
+        SceneSwitchController.getInstance().loadFXMLToMainPage(SceneSwitchController.SceneType.ChatContentScene);
     }
 
     @Override

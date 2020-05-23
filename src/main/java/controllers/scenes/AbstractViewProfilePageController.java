@@ -40,14 +40,21 @@ public abstract class AbstractViewProfilePageController extends AbstractProfileP
     @FXML
     public Button editProfilePageButton;
 
+    @FXML
+    public Button startChatButton;
+
     protected UserModel userModel;
 
     protected abstract void onEditProfilePageButtonClick(ActionEvent actionEvent);
+
+    protected abstract void onStartChatButtonClick(ActionEvent actionEvent);
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         super.initialize(location, resources);
         editProfilePageButton.setOnAction(this::onEditProfilePageButtonClick);
+
+        startChatButton.setOnAction(this::onStartChatButtonClick);
 
         eventsTableViewController.setColumnData(DetailsTableConfigData.getEventTableColumnData());
 

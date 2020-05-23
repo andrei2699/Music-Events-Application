@@ -26,6 +26,11 @@ public class ViewArtistProfilePageController extends AbstractViewProfilePageCont
     }
 
     @Override
+    protected void onStartChatButtonClick(ActionEvent actionEvent) {
+
+    }
+
+    @Override
     protected void updateUIOnInitialize() {
         super.updateUIOnInitialize();
 
