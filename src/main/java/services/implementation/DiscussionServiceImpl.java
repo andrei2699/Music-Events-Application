@@ -50,9 +50,7 @@ public class DiscussionServiceImpl implements IDiscussionService {
                 biggestId = discussion.getId();
             }
             if (discussion.getIds().contains(bar_manager_id) && discussion.getIds().contains(artist_id)) {
-                DiscussionModel discussionModel = new DiscussionModel(discussion.getId(), bar_manager_id, artist_id);
-                discussionModel.setMessages(discussion.getMessages());
-                return discussionRepository.update(discussionModel);
+                return discussion;
             }
         }
 
