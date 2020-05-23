@@ -87,9 +87,9 @@ public class ChatPageContentController implements Initializable {
         });
 
         ObservableList<TableCardModel> discussions = FXCollections.observableArrayList();
-        discussions.add(new DiscussionHeaderCardModel(new DiscussionModel(1, 21, 19)));
-        discussions.add(new DiscussionHeaderCardModel(new DiscussionModel(2, 4, 9)));
-        discussions.add(new DiscussionHeaderCardModel(new DiscussionModel(3, 16, 27)));
+        discussions.add(new DiscussionHeaderCardModel(new DiscussionModel(1, 3, 1)));
+        discussions.add(new DiscussionHeaderCardModel(new DiscussionModel(2, 0, 4)));
+        discussions.add(new DiscussionHeaderCardModel(new DiscussionModel(3, 3, 1)));
         discussionHeaderTableViewController.setItems(discussions);
 //        discussionHeaderTableView.setItems();
 //        switchConversation(1);
