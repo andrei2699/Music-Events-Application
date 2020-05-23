@@ -10,15 +10,19 @@
     <SplitPane dividerPositions="0.3" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <fx:include fx:id="discussionHeaderTableView" source="../../components/cardsTableView.fxml" />
         <AnchorPane>
-            <fx:include fx:id="messagesTableView" source="../../components/cardsTableView.fxml" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+            <fx:include fx:id="messagesTableView" source="../../components/cardsTableView.fxml" AnchorPane.bottomAnchor="70.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
             <HBox alignment="CENTER_LEFT" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                 <padding>
                     <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
                 </padding>
-                <TextField prefWidth="600.0" promptText="Scrieti un mesaj" />
-                <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
-                    <Image url="@../../../Images/send_icon_black_18dp.png" />
-                </ImageView>
+                <TextField fx:id="enterMessageTextField" prefWidth="600.0" promptText="Scrieti un mesaj" />
+            <Button fx:id="sendButton" contentDisplay="GRAPHIC_ONLY" defaultButton="true" mnemonicParsing="false" onAction="#onSendButtonClick">
+                <graphic>
+                    <ImageView fitHeight="24.0" fitWidth="24.0">
+                        <Image url="@../../../Images/send_icon_white_18dp.png" />
+                    </ImageView>
+                </graphic>
+            </Button>
             </HBox>
         </AnchorPane>
     </SplitPane>

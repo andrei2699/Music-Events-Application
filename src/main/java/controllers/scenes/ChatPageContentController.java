@@ -6,9 +6,14 @@ import controllers.components.DiscussionMessageCardController;
 import controllers.components.cardsTableView.CardsTableViewController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableCell;
+import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import models.DiscussionMessageModel;
 import models.DiscussionModel;
 import models.cards.DiscussionHeaderCardModel;
@@ -25,13 +30,16 @@ import static main.ApplicationResourceStrings.CONVERSATION_WITH_TEXT;
 public class ChatPageContentController implements Initializable {
     @FXML
     public CardsTableViewController discussionHeaderTableViewController;
-
     @FXML
     public CardsTableViewController messagesTableViewController;
-
+    @FXML
+    public TextField enterMessageTextField;
+    @FXML
+    public Button sendButton;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        enterMessageTextField.requestFocus();
 
         discussionHeaderTableViewController.setColumnData(new DetailsTableConfigData() {
             @Override
@@ -85,6 +93,11 @@ public class ChatPageContentController implements Initializable {
         discussionHeaderTableViewController.setItems(discussions);
 //        discussionHeaderTableView.setItems();
 //        switchConversation(1);
+    }
+
+    @FXML
+    public void onSendButtonClick(ActionEvent actionEvent) {
+
     }
 
     private void switchConversation(DiscussionHeaderCardModel headerCardModel) {
