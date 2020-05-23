@@ -3,9 +3,11 @@ package controllers.scenes;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import main.LoggedUserData;
 import main.SceneSwitchController;
 import models.ArtistModel;
 import services.IArtistService;
+import services.IDiscussionService;
 import services.ServiceProvider;
 
 public class ViewArtistProfilePageController extends AbstractViewProfilePageController {
@@ -27,7 +29,9 @@ public class ViewArtistProfilePageController extends AbstractViewProfilePageCont
 
     @Override
     protected void onStartChatButtonClick(ActionEvent actionEvent) {
-
+        IDiscussionService discussionService = ServiceProvider.getDiscussionService();
+        discussionService.createDiscussion(artistModel.getId(), LoggedUserData.getInstance().getUserModel().getId());
+        SceneSwitchController.getInstance().loadFXMLToMainPage(SceneSwitchController.SceneType.ChatContentScene, artistModel.getId());
     }
 
     @Override
