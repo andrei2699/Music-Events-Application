@@ -1,9 +1,8 @@
 package controllers.scenes;
 
-import controllers.components.cardsTableView.DetailsTableConfigData;
 import controllers.components.DiscussionChatHeaderCardController;
-import controllers.components.DiscussionMessageCardController;
 import controllers.components.cardsTableView.CardsTableViewController;
+import controllers.components.cardsTableView.DetailsTableConfigData;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -71,27 +70,8 @@ public class ChatPageContentController implements Initializable {
                 return headerController;
             }
         });
-        messagesTableViewController.setColumnData(new DetailsTableConfigData() {
-            @Override
-            public String getTableColumnText() {
-                return "Conversatie";
-            }
 
-            @Override
-            public String getPropertyValueFactory() {
-                return "discussionMessageCardModel";
-            }
-
-            @Override
-            public String getNoContentLabelText() {
-                return "Fara mesaje";
-            }
-
-            @Override
-            public TableCell<TableCardModel, TableCardModel> getCellFactory() {
-                return new DiscussionMessageCardController();
-            }
-        });
+        messagesTableViewController.setColumnData(DetailsTableConfigData.getMessageTableConfigData());
 
         ObservableList<TableCardModel> discussionsCards = FXCollections.observableArrayList();
         if (LoggedUserData.getInstance().isUserLogged()) {
