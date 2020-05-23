@@ -4,9 +4,10 @@ import models.other.Message;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class DiscussionModel extends EntityModel {
-    private List<Integer> ids;
+    private final List<Integer> ids;
     private List<Message> messages;
 
     public DiscussionModel(int id, int bar_manager_id, int artist_id) {
@@ -31,5 +32,19 @@ public class DiscussionModel extends EntityModel {
 
     public void addMessage(Message m) {
         messages.add(m);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        DiscussionModel that = (DiscussionModel) o;
+        return Objects.equals(ids, that.ids) &&
+                Objects.equals(messages, that.messages);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(ids, messages);
     }
 }
