@@ -1,6 +1,5 @@
 package controllers.components.cardsTableView;
 
-import controllers.components.DetailsTableConfigData;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;

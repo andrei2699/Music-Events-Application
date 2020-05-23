@@ -1,14 +1,12 @@
 package controllers.scenes;
 
-import controllers.components.DetailsTableConfigData;
+import controllers.components.cardsTableView.DetailsTableConfigData;
 import controllers.components.cardsTableView.CardsTableViewWithSearchbarController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.input.MouseEvent;
-import main.ApplicationResourceStrings;
 import models.ArtistModel;
 import models.BarModel;
 import models.EventModel;
@@ -20,7 +18,6 @@ import services.IArtistService;
 import services.IBarService;
 import services.IEventService;
 import services.ServiceProvider;
-import utils.CardTableFiller;
 
 import java.net.URL;
 import java.time.LocalDate;
