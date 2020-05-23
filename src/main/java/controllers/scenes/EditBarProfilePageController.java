@@ -6,8 +6,8 @@ import javafx.scene.control.TextField;
 import main.LoggedUserData;
 import main.SceneSwitchController;
 import models.BarModel;
-import models.other.Interval;
 import models.UserModel;
+import models.other.Interval;
 import services.IBarService;
 import services.ServiceProvider;
 
@@ -61,7 +61,7 @@ public class EditBarProfilePageController extends AbstractEditProfilePageControl
             profilePhoto.setImage(getProfileImage(barModel.getPath_to_image()));
             List<Interval> intervals = barModel.getIntervals();
 
-            gridHBoxes = fillScheduleGridPane(scheduleGridPane, intervals);
+            scheduleGridController.setIntervals(intervals);
         }
     }
 
@@ -71,7 +71,7 @@ public class EditBarProfilePageController extends AbstractEditProfilePageControl
             return;
         }
 
-        List<Interval> intervalsFromGridPane = getIntervalsFromGrid(gridHBoxes);
+        List<Interval> intervalsFromGridPane = scheduleGridController.getIntervalsFromGrid();
         UserModel userModel = LoggedUserData.getInstance().getUserModel();
 
         barModel.setAddress(addressField.getText());
