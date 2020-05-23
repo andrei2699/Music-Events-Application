@@ -1,6 +1,7 @@
 package services.implementation;
 
 import models.DiscussionModel;
+import models.EventModel;
 import repository.IRepository;
 import services.IDiscussionService;
 
@@ -35,17 +36,26 @@ public class DiscussionServiceImpl implements IDiscussionService {
     }
 
     @Override
-    public DiscussionModel createDiscussion(DiscussionModel discussionModel) {
-        List<DiscussionModel> allDiscussions = getAllDiscussions();
+    public DiscussionModel createDiscussion(int bar_manager_id, int artist_id) {
+        List<DiscussionModel> discussions = getAllDiscussions();
 
-        if (allDiscussions == null)
-            return discussionRepository.create(discussionModel);
+        if (discussions == null)
+            discussions = new ArrayList<>();
 
-        for (DiscussionModel discussion : allDiscussions) {
-            if (discussion.getId() == discussionModel.getId()) {
-                return updateDiscussion(discussionModel);
+        int biggestId = -1;
+        for (DiscussionModel discussion : discussions) {
+            if (discussion.getId() > biggestId) {
+                biggestId = discussion.getId();
+            }
+            if(discussion.getIds().contains(bar_manager_id) && discussion.getIds().contains(artist_id)) {
+                DiscussionModel discussionModel = new DiscussionModel(discussion.getId(),bar_manager_id,artist_id);
+                discussionModel.setMessages(discussion.getMessages());
+                return discussionRepository.update(discussionModel);
             }
         }
+
+        DiscussionModel discussionModel = new DiscussionModel(biggestId + 1, bar_manager_id, artist_id);
+
         return discussionRepository.create(discussionModel);
     }
 
