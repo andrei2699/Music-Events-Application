@@ -1,6 +1,6 @@
 package utils;
 
-import controllers.components.DetailsTableConfigData;
+import controllers.components.cardsTableView.DetailsTableConfigData;
 import models.cards.TableCardModel;
 import javafx.collections.transformation.FilteredList;
 import javafx.scene.control.Label;

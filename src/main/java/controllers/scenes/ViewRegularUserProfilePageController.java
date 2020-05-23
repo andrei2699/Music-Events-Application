@@ -1,14 +1,12 @@
 package controllers.scenes;
 
-import controllers.components.DetailsTableConfigData;
+import controllers.components.cardsTableView.DetailsTableConfigData;
 import controllers.components.cardsTableView.CardsTableViewController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
 import main.LoggedUserData;
 import models.EventModel;
 import models.ReservationModel;
@@ -18,7 +16,6 @@ import models.cards.TableCardModel;
 import services.IEventService;
 import services.IReservationService;
 import services.ServiceProvider;
-import utils.CardTableFiller;
 
 import java.net.URL;
 import java.time.LocalDate;

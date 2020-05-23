@@ -1,6 +1,6 @@
 package controllers.scenes;
 
-import controllers.components.DetailsTableConfigData;
+import controllers.components.cardsTableView.DetailsTableConfigData;
 import controllers.components.DiscussionChatHeaderCardController;
 import controllers.components.DiscussionMessageCardController;
 import controllers.components.cardsTableView.CardsTableViewController;
