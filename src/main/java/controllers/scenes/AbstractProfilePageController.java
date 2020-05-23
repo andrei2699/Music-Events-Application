@@ -4,8 +4,8 @@ import controllers.components.scheduleGrid.ScheduleGridController;
 import javafx.fxml.FXML;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import services.ServiceProvider;
 import services.IUserService;
+import services.ServiceProvider;
 
 import java.io.File;
 import java.net.URISyntaxException;

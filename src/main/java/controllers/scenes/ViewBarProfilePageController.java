@@ -6,12 +6,9 @@ import javafx.scene.control.Label;
 import main.LoggedUserData;
 import main.SceneSwitchController;
 import models.BarModel;
-import models.DiscussionModel;
 import services.IBarService;
 import services.IDiscussionService;
 import services.ServiceProvider;
-
-import java.util.List;
 
 public class ViewBarProfilePageController extends AbstractViewProfilePageController {
 
@@ -41,6 +38,9 @@ public class ViewBarProfilePageController extends AbstractViewProfilePageControl
 
     @Override
     protected void onStartChatButtonClick(ActionEvent actionEvent) {
+        IDiscussionService discussionService = ServiceProvider.getDiscussionService();
+        discussionService.createDiscussion(barModel.getId(), LoggedUserData.getInstance().getUserModel().getId());
+        SceneSwitchController.getInstance().loadFXMLToMainPage(SceneSwitchController.SceneType.ChatContentScene);
     }
 
     @Override
