@@ -36,21 +36,28 @@ public class DiscussionServiceImpl implements IDiscussionService {
     }
 
     @Override
-    public DiscussionModel createDiscussion(DiscussionModel discussionModel) {
+    public DiscussionModel createDiscussion(int bar_manager_id, int artist_id) {
         List<DiscussionModel> allDiscussions = getAllDiscussions();
 
-        if (allDiscussions == null)
+        if (allDiscussions == null) {
+            DiscussionModel discussionModel = new DiscussionModel(0, bar_manager_id, artist_id);
             return discussionRepository.create(discussionModel);
+        }
 
+        int biggestId = -1;
         for (DiscussionModel discussion : allDiscussions) {
-            if (discussion.getId() == discussionModel.getId()) {
-                return updateDiscussion(discussionModel);
-            } else if (discussionModel.getIds().size() == 2 &&
-                    discussion.getIds().contains(discussionModel.getIds().get(0)) &&
-                    discussion.getIds().contains(discussionModel.getIds().get(1))) {
-                return updateDiscussion(discussionModel);
+            if (discussion.getId() > biggestId) {
+                biggestId = discussion.getId();
+            }
+            if (discussion.getIds().contains(bar_manager_id) && discussion.getIds().contains(artist_id)) {
+                DiscussionModel discussionModel = new DiscussionModel(discussion.getId(), bar_manager_id, artist_id);
+                discussionModel.setMessages(discussion.getMessages());
+                return discussionRepository.update(discussionModel);
             }
         }
+
+        DiscussionModel discussionModel = new DiscussionModel(biggestId + 1, bar_manager_id, artist_id);
+
         return discussionRepository.create(discussionModel);
     }
 
