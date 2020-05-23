@@ -7,14 +7,17 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<HBox fx:id="chatHeaderHBox" alignment="CENTER_LEFT" spacing="10.0" styleClass="card" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
-    <ImageView fx:id="profilePictureImage" fitHeight="100.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="0.0">
+<HBox fx:id="chatHeaderHBox" alignment="CENTER" spacing="10.0" styleClass="card" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
+    <ImageView fx:id="profilePictureImage" fitHeight="40.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="0.0" HBox.hgrow="NEVER">
         <Image url="@../../Images/defaultUserPhoto.png" />
         <viewport>
             <Rectangle2D />
         </viewport>
+      <HBox.margin>
+         <Insets />
+      </HBox.margin>
     </ImageView>
-    <HBox alignment="CENTER" prefWidth="200.0">
+    <HBox alignment="CENTER" fillHeight="false" prefWidth="200.0">
         <Label fx:id="nameLabel" text="Name ">
             <font>
                 <Font size="16.0" />

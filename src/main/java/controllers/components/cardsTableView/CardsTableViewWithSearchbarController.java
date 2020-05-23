@@ -1,6 +1,5 @@
 package controllers.components.cardsTableView;
 
-import controllers.components.DetailsTableConfigData;
 import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
