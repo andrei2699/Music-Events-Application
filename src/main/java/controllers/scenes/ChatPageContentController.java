@@ -12,8 +12,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import models.DiscussionMessageModel;
 import models.DiscussionModel;
 import models.cards.DiscussionHeaderCardModel;
@@ -89,10 +87,15 @@ public class ChatPageContentController implements Initializable {
         ObservableList<TableCardModel> discussions = FXCollections.observableArrayList();
         discussions.add(new DiscussionHeaderCardModel(new DiscussionModel(1, 3, 1)));
         discussions.add(new DiscussionHeaderCardModel(new DiscussionModel(2, 0, 4)));
-        discussions.add(new DiscussionHeaderCardModel(new DiscussionModel(3, 3, 1)));
+        discussions.add(new DiscussionHeaderCardModel(new DiscussionModel(3, 0, 1)));
         discussionHeaderTableViewController.setItems(discussions);
-//        discussionHeaderTableView.setItems();
-//        switchConversation(1);
+
+        try {
+            switchConversation((DiscussionHeaderCardModel) discussionHeaderTableViewController.getItem(0));
+        } catch (IndexOutOfBoundsException ignored) {
+            enterMessageTextField.setDisable(true);
+            sendButton.setDisable(true);
+        }
     }
 
     @FXML
