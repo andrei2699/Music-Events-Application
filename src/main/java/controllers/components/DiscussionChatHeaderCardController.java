@@ -21,6 +21,7 @@ import services.IArtistService;
 import services.IBarService;
 import services.IUserService;
 import services.ServiceProvider;
+import utils.StringValidator;
 
 import java.io.File;
 import java.io.IOException;
@@ -106,7 +107,7 @@ public class DiscussionChatHeaderCardController extends TableCell<TableCardModel
     }
 
     private void loadImage(String pathToImage) {
-        if (pathToImage != null && !pathToImage.isEmpty() && !pathToImage.isBlank()) {
+        if (StringValidator.isStringNotEmpty(pathToImage)) {
             File file = new File(pathToImage);
             profilePictureImage.setImage(new Image(file.toURI().toString()));
         }

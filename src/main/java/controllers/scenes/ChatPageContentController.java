@@ -12,13 +12,20 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TextField;
+import main.LoggedUserData;
 import models.DiscussionMessageModel;
 import models.DiscussionModel;
 import models.cards.DiscussionHeaderCardModel;
 import models.cards.DiscussionMessageCardModel;
 import models.cards.TableCardModel;
+import models.other.Message;
+import services.IDiscussionService;
+import services.ServiceProvider;
+import utils.StringValidator;
 
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -35,8 +42,12 @@ public class ChatPageContentController implements Initializable {
     @FXML
     public Button sendButton;
 
+    private DiscussionHeaderCardModel openedHeaderCardModel;
+    private IDiscussionService discussionService;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        discussionService = ServiceProvider.getDiscussionService();
         enterMessageTextField.requestFocus();
 
         discussionHeaderTableViewController.setColumnData(new DetailsTableConfigData() {
@@ -100,10 +111,22 @@ public class ChatPageContentController implements Initializable {
 
     @FXML
     public void onSendButtonClick(ActionEvent actionEvent) {
+        if (openedHeaderCardModel != null && LoggedUserData.getInstance().isUserLogged() && StringValidator.isStringNotEmpty(enterMessageTextField.getText())) {
+            DiscussionModel discussionModel = openedHeaderCardModel.getDiscussionModel();
+            LocalTime nowTime = LocalTime.now();
+            LocalDate nowDate = LocalDate.now();
+            String date = nowTime.getHour() + ":" + nowTime.getMinute() + " - " + nowDate.toString();
+            discussionModel.addMessage(new Message(date, enterMessageTextField.getText(), LoggedUserData.getInstance().getUserModel().getId()));
 
+            discussionService.updateDiscussion(discussionModel);
+            switchConversation(openedHeaderCardModel);
+
+            enterMessageTextField.setText("");
+        }
     }
 
     private void switchConversation(DiscussionHeaderCardModel headerCardModel) {
+        openedHeaderCardModel = headerCardModel;
         List<DiscussionMessageModel> messages = new ArrayList<>();
         messages.add(new DiscussionMessageModel("05-06-2020", "Salut", true));
         messages.add(new DiscussionMessageModel("05-06-2020", "Ce faci ?", true));
