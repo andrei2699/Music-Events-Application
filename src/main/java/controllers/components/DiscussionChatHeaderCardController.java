@@ -37,6 +37,8 @@ public class DiscussionChatHeaderCardController extends TableCell<TableCardModel
     @FXML
     public HBox chatHeaderHBox;
 
+    private ISceneResponseCall<DiscussionHeaderCardModel> onCardModelSet;
+
     private ISceneResponseCall<DiscussionHeaderCardModel> onClickResponseCall;
     private DiscussionHeaderCardModel discussionHeaderCardModel;
 
@@ -58,6 +60,9 @@ public class DiscussionChatHeaderCardController extends TableCell<TableCardModel
         if (!empty && tableCardModel != null) {
 
             discussionHeaderCardModel = (DiscussionHeaderCardModel) tableCardModel;
+            if(onCardModelSet != null)
+                onCardModelSet.onResponseCall(discussionHeaderCardModel);
+
             DiscussionModel discussionModel = discussionHeaderCardModel.getDiscussionModel();
 
             int currentLoggedUserId = LoggedUserData.getInstance().getUserModel().getId();
@@ -106,10 +111,24 @@ public class DiscussionChatHeaderCardController extends TableCell<TableCardModel
         this.onClickResponseCall = onClickResponseCall;
     }
 
+    public void setOnCardModelSet(ISceneResponseCall<DiscussionHeaderCardModel> onCardModelSet) {
+        this.onCardModelSet = onCardModelSet;
+    }
+
+    public boolean hasModelId(Integer id) {
+        if(discussionHeaderCardModel == null)
+            return false;
+        return discussionHeaderCardModel.getDiscussionModel().getIds().contains(id);
+    }
+
     private void loadImage(String pathToImage) {
         if (StringValidator.isStringNotEmpty(pathToImage)) {
             File file = new File(pathToImage);
             profilePictureImage.setImage(new Image(file.toURI().toString()));
         }
+    }
+
+    public DiscussionHeaderCardModel getDiscussionHeaderCardModel() {
+        return discussionHeaderCardModel;
     }
 }

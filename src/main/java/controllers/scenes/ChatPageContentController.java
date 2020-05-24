@@ -1,14 +1,13 @@
 package controllers.scenes;
 
-import controllers.components.DetailsTableConfigData;
 import controllers.components.DiscussionChatHeaderCardController;
-import controllers.components.DiscussionMessageCardController;
 import controllers.components.cardsTableView.CardsTableViewController;
+import controllers.components.cardsTableView.DetailsTableConfigData;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TextField;
@@ -30,7 +29,7 @@ import java.util.ResourceBundle;
 
 import static main.ApplicationResourceStrings.CONVERSATION_WITH_TEXT;
 
-public class ChatPageContentController implements Initializable {
+public class ChatPageContentController extends ChangeableSceneWithModelController {
     @FXML
     public CardsTableViewController discussionHeaderTableViewController;
     @FXML
@@ -41,7 +40,10 @@ public class ChatPageContentController implements Initializable {
     public Button sendButton;
 
     private DiscussionHeaderCardModel openedHeaderCardModel;
+
     private IDiscussionService discussionService;
+
+    private Integer modelId;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -68,30 +70,17 @@ public class ChatPageContentController implements Initializable {
             public TableCell<TableCardModel, TableCardModel> getCellFactory() {
                 DiscussionChatHeaderCardController headerController = new DiscussionChatHeaderCardController();
                 headerController.setOnClickResponseCall(headerCardModel -> switchConversation(headerCardModel));
+                headerController.setOnCardModelSet((discussionHeaderCardModel) -> {
+                    if (modelId != null && headerController.hasModelId(modelId)) {
+                        switchConversation(discussionHeaderCardModel);
+                        Platform.runLater(headerController::requestFocus);
+                    }
+                });
                 return headerController;
             }
         });
-        messagesTableViewController.setColumnData(new DetailsTableConfigData() {
-            @Override
-            public String getTableColumnText() {
-                return "Conversatie";
-            }
 
-            @Override
-            public String getPropertyValueFactory() {
-                return "discussionMessageCardModel";
-            }
-
-            @Override
-            public String getNoContentLabelText() {
-                return "Fara mesaje";
-            }
-
-            @Override
-            public TableCell<TableCardModel, TableCardModel> getCellFactory() {
-                return new DiscussionMessageCardController();
-            }
-        });
+        messagesTableViewController.setColumnData(DetailsTableConfigData.getMessageTableConfigData());
 
         ObservableList<TableCardModel> discussionsCards = FXCollections.observableArrayList();
         if (LoggedUserData.getInstance().isUserLogged()) {
@@ -147,6 +136,12 @@ public class ChatPageContentController implements Initializable {
         messagesTableViewController.setColumnText(CONVERSATION_WITH_TEXT + " " + headerCardModel.toString());
         messagesTableViewController.clearItems();
         messagesTableViewController.setItems(discussionMessageModels);
-        messagesTableViewController.scrollTo(discussionMessageModels.size() - 1);
+        if (discussionMessageModels.size() > 0)
+            messagesTableViewController.scrollTo(discussionMessageModels.size() - 1);
+    }
+
+    @Override
+    public void onSetModelId(Integer modelId) {
+        this.modelId = modelId;
     }
 }
