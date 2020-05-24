@@ -41,6 +41,9 @@ public class ViewArtistProfilePageController extends AbstractViewProfilePageCont
         bandMembersLabel.setVisible(false);
         membersLabel.setVisible(false);
 
+        boolean startChatButtonInvisible = userModel == null || !LoggedUserData.getInstance().isUserLogged() || LoggedUserData.getInstance().isArtist();
+        startChatButton.setVisible(!startChatButtonInvisible);
+
         if (artistModel != null) {
             genreLabel.setText(artistModel.getGenre());
             profilePhoto.setImage(getProfileImage(artistModel.getPath_to_image()));
