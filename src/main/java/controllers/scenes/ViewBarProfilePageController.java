@@ -40,7 +40,7 @@ public class ViewBarProfilePageController extends AbstractViewProfilePageControl
     protected void onStartChatButtonClick(ActionEvent actionEvent) {
         IDiscussionService discussionService = ServiceProvider.getDiscussionService();
         discussionService.createDiscussion(barModel.getId(), LoggedUserData.getInstance().getUserModel().getId());
-        SceneSwitchController.getInstance().loadFXMLToMainPage(SceneSwitchController.SceneType.ChatContentScene);
+        SceneSwitchController.getInstance().loadFXMLToMainPage(SceneSwitchController.SceneType.ChatContentScene,barModel.getId());
     }
 
     @Override
