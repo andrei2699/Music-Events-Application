@@ -23,7 +23,7 @@ public class BarCardModel implements TableCardModel {
     }
 
     public boolean containsFilter(String filter) {
-        return getBarName().contains(filter)||getBarModel().getAddress().contains(filter);
+        return getBarName().toLowerCase().contains(filter) || getBarModel().getAddress().toLowerCase().contains(filter);
     }
 
     public BarCardModel getBarCardModel() {

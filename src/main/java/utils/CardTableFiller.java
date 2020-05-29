@@ -35,7 +35,7 @@ public final class CardTableFiller {
             if (filter == null || filter.isEmpty() || filter.isBlank()) {
                 filteredList.setPredicate(m -> true);
             } else {
-                filteredList.setPredicate(m -> m.containsFilter(filter));
+                filteredList.setPredicate(m -> m.containsFilter(filter.toLowerCase()));
             }
         });
     }
