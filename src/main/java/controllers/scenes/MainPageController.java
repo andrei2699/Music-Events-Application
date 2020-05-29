@@ -34,9 +34,9 @@ public class MainPageController implements Initializable {
     @FXML
     private ImageView messageImage;
 
-    private Image noMessages = new Image(IMAGE_FOR_NO_MESSAGES_PATH);
+    private final Image noMessages = new Image(IMAGE_FOR_NO_MESSAGES_PATH);
 
-    private Image newMessages = new Image(IMAGE_FOR_NEW_MESSAGES_PATH);
+    private final Image newMessages = new Image(IMAGE_FOR_NEW_MESSAGES_PATH);
 
     @FXML
     public void onMoreActionsClicked(MouseEvent mouseEvent) {
@@ -57,7 +57,6 @@ public class MainPageController implements Initializable {
         moreActionsContextMenu = new ContextMenu();
 
         SceneSwitchController.getInstance().setMainPageContentPane(pageContent);
-        SceneSwitchController.getInstance().loadFXMLToMainPage(SceneSwitchController.SceneType.MainSceneContent);
 
         if (LoggedUserData.getInstance().isUserLogged()) {
             MenuItem goToProfileMenuItem = new MenuItem(VIEW_PROFILE_TEXT);

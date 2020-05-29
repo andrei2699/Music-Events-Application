@@ -74,8 +74,13 @@ public final class SceneSwitchController {
         }
     }
 
-    public void switchToMainScene() {
+    public void switchToMainScene(SceneType mainSceneContent) {
         switchScene(SceneType.MainScene);
+        loadFXMLToMainPage(mainSceneContent);
+    }
+
+    public void switchToMainScene() {
+        switchToMainScene(SceneType.MainSceneContent);
     }
 
     public void switchToRegisterScene() {
