@@ -23,7 +23,7 @@ public class ArtistCardModel implements TableCardModel {
     }
 
     public boolean containsFilter(String filter) {
-        return getArtistName().contains(filter) || getArtistModel().getGenre().contains(filter);
+        return getArtistName().toLowerCase().contains(filter) || getArtistModel().getGenre().toLowerCase().contains(filter);
     }
 
     public ArtistCardModel getArtistCardModel() {
