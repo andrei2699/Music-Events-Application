@@ -115,11 +115,10 @@ public class RegisterController implements Initializable {
                 UserModel user = userService.createUser(emailTextField.getText(), passwordTextField.getText(), nameTextField.getText(), userTypeComboBox.getValue());
                 LoggedUserData.getInstance().setUserModel(user);
 
-                SceneSwitchController.getInstance().switchToMainScene();
                 if (user.getType() == UserType.Manager) {
-                    SceneSwitchController.getInstance().loadFXMLToMainPage(EditBarProfileContentScene);
+                    SceneSwitchController.getInstance().switchToMainScene(EditBarProfileContentScene);
                 } else if (user.getType() == UserType.Artist) {
-                    SceneSwitchController.getInstance().loadFXMLToMainPage(EditArtistProfileContentScene);
+                    SceneSwitchController.getInstance().switchToMainScene(EditArtistProfileContentScene);
                 }
             } catch (UserExistsException e) {
                 showErrorLabel(emailInUseErrorLabel);
