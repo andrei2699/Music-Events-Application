@@ -2,6 +2,7 @@ package main;
 
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import static main.ApplicationResourceStrings.*;
@@ -12,13 +13,13 @@ public class JavaFXBoot extends Application {
     public void start(Stage primaryStage) {
 
         SceneSwitchController sceneSwitchController = SceneSwitchController.getInstance();
-
         sceneSwitchController.setPrimaryStage(primaryStage);
-        sceneSwitchController.addScene(SceneSwitchController.SceneType.MainScene, MAIN_SCENE_FXML_PATH);
-        sceneSwitchController.addScene(SceneSwitchController.SceneType.MainSceneContent, MAIN_SCENE_CONTENT_FXML_PATH);
 
+        sceneSwitchController.addScene(SceneSwitchController.SceneType.MainScene, MAIN_SCENE_FXML_PATH);
         sceneSwitchController.addScene(SceneSwitchController.SceneType.RegisterScene, REGISTER_SCENE_FXML_PATH);
         sceneSwitchController.addScene(SceneSwitchController.SceneType.LoginScene, LOGIN_FXML_PATH);
+
+        sceneSwitchController.addScene(SceneSwitchController.SceneType.MainSceneContent, MAIN_SCENE_CONTENT_FXML_PATH);
 
         sceneSwitchController.addScene(SceneSwitchController.SceneType.ViewBarProfileContentScene, VIEW_BAR_PROFILE_SCENE_CONTENT_FXML_PATH);
         sceneSwitchController.addScene(SceneSwitchController.SceneType.ViewArtistProfileContentScene, VIEW_ARTIST_PROFILE_SCENE_CONTENT_FXML_PATH);
@@ -32,6 +33,7 @@ public class JavaFXBoot extends Application {
 
         sceneSwitchController.switchToLoginScene();
 
+        primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/Images/guitar-icon.png")));
         primaryStage.setTitle(APPLICATION_NAME);
         primaryStage.setResizable(false);
         primaryStage.setOnCloseRequest(event -> Platform.exit());
