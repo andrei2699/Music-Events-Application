@@ -2,6 +2,7 @@ package main;
 
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import static main.ApplicationResourceStrings.*;
@@ -32,6 +33,7 @@ public class JavaFXBoot extends Application {
 
         sceneSwitchController.switchToLoginScene();
 
+        primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/Images/guitar-icon.png")));
         primaryStage.setTitle(APPLICATION_NAME);
         primaryStage.setResizable(false);
         primaryStage.setOnCloseRequest(event -> Platform.exit());
