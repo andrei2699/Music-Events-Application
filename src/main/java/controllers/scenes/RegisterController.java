@@ -119,6 +119,8 @@ public class RegisterController implements Initializable {
                     SceneSwitchController.getInstance().switchToMainScene(EditBarProfileContentScene);
                 } else if (user.getType() == UserType.Artist) {
                     SceneSwitchController.getInstance().switchToMainScene(EditArtistProfileContentScene);
+                } else {
+                    SceneSwitchController.getInstance().switchToMainScene();
                 }
             } catch (UserExistsException e) {
                 showErrorLabel(emailInUseErrorLabel);
