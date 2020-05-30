@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Tab?>
-<?import javafx.scene.control.TabPane?>
+<?import java.net.*?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import java.net.URL?>
+
 <AnchorPane prefHeight="540.0" prefWidth="800.0" styleClass="root-pane" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.scenes.MainPageContentController">
     <TabPane tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <Tab text="Evenimente">
-            <fx:include source="../../components/cardTableViewWithSearchbar.fxml" fx:id="eventsTableViewWithSearchbar"/>
+            <fx:include fx:id="eventsTableViewWithSearchbar" source="../../components/cardTableViewWithSearchbar.fxml" />
         </Tab>
         <Tab text="Localuri">
-            <fx:include source="../../components/cardTableViewWithSearchbar.fxml" fx:id="barsTableViewWithSearchbar"/>
+            <fx:include fx:id="barsTableViewWithSearchbar" source="../../components/cardTableViewWithSearchbar.fxml" />
         </Tab>
         <Tab text="Artiști">
-            <fx:include source="../../components/cardTableViewWithSearchbar.fxml" fx:id="artistsTableViewWithSearchbar"/>
+            <fx:include fx:id="artistsTableViewWithSearchbar" source="../../components/cardTableViewWithSearchbar.fxml" />
         </Tab>
     </TabPane>
     <stylesheets>
