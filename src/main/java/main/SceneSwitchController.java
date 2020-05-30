@@ -15,6 +15,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static main.ApplicationResourceStrings.MAKE_RESERVATION_POPUP_WINDOW_FXML_PATH;
+import static main.ApplicationResourceStrings.RESERVATION_TEXT;
 
 public final class SceneSwitchController {
 
@@ -107,7 +108,7 @@ public final class SceneSwitchController {
             reservationPopupStage = new Stage();
             reservationPopupStage.setResizable(false);
             reservationPopupStage.centerOnScreen();
-            reservationPopupStage.setTitle("Rezervare");
+            reservationPopupStage.setTitle(RESERVATION_TEXT);
             reservationPopupStage.setScene(new Scene(root));
             reservationPopupStage.initModality(Modality.APPLICATION_MODAL);
             reservationPopupStage.showAndWait();
