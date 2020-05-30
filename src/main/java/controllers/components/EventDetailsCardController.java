@@ -68,6 +68,9 @@ public class EventDetailsCardController extends TableCell<TableCardModel, TableC
     @FXML
     private HBox actionButtonsHBox;
 
+    @FXML
+    private Label notEditableMessageLabel;
+
     private EventModel eventModel;
 
     public EventDetailsCardController() {
@@ -119,6 +122,7 @@ public class EventDetailsCardController extends TableCell<TableCardModel, TableC
                 } else {
                     if (ServiceProvider.getReservationService().getReservationUsingEventId(eventModel.getId()).size() > 0) {
                         editEventButton.setDisable(true);
+                        notEditableMessageLabel.setVisible(true);
                     }
                     actionButtonsHBox.getChildren().remove(reserveTicketButton);
 
