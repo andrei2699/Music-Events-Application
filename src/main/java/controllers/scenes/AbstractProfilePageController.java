@@ -13,7 +13,7 @@ import java.net.URL;
 import java.nio.file.Paths;
 import java.util.ResourceBundle;
 
-import static main.ApplicationResourceStrings.IMAGES_DEFAULT_USER_PHOTO_PATH;
+import static main.ApplicationResourceStrings.IMAGE_DEFAULT_USER_PHOTO_PATH;
 
 public abstract class AbstractProfilePageController extends ChangeableSceneWithModelController {
 
@@ -36,7 +36,7 @@ public abstract class AbstractProfilePageController extends ChangeableSceneWithM
     protected Image getProfileImage(String pathToImageFile) {
         if (pathToImageFile.isEmpty()) {
             try {
-                pathToImageFile = Paths.get(getClass().getResource(IMAGES_DEFAULT_USER_PHOTO_PATH).toURI()).toString();
+                pathToImageFile = Paths.get(getClass().getResource(IMAGE_DEFAULT_USER_PHOTO_PATH).toURI()).toString();
             } catch (URISyntaxException e) {
                 e.printStackTrace();
             }

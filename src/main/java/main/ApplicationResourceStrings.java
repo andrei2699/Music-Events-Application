@@ -30,18 +30,34 @@ public final class ApplicationResourceStrings {
     public static final String MAIN_PAGE_TEXT = "Pagina principala";
     public static final String LOG_OUT_TEXT = "Delogare";
     public static final String LOG_IN_TEXT = "Logare";
+    public static final String RESERVATION_TEXT = "Rezervare";
+
     public static final String CONVERSATION_WITH_TEXT = "Conversatie cu";
     public static final String SEARCH_FOR_EVENTS_TEXT = "Cauta evenimente...";
     public static final String SEARCH_FOR_BARS_TEXT = "Cauta localuri...";
     public static final String SEARCH_FOR_ARTISTS_TEXT = "Cauta artisti...";
+    public static final String EDIT_EVENT_FORM_TEXT = "Formular editare eveniment";
+
+    public static final String CONVERSATIONS_TEXT = "Conversatii";
+    public static final String AVAILABLE_EVENTS_TEXT = "Evenimente Dispnibile";
+    public static final String MY_RESERVATIONS_TEXT = "Rezervarile mele";
+    public static final String ARTISTS_TEXT = "Artisti";
+    public static final String BARS_TEXT = "Localuri";
+
+    public static final String NO_CONVERSATIONS_TEXT = "Fara conversatii";
+    public static final String NO_EVENTS_TEXT = "Fara evenimente";
+    public static final String NO_RESERVATIONS_TEXT = "Fara rezervari";
+    public static final String NO_ARTISTS_TEXT = "Fara artisti";
+    public static final String NO_BARS_TEXT = "Fara localuri";
 
     public static final String DAY_TEXT = "Zi";
     public static final String START_TEXT = "Inceput";
     public static final String END_TEXT = "Sfarsit";
 
-    public static final String IMAGES_DEFAULT_USER_PHOTO_PATH = "/Images/defaultUserPhoto.png";
+    public static final String IMAGE_DEFAULT_USER_PHOTO_PATH = "/Images/defaultUserPhoto.png";
     public static final String IMAGE_FOR_NO_MESSAGES_PATH = "/Images/outline_chat_bubble_outline_black_18dp.png";
     public static final String IMAGE_FOR_NEW_MESSAGES_PATH = "/Images/outline_chat_black_18dp.png";
+    public static final String APPLICATION_ICON = "/Images/guitar-icon.png";
 
     public static final String REQUIRED_FIELD_ERROR_MESSAGE = "* Camp Obligatoriu";
     public static final String INVALID_EMAIL_ERROR_MESSAGE = "* Adresa de email invalida";

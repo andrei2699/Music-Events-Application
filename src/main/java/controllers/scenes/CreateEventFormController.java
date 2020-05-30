@@ -16,11 +16,9 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
-import static main.ApplicationResourceStrings.INVALID_ARTIST_NAME_ERROR_MESSAGE;
-import static main.ApplicationResourceStrings.REQUIRED_FIELD_ERROR_MESSAGE;
+import static main.ApplicationResourceStrings.*;
 
 public class CreateEventFormController extends ChangeableSceneWithModelController {
-    public static final String FORMULAR_EDITARE_EVENIMENT = "Formular editare eveniment";
     @FXML
     public TextField eventNameField;
 
@@ -164,7 +162,7 @@ public class CreateEventFormController extends ChangeableSceneWithModelControlle
 
     @Override
     public void onSetModelId(Integer modelId) {
-        titleLabel.setText(FORMULAR_EDITARE_EVENIMENT);
+        titleLabel.setText(EDIT_EVENT_FORM_TEXT);
 
         eventModel = eventService.getEventUsingEventId(modelId);
         if (eventModel == null)
