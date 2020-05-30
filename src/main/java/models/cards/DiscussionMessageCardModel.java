@@ -2,7 +2,7 @@ package models.cards;
 
 import models.other.Message;
 
-public class DiscussionMessageCardModel implements TableCardModel {
+public class DiscussionMessageCardModel {
     private final Message message;
     private final boolean isSender;
 
@@ -17,13 +17,5 @@ public class DiscussionMessageCardModel implements TableCardModel {
 
     public boolean isSender() {
         return isSender;
-    }
-
-    public boolean containsFilter(String filter) {
-        return true;
-    }
-
-    public DiscussionMessageCardModel getDiscussionMessageCardModel() {
-        return this;
     }
 }

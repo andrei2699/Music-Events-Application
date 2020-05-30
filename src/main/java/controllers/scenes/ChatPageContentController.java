@@ -1,6 +1,7 @@
 package controllers.scenes;
 
 import controllers.components.DiscussionChatHeaderCardController;
+import controllers.components.DiscussionMessageCardController;
 import controllers.components.cardsTableView.CardsTableViewController;
 import controllers.components.cardsTableView.DetailsTableConfigData;
 import javafx.application.Platform;
@@ -8,9 +9,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.layout.VBox;
 import main.LoggedUserData;
 import models.DiscussionModel;
 import models.cards.DiscussionHeaderCardModel;
@@ -33,11 +33,15 @@ public class ChatPageContentController extends ChangeableSceneWithModelControlle
     @FXML
     public CardsTableViewController discussionHeaderTableViewController;
     @FXML
-    public CardsTableViewController messagesTableViewController;
-    @FXML
     public TextField enterMessageTextField;
     @FXML
     public Button sendButton;
+    @FXML
+    public VBox messagesVBox;
+    @FXML
+    public ScrollPane messagesScrollPane;
+    @FXML
+    public Label conversationWithLabel;
 
     private DiscussionHeaderCardModel openedHeaderCardModel;
 
@@ -72,15 +76,12 @@ public class ChatPageContentController extends ChangeableSceneWithModelControlle
                 headerController.setOnClickResponseCall(headerCardModel -> switchConversation(headerCardModel));
                 headerController.setOnCardModelSet((discussionHeaderCardModel) -> {
                     if (modelId != null && headerController.hasModelId(modelId)) {
-                        switchConversation(discussionHeaderCardModel);
                         Platform.runLater(headerController::requestFocus);
                     }
                 });
                 return headerController;
             }
         });
-
-        messagesTableViewController.setColumnData(DetailsTableConfigData.getMessageTableConfigData());
 
         ObservableList<TableCardModel> discussionsCards = FXCollections.observableArrayList();
         if (LoggedUserData.getInstance().isUserLogged()) {
@@ -121,23 +122,25 @@ public class ChatPageContentController extends ChangeableSceneWithModelControlle
         if (headerCardModel == null || !LoggedUserData.getInstance().isUserLogged())
             return;
 
-        ObservableList<TableCardModel> discussionMessageModels = FXCollections.observableArrayList();
         List<Message> messages = headerCardModel.getDiscussionModel().getMessages();
+
+        messagesVBox.getChildren().clear();
 
         for (Message message : messages) {
             boolean isSender = message.getSender_id() == LoggedUserData.getInstance().getUserModel().getId();
             if (!isSender) {
                 message.setSeen(true);
             }
-            discussionMessageModels.add(new DiscussionMessageCardModel(message, isSender));
-        }
-        discussionService.updateDiscussion(headerCardModel.getDiscussionModel());
 
-        messagesTableViewController.setColumnText(CONVERSATION_WITH_TEXT + " " + headerCardModel.toString());
-        messagesTableViewController.clearItems();
-        messagesTableViewController.setItems(discussionMessageModels);
-        if (discussionMessageModels.size() > 0)
-            messagesTableViewController.scrollTo(discussionMessageModels.size() - 1);
+            DiscussionMessageCardController controller = new DiscussionMessageCardController();
+            controller.updateItem(new DiscussionMessageCardModel(message, isSender));
+
+            messagesVBox.getChildren().add(controller.messageCardHBox);
+        }
+
+        discussionService.updateDiscussion(headerCardModel.getDiscussionModel());
+        conversationWithLabel.setText(CONVERSATION_WITH_TEXT + " " + headerCardModel.toString());
+        messagesScrollPane.setVvalue(1D);
     }
 
     @Override
