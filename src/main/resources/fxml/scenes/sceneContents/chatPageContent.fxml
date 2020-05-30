@@ -5,24 +5,38 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
 <AnchorPane prefHeight="540.0" prefWidth="800.0" styleClass="root-pane" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.scenes.ChatPageContentController">
     <SplitPane dividerPositions="0.3" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <fx:include fx:id="discussionHeaderTableView" source="../../components/cardsTableView.fxml" />
         <AnchorPane>
-            <fx:include fx:id="messagesTableView" source="../../components/cardsTableView.fxml" AnchorPane.bottomAnchor="70.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+            <HBox alignment="CENTER_LEFT" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                  AnchorPane.topAnchor="0.0">
+                <padding>
+                    <Insets bottom="20.0" left="16.0" right="16.0" top="25.0"/>
+                </padding>
+                <Label fx:id="conversationWithLabel" text="Conversatie cu">
+                    <font>
+                        <Font name="System Bold" size="15.0"/>
+                    </font>
+                </Label>
+            </HBox>
+            <ScrollPane fx:id="messagesScrollPane" fitToWidth="true" hbarPolicy="NEVER" prefWidth="555.0" AnchorPane.bottomAnchor="70.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="66.0">
+                <VBox fx:id="messagesVBox" alignment="TOP_CENTER" />
+            </ScrollPane>
             <HBox alignment="CENTER_LEFT" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                 <padding>
                     <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
                 </padding>
                 <TextField fx:id="enterMessageTextField" prefWidth="600.0" promptText="Scrieti un mesaj" />
-            <Button fx:id="sendButton" contentDisplay="GRAPHIC_ONLY" defaultButton="true" mnemonicParsing="false" onAction="#onSendButtonClick">
-                <graphic>
-                    <ImageView fitHeight="24.0" fitWidth="24.0">
-                        <Image url="@../../../Images/send_icon_white_18dp.png" />
-                    </ImageView>
-                </graphic>
-            </Button>
+                <Button fx:id="sendButton" contentDisplay="GRAPHIC_ONLY" defaultButton="true" mnemonicParsing="false" onAction="#onSendButtonClick">
+                    <graphic>
+                        <ImageView fitHeight="24.0" fitWidth="24.0">
+                            <Image url="@../../../Images/send_icon_white_18dp.png" />
+                        </ImageView>
+                    </graphic>
+                </Button>
             </HBox>
         </AnchorPane>
     </SplitPane>

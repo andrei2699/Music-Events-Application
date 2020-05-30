@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 
 <?import java.net.URL?>
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.2-internal"
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.2-internal" styleClass="root-pane"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="controllers.components.cardsTableView.CardsTableViewWithSearchbarController">
     <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
