@@ -21,7 +21,7 @@ public class ViewBarProfilePageController extends AbstractViewProfilePageControl
     protected void updateUIOnInitialize() {
         super.updateUIOnInitialize();
 
-        boolean startChatButtonInvisible = userModel == null || !LoggedUserData.getInstance().isUserLogged() || LoggedUserData.getInstance().isBarManager();
+        boolean startChatButtonInvisible = userModel == null || LoggedUserData.getInstance().isRegularUser() || LoggedUserData.getInstance().isBarManager();
         startChatButton.setVisible(!startChatButtonInvisible);
 
         if (barModel != null) {
