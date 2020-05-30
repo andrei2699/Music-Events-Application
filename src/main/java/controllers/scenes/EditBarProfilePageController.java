@@ -2,6 +2,7 @@ package controllers.scenes;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import main.LoggedUserData;
 import main.SceneSwitchController;
@@ -10,6 +11,7 @@ import models.UserModel;
 import models.other.Interval;
 import services.IBarService;
 import services.ServiceProvider;
+import utils.StringValidator;
 
 import java.io.File;
 import java.net.URL;
@@ -21,6 +23,9 @@ public class EditBarProfilePageController extends AbstractEditProfilePageControl
     @FXML
     public TextField addressField;
 
+    @FXML
+    public Label requiredAdreesErrorLabel;
+
     private IBarService barService;
 
     private BarModel barModel;
@@ -28,6 +33,9 @@ public class EditBarProfilePageController extends AbstractEditProfilePageControl
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         super.initialize(location, resources);
+
+        requiredAdreesErrorLabel.setVisible(false);
+
         barService = ServiceProvider.getBarService();
 
         if (LoggedUserData.getInstance().isUserLogged()) {
@@ -71,18 +79,27 @@ public class EditBarProfilePageController extends AbstractEditProfilePageControl
             return;
         }
 
-        List<Interval> intervalsFromGridPane = scheduleGridController.getIntervalsFromGrid();
-        UserModel userModel = LoggedUserData.getInstance().getUserModel();
+        if (StringValidator.isStringEmpty(addressField.getText())) {
+            showErrorLabel(requiredAdreesErrorLabel);
+            addressField.requestFocus();
+        } else {
+            List<Interval> intervalsFromGridPane = scheduleGridController.getIntervalsFromGrid();
+            UserModel userModel = LoggedUserData.getInstance().getUserModel();
 
-        barModel.setAddress(addressField.getText());
-        if (!nameField.getText().isEmpty()) {
-            userModel.setName(nameField.getText());
+            barModel.setAddress(addressField.getText());
+            if (!nameField.getText().isEmpty()) {
+                userModel.setName(nameField.getText());
+            }
+            barModel.setIntervals(intervalsFromGridPane);
+
+            barService.updateBar(barModel);
+            userService.updateUser(userModel);
+
+            SceneSwitchController.getInstance().loadFXMLToMainPage(SceneSwitchController.SceneType.ViewBarProfileContentScene, barModel.getId());
         }
-        barModel.setIntervals(intervalsFromGridPane);
+    }
 
-        barService.updateBar(barModel);
-        userService.updateUser(userModel);
-
-        SceneSwitchController.getInstance().loadFXMLToMainPage(SceneSwitchController.SceneType.ViewBarProfileContentScene, barModel.getId());
+    private void showErrorLabel(Label label) {
+        label.setVisible(true);
     }
 }
