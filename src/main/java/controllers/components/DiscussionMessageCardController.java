@@ -15,7 +15,7 @@ import java.io.IOException;
 
 import static main.ApplicationResourceStrings.DISCUSSION_MESSAGE_CARD_FXML_PATH;
 
-public class DiscussionMessageCardController extends TableCell<TableCardModel, TableCardModel> {
+public class DiscussionMessageCardController {
     @FXML
     public HBox messageCardHBox;
     @FXML
@@ -36,29 +36,19 @@ public class DiscussionMessageCardController extends TableCell<TableCardModel, T
         }
     }
 
-    @Override
-    protected void updateItem(TableCardModel tableCardModel, boolean empty) {
-        super.updateItem(tableCardModel, empty);
+    public void updateItem(DiscussionMessageCardModel discussionMessageCardModel) {
+        Message message = discussionMessageCardModel.getMessage();
 
-        if (empty || tableCardModel == null) {
-            setGraphic(null);
+        messageLabel.setText(message.getText());
+        dateLabel.setText(message.getDate());
+
+        messageVBox.getStyleClass().clear();
+        if (discussionMessageCardModel.isSender()) {
+            messageVBox.getStyleClass().add("message-sender");
+            messageCardHBox.setAlignment(Pos.CENTER_RIGHT);
         } else {
-            DiscussionMessageCardModel discussionMessageCardModel = (DiscussionMessageCardModel) tableCardModel;
-            Message message = discussionMessageCardModel.getMessage();
-
-            messageLabel.setText(message.getText());
-            dateLabel.setText(message.getDate());
-
-            messageVBox.getStyleClass().clear();
-            if (discussionMessageCardModel.isSender()) {
-                messageVBox.getStyleClass().add("message-sender");
-                messageCardHBox.setAlignment(Pos.CENTER_RIGHT);
-            } else {
-                messageVBox.getStyleClass().add("message-receiver");
-                messageCardHBox.setAlignment(Pos.CENTER_LEFT);
-            }
-
-            setGraphic(messageCardHBox);
+            messageVBox.getStyleClass().add("message-receiver");
+            messageCardHBox.setAlignment(Pos.CENTER_LEFT);
         }
     }
 }

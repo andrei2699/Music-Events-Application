@@ -5,10 +5,10 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<HBox fx:id="messageCardHBox" styleClass="root-pane" alignment="CENTER_LEFT" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
-    <VBox fx:id="messageVBox" spacing="4.0" styleClass="card">
-        <HBox prefWidth="200.0">
-            <Label fx:id="messageLabel" text="Acesta este un mesaj">
+<HBox fx:id="messageCardHBox" alignment="CENTER_LEFT" styleClass="root-pane" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
+    <VBox fx:id="messageVBox" alignment="CENTER" spacing="4.0">
+        <HBox maxWidth="250.0">
+            <Label fx:id="messageLabel" text="Acesta este un mesaj" wrapText="true">
                 <padding>
                     <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
                 </padding>
@@ -28,4 +28,7 @@
         <URL value="@../../css/material-fx-v0_3.css" />
         <URL value="@../../css/stylesheet.css" />
     </stylesheets>
+   <padding>
+      <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+   </padding>
 </HBox>
