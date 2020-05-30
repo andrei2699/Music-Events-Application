@@ -54,6 +54,8 @@ public class ChatPageContentController extends ChangeableSceneWithModelControlle
         discussionService = ServiceProvider.getDiscussionService();
         enterMessageTextField.requestFocus();
 
+        final boolean[] focusSetOnFirstHeader = {false};
+
         discussionHeaderTableViewController.setColumnData(new DetailsTableConfigData() {
             @Override
             public String getTableColumnText() {
@@ -76,7 +78,10 @@ public class ChatPageContentController extends ChangeableSceneWithModelControlle
                 headerController.setOnClickResponseCall(headerCardModel -> switchConversation(headerCardModel));
                 headerController.setOnCardModelSet((discussionHeaderCardModel) -> {
                     if (modelId != null && headerController.hasModelId(modelId)) {
-                        Platform.runLater(headerController::requestFocus);
+                        if (!focusSetOnFirstHeader[0]) {
+                            focusSetOnFirstHeader[0] = true;
+                            Platform.runLater(headerController::requestLayout);
+                        }
                     }
                 });
                 return headerController;
