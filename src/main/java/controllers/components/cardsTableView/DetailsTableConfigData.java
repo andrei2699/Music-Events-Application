@@ -4,6 +4,8 @@ import controllers.components.*;
 import javafx.scene.control.TableCell;
 import models.cards.TableCardModel;
 
+import static main.ApplicationResourceStrings.*;
+
 public abstract class DetailsTableConfigData {
 
     public abstract String getTableColumnText();
@@ -19,7 +21,7 @@ public abstract class DetailsTableConfigData {
         return new DetailsTableConfigData() {
             @Override
             public String getTableColumnText() {
-                return "Evenimente Dispnibile";
+                return AVAILABLE_EVENTS_TEXT;
             }
 
             @Override
@@ -29,7 +31,7 @@ public abstract class DetailsTableConfigData {
 
             @Override
             public String getNoContentLabelText() {
-                return "Fara evenimente";
+                return NO_EVENTS_TEXT;
             }
 
             @Override
@@ -43,7 +45,7 @@ public abstract class DetailsTableConfigData {
         return new DetailsTableConfigData() {
             @Override
             public String getTableColumnText() {
-                return "Localuri";
+                return BARS_TEXT;
             }
 
             @Override
@@ -53,7 +55,7 @@ public abstract class DetailsTableConfigData {
 
             @Override
             public String getNoContentLabelText() {
-                return "Fara localuri";
+                return NO_BARS_TEXT;
             }
 
             @Override
@@ -68,7 +70,7 @@ public abstract class DetailsTableConfigData {
         return new DetailsTableConfigData() {
             @Override
             public String getTableColumnText() {
-                return "Artisti";
+                return ARTISTS_TEXT;
             }
 
             @Override
@@ -78,7 +80,7 @@ public abstract class DetailsTableConfigData {
 
             @Override
             public String getNoContentLabelText() {
-                return "Fara artisti";
+                return NO_ARTISTS_TEXT;
             }
 
             @Override
@@ -92,7 +94,7 @@ public abstract class DetailsTableConfigData {
         return new DetailsTableConfigData() {
             @Override
             public String getTableColumnText() {
-                return "Rezervarile mele";
+                return MY_RESERVATIONS_TEXT;
             }
 
             @Override
@@ -102,7 +104,7 @@ public abstract class DetailsTableConfigData {
 
             @Override
             public String getNoContentLabelText() {
-                return "Fara rezervari";
+                return NO_RESERVATIONS_TEXT;
             }
 
             @Override

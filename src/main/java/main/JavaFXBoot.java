@@ -33,7 +33,7 @@ public class JavaFXBoot extends Application {
 
         sceneSwitchController.switchToLoginScene();
 
-        primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/Images/guitar-icon.png")));
+        primaryStage.getIcons().add(new Image(getClass().getResourceAsStream(APPLICATION_ICON)));
         primaryStage.setTitle(APPLICATION_NAME);
         primaryStage.setResizable(false);
         primaryStage.setOnCloseRequest(event -> Platform.exit());

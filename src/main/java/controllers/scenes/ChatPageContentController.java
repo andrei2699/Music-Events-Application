@@ -27,7 +27,7 @@ import java.time.LocalTime;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import static main.ApplicationResourceStrings.CONVERSATION_WITH_TEXT;
+import static main.ApplicationResourceStrings.*;
 
 public class ChatPageContentController extends ChangeableSceneWithModelController {
     @FXML
@@ -59,7 +59,7 @@ public class ChatPageContentController extends ChangeableSceneWithModelControlle
         discussionHeaderTableViewController.setColumnData(new DetailsTableConfigData() {
             @Override
             public String getTableColumnText() {
-                return "Conversatii";
+                return CONVERSATIONS_TEXT;
             }
 
             @Override
@@ -69,7 +69,7 @@ public class ChatPageContentController extends ChangeableSceneWithModelControlle
 
             @Override
             public String getNoContentLabelText() {
-                return "Fara conversatii";
+                return NO_CONVERSATIONS_TEXT;
             }
 
             @Override

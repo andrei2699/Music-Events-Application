@@ -8,7 +8,7 @@
 <?import javafx.scene.text.*?>
 
 <HBox fx:id="chatHeaderHBox" alignment="CENTER" spacing="10.0" styleClass="card" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
-    <ImageView fx:id="profilePictureImage" fitHeight="40.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="0.0" HBox.hgrow="NEVER">
+    <ImageView fx:id="profilePictureImage" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="0.0" HBox.hgrow="NEVER">
         <Image url="@../../Images/defaultUserPhoto.png" />
         <viewport>
             <Rectangle2D />
