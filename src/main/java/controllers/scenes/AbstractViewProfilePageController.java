@@ -77,6 +77,8 @@ public abstract class AbstractViewProfilePageController extends AbstractProfileP
             userTypeLabel.setText(userModel.getType().toString());
             emailLabel.setText(userModel.getEmail());
             eventsTableViewController.setItems(getAllFutureEventsLinkedWithId(userModel.getId()));
+
+            nameLabel.requestFocus();
         }
     }
 

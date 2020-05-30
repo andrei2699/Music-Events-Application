@@ -1,6 +1,7 @@
 package controllers.components;
 
 import controllers.scenes.ISceneResponseCall;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
@@ -60,7 +61,7 @@ public class DiscussionChatHeaderCardController extends TableCell<TableCardModel
         if (!empty && tableCardModel != null) {
 
             discussionHeaderCardModel = (DiscussionHeaderCardModel) tableCardModel;
-            if(onCardModelSet != null)
+            if (onCardModelSet != null)
                 onCardModelSet.onResponseCall(discussionHeaderCardModel);
 
             DiscussionModel discussionModel = discussionHeaderCardModel.getDiscussionModel();
@@ -116,7 +117,7 @@ public class DiscussionChatHeaderCardController extends TableCell<TableCardModel
     }
 
     public boolean hasModelId(Integer id) {
-        if(discussionHeaderCardModel == null)
+        if (discussionHeaderCardModel == null)
             return false;
         return discussionHeaderCardModel.getDiscussionModel().getIds().contains(id);
     }
