@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
@@ -16,24 +17,24 @@
             <ImageView fitHeight="26.0" fitWidth="26.0" onMouseClicked="#onSearchImageClicked" pickOnBounds="true"
                        preserveRatio="true">
                 <HBox.margin>
-                    <Insets/>
+                    <Insets />
                 </HBox.margin>
-                <Image url="@../../Images/search_icon_black_18dp.png"/>
+                <Image url="@../../Images/search_icon_black_18dp.png" />
             </ImageView>
             <TextField fx:id="searchTextField" prefWidth="700.0" promptText="Cauta evenimente...">
                 <opaqueInsets>
-                    <Insets/>
+                    <Insets />
                 </opaqueInsets>
             </TextField>
             <VBox.margin>
-                <Insets left="10.0" top="20.0"/>
+                <Insets left="10.0" top="20.0" />
             </VBox.margin>
         </HBox>
-        <fx:include source="cardsTableView.fxml" fx:id="cardsTableView"/>
+        <fx:include fx:id="cardsTableView" source="cardsTableView.fxml" VBox.vgrow="ALWAYS" />
     </VBox>
     <stylesheets>
-        <URL value="@../../css/material-fx-v0_3.css"/>
-        <URL value="@../../css/stylesheet.css"/>
+        <URL value="@../../css/material-fx-v0_3.css" />
+        <URL value="@../../css/stylesheet.css" />
     </stylesheets>
 
 </AnchorPane>
