@@ -20,7 +20,7 @@ import static main.ApplicationResourceStrings.INVALID_ARTIST_NAME_ERROR_MESSAGE;
 import static main.ApplicationResourceStrings.REQUIRED_FIELD_ERROR_MESSAGE;
 
 public class CreateEventFormController extends ChangeableSceneWithModelController {
-    public static final String FORMULAR_EDITARE_EVENIMENT="Formular editare eveniment";
+    public static final String FORMULAR_EDITARE_EVENIMENT = "Formular editare eveniment";
     @FXML
     public TextField eventNameField;
 
@@ -130,18 +130,18 @@ public class CreateEventFormController extends ChangeableSceneWithModelControlle
                         startHourComboBox.getValue(), numberOfSeats, descriptionField.getText());
 
                 SceneSwitchController.getInstance().loadFXMLToMainPage(SceneSwitchController.SceneType.MainSceneContent);
+            } else {
+                int numberOfSeats = Integer.parseInt(seatNumberField.getText());
+
+                eventModel.setName(eventNameField.getText());
+                eventModel.setDescription(descriptionField.getText());
+                eventModel.setTotal_seats(numberOfSeats);
+                eventModel.setStart_hour(startHourComboBox.getValue());
+                eventModel.setDate(datePicker.getValue().toString());
+
+                eventService.updateEvent(eventModel);
+                SceneSwitchController.getInstance().loadFXMLToMainPage(SceneSwitchController.SceneType.MainSceneContent);
             }
-        }else {
-            int numberOfSeats = Integer.parseInt(seatNumberField.getText());
-
-            eventModel.setName(eventNameField.getText());
-            eventModel.setDescription(descriptionField.getText());
-            eventModel.setTotal_seats(numberOfSeats);
-            eventModel.setStart_hour(startHourComboBox.getValue());
-            eventModel.setDate(datePicker.getValue().toString());
-
-            eventService.updateEvent(eventModel);
-            SceneSwitchController.getInstance().loadFXMLToMainPage(SceneSwitchController.SceneType.MainSceneContent);
         }
     }
 
@@ -170,7 +170,7 @@ public class CreateEventFormController extends ChangeableSceneWithModelControlle
         if (eventModel == null)
             return;
 
-        UserModel artistModel=userService.getUser(eventModel.getArtist_id());
+        UserModel artistModel = userService.getUser(eventModel.getArtist_id());
         artistNameField.setText(artistModel.getName());
         eventNameField.setText(eventModel.getName());
         startHourComboBox.setValue(eventModel.getStart_hour());
