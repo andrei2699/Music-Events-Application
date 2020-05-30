@@ -40,9 +40,9 @@ public class ReservationCardModel implements TableCardModel {
     }
 
     public boolean containsFilter(String filter) {
-        return getEventModel().getName().contains(filter) ||
-                getArtistName().contains(filter) ||
-                getBarName().contains(filter);
+        return getEventModel().getName().toLowerCase().contains(filter) ||
+                getArtistName().toLowerCase().contains(filter) ||
+                getBarName().toLowerCase().contains(filter);
     }
 
     public ReservationCardModel getReservationCardModel() {
