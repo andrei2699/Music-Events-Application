@@ -24,8 +24,8 @@ public class EditableScheduleLoadStrategy extends ScheduleGridLoadStrategy {
         }
 
         for (int column = 1; column < gridHBoxes.length; column++) {
-            ComboBox startHourComboBox = (ComboBox) gridHBoxes[column][1].getChildren().get(0);
-            ComboBox endHourComboBox = (ComboBox) gridHBoxes[column][2].getChildren().get(0);
+            ComboBox<?> startHourComboBox = (ComboBox<?>) gridHBoxes[column][1].getChildren().get(0);
+            ComboBox<?> endHourComboBox = (ComboBox<?>) gridHBoxes[column][2].getChildren().get(0);
 
             if (startHourComboBox.getValue() == null) {
                 intervals.get(column - 1).setStart_hour(null);

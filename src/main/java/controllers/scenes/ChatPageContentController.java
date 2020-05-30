@@ -27,7 +27,7 @@ import java.time.LocalTime;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import static main.ApplicationResourceStrings.CONVERSATION_WITH_TEXT;
+import static main.ApplicationResourceStrings.*;
 
 public class ChatPageContentController extends ChangeableSceneWithModelController {
     @FXML
@@ -54,10 +54,12 @@ public class ChatPageContentController extends ChangeableSceneWithModelControlle
         discussionService = ServiceProvider.getDiscussionService();
         enterMessageTextField.requestFocus();
 
+        final boolean[] focusSetOnFirstHeader = {false};
+
         discussionHeaderTableViewController.setColumnData(new DetailsTableConfigData() {
             @Override
             public String getTableColumnText() {
-                return "Conversatii";
+                return CONVERSATIONS_TEXT;
             }
 
             @Override
@@ -67,7 +69,7 @@ public class ChatPageContentController extends ChangeableSceneWithModelControlle
 
             @Override
             public String getNoContentLabelText() {
-                return "Fara conversatii";
+                return NO_CONVERSATIONS_TEXT;
             }
 
             @Override
@@ -76,7 +78,10 @@ public class ChatPageContentController extends ChangeableSceneWithModelControlle
                 headerController.setOnClickResponseCall(headerCardModel -> switchConversation(headerCardModel));
                 headerController.setOnCardModelSet((discussionHeaderCardModel) -> {
                     if (modelId != null && headerController.hasModelId(modelId)) {
-                        Platform.runLater(headerController::requestFocus);
+                        if (!focusSetOnFirstHeader[0]) {
+                            focusSetOnFirstHeader[0] = true;
+                            Platform.runLater(headerController::requestLayout);
+                        }
                     }
                 });
                 return headerController;
