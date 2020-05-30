@@ -113,28 +113,4 @@ public abstract class DetailsTableConfigData {
             }
         };
     }
-
-    public static DetailsTableConfigData getMessageTableConfigData() {
-        return new DetailsTableConfigData() {
-            @Override
-            public String getTableColumnText() {
-                return "Conversatie";
-            }
-
-            @Override
-            public String getPropertyValueFactory() {
-                return "discussionMessageCardModel";
-            }
-
-            @Override
-            public String getNoContentLabelText() {
-                return "Fara mesaje";
-            }
-
-            @Override
-            public TableCell<TableCardModel, TableCardModel> getCellFactory() {
-                return new DiscussionMessageCardController();
-            }
-        };
-    }
 }
