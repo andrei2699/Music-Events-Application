@@ -11,13 +11,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class JSONRepository<T extends EntityModel> implements IRepository<T> {
-    private final Class clazz;
+    private final Class<T> clazz;
     private final IStorageManager storageManager;
     private final String fileName;
 
     public JSONRepository(Class<T> modelClass, IStorageManager storageManager) {
+        this(modelClass, storageManager, (modelClass.getSimpleName() + ".json"));
+    }
+
+    public JSONRepository(Class<T> modelClass, IStorageManager storageManager, String fileName) {
         clazz = modelClass;
-        fileName = (modelClass.getSimpleName() + ".json");
+        this.fileName = fileName;
         this.storageManager = storageManager;
 
         storageManager.initStorageUnit(fileName, "[]");
