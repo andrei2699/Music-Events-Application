@@ -9,5 +9,7 @@ public interface IRepository<T> {
 
     T update(T entity);
 
+    void setDestinationFileName(String fileName);
+
 //    T delete(T entity);
 }
