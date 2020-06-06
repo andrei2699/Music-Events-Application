@@ -1,5 +1,7 @@
 package services;
 
+import models.CrashServiceModel;
+
 public interface ICrashService {
-    void createCrashReport(String exceptionMessage);
+    CrashServiceModel createCrashReport(String exceptionMessage);
 }

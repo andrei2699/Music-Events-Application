@@ -77,10 +77,10 @@ public class DiscussionServiceTest {
         dummyDiscussionModels.add(model5);
     }
 
-    @After
-    public void tearDown() {
-        discussionService = null;
-    }
+        @After
+        public void tearDown() {
+            discussionService = null;
+        }
 
     @Test
     public void testGetDiscussion() {
