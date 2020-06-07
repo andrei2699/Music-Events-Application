@@ -2,6 +2,7 @@ package services.implementation;
 
 import models.CrashServiceModel;
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -13,6 +14,7 @@ import services.ICrashService;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -34,16 +36,19 @@ public class CrashServiceTest {
 
     @Test
     public void testCreateNewCrashReport() {
+        Throwable throwable = null;
         try {
-            throw new NullPointerException("Crash Message");
-        } catch (Exception e) {
-            CrashServiceModel crashReport = crashService.createCrashReport(e.getMessage());
+            throwable = new NullPointerException("Crash Message");
+            throw throwable;
+        } catch (Throwable t) {
+            CrashServiceModel crashReport = crashService.createCrashReport(t);
 
             LocalTime now = LocalTime.now();
             LocalDate dateNow = LocalDate.now();
             String date = dateNow.getYear() + "_" + dateNow.getMonth() + "_" + dateNow.getDayOfMonth() + "_" + now.getHour() + "_" + now.getMinute() + "_" + now.getSecond();
             assertEquals("crash date don't match", date, crashReport.getDate());
             assertEquals("crash messages don't match", "Crash Message", crashReport.getExceptionMessage());
+            assertArrayEquals("crash stack traces don't match", throwable.getStackTrace(), crashReport.getExceptionStackTrace());
         }
     }
 }

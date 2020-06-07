@@ -45,7 +45,7 @@ public class JavaFXBoot extends Application {
             SceneSwitchController.getInstance().showCrashPopup(throwable.getMessage());
 
             ICrashService crashService = ServiceProvider.getCrashService();
-            crashService.createCrashReport(throwable.getMessage());
+            crashService.createCrashReport(throwable);
         });
     }
 

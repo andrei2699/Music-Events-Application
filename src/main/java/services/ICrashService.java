@@ -3,5 +3,5 @@ package services;
 import models.CrashServiceModel;
 
 public interface ICrashService {
-    CrashServiceModel createCrashReport(String exceptionMessage);
+    CrashServiceModel createCrashReport(Throwable exceptionMessage);
 }
