@@ -18,7 +18,7 @@ public class CrashServiceImpl implements ICrashService {
     }
 
     @Override
-    public CrashServiceModel createCrashReport(String exceptionMessage) {
+    public CrashServiceModel createCrashReport(Throwable throwable) {
         LocalTime now = LocalTime.now();
         LocalDate dateNow = LocalDate.now();
         String date = dateNow.getYear() + "_" + dateNow.getMonth() + "_" + dateNow.getDayOfMonth() + "_" + now.getHour() + "_" + now.getMinute() + "_" + now.getSecond();
@@ -26,7 +26,7 @@ public class CrashServiceImpl implements ICrashService {
         crashServiceModelRepository.setDestinationFileName(fileName);
         crashServiceModelRepository.initFile();
 
-        CrashServiceModel crashServiceModel = new CrashServiceModel(0, exceptionMessage, date);
+        CrashServiceModel crashServiceModel = new CrashServiceModel(0, throwable.getMessage(), throwable.getStackTrace(), date);
         crashServiceModelRepository.create(crashServiceModel);
 
         return crashServiceModel;
