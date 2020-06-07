@@ -5,9 +5,10 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.media.*?>
 
 <AnchorPane prefHeight="540.0" prefWidth="800.0" styleClass="root-pane" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.scenes.EditArtistProfilePageController">
-   <Separator prefWidth="200.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-15.0" />
+    <Separator prefWidth="200.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-15.0" />
     <GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <columnConstraints>
             <ColumnConstraints hgrow="NEVER" maxWidth="345.0" minWidth="10.0" prefWidth="217.0" />
@@ -16,72 +17,82 @@
         <rowConstraints>
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
         </rowConstraints>
-        <GridPane alignment="CENTER" GridPane.columnIndex="1">
-            <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="500.0" minWidth="10.0" prefWidth="500.0" />
-            </columnConstraints>
-            <rowConstraints>
-                <RowConstraints maxHeight="332.0" minHeight="10.0" prefHeight="262.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="278.0" minHeight="260.0" prefHeight="278.0" />
+        <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" GridPane.columnIndex="1">
+            <Tab text="Informatii generale">
+                <GridPane alignment="CENTER" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="83.0">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="500.0" minWidth="10.0" prefWidth="500.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints maxHeight="332.0" minHeight="10.0" prefHeight="262.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="278.0" minHeight="260.0" prefHeight="278.0" />
 
-            </rowConstraints>
-            <VBox prefHeight="200.0" prefWidth="100.0">
-                <HBox alignment="CENTER" prefHeight="60.0">
-                    <Label text="Adresa de email">
-                        <HBox.margin>
-                            <Insets left="10.0" />
-                        </HBox.margin>
-                    </Label>
-                    <TextField fx:id="emailField" disable="true" prefWidth="300.0" promptText="example@email.com" text="example@email.com">
-                        <HBox.margin>
-                            <Insets left="42.0" />
-                        </HBox.margin>
-                    </TextField>
-                </HBox>
-                <HBox alignment="CENTER" prefHeight="60.0" spacing="15.0">
-                    <Label text="Tipul de utilizator">
-                        <HBox.margin>
-                            <Insets left="10.0" />
-                        </HBox.margin>
-                    </Label>
-                    <TextField fx:id="userTypeField" disable="true" prefWidth="300.0" promptText="Tip Utilizator" text="Tip Utilizator">
-                        <HBox.margin>
-                            <Insets left="20.0" />
-                        </HBox.margin>
-                    </TextField>
-                </HBox>
-                <HBox alignment="CENTER" prefHeight="60.0" spacing="15.0">
-                    <Label text="Genul muzical">
-                        <HBox.margin>
-                            <Insets left="10.0" />
-                        </HBox.margin>
-                    </Label>
-                    <TextField fx:id="genreField" prefWidth="300.0" promptText="Genul muzical">
-                        <HBox.margin>
-                            <Insets left="38.0" />
-                        </HBox.margin>
-                    </TextField>
-                </HBox>
-                <HBox alignment="CENTER" prefHeight="68.0" prefWidth="500.0" spacing="30.0">
-                    <Label fx:id="bandMembersLabel" text="Membrii formației">
-                        <HBox.margin>
-                            <Insets left="10.0" />
-                        </HBox.margin>
-                    </Label>
-                    <TextArea fx:id="bandMembersField" prefWidth="300.0" promptText="Numele membrilor formației">
-                        <HBox.margin>
-                            <Insets bottom="5.0" top="5.0" />
-                        </HBox.margin>
-                    </TextArea>
-                </HBox>
-            </VBox>
-             <HBox GridPane.rowIndex="1">
-                 <fx:include fx:id="scheduleGrid" source="../../components/scheduleGrid.fxml" />
-                 <GridPane.margin>
-                     <Insets />
-                 </GridPane.margin>
-             </HBox>
-        </GridPane>
+                    </rowConstraints>
+                    <VBox prefHeight="200.0" prefWidth="100.0">
+                        <HBox alignment="CENTER" prefHeight="60.0">
+                            <Label text="Adresa de email">
+                                <HBox.margin>
+                                    <Insets left="10.0" />
+                                </HBox.margin>
+                            </Label>
+                            <TextField fx:id="emailField" disable="true" prefWidth="300.0" promptText="example@email.com" text="example@email.com">
+                                <HBox.margin>
+                                    <Insets left="42.0" />
+                                </HBox.margin>
+                            </TextField>
+                        </HBox>
+                        <HBox alignment="CENTER" prefHeight="60.0" spacing="15.0">
+                            <Label text="Tipul de utilizator">
+                                <HBox.margin>
+                                    <Insets left="10.0" />
+                                </HBox.margin>
+                            </Label>
+                            <TextField fx:id="userTypeField" disable="true" prefWidth="300.0" promptText="Tip Utilizator" text="Tip Utilizator">
+                                <HBox.margin>
+                                    <Insets left="20.0" />
+                                </HBox.margin>
+                            </TextField>
+                        </HBox>
+                        <HBox alignment="CENTER" prefHeight="60.0" spacing="15.0">
+                            <Label text="Genul muzical">
+                                <HBox.margin>
+                                    <Insets left="10.0" />
+                                </HBox.margin>
+                            </Label>
+                            <TextField fx:id="genreField" prefWidth="300.0" promptText="Genul muzical">
+                                <HBox.margin>
+                                    <Insets left="38.0" />
+                                </HBox.margin>
+                            </TextField>
+                        </HBox>
+                        <HBox alignment="CENTER" prefHeight="68.0" prefWidth="500.0" spacing="30.0">
+                            <Label fx:id="bandMembersLabel" text="Membrii formației">
+                                <HBox.margin>
+                                    <Insets left="10.0" />
+                                </HBox.margin>
+                            </Label>
+                            <TextArea fx:id="bandMembersField" prefWidth="300.0" promptText="Numele membrilor formației">
+                                <HBox.margin>
+                                    <Insets bottom="5.0" top="5.0" />
+                                </HBox.margin>
+                            </TextArea>
+                        </HBox>
+                    </VBox>
+                    <HBox GridPane.rowIndex="1">
+                        <fx:include fx:id="scheduleGrid" source="../../components/scheduleGrid.fxml" />
+                        <GridPane.margin>
+                            <Insets />
+                        </GridPane.margin>
+                    </HBox>
+                </GridPane>
+            </Tab>
+            <Tab text="Videoclip">
+                <VBox alignment="CENTER" spacing="20.0">
+                    <MediaView fx:id="videoMediaView" fitHeight="200.0" fitWidth="200.0" />
+                    <Button mnemonicParsing="false" onAction="#onChooseVideoButtonClick" text="Alege videoclip" />
+                </VBox>
+            </Tab>
+        </TabPane>
         <HBox alignment="CENTER" spacing="14.0">
             <VBox alignment="CENTER" spacing="15.0">
                 <ImageView fx:id="profilePhoto" fitHeight="150.0" fitWidth="170.0" pickOnBounds="true" preserveRatio="true" VBox.vgrow="NEVER" />
@@ -122,8 +133,8 @@
             </Separator>
         </HBox>
     </GridPane>
-   <stylesheets>
-       <URL value="@../../../css/material-fx-v0_3.css" />
-       <URL value="@../../../css/stylesheet.css" />
-   </stylesheets>
+    <stylesheets>
+        <URL value="@../../../css/material-fx-v0_3.css" />
+        <URL value="@../../../css/stylesheet.css" />
+    </stylesheets>
 </AnchorPane>

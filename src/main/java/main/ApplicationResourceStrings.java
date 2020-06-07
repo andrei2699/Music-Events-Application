@@ -26,6 +26,7 @@ public final class ApplicationResourceStrings {
     public static final String CRASH_REPORT_POPUP_WINDOW_FXML_PATH = "/fxml/components/crashReportPopupWindow.fxml";
 
     public static final String CHOOSE_PROFILE_PICTURE_TEXT = "Alege poza profil";
+    public static final String CHOOSE_VIDEO_TEXT = "Alege videoclip";
     public static final String VIEW_PROFILE_TEXT = "Vezi profil";
     public static final String CREATE_EVENT_TEXT = "Creaza eveniment";
     public static final String MAIN_PAGE_TEXT = "Pagina principala";

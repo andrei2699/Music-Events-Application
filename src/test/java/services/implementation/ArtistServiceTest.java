@@ -48,6 +48,7 @@ public class ArtistServiceTest {
         intervals.add(new Interval(DaysOfWeek.Sambata, 12, 0));
         artistModel1.setIntervals(intervals);
         artistModel1.setPath_to_image("C:/Imagini/Artisti/poza2.png");
+        artistModel1.setPath_to_video("C:/Video/Artisti/video1.mp4");
         artistModels.add(artistModel2);
 
         ArtistModel artistModel3 = new ArtistModel(89, true, "folk");
