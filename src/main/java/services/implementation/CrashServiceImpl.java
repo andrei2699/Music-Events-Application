@@ -18,11 +18,11 @@ public class CrashServiceImpl implements ICrashService {
     @Override
     public CrashServiceModel createCrashReport(String exceptionMessage) {
         LocalTime now = LocalTime.now();
-        String date = LocalDate.now() + " - " + now.getHour() + ":" + now.getMinute() + ":" + now.getSecond();
-        crashServiceModelRepository.setDestinationFileName("CrashReport : " + date + ".json");
+        String date = LocalDate.now() + "_" + now.getHour() + "_" + now.getMinute() + "_" + now.getSecond();
+        crashServiceModelRepository.setDestinationFileName("CrashReport_" + date + ".json");
 
         CrashServiceModel crashServiceModel = new CrashServiceModel(0, exceptionMessage, date);
-        crashServiceModelRepository.create(crashServiceModel);
+//        crashServiceModelRepository.create(crashServiceModel);
 
         return crashServiceModel;
     }

@@ -4,6 +4,8 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import services.ICrashService;
+import services.ServiceProvider;
 
 import static main.ApplicationResourceStrings.*;
 
@@ -38,6 +40,13 @@ public class JavaFXBoot extends Application {
         primaryStage.setResizable(false);
         primaryStage.setOnCloseRequest(event -> Platform.exit());
         primaryStage.show();
+
+        Thread.setDefaultUncaughtExceptionHandler((thread, throwable) -> {
+            SceneSwitchController.getInstance().showCrashPopup(throwable.getMessage());
+
+            ICrashService crashService = ServiceProvider.getCrashService();
+            crashService.createCrashReport(throwable.getMessage());
+        });
     }
 
     public static void main(String[] args) {

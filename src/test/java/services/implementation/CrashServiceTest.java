@@ -41,7 +41,7 @@ public class CrashServiceTest {
             CrashServiceModel crashReport = crashService.createCrashReport(e.getMessage());
 
             LocalTime now = LocalTime.now();
-            String date = LocalDate.now() + " - " + now.getHour() + ":" + now.getMinute() + ":" + now.getSecond();
+            String date = LocalDate.now() + "_" + now.getHour() + "_" + now.getMinute() + "_" + now.getSecond();
             assertEquals("crash date don't match", date, crashReport.getDate());
             assertEquals("crash messages don't match", "Crash Message", crashReport.getExceptionMessage());
         }
