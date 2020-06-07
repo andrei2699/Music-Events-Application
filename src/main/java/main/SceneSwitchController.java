@@ -4,6 +4,7 @@ import controllers.components.CrashReportPopupWindowController;
 import controllers.components.MakeReservationPopupWindowController;
 import controllers.scenes.ChangeableSceneWithModelController;
 import controllers.scenes.ISceneResponseCall;
+import controllers.scenes.ISwitchSceneListener;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -12,7 +13,9 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static main.ApplicationResourceStrings.*;
@@ -39,6 +42,7 @@ public final class SceneSwitchController {
     private Stage reservationPopupStage;
     private Stage crashReportPopupStage;
     private Pane mainPageContentPane;
+    private final List<ISwitchSceneListener> onSwitchSceneListeners = new ArrayList<>();
 
     private final Map<SceneType, String> sceneMap = new HashMap<>();
 
@@ -60,6 +64,12 @@ public final class SceneSwitchController {
 
     public void addScene(SceneType type, String pathToFXMLFile) {
         sceneMap.put(type, pathToFXMLFile);
+    }
+
+    public void addOnSceneSwitchListener(ISwitchSceneListener callListener) {
+        if (!onSwitchSceneListeners.contains(callListener)) {
+            onSwitchSceneListeners.add(callListener);
+        }
     }
 
     public void loadFXMLToMainPage(SceneType sceneType) {
@@ -138,6 +148,8 @@ public final class SceneSwitchController {
         FXMLLoader fxmlLoader = loadFXML(sceneType);
         Parent root;
         if (fxmlLoader != null) {
+            triggerOnSwitchSceneListeners();
+
             root = fxmlLoader.getRoot();
             mainPageContentPane.getChildren().clear();
             mainPageContentPane.getChildren().add(root);
@@ -164,8 +176,17 @@ public final class SceneSwitchController {
     private void switchScene(SceneType type) {
         FXMLLoader fxmlLoader = loadFXML(type);
         if (fxmlLoader != null) {
+            triggerOnSwitchSceneListeners();
             Scene scene = new Scene(fxmlLoader.getRoot());
             primaryStage.setScene(scene);
+        }
+    }
+
+    private void triggerOnSwitchSceneListeners() {
+        for (ISwitchSceneListener listener : onSwitchSceneListeners) {
+            if (listener != null) {
+                listener.onSceneSwitched();
+            }
         }
     }
 

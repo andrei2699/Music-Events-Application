@@ -1,5 +1,6 @@
 package controllers.scenes;
 
+import controllers.components.VideoPlayerComponentController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
@@ -13,6 +14,7 @@ import models.UserModel;
 import models.other.Interval;
 import services.IArtistService;
 import services.ServiceProvider;
+import utils.StringValidator;
 
 import java.io.File;
 import java.net.URL;
@@ -33,8 +35,10 @@ public class EditArtistProfilePageController extends AbstractEditProfilePageCont
     @FXML
     public CheckBox bandCheckBox;
 
-    private IArtistService artistService;
+    @FXML
+    public VideoPlayerComponentController videoPlayerComponentController;
 
+    private IArtistService artistService;
     private ArtistModel artistModel;
 
     @Override
@@ -52,15 +56,26 @@ public class EditArtistProfilePageController extends AbstractEditProfilePageCont
 
             updateUIOnInitialize();
         }
+
+        SceneSwitchController.getInstance().addOnSceneSwitchListener(videoPlayerComponentController::stopVideo);
     }
 
     @Override
     public void onChoosePhotoButtonClick(ActionEvent actionEvent) {
-        File selectedFile = openFileChooser();
+        File selectedFile = openImageFileChooser();
         if (selectedFile != null) {
             artistModel.setPath_to_image(selectedFile.getPath());
             profilePhoto.setImage(getProfileImage(selectedFile.getPath()));
 
+            artistService.updateArtist(artistModel);
+        }
+    }
+
+    public void onChooseVideoButtonClick(ActionEvent actionEvent) {
+        File file = openVideoFileChooser();
+        if (file != null) {
+            artistModel.setPath_to_video(file.getPath());
+            setVideo();
             artistService.updateArtist(artistModel);
         }
     }
@@ -76,6 +91,10 @@ public class EditArtistProfilePageController extends AbstractEditProfilePageCont
 
             genreField.setText(artistModel.getGenre());
             profilePhoto.setImage(getProfileImage(artistModel.getPath_to_image()));
+
+            if (StringValidator.isStringNotEmpty(artistModel.getPath_to_video())) {
+                setVideo();
+            }
 
             List<Interval> intervals = artistModel.getIntervals();
 
@@ -114,5 +133,9 @@ public class EditArtistProfilePageController extends AbstractEditProfilePageCont
             bandMembersLabel.setVisible(false);
             bandMembersField.setVisible(false);
         }
+    }
+
+    private void setVideo() {
+        videoPlayerComponentController.setVideo(artistModel.getPath_to_video());
     }
 }
