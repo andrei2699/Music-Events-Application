@@ -27,6 +27,7 @@ public final class ApplicationResourceStrings {
 
     public static final String CHOOSE_PROFILE_PICTURE_TEXT = "Alege poza profil";
     public static final String CHOOSE_PDF_DESTINATION_TEXT = "Alege folder-ul in care doresti sa salvezi fisierul";
+    public static final String CHOOSE_VIDEO_TEXT = "Alege videoclip";
     public static final String VIEW_PROFILE_TEXT = "Vezi profil";
     public static final String CREATE_EVENT_TEXT = "Creaza eveniment";
     public static final String MAIN_PAGE_TEXT = "Pagina principala";

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.net.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
-
+<?import java.net.URL?>
 <AnchorPane prefHeight="540.0" prefWidth="800.0" styleClass="root-pane" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.scenes.ViewArtistProfilePageController">
     <GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <columnConstraints>
@@ -36,9 +36,8 @@
                         <Label fx:id="nameLabel" styleClass="card-title" text="Numele" />
                     </HBox>
                     <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0">
-                        <children>
-                            <Button fx:id="startChatButton" defaultButton="true" mnemonicParsing="false" styleClass="button-raised" text="Inițiază discuție" />
-                        </children>
+                        <Button fx:id="startChatButton" defaultButton="true" mnemonicParsing="false"
+                                styleClass="button-raised" text="Inițiază discuție"/>
                     </HBox>
                 </VBox>
                 <HBox alignment="BOTTOM_CENTER" prefHeight="100.0" prefWidth="200.0">
@@ -65,7 +64,7 @@
                 <Insets />
             </GridPane.margin>
         </HBox>
-        <TabPane tabClosingPolicy="UNAVAILABLE" GridPane.columnIndex="1">
+        <TabPane fx:id="detailsTabPane" tabClosingPolicy="UNAVAILABLE" GridPane.columnIndex="1">
             <Tab text="Detalii profil">
                 <GridPane alignment="CENTER" GridPane.columnIndex="1">
                     <columnConstraints>
@@ -138,6 +137,11 @@
             <Tab text="Evenimente">
                 <VBox>
                     <fx:include fx:id="eventsTableView" source="../../components/cardsTableView.fxml" VBox.vgrow="ALWAYS" />
+                </VBox>
+            </Tab>
+            <Tab fx:id="videoTab" text="Videoclip">
+                <VBox alignment="CENTER" spacing="20.0">
+                    <fx:include fx:id="videoPlayerComponent" source="../../components/videoPlayerComponent.fxml"/>
                 </VBox>
             </Tab>
         </TabPane>

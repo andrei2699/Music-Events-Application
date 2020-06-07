@@ -21,7 +21,8 @@ public class ViewBarProfilePageController extends AbstractViewProfilePageControl
     protected void updateUIOnInitialize() {
         super.updateUIOnInitialize();
 
-        boolean startChatButtonInvisible = userModel == null || LoggedUserData.getInstance().isRegularUser() || LoggedUserData.getInstance().isBarManager();
+        boolean startChatButtonInvisible = userModel == null || !LoggedUserData.getInstance().isUserLogged()
+                || LoggedUserData.getInstance().isRegularUser() || LoggedUserData.getInstance().isBarManager();
         startChatButton.setVisible(!startChatButtonInvisible);
 
         if (barModel != null) {
@@ -40,7 +41,7 @@ public class ViewBarProfilePageController extends AbstractViewProfilePageControl
     protected void onStartChatButtonClick(ActionEvent actionEvent) {
         IDiscussionService discussionService = ServiceProvider.getDiscussionService();
         discussionService.createDiscussion(barModel.getId(), LoggedUserData.getInstance().getUserModel().getId());
-        SceneSwitchController.getInstance().loadFXMLToMainPage(SceneSwitchController.SceneType.ChatContentScene,barModel.getId());
+        SceneSwitchController.getInstance().loadFXMLToMainPage(SceneSwitchController.SceneType.ChatContentScene, barModel.getId());
     }
 
     @Override

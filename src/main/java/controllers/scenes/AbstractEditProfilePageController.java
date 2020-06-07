@@ -14,6 +14,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import static main.ApplicationResourceStrings.CHOOSE_PROFILE_PICTURE_TEXT;
+import static main.ApplicationResourceStrings.CHOOSE_VIDEO_TEXT;
 
 public abstract class AbstractEditProfilePageController extends AbstractProfilePageController {
     @FXML
@@ -52,10 +53,18 @@ public abstract class AbstractEditProfilePageController extends AbstractProfileP
         userTypeField.setText(userModel.getType().toString());
     }
 
-    protected final File openFileChooser() {
+    protected final File openImageFileChooser() {
+        return openFileChooser(CHOOSE_PROFILE_PICTURE_TEXT, "Image Files", "*.png", "*.jpg", "*.gif");
+    }
+
+    protected final File openVideoFileChooser() {
+        return openFileChooser(CHOOSE_VIDEO_TEXT, "Video Files", "*.mp4");
+    }
+
+    private File openFileChooser(String title, String description, String... extensions) {
         FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle(CHOOSE_PROFILE_PICTURE_TEXT);
-        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif"));
+        fileChooser.setTitle(title);
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter(description, extensions));
         return fileChooser.showOpenDialog(SceneSwitchController.getInstance().getPrimaryStage());
     }
 }
