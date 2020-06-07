@@ -1,6 +1,6 @@
 package controllers.components;
 
-import export.ExportReservationAsPDF;
+import export.ExportAsPDF;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -85,7 +85,8 @@ public class ReservationDetailsCardController extends TableCell<TableCardModel, 
     public void onExportPDFButtonClick(ActionEvent actionEvent) {
         File selectedFile = openFileChooser();
         if (selectedFile != null) {
-            ExportReservationAsPDF export = new ExportReservationAsPDF(selectedFile, reservationCardModel);
+            ExportAsPDF exportPDF = new ExportAsPDF();
+            exportPDF.export(selectedFile, reservationCardModel.convertCardModelToExportRowList(), RESERVATION_TEXT);
         }
     }
 
