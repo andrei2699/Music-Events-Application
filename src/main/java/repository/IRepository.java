@@ -11,5 +11,7 @@ public interface IRepository<T> {
 
     void setDestinationFileName(String fileName);
 
+    void initFile();
+
 //    T delete(T entity);
 }

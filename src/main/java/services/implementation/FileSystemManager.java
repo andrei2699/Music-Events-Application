@@ -4,6 +4,7 @@ import services.IStorageManager;
 
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -11,13 +12,7 @@ public final class FileSystemManager implements IStorageManager {
     public static final String USER_FOLDER = System.getProperty("user.home");
 
     private static final String APPLICATION_FOLDER = ".MusicEventsApplication";
-//    protected static final String DATA_FOLDER_NAME = "data";
-
-//    protected static final String USERS_JSON_FILE_NAME = "users.json";
-//    protected static final String BARS_JSON_FILE_NAME = "bars.json"; //localuri
-//    protected static final String ARTISTS_JSON_FILE_NAME = "artists.json";
-//    protected static final String EVENTS_JSON_FILE_NAME = "events.json";
-//    protected static final String RESERVATIONS_JSON_FILE_NAME = "reservations.json";
+    protected static final String CRASH_REPORTS_FOLDER_NAME = "crash_reports";
 
     public static final Path APPLICATION_HOME_PATH = Paths.get(USER_FOLDER, APPLICATION_FOLDER);
 
@@ -59,6 +54,13 @@ public final class FileSystemManager implements IStorageManager {
         if (!Files.exists(filePath)) {
             try {
                 Files.createFile(filePath);
+            } catch (NoSuchFileException e) {
+                try {
+                    Files.createDirectory(filePath.getParent());
+                    Files.createFile(filePath);
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
