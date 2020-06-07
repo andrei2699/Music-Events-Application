@@ -1,5 +1,6 @@
 package main;
 
+import controllers.components.CrashReportPopupWindowController;
 import controllers.components.MakeReservationPopupWindowController;
 import controllers.scenes.ChangeableSceneWithModelController;
 import controllers.scenes.ISceneResponseCall;
@@ -14,8 +15,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import static main.ApplicationResourceStrings.MAKE_RESERVATION_POPUP_WINDOW_FXML_PATH;
-import static main.ApplicationResourceStrings.RESERVATION_TEXT;
+import static main.ApplicationResourceStrings.*;
 
 public final class SceneSwitchController {
 
@@ -37,6 +37,7 @@ public final class SceneSwitchController {
 
     private Stage primaryStage;
     private Stage reservationPopupStage;
+    private Stage crashReportPopupStage;
     private Pane mainPageContentPane;
 
     private final Map<SceneType, String> sceneMap = new HashMap<>();
@@ -93,9 +94,7 @@ public final class SceneSwitchController {
     }
 
     public void showReservationPopup(int maximumNumberOfSeats, ISceneResponseCall<Integer> responseCall) {
-
         closeReservationPopup();
-
         FXMLLoader loader = new FXMLLoader(getClass().getResource(MAKE_RESERVATION_POPUP_WINDOW_FXML_PATH));
 
         MakeReservationPopupWindowController controller = new MakeReservationPopupWindowController();
@@ -104,24 +103,35 @@ public final class SceneSwitchController {
         loader.setController(controller);
 
         try {
-            Parent root = loader.load();
             reservationPopupStage = new Stage();
-            reservationPopupStage.setResizable(false);
-            reservationPopupStage.centerOnScreen();
-            reservationPopupStage.setTitle(RESERVATION_TEXT);
-            reservationPopupStage.setScene(new Scene(root));
-            reservationPopupStage.initModality(Modality.APPLICATION_MODAL);
-            reservationPopupStage.showAndWait();
+            showPopup(reservationPopupStage, loader.load(), RESERVATION_TEXT);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public void closeReservationPopup() {
-        if (reservationPopupStage != null) {
-            reservationPopupStage.close();
-            reservationPopupStage = null;
+    public void showCrashPopup(String crashMessage) {
+        closeCrashReportPopup();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(CRASH_REPORT_POPUP_WINDOW_FXML_PATH));
+
+        CrashReportPopupWindowController controller = new CrashReportPopupWindowController();
+        controller.setCrashMessage(crashMessage);
+        loader.setController(controller);
+
+        try {
+            crashReportPopupStage = new Stage();
+            showPopup(crashReportPopupStage, loader.load(), CRASH_TEXT);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+    }
+
+    public void closeCrashReportPopup() {
+        closePopup(crashReportPopupStage);
+    }
+
+    public void closeReservationPopup() {
+        closePopup(reservationPopupStage);
     }
 
     private Object changeMainPageContent(SceneType sceneType) {
@@ -156,6 +166,21 @@ public final class SceneSwitchController {
         if (fxmlLoader != null) {
             Scene scene = new Scene(fxmlLoader.getRoot());
             primaryStage.setScene(scene);
+        }
+    }
+
+    private void showPopup(Stage popupStage, Parent root, String title) {
+        popupStage.setTitle(title);
+        popupStage.setResizable(false);
+        popupStage.centerOnScreen();
+        popupStage.setScene(new Scene(root));
+        popupStage.initModality(Modality.APPLICATION_MODAL);
+        popupStage.showAndWait();
+    }
+
+    private void closePopup(Stage popupStage) {
+        if (popupStage != null) {
+            popupStage.close();
         }
     }
 }

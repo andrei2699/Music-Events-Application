@@ -23,6 +23,7 @@ public final class ApplicationResourceStrings {
     public static final String DISCUSSION_MESSAGE_CARD_FXML_PATH = "/fxml/components/discussionMessageCard.fxml";
 
     public static final String MAKE_RESERVATION_POPUP_WINDOW_FXML_PATH = "/fxml/components/makeReservationPopupWindow.fxml";
+    public static final String CRASH_REPORT_POPUP_WINDOW_FXML_PATH = "/fxml/components/crashReportPopupWindow.fxml";
 
     public static final String CHOOSE_PROFILE_PICTURE_TEXT = "Alege poza profil";
     public static final String VIEW_PROFILE_TEXT = "Vezi profil";
@@ -31,6 +32,7 @@ public final class ApplicationResourceStrings {
     public static final String LOG_OUT_TEXT = "Delogare";
     public static final String LOG_IN_TEXT = "Logare";
     public static final String RESERVATION_TEXT = "Rezervare";
+    public static final String CRASH_TEXT = "Eroare neasteptata";
 
     public static final String CONVERSATION_WITH_TEXT = "Conversatie cu";
     public static final String SEARCH_FOR_EVENTS_TEXT = "Cauta evenimente...";
