@@ -6,6 +6,7 @@ import com.google.gson.reflect.TypeToken;
 import models.EntityModel;
 import repository.IRepository;
 import services.IStorageManager;
+import utils.StringValidator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,12 +16,18 @@ public class JSONRepository<T extends EntityModel> implements IRepository<T> {
     private final IStorageManager storageManager;
     private String fileName;
 
-    public JSONRepository(Class<T> modelClass, IStorageManager storageManager) {
+    public JSONRepository(Class<T> modelClass, IStorageManager storageManager, boolean initFile) {
         clazz = modelClass;
         this.fileName = (modelClass.getSimpleName() + ".json");
         this.storageManager = storageManager;
 
-        storageManager.initStorageUnit(fileName, "[]");
+        if (initFile) {
+            initFile();
+        }
+    }
+
+    public JSONRepository(Class<T> modelClass, IStorageManager storageManager) {
+        this(modelClass, storageManager, true);
     }
 
     @Override
@@ -83,5 +90,12 @@ public class JSONRepository<T extends EntityModel> implements IRepository<T> {
     @Override
     public void setDestinationFileName(String fileName) {
         this.fileName = fileName;
+    }
+
+    @Override
+    public void initFile() {
+        if (StringValidator.isStringNotEmpty(fileName)) {
+            storageManager.initStorageUnit(fileName, "[]");
+        }
     }
 }
