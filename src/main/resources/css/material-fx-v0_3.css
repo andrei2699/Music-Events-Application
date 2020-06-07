@@ -313,7 +313,11 @@
  *                                                                             *
  ******************************************************************************/
 .combo-box .list-cell {
-    -fx-padding: 0.7em 0.7em 0.7em 0em;
+    -fx-padding: 0.7em 0.7em 0.7em 0.2em;
+}
+
+.combo-box .list-view .list-cell{
+    -fx-padding: 0em 0em 0em 0.7em;
 }
 
 .popup-overlay {

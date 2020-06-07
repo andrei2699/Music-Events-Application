@@ -52,7 +52,7 @@ public class EditBarProfilePageController extends AbstractEditProfilePageControl
 
     @Override
     public void onChoosePhotoButtonClick(ActionEvent actionEvent) {
-        File selectedFile = openFileChooser();
+        File selectedFile = openImageFileChooser();
         if (selectedFile != null) {
             barModel.setPath_to_image(selectedFile.getPath());
             profilePhoto.setImage(getProfileImage(selectedFile.getPath()));
