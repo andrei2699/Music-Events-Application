@@ -1,12 +1,21 @@
 package models.cards;
 
+import export.ExportRow;
+import export.IConvertCardToExportRow;
+import main.LoggedUserData;
+import models.BarModel;
 import models.EventModel;
 import models.ReservationModel;
 import services.IEventService;
-import services.ServiceProvider;
 import services.IUserService;
+import services.ServiceProvider;
 
-public class ReservationCardModel implements TableCardModel {
+import java.util.ArrayList;
+import java.util.List;
+
+import static main.ApplicationResourceStrings.*;
+
+public class ReservationCardModel implements TableCardModel, IConvertCardToExportRow {
     private final String barName;
     private final String artistName;
     private final EventModel eventModel;
@@ -47,5 +56,23 @@ public class ReservationCardModel implements TableCardModel {
 
     public ReservationCardModel getReservationCardModel() {
         return this;
+    }
+
+    @Override
+    public List<ExportRow> convertCardModelToExportRowList() {
+        List<ExportRow> rowList = new ArrayList<>();
+
+        BarModel barModel = ServiceProvider.getBarService().getBar(eventModel.getBar_manager_id());
+
+        rowList.add(new ExportRow(EVENT_NAME_TEXT, eventModel.getName()));
+        rowList.add(new ExportRow(BAR_NAME_TEXT, barName));
+        rowList.add(new ExportRow(BAR_ADRESS_TEXT, barModel.getAddress()));
+        rowList.add(new ExportRow(ARTIST_NAME_TEXT, artistName));
+        rowList.add(new ExportRow(DATE_TEXT, eventModel.getDate()));
+        rowList.add(new ExportRow(HOUR_TEXT, eventModel.getStart_hour() + ""));
+        rowList.add(new ExportRow(SEAT_NUMBER_TEXT, reservationModel.getReserved_seats() + ""));
+        rowList.add(new ExportRow(RESERVATION_MADE_BY_TEXT, LoggedUserData.getInstance().getUserModel().getName()));
+
+        return rowList;
     }
 }
