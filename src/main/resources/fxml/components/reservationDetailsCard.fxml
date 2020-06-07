@@ -20,21 +20,24 @@
             <Label fx:id="artistNameLabel" text="artist" />
         </HBox>
         <HBox layoutX="10.0" layoutY="50.0" spacing="10.0">
-            <Label text="Nume locuri:"/>
-            <Label fx:id="numberOfSeatsLabel" text="locuri"/>
+            <Label text="Număr locuri:" />
+            <Label fx:id="numberOfSeatsLabel" text="locuri" />
         </HBox>
         <HBox layoutX="10.0" layoutY="90.0" spacing="10.0">
-            <Label text="Data:"/>
-            <Label fx:id="dateLabel" text="data"/>
+            <Label text="Data:" />
+            <Label fx:id="dateLabel" text="data" />
         </HBox>
         <HBox layoutX="10.0" layoutY="130.0" spacing="10.0">
-            <Label text="Ora de inceput:"/>
-            <Label fx:id="startHourLabel" text="ora"/>
+            <Label text="Ora de inceput:" />
+            <Label fx:id="startHourLabel" text="ora" />
         </HBox>
         <VBox.margin>
             <Insets top="20.0" />
         </VBox.margin>
     </VBox>
+   <Separator prefWidth="200.0" />
+   <Button fx:id="exportPDFButton" defaultButton="true" mnemonicParsing="false" styleClass="button-raised" text="Descarcă PDF" />
+   <HBox />
     <stylesheets>
         <URL value="@../../css/material-fx-v0_3.css" />
         <URL value="@../../css/stylesheet.css" />
