@@ -119,6 +119,8 @@ public class ChatPageContentController extends ChangeableSceneWithModelControlle
             switchConversation(openedHeaderCardModel);
 
             enterMessageTextField.setText("");
+
+            Platform.runLater(() -> messagesScrollPane.setVvalue(1D));
         }
     }
 
