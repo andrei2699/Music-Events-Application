@@ -1,11 +1,12 @@
 package controllers.scenes;
 
+import controllers.components.VideoPlayerComponentController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
-import javafx.scene.media.MediaView;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import main.LoggedUserData;
 import main.SceneSwitchController;
 import models.ArtistModel;
@@ -35,10 +36,9 @@ public class EditArtistProfilePageController extends AbstractEditProfilePageCont
     public CheckBox bandCheckBox;
 
     @FXML
-    public MediaView videoMediaView;
+    public VideoPlayerComponentController videoPlayerComponentController;
 
     private IArtistService artistService;
-
     private ArtistModel artistModel;
 
     @Override
@@ -56,6 +56,8 @@ public class EditArtistProfilePageController extends AbstractEditProfilePageCont
 
             updateUIOnInitialize();
         }
+
+        SceneSwitchController.getInstance().addOnSceneSwitchListener(videoPlayerComponentController::stopVideo);
     }
 
     @Override
@@ -134,10 +136,6 @@ public class EditArtistProfilePageController extends AbstractEditProfilePageCont
     }
 
     private void setVideo() {
-        Media media = new Media(artistModel.getPath_to_video());
-        MediaPlayer mediaPlayer = new MediaPlayer(media);
-        mediaPlayer.setAutoPlay(false);
-
-        videoMediaView.setMediaPlayer(mediaPlayer);
+        videoPlayerComponentController.setVideo(artistModel.getPath_to_video());
     }
 }
