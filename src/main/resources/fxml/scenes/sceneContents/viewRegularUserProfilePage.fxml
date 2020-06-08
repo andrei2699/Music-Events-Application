@@ -17,9 +17,8 @@
             <Insets />
          </VBox.margin>
         </HBox>
-        <VBox prefHeight="430.0" prefWidth="800.0">
-            <fx:include fx:id="reservationsTableView" source="../../components/cardsTableView.fxml"
-                        VBox.vgrow="ALWAYS"/>
+        <VBox prefHeight="445.0" prefWidth="800.0">
+            <fx:include fx:id="reservationsTableView" source="../../components/cardsTableView.fxml" VBox.vgrow="ALWAYS" />
         </VBox>
       <padding>
          <Insets left="16.0" right="16.0" />
