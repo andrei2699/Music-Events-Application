@@ -19,18 +19,6 @@ public class CardsTableViewController {
         CardTableFiller.setTableData(cardsTableView, cardsTableColumn, detailsTableConfigData);
     }
 
-    public void clearItems() {
-        cardsTableView.getItems().clear();
-    }
-
-    public void scrollTo(int index) {
-        cardsTableView.scrollTo(index);
-    }
-
-    public void setColumnText(String text) {
-        cardsTableColumn.setText(text);
-    }
-
     public TableCardModel getItem(int index) {
         return cardsTableView.getItems().get(index);
     }
