@@ -7,8 +7,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import main.LoggedUserData;
 import main.SceneSwitchController;
-import services.ServiceProvider;
 import services.IUserService;
+import services.ServiceProvider;
+import utils.StringValidator;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -47,7 +48,7 @@ public class LoginController implements Initializable {
         setAllLabelsInvisible();
         boolean canLogin = true;
 
-        if (emailTextField.getText().isEmpty() || emailTextField.getText().isBlank()) {
+        if (StringValidator.isStringEmpty(emailTextField.getText())) {
             emailErrorLabel.setText(REQUIRED_FIELD_ERROR_MESSAGE);
             emailErrorLabel.setVisible(true);
             canLogin = false;
@@ -59,7 +60,7 @@ public class LoginController implements Initializable {
             canLogin = false;
         }
 
-        if (passwordTextField.getText().isEmpty() || passwordTextField.getText().isBlank()) {
+        if (StringValidator.isStringEmpty(passwordTextField.getText())) {
             passwordErrorLabel.setVisible(true);
             canLogin = false;
         }

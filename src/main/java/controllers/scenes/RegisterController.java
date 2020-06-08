@@ -12,6 +12,7 @@ import models.other.UserType;
 import services.ServiceProvider;
 import services.IUserService;
 import services.implementation.UserExistsException;
+import utils.StringValidator;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -77,11 +78,11 @@ public class RegisterController implements Initializable {
         setAllLabelsInvisible();
         boolean canCreateAccount = true;
 
-        if (nameTextField.getText().isEmpty() || nameTextField.getText().isBlank()) {
+        if (StringValidator.isStringEmpty(nameTextField.getText())) {
             showErrorLabel(nameErrorLabel);
             canCreateAccount = false;
         }
-        if (emailTextField.getText().isEmpty() || emailTextField.getText().isBlank()) {
+        if (StringValidator.isStringEmpty(emailTextField.getText())) {
             showErrorLabel(emailErrorLabel, REQUIRED_FIELD_ERROR_MESSAGE);
             canCreateAccount = false;
         }
@@ -90,12 +91,12 @@ public class RegisterController implements Initializable {
             canCreateAccount = false;
         }
 
-        if (passwordTextField.getText().isEmpty() || passwordTextField.getText().isBlank()) {
+        if (StringValidator.isStringEmpty(passwordTextField.getText())) {
             showErrorLabel(passwordErrorLabel);
             canCreateAccount = false;
         }
 
-        if (confirmPasswordTextField.getText().isEmpty() || confirmPasswordTextField.getText().isBlank()) {
+        if (StringValidator.isStringEmpty(confirmPasswordTextField.getText())) {
             showErrorLabel(confirmPasswordErrorLabel, REQUIRED_FIELD_ERROR_MESSAGE);
             canCreateAccount = false;
         }
@@ -112,7 +113,7 @@ public class RegisterController implements Initializable {
 
         if (canCreateAccount) {
             try {
-                UserModel user = userService.createUser(emailTextField.getText(), passwordTextField.getText(), nameTextField.getText(), userTypeComboBox.getValue());
+                UserModel user = userService.createUser(emailTextField.getText().trim(), passwordTextField.getText().trim(), nameTextField.getText().trim(), userTypeComboBox.getValue());
                 LoggedUserData.getInstance().setUserModel(user);
 
                 if (user.getType() == UserType.Manager) {
