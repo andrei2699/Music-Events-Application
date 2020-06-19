@@ -12,7 +12,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
-import org.testfx.framework.junit.ApplicationTest;
 import services.IBarService;
 import services.IEventService;
 import services.IUserService;
@@ -24,7 +23,7 @@ import static org.junit.Assert.*;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
-public class ReservationCardModelTest extends ApplicationTest {
+public class ReservationCardModelTest {
 
     @Mock
     IUserService userService;
@@ -147,6 +146,7 @@ public class ReservationCardModelTest extends ApplicationTest {
         ReservationModel reservationModel = new ReservationModel(14, 67, 29, 15);
         ReservationCardModel reservationCardModel = new ReservationCardModel(reservationModel, userService, eventService, barService);
 
+        LoggedUserData.getInstance().setUserModel(null);
         List<ExportRow> resultList = reservationCardModel.convertCardModelToExportRowList();
 
         assertNull(resultList);

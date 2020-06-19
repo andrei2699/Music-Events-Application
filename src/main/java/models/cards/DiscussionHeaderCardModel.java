@@ -2,15 +2,22 @@ package models.cards;
 
 import main.LoggedUserData;
 import models.DiscussionModel;
+import services.IUserService;
 import services.ServiceProvider;
 
 import java.util.List;
 
 public class DiscussionHeaderCardModel implements TableCardModel {
     private final DiscussionModel discussionModel;
+    private IUserService userService;
 
     public DiscussionHeaderCardModel(DiscussionModel discussionModel) {
+        this(discussionModel, ServiceProvider.getUserService());
+    }
+
+    protected DiscussionHeaderCardModel(DiscussionModel discussionModel, IUserService userService) {
         this.discussionModel = discussionModel;
+        this.userService = userService;
     }
 
     public DiscussionModel getDiscussionModel() {
@@ -31,12 +38,12 @@ public class DiscussionHeaderCardModel implements TableCardModel {
         if (ids == null)
             return "";
 
-        Integer currentUserId = LoggedUserData.getInstance().getUserModel().getId();
+        int currentUserId = LoggedUserData.getInstance().getUserModel().getId();
 
         if (currentUserId == ids.get(0)) {
-            return ServiceProvider.getUserService().getUser(ids.get(1)).getName();
+            return userService.getUser(ids.get(1)).getName();
         } else {
-            return ServiceProvider.getUserService().getUser(ids.get(0)).getName();
+            return userService.getUser(ids.get(0)).getName();
         }
     }
 }
