@@ -28,7 +28,7 @@ javafx {
 }
 
 test {
-    finalizedBy jacocoTestReport
+//    finalizedBy jacocoTestReport
 }
 
 jacoco {
