@@ -4,10 +4,13 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.testfx.framework.junit.ApplicationTest;
 
 import static org.junit.Assert.assertEquals;
 
+@RunWith(MockitoJUnitRunner.class)
 public class CrashReportPopupWindowControllerTest extends ApplicationTest {
 
     private CrashReportPopupWindowController crashReportPopupWindowController;
