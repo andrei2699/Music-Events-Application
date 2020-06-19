@@ -29,6 +29,7 @@ public class MakeReservationPopupWindowController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         selectedSeatsSlider.setMax(maximumNumberOfSeats);
+        selectedSeatsSlider.setMin(1);
         selectedTextField.setText("1");
 
 
