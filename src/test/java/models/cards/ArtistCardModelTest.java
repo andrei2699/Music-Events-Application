@@ -3,14 +3,12 @@ package models.cards;
 import models.ArtistModel;
 import models.UserModel;
 import models.other.UserType;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.testfx.framework.junit.ApplicationTest;
 import services.IUserService;
-import services.ServiceProvider;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
