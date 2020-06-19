@@ -36,6 +36,15 @@ public class LoginController implements Initializable {
 
     private IUserService userService;
 
+    //pentru apelul prin reflexie
+    public LoginController() {
+    }
+
+    //pentru testare
+    protected LoginController(IUserService iUserService) {
+        userService = iUserService;
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         userService = ServiceProvider.getUserService();
