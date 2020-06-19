@@ -11,6 +11,7 @@ import main.SceneSwitchController;
 import models.ArtistModel;
 import services.IArtistService;
 import services.IDiscussionService;
+import services.IUserService;
 import services.ServiceProvider;
 import utils.StringValidator;
 
@@ -34,6 +35,19 @@ public class ViewArtistProfilePageController extends AbstractViewProfilePageCont
     public Label membersLabel;
 
     private ArtistModel artistModel;
+    private IArtistService artistService;
+
+    //pentru apelul prin reflexie
+    public ViewArtistProfilePageController() {
+        artistService = ServiceProvider.getArtistService();
+    }
+
+    //pentru testare
+    protected ViewArtistProfilePageController(IUserService iUserService, IArtistService iArtistService) {
+        super(iUserService);
+        artistService = iArtistService;
+    }
+
 
     @Override
     protected void onEditProfilePageButtonClick(ActionEvent actionEvent) {
@@ -82,7 +96,6 @@ public class ViewArtistProfilePageController extends AbstractViewProfilePageCont
     public void onSetModelId(Integer modelId) {
         super.onSetModelId(modelId);
 
-        IArtistService artistService = ServiceProvider.getArtistService();
         artistModel = artistService.getArtist(userModel.getId());
         updateUIOnInitialize();
     }

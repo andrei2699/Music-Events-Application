@@ -25,9 +25,16 @@ public abstract class AbstractProfilePageController extends ChangeableSceneWithM
 
     protected IUserService userService;
 
+    public AbstractProfilePageController() {
+        this(ServiceProvider.getUserService());
+    }
+
+    public AbstractProfilePageController(IUserService iUserService) {
+        userService = iUserService;
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        userService = ServiceProvider.getUserService();
         updateUIOnInitialize();
     }
 

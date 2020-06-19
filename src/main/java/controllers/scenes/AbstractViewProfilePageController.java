@@ -15,6 +15,7 @@ import models.UserModel;
 import models.cards.EventCardModel;
 import models.cards.TableCardModel;
 import services.IEventService;
+import services.IUserService;
 import services.ServiceProvider;
 
 import java.net.URL;
@@ -44,6 +45,12 @@ public abstract class AbstractViewProfilePageController extends AbstractProfileP
     public Button startChatButton;
 
     protected UserModel userModel;
+
+    public AbstractViewProfilePageController(){}
+
+    public AbstractViewProfilePageController(IUserService iUserService) {
+        super(iUserService);
+    }
 
     protected abstract void onEditProfilePageButtonClick(ActionEvent actionEvent);
 
