@@ -1,7 +1,6 @@
 package controllers.components;
 
 import controllers.scenes.ISceneResponseCall;
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
@@ -43,7 +42,20 @@ public class DiscussionChatHeaderCardController extends TableCell<TableCardModel
     private ISceneResponseCall<DiscussionHeaderCardModel> onClickResponseCall;
     private DiscussionHeaderCardModel discussionHeaderCardModel;
 
+    private final IUserService userService;
+    private final IArtistService artistService;
+    private final IBarService barService;
+
+    // for testing
+    protected DiscussionChatHeaderCardController(IUserService userService, IArtistService artistService, IBarService barService) {
+        this.userService = userService;
+        this.artistService = artistService;
+        this.barService = barService;
+    }
+
+    // for FXML
     public DiscussionChatHeaderCardController() {
+        this(ServiceProvider.getUserService(), ServiceProvider.getArtistService(), ServiceProvider.getBarService());
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(DISCUSSION_HEADER_CHAT_CARD_FXML_PATH));
         fxmlLoader.setController(this);
 
@@ -58,7 +70,7 @@ public class DiscussionChatHeaderCardController extends TableCell<TableCardModel
     protected void updateItem(TableCardModel tableCardModel, boolean empty) {
         super.updateItem(tableCardModel, empty);
 
-        if (!empty && tableCardModel != null) {
+        if (!empty && tableCardModel instanceof DiscussionHeaderCardModel) {
 
             discussionHeaderCardModel = (DiscussionHeaderCardModel) tableCardModel;
             if (onCardModelSet != null)
@@ -71,20 +83,17 @@ public class DiscussionChatHeaderCardController extends TableCell<TableCardModel
 
             if (otherPersonId.isPresent()) {
 
-                IUserService userService = ServiceProvider.getUserService();
                 UserModel otherUser = userService.getUser(otherPersonId.get());
                 if (otherUser != null) {
 
                     nameLabel.setText(otherUser.getName());
 
                     if (otherUser.getType() == UserType.Artist) {
-                        IArtistService artistService = ServiceProvider.getArtistService();
                         ArtistModel artistModel = artistService.getArtist(otherPersonId.get());
                         if (artistModel != null) {
                             loadImage(artistModel.getPath_to_image());
                         }
                     } else if (otherUser.getType() == UserType.Manager) {
-                        IBarService barService = ServiceProvider.getBarService();
                         BarModel barModel = barService.getBar(otherPersonId.get());
                         if (barModel != null) {
                             loadImage(barModel.getPath_to_image());
