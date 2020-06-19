@@ -20,6 +20,8 @@ public class CardsTableViewController {
     }
 
     public TableCardModel getItem(int index) {
-        return cardsTableView.getItems().get(index);
+        if (index >= 0 && index < cardsTableView.getItems().size())
+            return cardsTableView.getItems().get(index);
+        return null;
     }
 }
