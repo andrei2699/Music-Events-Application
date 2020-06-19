@@ -31,12 +31,12 @@ test {
     finalizedBy jacocoTestReport
 }
 
-jacoco{
+jacoco {
     toolVersion = "0.8.5"
 }
 
-jacocoTestReport{
-    reports{
+jacocoTestReport {
+    reports {
         html.enabled = true
         xml.enabled = false
         csv.enabled = false
