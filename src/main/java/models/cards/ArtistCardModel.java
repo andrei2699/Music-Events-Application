@@ -9,8 +9,11 @@ public class ArtistCardModel implements TableCardModel {
     private final ArtistModel artistModel;
 
     public ArtistCardModel(ArtistModel artistModel) {
+        this(artistModel,ServiceProvider.getUserService());
+    }
+
+    protected ArtistCardModel(ArtistModel artistModel,IUserService userService) {
         this.artistModel = artistModel;
-        IUserService userService = ServiceProvider.getUserService();
         artistName = userService.getUser(this.artistModel.getId()).getName();
     }
 
@@ -23,7 +26,9 @@ public class ArtistCardModel implements TableCardModel {
     }
 
     public boolean containsFilter(String filter) {
-        return getArtistName().toLowerCase().contains(filter) || getArtistModel().getGenre().toLowerCase().contains(filter);
+        if(filter==null)
+            return true;
+        return getArtistName().toLowerCase().contains(filter.toLowerCase()) || getArtistModel().getGenre().toLowerCase().contains(filter.toLowerCase());
     }
 
     public ArtistCardModel getArtistCardModel() {
