@@ -24,56 +24,61 @@ public class EventDetailsCardController extends TableCell<TableCardModel, TableC
     private static final double MIN_DESCRIPTION_LABEL_WIDTH = 240;
 
     @FXML
-    private VBox eventCardVBox;
+    public VBox eventCardVBox;
 
     @FXML
-    private Label eventNameLabel;
+    public Label eventNameLabel;
 
     @FXML
-    private Label barNameLabel;
+    public Label barNameLabel;
 
     @FXML
-    private Label artistNameLabel;
+    public Label artistNameLabel;
 
     @FXML
-    private Label dateLabel;
+    public Label dateLabel;
 
     @FXML
-    private Label startHourLabel;
+    public Label startHourLabel;
 
     @FXML
-    private Label numberOfSeatsLabel;
+    public Label numberOfSeatsLabel;
 
     @FXML
-    private Label descriptionLabel;
+    public Label descriptionLabel;
 
     @FXML
-    private TitledPane detailsTitlePane;
+    public Button reserveTicketButton;
 
     @FXML
-    private Button reserveTicketButton;
+    public Button editEventButton;
 
     @FXML
-    private Button editEventButton;
+    public Separator actionButtonsSeparator;
 
     @FXML
-    private Separator actionButtonsSeparator;
+    public VBox detailsTitledPaneContentVBox;
 
     @FXML
-    private VBox detailsTitledPaneContentVBox;
+    public HBox numberOfSeatsHBox;
 
     @FXML
-    private HBox numberOfSeatsHBox;
+    public HBox actionButtonsHBox;
 
     @FXML
-    private HBox actionButtonsHBox;
-
-    @FXML
-    private Label notEditableMessageLabel;
+    public Label notEditableMessageLabel;
 
     private EventModel eventModel;
+    private IReservationService reservationService;
 
+    // for testing
+    protected EventDetailsCardController(IReservationService reservationService) {
+        this.reservationService = reservationService;
+    }
+
+    // for FXML reflection
     public EventDetailsCardController() {
+        this(ServiceProvider.getReservationService());
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(EVENT_DETAILS_CARD_FXML_PATH));
         fxmlLoader.setController(this);
 
@@ -88,7 +93,7 @@ public class EventDetailsCardController extends TableCell<TableCardModel, TableC
     protected void updateItem(TableCardModel tableCardModel, boolean empty) {
         super.updateItem(tableCardModel, empty);
 
-        if (!empty && tableCardModel != null) {
+        if (!empty && tableCardModel instanceof EventCardModel) {
 
             EventCardModel eventCardModel = (EventCardModel) tableCardModel;
 
@@ -120,7 +125,7 @@ public class EventDetailsCardController extends TableCell<TableCardModel, TableC
                 if (eventModel.getBar_manager_id() != LoggedUserData.getInstance().getUserModel().getId()) {
                     hideControlsForNotRegUserOrBar();
                 } else {
-                    if (ServiceProvider.getReservationService().getReservationUsingEventId(eventModel.getId()).size() > 0) {
+                    if (reservationService.getReservationUsingEventId(eventModel.getId()).size() > 0) {
                         editEventButton.setDisable(true);
                         notEditableMessageLabel.setVisible(true);
                     }
