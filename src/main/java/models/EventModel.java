@@ -48,7 +48,7 @@ public class EventModel extends EntityModel {
     }
 
     public void setReserved_seats(int reserved_seats) {
-        this.reserved_seats = reserved_seats;
+        this.reserved_seats = Math.min(reserved_seats, getTotal_seats());
     }
 
     public int getBar_manager_id() {
@@ -93,6 +93,8 @@ public class EventModel extends EntityModel {
 
     public void addReservedSeats(Integer numberOfSeats) {
         reserved_seats += numberOfSeats;
+        if (reserved_seats >= total_seats)
+            reserved_seats = total_seats;
     }
 
     @Override
