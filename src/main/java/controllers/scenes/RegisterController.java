@@ -9,8 +9,8 @@ import main.LoggedUserData;
 import main.SceneSwitchController;
 import models.UserModel;
 import models.other.UserType;
-import services.ServiceProvider;
 import services.IUserService;
+import services.ServiceProvider;
 import services.implementation.UserExistsException;
 import utils.StringValidator;
 
@@ -19,7 +19,8 @@ import java.util.ResourceBundle;
 import java.util.regex.Pattern;
 
 import static main.ApplicationResourceStrings.*;
-import static main.SceneSwitchController.SceneType.*;
+import static main.SceneSwitchController.SceneType.EditArtistProfileContentScene;
+import static main.SceneSwitchController.SceneType.EditBarProfileContentScene;
 
 public class RegisterController implements Initializable {
 
@@ -60,6 +61,15 @@ public class RegisterController implements Initializable {
     public Label emailInUseErrorLabel;
 
     private IUserService userService;
+
+    //pentru apelul prin reflexie
+    public RegisterController() {
+    }
+
+    //pentru testare
+    protected RegisterController(IUserService iUserService) {
+        userService = iUserService;
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
