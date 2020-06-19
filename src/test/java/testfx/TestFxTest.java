@@ -10,7 +10,6 @@ import java.awt.*;
 
 import static org.junit.Assert.assertEquals;
 
-@RunWith(MockitoJUnitRunner.class)
 public class TestFxTest extends ApplicationTest {
 
     private Label label;
