@@ -19,16 +19,16 @@ import static main.ApplicationResourceStrings.BAR_DETAILS_CARD_FXML_PATH;
 public class BarDetailsCardController extends TableCell<TableCardModel, TableCardModel> {
 
     @FXML
-    private VBox barDetailsCardVBox;
+    public VBox barDetailsCardVBox;
 
     @FXML
-    private Label barNameLabel;
+    public Label barNameLabel;
 
     @FXML
-    private Label addressLabel;
+    public Label addressLabel;
 
     @FXML
-    private Button goToProfilePageButton;
+    public Button goToProfilePageButton;
 
     private BarModel barModel;
 
@@ -47,7 +47,7 @@ public class BarDetailsCardController extends TableCell<TableCardModel, TableCar
     protected void updateItem(TableCardModel tableCardModel, boolean empty) {
         super.updateItem(tableCardModel, empty);
 
-        if (!empty && tableCardModel != null) {
+        if (!empty && tableCardModel instanceof BarCardModel) {
             BarCardModel barCardModel = (BarCardModel) tableCardModel;
             barModel = barCardModel.getBarModel();
             barNameLabel.setText(barCardModel.getBarName());
