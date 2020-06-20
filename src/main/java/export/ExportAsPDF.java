@@ -22,8 +22,8 @@ public class ExportAsPDF implements IExport {
 
         try {
             if (rows != null) {
-                Font headerFont = FontFactory.getFont(FontFactory.COURIER, 14, Font.ITALIC, new CMYKColor(58, 0, 5, 29));
-                Font titleFont = FontFactory.getFont(FontFactory.COURIER, 20, Font.BOLD, new CMYKColor(100, 0, 9, 41));
+                Font headerFont = FontFactory.getFont(FontFactory.COURIER, 15, Font.ITALIC, new CMYKColor(100, 0, 8, 67));
+                Font titleFont = FontFactory.getFont(FontFactory.COURIER, 20, Font.BOLD, new CMYKColor(100, 0, 8, 45));
 
                 writer = PdfWriter.getInstance(document, new FileOutputStream(file));
                 document.open();
@@ -42,11 +42,11 @@ public class ExportAsPDF implements IExport {
                 document.add(new Paragraph("   "));
 
                 PdfPTable table = new PdfPTable(2);
-                table.setWidthPercentage(100);
+                table.setWidthPercentage(90);
                 table.setSpacingBefore(10f);
                 table.setSpacingAfter(10f);
 
-                float[] columnWidths = {1f, 1f};
+                float[] columnWidths = {0.6f, 1f};
                 table.setWidths(columnWidths);
 
                 PdfPCell[] cells = new PdfPCell[2 * rows.size()];
