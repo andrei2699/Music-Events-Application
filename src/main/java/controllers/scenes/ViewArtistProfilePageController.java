@@ -36,16 +36,19 @@ public class ViewArtistProfilePageController extends AbstractViewProfilePageCont
 
     private ArtistModel artistModel;
     private IArtistService artistService;
+    private IDiscussionService discussionService;
 
     //pentru apelul prin reflexie
     public ViewArtistProfilePageController() {
         artistService = ServiceProvider.getArtistService();
+        discussionService = ServiceProvider.getDiscussionService();
     }
 
     //pentru testare
-    protected ViewArtistProfilePageController(IUserService iUserService, IArtistService iArtistService) {
+    protected ViewArtistProfilePageController(IUserService iUserService, IArtistService iArtistService, IDiscussionService discussionService) {
         super(iUserService);
         artistService = iArtistService;
+        this.discussionService = discussionService;
     }
 
 
@@ -56,9 +59,10 @@ public class ViewArtistProfilePageController extends AbstractViewProfilePageCont
 
     @Override
     protected void onStartChatButtonClick(ActionEvent actionEvent) {
-        IDiscussionService discussionService = ServiceProvider.getDiscussionService();
-        discussionService.createDiscussion(artistModel.getId(), LoggedUserData.getInstance().getUserModel().getId());
-        SceneSwitchController.getInstance().loadFXMLToMainPage(SceneSwitchController.SceneType.ChatContentScene, artistModel.getId());
+        if (artistModel != null && LoggedUserData.getInstance().isUserLogged()) {
+            discussionService.createDiscussion(artistModel.getId(), LoggedUserData.getInstance().getUserModel().getId());
+            SceneSwitchController.getInstance().loadFXMLToMainPage(SceneSwitchController.SceneType.ChatContentScene, artistModel.getId());
+        }
     }
 
     @Override
@@ -71,9 +75,6 @@ public class ViewArtistProfilePageController extends AbstractViewProfilePageCont
         boolean startChatButtonInvisible = userModel == null || !LoggedUserData.getInstance().isUserLogged()
                 || LoggedUserData.getInstance().isRegularUser() || LoggedUserData.getInstance().isArtist();
         startChatButton.setVisible(!startChatButtonInvisible);
-
-        boolean gridInvisible = userModel == null || LoggedUserData.getInstance().isRegularUser() || (LoggedUserData.getInstance().getUserModel().getId() != userModel.getId() && LoggedUserData.getInstance().isArtist());
-        scheduleGridController.setVisible(!gridInvisible);
 
         if (artistModel != null) {
             genreLabel.setText(artistModel.getGenre());

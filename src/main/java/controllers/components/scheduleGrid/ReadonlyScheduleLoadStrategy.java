@@ -1,7 +1,5 @@
 package controllers.components.scheduleGrid;
 
-import javafx.collections.FXCollections;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import models.other.DaysOfWeek;
@@ -45,6 +43,10 @@ public class ReadonlyScheduleLoadStrategy extends ScheduleGridLoadStrategy {
 
     @Override
     public void fillScheduleGridPane(HBox[][] gridHBoxes, List<Interval> intervals) {
+        if (gridHBoxes == null) {
+            return;
+        }
+
         for (int column = 1; column < gridHBoxes.length; column++) {
             for (int row = 1; row < gridHBoxes[column].length; row++) {
                 Label label = new Label();

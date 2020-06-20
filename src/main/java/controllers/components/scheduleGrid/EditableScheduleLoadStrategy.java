@@ -45,6 +45,9 @@ public class EditableScheduleLoadStrategy extends ScheduleGridLoadStrategy {
 
     @Override
     public void fillScheduleGridPane(HBox[][] gridHBoxes, List<Interval> intervals) {
+        if (gridHBoxes == null)
+            return;
+
         for (int column = 1; column < gridHBoxes.length; column++) {
             for (int row = 1; row < gridHBoxes[column].length; row++) {
                 ComboBox<Integer> comboBox = new ComboBox<>();
