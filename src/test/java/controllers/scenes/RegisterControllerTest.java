@@ -14,8 +14,7 @@ import org.testfx.framework.junit.ApplicationTest;
 import services.IUserService;
 import services.implementation.UserExistsException;
 
-import static main.ApplicationResourceStrings.INVALID_EMAIL_ERROR_MESSAGE;
-import static main.ApplicationResourceStrings.PASSWORDS_DONT_MATCH_ERROR_MESSAGE;
+import static main.ApplicationResourceStrings.*;
 import static models.other.UserType.*;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.when;
@@ -97,7 +96,7 @@ public class RegisterControllerTest extends ApplicationTest {
 
         assertFalse(registerController.nameErrorLabel.isVisible());
         assertTrue(registerController.emailErrorLabel.isVisible());
-        assertEquals(INVALID_EMAIL_ERROR_MESSAGE, registerController.emailErrorLabel.getText());
+        assertEquals(REQUIRED_FIELD_ERROR_MESSAGE, registerController.emailErrorLabel.getText());
         assertFalse(registerController.passwordErrorLabel.isVisible());
         assertTrue(registerController.confirmPasswordErrorLabel.isVisible());
         assertEquals(PASSWORDS_DONT_MATCH_ERROR_MESSAGE, registerController.confirmPasswordErrorLabel.getText());
