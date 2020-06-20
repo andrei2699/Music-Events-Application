@@ -4,11 +4,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
-import javafx.scene.control.TableCell;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import models.cards.DiscussionMessageCardModel;
-import models.cards.TableCardModel;
 import models.other.Message;
 
 import java.io.IOException;
@@ -38,7 +36,9 @@ public class DiscussionMessageCardController {
 
     public void updateItem(DiscussionMessageCardModel discussionMessageCardModel) {
         Message message = discussionMessageCardModel.getMessage();
-
+        if (message == null) {
+            return;
+        }
         messageLabel.setText(message.getText());
         dateLabel.setText(message.getDate());
 

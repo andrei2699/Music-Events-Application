@@ -22,28 +22,28 @@ import static main.ApplicationResourceStrings.*;
 
 public class ReservationDetailsCardController extends TableCell<TableCardModel, TableCardModel> {
     @FXML
-    private VBox reservationDetailsCardVBox;
+    public VBox reservationDetailsCardVBox;
 
     @FXML
-    private Label eventNameLabel;
+    public Label eventNameLabel;
 
     @FXML
-    private Label barNameLabel;
+    public Label barNameLabel;
 
     @FXML
-    private Label artistNameLabel;
+    public Label artistNameLabel;
 
     @FXML
-    private Label numberOfSeatsLabel;
+    public Label numberOfSeatsLabel;
 
     @FXML
-    private Label dateLabel;
+    public Label dateLabel;
 
     @FXML
-    private Label startHourLabel;
+    public Label startHourLabel;
 
     @FXML
-    private Button exportPDFButton;
+    public Button exportPDFButton;
 
     private ReservationCardModel reservationCardModel;
 
@@ -62,7 +62,7 @@ public class ReservationDetailsCardController extends TableCell<TableCardModel, 
     protected void updateItem(TableCardModel tableCardModel, boolean empty) {
         super.updateItem(tableCardModel, empty);
 
-        if (!empty && tableCardModel != null) {
+        if (!empty && tableCardModel instanceof ReservationCardModel) {
             reservationCardModel = (ReservationCardModel) tableCardModel;
             ReservationModel reservationModel = reservationCardModel.getReservationModel();
             EventModel eventModel = reservationCardModel.getEventModel();
