@@ -7,6 +7,7 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import models.other.DaysOfWeek;
 import models.other.Interval;
 
@@ -20,6 +21,9 @@ import static models.other.DaysOfWeek.NumberOfDays;
 public class ScheduleGridController implements Initializable {
     @FXML
     public GridPane scheduleGridPane;
+
+    @FXML
+    public VBox gridVBox;
 
     protected HBox[][] gridHBoxes;
     protected ScheduleGridLoadStrategy loadStrategy;
@@ -56,6 +60,10 @@ public class ScheduleGridController implements Initializable {
 
     public void setIntervals(List<Interval> intervals) {
         fillScheduleGridPane(intervals);
+    }
+
+    public void setVisible(boolean visibility) {
+        gridVBox.setVisible(visibility);
     }
 
     public List<Interval> getIntervalsFromGrid() {
