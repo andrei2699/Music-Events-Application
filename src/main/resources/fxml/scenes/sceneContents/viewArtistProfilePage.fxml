@@ -129,7 +129,7 @@
                             <Label fx:id="membersLabel" styleClass="card-subtitle" text="Membrii formatiei:" />
                         </HBox>
                         <HBox alignment="CENTER_LEFT" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
-                            <Label fx:id="bandMembersLabel" styleClass="card-subtitle" text="membrii" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                            <Label fx:id="bandMembersLabel" styleClass="card-subtitle" text="membrii" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                         </HBox>
                     </GridPane>
                 </GridPane>

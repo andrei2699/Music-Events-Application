@@ -49,18 +49,21 @@ public class LoginController implements Initializable {
         boolean canLogin = true;
 
         if (StringValidator.isStringEmpty(emailTextField.getText())) {
+            emailTextField.requestFocus();
             emailErrorLabel.setText(REQUIRED_FIELD_ERROR_MESSAGE);
             emailErrorLabel.setVisible(true);
             canLogin = false;
         }
 
         if (!validateEmailAddress(emailTextField.getText())) {
+            emailTextField.requestFocus();
             emailErrorLabel.setText(INVALID_EMAIL_ERROR_MESSAGE);
             emailErrorLabel.setVisible(true);
             canLogin = false;
         }
 
         if (StringValidator.isStringEmpty(passwordTextField.getText())) {
+            passwordTextField.requestFocus();
             passwordErrorLabel.setVisible(true);
             canLogin = false;
         }
@@ -77,11 +80,13 @@ public class LoginController implements Initializable {
 
     @FXML
     public void onGoToRegisterPageClick(ActionEvent actionEvent) {
+        emailErrorLabel.requestFocus();
         SceneSwitchController.getInstance().switchToRegisterScene();
     }
 
     @FXML
     public void onSkipPageButtonClick(ActionEvent actionEvent) {
+        emailErrorLabel.requestFocus();
         SceneSwitchController.getInstance().switchToMainScene();
     }
 

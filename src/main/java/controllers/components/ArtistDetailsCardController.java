@@ -20,22 +20,22 @@ import static main.ApplicationResourceStrings.ARTIST_DETAILS_CARD_FXML_PATH;
 public class ArtistDetailsCardController extends TableCell<TableCardModel, TableCardModel> {
 
     @FXML
-    private VBox artistDetailsCardVBox;
+    public VBox artistDetailsCardVBox;
 
     @FXML
-    private Label artistNameLabel;
+    public Label artistNameLabel;
 
     @FXML
-    private Label genreLabel;
+    public Label genreLabel;
 
     @FXML
-    private Label bandMembersLabel;
+    public Label bandMembersLabel;
 
     @FXML
-    private HBox bandMembersHBox;
+    public HBox bandMembersHBox;
 
     @FXML
-    private Button goToProfilePageButton;
+    public Button goToProfilePageButton;
 
     private ArtistModel artistModel;
 
@@ -54,7 +54,7 @@ public class ArtistDetailsCardController extends TableCell<TableCardModel, Table
     protected void updateItem(TableCardModel tableCardModel, boolean empty) {
         super.updateItem(tableCardModel, empty);
 
-        if (!empty && tableCardModel != null) {
+        if (!empty && tableCardModel instanceof ArtistCardModel) {
             ArtistCardModel artistCardModel = (ArtistCardModel) tableCardModel;
             artistModel = artistCardModel.getArtistModel();
             artistNameLabel.setText(artistCardModel.getArtistName());
@@ -77,6 +77,7 @@ public class ArtistDetailsCardController extends TableCell<TableCardModel, Table
     }
 
     private void onGoToProfilePageButtonClick(ActionEvent actionEvent) {
+        artistNameLabel.requestFocus();
         SceneSwitchController.getInstance().loadFXMLToMainPage(SceneSwitchController.SceneType.ViewArtistProfileContentScene, artistModel.getId());
     }
 }

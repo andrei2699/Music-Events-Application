@@ -37,11 +37,13 @@ public class ViewArtistProfilePageController extends AbstractViewProfilePageCont
 
     @Override
     protected void onEditProfilePageButtonClick(ActionEvent actionEvent) {
+        genreLabel.requestFocus();
         SceneSwitchController.getInstance().loadFXMLToMainPage(SceneSwitchController.SceneType.EditArtistProfileContentScene);
     }
 
     @Override
     protected void onStartChatButtonClick(ActionEvent actionEvent) {
+        genreLabel.requestFocus();
         IDiscussionService discussionService = ServiceProvider.getDiscussionService();
         discussionService.createDiscussion(artistModel.getId(), LoggedUserData.getInstance().getUserModel().getId());
         SceneSwitchController.getInstance().loadFXMLToMainPage(SceneSwitchController.SceneType.ChatContentScene, artistModel.getId());
@@ -57,6 +59,9 @@ public class ViewArtistProfilePageController extends AbstractViewProfilePageCont
         boolean startChatButtonInvisible = userModel == null || !LoggedUserData.getInstance().isUserLogged()
                 || LoggedUserData.getInstance().isRegularUser() || LoggedUserData.getInstance().isArtist();
         startChatButton.setVisible(!startChatButtonInvisible);
+
+        boolean gridInvisible = userModel == null || LoggedUserData.getInstance().isRegularUser() || (LoggedUserData.getInstance().getUserModel().getId() != userModel.getId() && LoggedUserData.getInstance().isArtist());
+        scheduleGridController.setVisible(!gridInvisible);
 
         if (artistModel != null) {
             genreLabel.setText(artistModel.getGenre());

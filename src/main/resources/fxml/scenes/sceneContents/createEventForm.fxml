@@ -17,8 +17,8 @@
             <GridPane prefHeight="471.0" prefWidth="780.0">
                 <columnConstraints>
                     <ColumnConstraints hgrow="SOMETIMES" maxWidth="359.0" minWidth="0.0" prefWidth="153.0" />
-                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="553.0" minWidth="10.0" prefWidth="198.0" />
-                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="422.0" minWidth="10.0" prefWidth="422.0" />
+                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="553.0" minWidth="10.0" prefWidth="247.0" />
+                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="422.0" minWidth="10.0" prefWidth="359.0" />
                 </columnConstraints>
                 <rowConstraints>
                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -51,24 +51,24 @@
                     <Label text="Descriere" />
                 </HBox>
                 <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1">
-                    <TextField fx:id="eventNameField" />
+                    <TextField fx:id="eventNameField" prefHeight="36.0" prefWidth="235.0" />
                 </HBox>
                 <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                    <TextField fx:id="barNameField" editable="false" />
+                    <TextField fx:id="barNameField" editable="false" prefHeight="36.0" prefWidth="235.0" />
                 </HBox>
                 <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                    <TextField fx:id="artistNameField" />
+                    <TextField fx:id="artistNameField" prefHeight="36.0" prefWidth="235.0" />
                 </HBox>
                 <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
-                    <DatePicker fx:id="datePicker" prefHeight="47.0" prefWidth="168.0">
+                    <DatePicker fx:id="datePicker" prefHeight="47.0" prefWidth="235.0">
                         <HBox.margin>
                             <Insets bottom="10.0" />
                         </HBox.margin>
                     </DatePicker>
                 </HBox>
                 <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
-                    <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
-                        <TextField fx:id="seatNumberField" />
+                    <HBox alignment="CENTER_LEFT" prefHeight="67.0" prefWidth="235.0">
+                        <TextField fx:id="seatNumberField" prefHeight="36.0" prefWidth="235.0" />
                     </HBox>
                 </HBox>
                 <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
@@ -79,20 +79,35 @@
                     </TextArea>
                 </HBox>
                 <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2">
-                    <Label fx:id="eventNameErrorLabel" styleClass="error-label" text="* Camp Obligatoriu" />
+                    <Label fx:id="eventNameErrorLabel" styleClass="error-label" text="* Camp Obligatoriu">
+                  <padding>
+                     <Insets left="10.0" />
+                  </padding></Label>
                 </HBox>
                 <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
                 <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="415.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
-                    <Label fx:id="artistNameErrorLabel" styleClass="error-label" text="* Camp Obligatoriu" />
+                    <Label fx:id="artistNameErrorLabel" styleClass="error-label" text="* Camp Obligatoriu">
+                  <padding>
+                     <Insets left="10.0" />
+                  </padding></Label>
                 </HBox>
                 <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="3">
-                    <Label fx:id="dateErrorLabel" styleClass="error-label" text="* Camp Obligatoriu" />
+                    <Label fx:id="dateErrorLabel" styleClass="error-label" text="* Camp Obligatoriu">
+                  <padding>
+                     <Insets left="10.0" />
+                  </padding></Label>
                 </HBox>
                 <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="4">
-                    <Label fx:id="startHourErrorLabel" styleClass="error-label" text="* Camp Obligatoriu" />
+                    <Label fx:id="startHourErrorLabel" styleClass="error-label" text="* Camp Obligatoriu">
+                  <padding>
+                     <Insets left="10.0" />
+                  </padding></Label>
                 </HBox>
                 <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="5">
-                    <Label fx:id="seatNumberErrorLabel" styleClass="error-label" text="* Camp Obligatoriu" />
+                    <Label fx:id="seatNumberErrorLabel" styleClass="error-label" text="* Camp Obligatoriu">
+                  <HBox.margin>
+                     <Insets left="10.0" />
+                  </HBox.margin></Label>
                 </HBox>
                 <HBox prefHeight="63.0" prefWidth="364.0" GridPane.columnIndex="2" GridPane.rowIndex="6" />
                 <Label GridPane.rowIndex="4" />
@@ -100,7 +115,7 @@
                     <Label text="Ora de început" />
                 </HBox>
                 <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
-                    <ComboBox fx:id="startHourComboBox" prefHeight="42.0" prefWidth="167.0" />
+                    <ComboBox fx:id="startHourComboBox" prefHeight="42.0" prefWidth="235.0" />
                 </HBox>
             </GridPane>
             <HBox alignment="BOTTOM_RIGHT">
