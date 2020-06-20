@@ -62,6 +62,7 @@ public class MakeReservationPopupWindowController implements Initializable {
     }
 
     private void onReserveButtonClick(ActionEvent actionEvent) {
+        selectedSeatsSlider.requestFocus();
         if (numberOfSeatsResponseCall != null) {
             numberOfSeatsResponseCall.onResponseCall((int) selectedSeatsSlider.getValue());
         }

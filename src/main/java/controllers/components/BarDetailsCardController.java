@@ -62,6 +62,7 @@ public class BarDetailsCardController extends TableCell<TableCardModel, TableCar
     }
 
     private void onGoToProfilePageButtonClick(ActionEvent actionEvent) {
+        barNameLabel.requestFocus();
         SceneSwitchController.getInstance().loadFXMLToMainPage(SceneSwitchController.SceneType.ViewBarProfileContentScene, barModel.getId());
     }
 }
