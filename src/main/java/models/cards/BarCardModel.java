@@ -8,11 +8,7 @@ public class BarCardModel implements TableCardModel {
     private final String barName;
     private final BarModel barModel;
 
-    public BarCardModel(BarModel barModel) {
-        this(barModel, ServiceProvider.getUserService());
-    }
-
-    protected BarCardModel(BarModel barModel, IUserService userService) {
+    public BarCardModel(BarModel barModel, IUserService userService) {
         this.barModel = barModel;
         barName = userService.getUser(this.barModel.getId()).getName();
     }

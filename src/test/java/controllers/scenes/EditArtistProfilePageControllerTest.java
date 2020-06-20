@@ -28,12 +28,12 @@ import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class EditArtistProfilePageControllerTest extends ApplicationTest {
-    EditArtistProfilePageController editArtistProfilePageController;
+    private EditArtistProfilePageController editArtistProfilePageController;
 
     @Mock
-    IUserService userService;
+    private IUserService userService;
     @Mock
-    IArtistService artistService;
+    private IArtistService artistService;
 
     @Before
     public void setUp() {

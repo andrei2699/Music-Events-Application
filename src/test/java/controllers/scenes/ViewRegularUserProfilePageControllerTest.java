@@ -8,7 +8,6 @@ import main.LoggedUserData;
 import models.EventModel;
 import models.ReservationModel;
 import models.UserModel;
-import models.cards.ReservationCardModel;
 import models.other.UserType;
 import org.junit.Before;
 import org.junit.Test;
@@ -30,12 +29,12 @@ import static org.mockito.Mockito.when;
 @RunWith(MockitoJUnitRunner.class)
 public class ViewRegularUserProfilePageControllerTest extends ApplicationTest {
 
-    ViewRegularUserProfilePageController viewRegularUserProfilePageController;
+    private ViewRegularUserProfilePageController viewRegularUserProfilePageController;
 
     @Mock
-    IReservationService reservationService;
+    private IReservationService reservationService;
     @Mock
-    IEventService eventService;
+    private IEventService eventService;
 
     @Before
     public void setUp() {
@@ -79,6 +78,6 @@ public class ViewRegularUserProfilePageControllerTest extends ApplicationTest {
         viewRegularUserProfilePageController.initialize(null, null);
         assertEquals("User Name", viewRegularUserProfilePageController.nameLabel.getText());
 
-        assertNull( viewRegularUserProfilePageController.reservationsTableViewController.getItem(0));
+        assertNull(viewRegularUserProfilePageController.reservationsTableViewController.getItem(0));
     }
 }

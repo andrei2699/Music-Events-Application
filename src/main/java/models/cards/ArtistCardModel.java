@@ -8,11 +8,7 @@ public class ArtistCardModel implements TableCardModel {
     private final String artistName;
     private final ArtistModel artistModel;
 
-    public ArtistCardModel(ArtistModel artistModel) {
-        this(artistModel, ServiceProvider.getUserService());
-    }
-
-    protected ArtistCardModel(ArtistModel artistModel, IUserService userService) {
+    public ArtistCardModel(ArtistModel artistModel, IUserService userService) {
         this.artistModel = artistModel;
         artistName = userService.getUser(this.artistModel.getId()).getName();
     }

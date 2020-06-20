@@ -25,13 +25,12 @@ import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class EditBarProfilePageControllerTest extends ApplicationTest {
-
-    EditBarProfilePageController editBarProfilePageController;
+    private EditBarProfilePageController editBarProfilePageController;
 
     @Mock
-    IUserService userService;
+    private IUserService userService;
     @Mock
-    IBarService barService;
+    private IBarService barService;
 
     @Before
     public void setUp() {

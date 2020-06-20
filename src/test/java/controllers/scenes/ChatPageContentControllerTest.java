@@ -18,6 +18,7 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.testfx.framework.junit.ApplicationTest;
 import services.IDiscussionService;
+import services.IUserService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,12 +34,14 @@ public class ChatPageContentControllerTest extends ApplicationTest {
 
     @Mock
     private IDiscussionService discussionService;
+    @Mock
+    private IUserService userService;
 
     private static final String CELL_FACTORY_VALUE = "discussionHeaderCardModel";
 
     @Before
     public void setUp() {
-        chatPageContentController = new ChatPageContentController(discussionService);
+        chatPageContentController = new ChatPageContentController(discussionService, userService);
 
         chatPageContentController.enterMessageTextField = new TextField();
         chatPageContentController.discussionHeaderTableViewController = new CardsTableViewController();
@@ -94,6 +97,7 @@ public class ChatPageContentControllerTest extends ApplicationTest {
         discussionModels.add(new DiscussionModel(9, 2, 8));
 
         when(discussionService.getDiscussionsUsingId(2)).thenReturn(discussionModels);
+        when(userService.getUser(5)).thenReturn(new UserModel(5, "artist2@yahoo.com", "psdasdccw", "Artist2", UserType.Artist));
 
         chatPageContentController.initialize(null, null);
 
@@ -118,12 +122,14 @@ public class ChatPageContentControllerTest extends ApplicationTest {
         discussionModels.add(new DiscussionModel(6, 3, 6));
         discussionModels.add(new DiscussionModel(1, 1, 6));
         List<Message> messages = new ArrayList<>();
-        messages.add(new Message("01-05-2020", "Buna !", 5));
+        messages.add(new Message("01-05-2020", "Buna !", 6));
         messages.add(new Message("01-05-2020", "Buna", 1));
         discussionModels.get(1).setMessages(messages);
         discussionModels.add(new DiscussionModel(9, 7, 6));
 
         when(discussionService.getDiscussionsUsingId(6)).thenReturn(discussionModels);
+        when(userService.getUser(3)).thenReturn(new UserModel(3, "bar3@yahoo.com", "psfwddew", "Bar3", UserType.Manager));
+        when(userService.getUser(1)).thenReturn(new UserModel(1, "bar@yahoo.com", "psdccw", "Bar", UserType.Manager));
 
         chatPageContentController.initialize(null, null);
 
@@ -148,6 +154,7 @@ public class ChatPageContentControllerTest extends ApplicationTest {
         discussionModels.add(new DiscussionModel(6, 2, 6));
         discussionModels.add(new DiscussionModel(9, 2, 8));
         when(discussionService.getDiscussionsUsingId(7)).thenReturn(discussionModels);
+        when(userService.getUser(2)).thenReturn(new UserModel(2, "bar3@yahoo.com", "psfwddew", "Bar3", UserType.Manager));
 
         chatPageContentController.initialize(null, null);
         int size = chatPageContentController.messagesVBox.getChildren().size();
@@ -170,6 +177,7 @@ public class ChatPageContentControllerTest extends ApplicationTest {
         discussionModels.add(new DiscussionModel(6, 2, 6));
         discussionModels.add(new DiscussionModel(9, 2, 8));
         when(discussionService.getDiscussionsUsingId(7)).thenReturn(discussionModels);
+        when(userService.getUser(2)).thenReturn(new UserModel(2, "bar3@yahoo.com", "psfwddew", "Bar3", UserType.Manager));
 
         chatPageContentController.initialize(null, null);
         int size = chatPageContentController.messagesVBox.getChildren().size();
@@ -189,6 +197,7 @@ public class ChatPageContentControllerTest extends ApplicationTest {
         messages.add(new Message("07-04-2020", "Salut", 2));
         messages.add(new Message("07-04-2020", "Salutare", 5));
         discussionModels.get(0).setMessages(messages);
+
         discussionModels.add(new DiscussionModel(6, 2, 6));
         discussionModels.add(new DiscussionModel(9, 2, 8));
 
@@ -216,12 +225,13 @@ public class ChatPageContentControllerTest extends ApplicationTest {
         discussionModels.add(new DiscussionModel(6, 3, 6));
         discussionModels.add(new DiscussionModel(1, 1, 6));
         List<Message> messages = new ArrayList<>();
-        messages.add(new Message("03-05-2020", "Buna !", 5));
+        messages.add(new Message("03-05-2020", "Buna !", 6));
         messages.add(new Message("03-05-2020", "Buna", 1));
         discussionModels.get(1).setMessages(messages);
         discussionModels.add(new DiscussionModel(9, 7, 6));
 
         when(discussionService.getDiscussionsUsingId(6)).thenReturn(discussionModels);
+        when(userService.getUser(3)).thenReturn(new UserModel(3, "bar3@yahoo.com", "psfwddew", "Bar3", UserType.Manager));
 
         chatPageContentController.initialize(null, null);
         LoggedUserData.getInstance().setUserModel(null);

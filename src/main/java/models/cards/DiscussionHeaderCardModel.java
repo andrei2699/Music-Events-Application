@@ -11,11 +11,7 @@ public class DiscussionHeaderCardModel implements TableCardModel {
     private final DiscussionModel discussionModel;
     private IUserService userService;
 
-    public DiscussionHeaderCardModel(DiscussionModel discussionModel) {
-        this(discussionModel, ServiceProvider.getUserService());
-    }
-
-    protected DiscussionHeaderCardModel(DiscussionModel discussionModel, IUserService userService) {
+    public DiscussionHeaderCardModel(DiscussionModel discussionModel, IUserService userService) {
         this.discussionModel = discussionModel;
         this.userService = userService;
     }

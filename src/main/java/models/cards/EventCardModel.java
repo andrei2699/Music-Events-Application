@@ -9,10 +9,6 @@ public class EventCardModel implements TableCardModel {
     private final String artistName;
     private final EventModel eventModel;
 
-    public EventCardModel(EventModel eventModel) {
-        this(eventModel, ServiceProvider.getUserService());
-    }
-
     public EventCardModel(EventModel eventModel, IUserService userService) {
         this.eventModel = eventModel;
         barName = userService.getUser(eventModel.getBar_manager_id()).getName();

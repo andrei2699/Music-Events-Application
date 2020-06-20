@@ -6,14 +6,17 @@ import javafx.scene.layout.VBox;
 import models.ArtistModel;
 import models.EventModel;
 import models.ReservationModel;
+import models.UserModel;
 import models.cards.ArtistCardModel;
 import models.cards.ReservationCardModel;
+import models.other.UserType;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.testfx.framework.junit.ApplicationTest;
+import services.IUserService;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.when;
@@ -23,6 +26,8 @@ public class ReservationDetailsCardControllerTest extends ApplicationTest {
 
     @Mock
     private ReservationCardModel dummyReservationCardModel;
+    @Mock
+    private IUserService userService;
 
     private ReservationDetailsCardController reservationDetailsCardController;
 
@@ -64,7 +69,8 @@ public class ReservationDetailsCardControllerTest extends ApplicationTest {
         reservationDetailsCardController.updateItem(null, false);
         assertNull(reservationDetailsCardController.getGraphic());
 
-        reservationDetailsCardController.updateItem(new ArtistCardModel(new ArtistModel(1, false, "Rock")), false);
+        when(userService.getUser(1)).thenReturn(new UserModel(1, "artist3@yahoo.com", "psdccw", "Artist3", UserType.Artist));
+        reservationDetailsCardController.updateItem(new ArtistCardModel(new ArtistModel(1, false, "Rock"), userService), false);
         assertNull("Invalid TableCardModel", reservationDetailsCardController.getGraphic());
     }
 

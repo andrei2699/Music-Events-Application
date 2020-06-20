@@ -14,6 +14,7 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.testfx.framework.junit.ApplicationTest;
+import services.IUserService;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.when;
@@ -22,6 +23,8 @@ import static org.mockito.Mockito.when;
 public class ArtistDetailsCardControllerTest extends ApplicationTest {
     @Mock
     private ArtistCardModel dummyArtistCardModel;
+    @Mock
+    private IUserService userService;
 
     private ArtistDetailsCardController artistDetailsCardController;
 
@@ -51,7 +54,7 @@ public class ArtistDetailsCardControllerTest extends ApplicationTest {
         artistDetailsCardController.updateItem(null, false);
         assertNull(artistDetailsCardController.getGraphic());
 
-        artistDetailsCardController.updateItem(new DiscussionHeaderCardModel(new DiscussionModel(56, 6, 12)), false);
+        artistDetailsCardController.updateItem(new DiscussionHeaderCardModel(new DiscussionModel(56, 6, 12), userService), false);
         assertNull("Invalid TableCardModel", artistDetailsCardController.getGraphic());
     }
 

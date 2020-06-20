@@ -75,7 +75,10 @@ public class DiscussionChatHeaderCardControllerTest extends ApplicationTest {
         discussionChatHeaderCardController.updateItem(null, false);
         assertNull(discussionChatHeaderCardController.getGraphic());
 
-        discussionChatHeaderCardController.updateItem(new EventCardModel(new EventModel(1, 2, 3, "Nume", "08-08-2020", 15, 100)), false);
+        when(userService.getUser(2)).thenReturn(new UserModel(2, "bar3@yahoo.com", "psfwddew", "Bar3", UserType.Manager));
+        when(userService.getUser(3)).thenReturn(new UserModel(3, "artist@yahoo.com", "psvxccw", "Artist", UserType.Artist));
+
+        discussionChatHeaderCardController.updateItem(new EventCardModel(new EventModel(1, 2, 3, "Nume", "08-08-2020", 15, 100), userService), false);
         assertNull("Invalid TableCardModel", discussionChatHeaderCardController.getGraphic());
     }
 

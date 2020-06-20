@@ -6,7 +6,6 @@ import javafx.scene.control.Separator;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import main.LoggedUserData;
-import main.SceneSwitchController;
 import models.BarModel;
 import models.EventModel;
 import models.ReservationModel;
@@ -21,6 +20,7 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.testfx.framework.junit.ApplicationTest;
 import services.IReservationService;
+import services.IUserService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +35,8 @@ public class EventDetailsCardControllerTest extends ApplicationTest {
 
     @Mock
     private IReservationService reservationService;
+    @Mock
+    private IUserService userService;
 
     private EventDetailsCardController eventDetailsCardController;
 
@@ -82,7 +84,8 @@ public class EventDetailsCardControllerTest extends ApplicationTest {
         eventDetailsCardController.updateItem(null, false);
         assertNull(eventDetailsCardController.getGraphic());
 
-        eventDetailsCardController.updateItem(new BarCardModel(new BarModel(2, "Address")), false);
+        when(userService.getUser(2)).thenReturn(new UserModel(2, "bar3@yahoo.com", "psfwddew", "Bar3", UserType.Manager));
+        eventDetailsCardController.updateItem(new BarCardModel(new BarModel(2, "Address"), userService), false);
         assertNull("Invalid TableCardModel", eventDetailsCardController.getGraphic());
     }
 

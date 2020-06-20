@@ -46,10 +46,20 @@ public abstract class AbstractViewProfilePageController extends AbstractProfileP
 
     protected UserModel userModel;
 
-    public AbstractViewProfilePageController(){}
+    private IEventService eventService;
+
+    public AbstractViewProfilePageController() {
+        eventService = ServiceProvider.getEventService();
+    }
 
     public AbstractViewProfilePageController(IUserService iUserService) {
         super(iUserService);
+        eventService = ServiceProvider.getEventService();
+    }
+
+    public AbstractViewProfilePageController(IUserService iUserService, IEventService eventService) {
+        super(iUserService);
+        this.eventService = eventService;
     }
 
     protected abstract void onEditProfilePageButtonClick(ActionEvent actionEvent);
@@ -90,13 +100,12 @@ public abstract class AbstractViewProfilePageController extends AbstractProfileP
     }
 
     protected final ObservableList<TableCardModel> getAllFutureEventsLinkedWithId(int id) {
-        IEventService eventService = ServiceProvider.getEventService();
         ObservableList<TableCardModel> eventModels = FXCollections.observableArrayList();
         List<EventModel> allEvents = eventService.getEventsStartingFrom(LocalDate.now(), LocalTime.now().getHour());
 
         for (EventModel eventModel : allEvents) {
             if (eventModel.getArtist_id() == id || eventModel.getBar_manager_id() == id) {
-                eventModels.add(new EventCardModel(eventModel));
+                eventModels.add(new EventCardModel(eventModel, userService));
             }
         }
 
