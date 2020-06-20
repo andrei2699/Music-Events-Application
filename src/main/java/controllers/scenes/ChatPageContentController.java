@@ -18,6 +18,7 @@ import models.cards.DiscussionMessageCardModel;
 import models.cards.TableCardModel;
 import models.other.Message;
 import services.IDiscussionService;
+import services.IUserService;
 import services.ServiceProvider;
 import utils.StringValidator;
 
@@ -46,12 +47,23 @@ public class ChatPageContentController extends ChangeableSceneWithModelControlle
 
     private DiscussionHeaderCardModel openedHeaderCardModel;
     private IDiscussionService discussionService;
+    private IUserService userService;
     private Integer modelId;
     private ObservableList<TableCardModel> discussionsCards;
 
+    // for reflexion
+    public ChatPageContentController() {
+        this(ServiceProvider.getDiscussionService(), ServiceProvider.getUserService());
+    }
+
+    // for test
+    protected ChatPageContentController(IDiscussionService discussionService, IUserService iUserService) {
+        this.discussionService = discussionService;
+        userService = iUserService;
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        discussionService = ServiceProvider.getDiscussionService();
         enterMessageTextField.requestFocus();
 
         final boolean[] focusSetOnFirstHeader = {false};
@@ -92,17 +104,18 @@ public class ChatPageContentController extends ChangeableSceneWithModelControlle
         if (LoggedUserData.getInstance().isUserLogged()) {
             List<DiscussionModel> discussions = discussionService.getDiscussionsUsingId(LoggedUserData.getInstance().getUserModel().getId());
             for (DiscussionModel discussionModel : discussions) {
-                discussionsCards.add(new DiscussionHeaderCardModel(discussionModel));
+                discussionsCards.add(new DiscussionHeaderCardModel(discussionModel, userService));
             }
         }
 
         discussionHeaderTableViewController.setItems(discussionsCards);
 
-        try {
-            switchConversation((DiscussionHeaderCardModel) discussionHeaderTableViewController.getItem(0));
-        } catch (IndexOutOfBoundsException ignored) {
+        TableCardModel item = discussionHeaderTableViewController.getItem(0);
+        if (item == null) {
             enterMessageTextField.setDisable(true);
             sendButton.setDisable(true);
+        } else {
+            switchConversation((DiscussionHeaderCardModel) item);
         }
     }
 

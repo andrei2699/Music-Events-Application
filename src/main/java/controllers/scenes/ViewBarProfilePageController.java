@@ -8,14 +8,30 @@ import main.SceneSwitchController;
 import models.BarModel;
 import services.IBarService;
 import services.IDiscussionService;
+import services.IUserService;
 import services.ServiceProvider;
 
 public class ViewBarProfilePageController extends AbstractViewProfilePageController {
 
-    private BarModel barModel;
-
     @FXML
     public Label addressLabel;
+
+    private BarModel barModel;
+    private IBarService barService;
+    private IDiscussionService discussionService;
+
+    //pentru apelul prin reflexie
+    public ViewBarProfilePageController() {
+        barService = ServiceProvider.getBarService();
+        discussionService = ServiceProvider.getDiscussionService();
+    }
+
+    //pentru testare
+    protected ViewBarProfilePageController(IUserService iUserService, IBarService iBarService, IDiscussionService discussionService) {
+        super(iUserService);
+        barService = iBarService;
+        this.discussionService = discussionService;
+    }
 
     @Override
     protected void updateUIOnInitialize() {
@@ -25,9 +41,8 @@ public class ViewBarProfilePageController extends AbstractViewProfilePageControl
                 || LoggedUserData.getInstance().isRegularUser() || LoggedUserData.getInstance().isBarManager();
         startChatButton.setVisible(!startChatButtonInvisible);
 
-        boolean gridInvisible = userModel == null || LoggedUserData.getInstance().isRegularUser() || (LoggedUserData.getInstance().getUserModel().getId() != userModel.getId() && LoggedUserData.getInstance().isBarManager());
+        boolean gridInvisible = userModel == null || LoggedUserData.getInstance().isRegularUser() || !LoggedUserData.getInstance().isUserLogged() || (LoggedUserData.getInstance().isBarManager() && LoggedUserData.getInstance().getUserModel().getId() != userModel.getId());
         scheduleGridController.setVisible(!gridInvisible);
-
 
         if (barModel != null) {
             addressLabel.setText(barModel.getAddress());
@@ -45,16 +60,16 @@ public class ViewBarProfilePageController extends AbstractViewProfilePageControl
     @Override
     protected void onStartChatButtonClick(ActionEvent actionEvent) {
         addressLabel.requestFocus();
-        IDiscussionService discussionService = ServiceProvider.getDiscussionService();
-        discussionService.createDiscussion(barModel.getId(), LoggedUserData.getInstance().getUserModel().getId());
-        SceneSwitchController.getInstance().loadFXMLToMainPage(SceneSwitchController.SceneType.ChatContentScene, barModel.getId());
+        if (barModel != null && LoggedUserData.getInstance().isUserLogged()) {
+            discussionService.createDiscussion(barModel.getId(), LoggedUserData.getInstance().getUserModel().getId());
+            SceneSwitchController.getInstance().loadFXMLToMainPage(SceneSwitchController.SceneType.ChatContentScene, barModel.getId());
+        }
     }
 
     @Override
     public void onSetModelId(Integer modelId) {
         super.onSetModelId(modelId);
 
-        IBarService barService = ServiceProvider.getBarService();
         barModel = barService.getBar(userModel.getId());
         updateUIOnInitialize();
     }

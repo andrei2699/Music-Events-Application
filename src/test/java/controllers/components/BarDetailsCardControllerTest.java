@@ -5,14 +5,17 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import models.ArtistModel;
 import models.BarModel;
+import models.UserModel;
 import models.cards.ArtistCardModel;
 import models.cards.BarCardModel;
+import models.other.UserType;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.testfx.framework.junit.ApplicationTest;
+import services.IUserService;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.when;
@@ -21,6 +24,8 @@ import static org.mockito.Mockito.when;
 public class BarDetailsCardControllerTest extends ApplicationTest {
     @Mock
     private BarCardModel dummyBarCardModel;
+    @Mock
+    private IUserService userService;
 
     private BarDetailsCardController barDetailsCardController;
 
@@ -50,7 +55,8 @@ public class BarDetailsCardControllerTest extends ApplicationTest {
         barDetailsCardController.updateItem(null, false);
         assertNull(barDetailsCardController.getGraphic());
 
-        barDetailsCardController.updateItem(new ArtistCardModel(new ArtistModel(2, true, "Punk")), false);
+        when(userService.getUser(2)).thenReturn(new UserModel(2, "email@yahoo.com", "psw", "name", UserType.Artist));
+        barDetailsCardController.updateItem(new ArtistCardModel(new ArtistModel(2, true, "Punk"), userService), false);
         assertNull("Invalid TableCardModel", barDetailsCardController.getGraphic());
     }
 

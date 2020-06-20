@@ -10,6 +10,8 @@ import models.BarModel;
 import models.UserModel;
 import models.other.Interval;
 import services.IBarService;
+import services.IDiscussionService;
+import services.IUserService;
 import services.ServiceProvider;
 import utils.StringValidator;
 
@@ -30,13 +32,22 @@ public class EditBarProfilePageController extends AbstractEditProfilePageControl
 
     private BarModel barModel;
 
+    //pentru apelul prin reflexie
+    public EditBarProfilePageController() {
+        barService = ServiceProvider.getBarService();
+    }
+
+    //pentru testare
+    protected EditBarProfilePageController(IUserService iUserService, IBarService iBarService) {
+        super(iUserService);
+        barService = iBarService;
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         super.initialize(location, resources);
 
         requiredAdreesErrorLabel.setVisible(false);
-
-        barService = ServiceProvider.getBarService();
 
         if (LoggedUserData.getInstance().isUserLogged()) {
             UserModel userModel = LoggedUserData.getInstance().getUserModel();

@@ -13,6 +13,7 @@ import models.ArtistModel;
 import models.UserModel;
 import models.other.Interval;
 import services.IArtistService;
+import services.IUserService;
 import services.ServiceProvider;
 import utils.StringValidator;
 
@@ -41,10 +42,20 @@ public class EditArtistProfilePageController extends AbstractEditProfilePageCont
     private IArtistService artistService;
     private ArtistModel artistModel;
 
+    //pentru apelul prin reflexie
+    public EditArtistProfilePageController() {
+        artistService = ServiceProvider.getArtistService();
+    }
+
+    //pentru testare
+    protected EditArtistProfilePageController(IUserService iUserService, IArtistService iArtistService) {
+        super(iUserService);
+        artistService = iArtistService;
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         super.initialize(location, resources);
-        artistService = ServiceProvider.getArtistService();
 
         if (LoggedUserData.getInstance().isUserLogged()) {
             UserModel userModel = LoggedUserData.getInstance().getUserModel();
@@ -112,6 +123,9 @@ public class EditArtistProfilePageController extends AbstractEditProfilePageCont
 
         List<Interval> intervalsFromGridPane = scheduleGridController.getIntervalsFromGrid();
         UserModel userModel = LoggedUserData.getInstance().getUserModel();
+        if (userModel == null) {
+            return;
+        }
 
         artistModel.setGenre(genreField.getText());
         if (!nameField.getText().isEmpty()) {

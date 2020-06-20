@@ -15,6 +15,7 @@ import models.UserModel;
 import models.cards.EventCardModel;
 import models.cards.TableCardModel;
 import services.IEventService;
+import services.IUserService;
 import services.ServiceProvider;
 
 import java.net.URL;
@@ -45,6 +46,22 @@ public abstract class AbstractViewProfilePageController extends AbstractProfileP
 
     protected UserModel userModel;
 
+    private IEventService eventService;
+
+    public AbstractViewProfilePageController() {
+        eventService = ServiceProvider.getEventService();
+    }
+
+    public AbstractViewProfilePageController(IUserService iUserService) {
+        super(iUserService);
+        eventService = ServiceProvider.getEventService();
+    }
+
+    public AbstractViewProfilePageController(IUserService iUserService, IEventService eventService) {
+        super(iUserService);
+        this.eventService = eventService;
+    }
+
     protected abstract void onEditProfilePageButtonClick(ActionEvent actionEvent);
 
     protected abstract void onStartChatButtonClick(ActionEvent actionEvent);
@@ -69,7 +86,7 @@ public abstract class AbstractViewProfilePageController extends AbstractProfileP
 
     @Override
     protected void updateUIOnInitialize() {
-        boolean buttonInvisible = userModel == null || !LoggedUserData.getInstance().isUserLogged() || LoggedUserData.getInstance().getUserModel().getId() != userModel.getId();
+        boolean buttonInvisible = userModel == null || !LoggedUserData.getInstance().isUserLogged() || (LoggedUserData.getInstance().isUserLogged() && LoggedUserData.getInstance().getUserModel().getId() != userModel.getId());
         editProfilePageButton.setVisible(!buttonInvisible);
 
         if (userModel != null) {
@@ -83,13 +100,12 @@ public abstract class AbstractViewProfilePageController extends AbstractProfileP
     }
 
     protected final ObservableList<TableCardModel> getAllFutureEventsLinkedWithId(int id) {
-        IEventService eventService = ServiceProvider.getEventService();
         ObservableList<TableCardModel> eventModels = FXCollections.observableArrayList();
         List<EventModel> allEvents = eventService.getEventsStartingFrom(LocalDate.now(), LocalTime.now().getHour());
 
         for (EventModel eventModel : allEvents) {
             if (eventModel.getArtist_id() == id || eventModel.getBar_manager_id() == id) {
-                eventModels.add(new EventCardModel(eventModel));
+                eventModels.add(new EventCardModel(eventModel, userService));
             }
         }
 

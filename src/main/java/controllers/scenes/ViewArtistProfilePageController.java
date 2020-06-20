@@ -11,6 +11,7 @@ import main.SceneSwitchController;
 import models.ArtistModel;
 import services.IArtistService;
 import services.IDiscussionService;
+import services.IUserService;
 import services.ServiceProvider;
 import utils.StringValidator;
 
@@ -34,6 +35,22 @@ public class ViewArtistProfilePageController extends AbstractViewProfilePageCont
     public Label membersLabel;
 
     private ArtistModel artistModel;
+    private IArtistService artistService;
+    private IDiscussionService discussionService;
+
+    //pentru apelul prin reflexie
+    public ViewArtistProfilePageController() {
+        artistService = ServiceProvider.getArtistService();
+        discussionService = ServiceProvider.getDiscussionService();
+    }
+
+    //pentru testare
+    protected ViewArtistProfilePageController(IUserService iUserService, IArtistService iArtistService, IDiscussionService discussionService) {
+        super(iUserService);
+        artistService = iArtistService;
+        this.discussionService = discussionService;
+    }
+
 
     @Override
     protected void onEditProfilePageButtonClick(ActionEvent actionEvent) {
@@ -43,10 +60,11 @@ public class ViewArtistProfilePageController extends AbstractViewProfilePageCont
 
     @Override
     protected void onStartChatButtonClick(ActionEvent actionEvent) {
-        genreLabel.requestFocus();
-        IDiscussionService discussionService = ServiceProvider.getDiscussionService();
-        discussionService.createDiscussion(artistModel.getId(), LoggedUserData.getInstance().getUserModel().getId());
-        SceneSwitchController.getInstance().loadFXMLToMainPage(SceneSwitchController.SceneType.ChatContentScene, artistModel.getId());
+        startChatButton.requestFocus();
+        if (artistModel != null && LoggedUserData.getInstance().isUserLogged()) {
+            discussionService.createDiscussion(artistModel.getId(), LoggedUserData.getInstance().getUserModel().getId());
+            SceneSwitchController.getInstance().loadFXMLToMainPage(SceneSwitchController.SceneType.ChatContentScene, artistModel.getId());
+        }
     }
 
     @Override
@@ -60,7 +78,7 @@ public class ViewArtistProfilePageController extends AbstractViewProfilePageCont
                 || LoggedUserData.getInstance().isRegularUser() || LoggedUserData.getInstance().isArtist();
         startChatButton.setVisible(!startChatButtonInvisible);
 
-        boolean gridInvisible = userModel == null || LoggedUserData.getInstance().isRegularUser() || (LoggedUserData.getInstance().getUserModel().getId() != userModel.getId() && LoggedUserData.getInstance().isArtist());
+        boolean gridInvisible = userModel == null || LoggedUserData.getInstance().isRegularUser() || !LoggedUserData.getInstance().isUserLogged() || (LoggedUserData.getInstance().isArtist() && LoggedUserData.getInstance().getUserModel().getId() != userModel.getId());
         scheduleGridController.setVisible(!gridInvisible);
 
         if (artistModel != null) {
@@ -87,7 +105,6 @@ public class ViewArtistProfilePageController extends AbstractViewProfilePageCont
     public void onSetModelId(Integer modelId) {
         super.onSetModelId(modelId);
 
-        IArtistService artistService = ServiceProvider.getArtistService();
         artistModel = artistService.getArtist(userModel.getId());
         updateUIOnInitialize();
     }

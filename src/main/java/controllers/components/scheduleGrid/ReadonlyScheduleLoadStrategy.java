@@ -43,14 +43,15 @@ public class ReadonlyScheduleLoadStrategy extends ScheduleGridLoadStrategy {
 
     @Override
     public void fillScheduleGridPane(HBox[][] gridHBoxes, List<Interval> intervals) {
-        if (gridHBoxes == null)
+        if (gridHBoxes == null) {
             return;
+        }
 
         for (int column = 1; column < gridHBoxes.length; column++) {
             for (int row = 1; row < gridHBoxes[column].length; row++) {
                 Label label = new Label();
 
-                if (intervals != null && intervals.size() > 0 && column - 1 < intervals.size()) {
+                if (intervals != null && intervals.size() > 0) {
                     Interval interval = intervals.get(column - 1);
                     if (row == 1 && interval != null) {
                         if (interval.getStart_hour() == null) {

@@ -8,6 +8,7 @@ import javafx.stage.FileChooser;
 import main.LoggedUserData;
 import main.SceneSwitchController;
 import models.UserModel;
+import services.IUserService;
 
 import java.io.File;
 import java.net.URL;
@@ -29,6 +30,12 @@ public abstract class AbstractEditProfilePageController extends AbstractProfileP
     protected abstract void onSaveChangesButtonClick(ActionEvent actionEvent);
 
     protected abstract void onChoosePhotoButtonClick(ActionEvent actionEvent);
+
+    public AbstractEditProfilePageController(){}
+
+    public AbstractEditProfilePageController(IUserService iUserService) {
+        super(iUserService);
+    }
 
     @Override
     public void onSetModelId(Integer modelId) {

@@ -6,17 +6,16 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import models.ArtistModel;
-import models.BarModel;
-import models.DiscussionModel;
-import models.EventModel;
+import models.*;
 import models.cards.*;
+import models.other.UserType;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.testfx.framework.junit.ApplicationTest;
+import services.IUserService;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
@@ -26,6 +25,8 @@ import static org.mockito.Mockito.when;
 public class CardsTableViewControllerTest extends ApplicationTest {
     @Mock
     private DetailsTableConfigData detailsTableConfigData;
+    @Mock
+    private IUserService userService;
 
     private CardsTableViewController cardsTableViewController;
 
@@ -42,10 +43,15 @@ public class CardsTableViewControllerTest extends ApplicationTest {
 
     @Test
     public void testSetItems() {
-        DiscussionHeaderCardModel discussionHeaderCardModel = new DiscussionHeaderCardModel(new DiscussionModel(1, 2, 3));
-        EventCardModel eventCardModel = new EventCardModel(new EventModel(2, 4, 6, "Name", "06-07-2020", 5, 120));
-        ArtistCardModel artistCardModel = new ArtistCardModel(new ArtistModel(5, false, "Folk"));
-        BarCardModel barCardModel = new BarCardModel(new BarModel(7, "My address"));
+        when(userService.getUser(4)).thenReturn(new UserModel(4, "bar@yahoo.com", "psw", "Bar", UserType.Manager));
+        when(userService.getUser(7)).thenReturn(new UserModel(7, "bar2@yahoo.com", "psfwew", "Bar2", UserType.Manager));
+        when(userService.getUser(6)).thenReturn(new UserModel(6, "artist@yahoo.com", "psvxccw", "Artist", UserType.Artist));
+        when(userService.getUser(5)).thenReturn(new UserModel(5, "artist2@yahoo.com", "psdasdccw", "Artist2", UserType.Artist));
+
+        DiscussionHeaderCardModel discussionHeaderCardModel = new DiscussionHeaderCardModel(new DiscussionModel(1, 2, 3), userService);
+        EventCardModel eventCardModel = new EventCardModel(new EventModel(2, 4, 6, "Name", "06-07-2020", 5, 120), userService);
+        ArtistCardModel artistCardModel = new ArtistCardModel(new ArtistModel(5, false, "Folk"), userService);
+        BarCardModel barCardModel = new BarCardModel(new BarModel(7, "My address"), userService);
 
         ObservableList<TableCardModel> models = FXCollections.observableArrayList();
         models.add(discussionHeaderCardModel);
@@ -73,11 +79,16 @@ public class CardsTableViewControllerTest extends ApplicationTest {
     }
 
     @Test
-    public void getItem() {
-        DiscussionHeaderCardModel discussionHeaderCardModel = new DiscussionHeaderCardModel(new DiscussionModel(1, 2, 3));
-        EventCardModel eventCardModel = new EventCardModel(new EventModel(2, 4, 6, "Name", "06-07-2020", 5, 120));
-        ArtistCardModel artistCardModel = new ArtistCardModel(new ArtistModel(5, false, "Folk"));
-        BarCardModel barCardModel = new BarCardModel(new BarModel(7, "My address"));
+    public void testGetItem() {
+        when(userService.getUser(4)).thenReturn(new UserModel(4, "bar@yahoo.com", "psw", "Bar", UserType.Manager));
+        when(userService.getUser(7)).thenReturn(new UserModel(7, "bar2@yahoo.com", "psfwew", "Bar2", UserType.Manager));
+        when(userService.getUser(6)).thenReturn(new UserModel(6, "artist@yahoo.com", "psvxccw", "Artist", UserType.Artist));
+        when(userService.getUser(5)).thenReturn(new UserModel(5, "artist2@yahoo.com", "psdasdccw", "Artist2", UserType.Artist));
+
+        DiscussionHeaderCardModel discussionHeaderCardModel = new DiscussionHeaderCardModel(new DiscussionModel(1, 2, 3), userService);
+        EventCardModel eventCardModel = new EventCardModel(new EventModel(2, 4, 6, "Name", "06-07-2020", 5, 120), userService);
+        ArtistCardModel artistCardModel = new ArtistCardModel(new ArtistModel(5, false, "Folk"), userService);
+        BarCardModel barCardModel = new BarCardModel(new BarModel(7, "My address"), userService);
 
         ObservableList<TableCardModel> models = FXCollections.observableArrayList();
         models.add(discussionHeaderCardModel);

@@ -15,6 +15,7 @@ import models.cards.ReservationCardModel;
 import models.cards.TableCardModel;
 import services.IEventService;
 import services.IReservationService;
+import services.IUserService;
 import services.ServiceProvider;
 
 import java.net.URL;
@@ -30,12 +31,24 @@ public class ViewRegularUserProfilePageController implements Initializable {
     @FXML
     public Label nameLabel;
 
+    IReservationService reservationService;
+    IEventService eventService;
+
+    //pentru apelul prin reflexie
+    public ViewRegularUserProfilePageController() {
+        this(ServiceProvider.getReservationService(), ServiceProvider.getEventService());
+    }
+
+    //pentru testare
+    protected ViewRegularUserProfilePageController(IReservationService iReservationService, IEventService iEventService) {
+        this.reservationService = iReservationService;
+        this.eventService = iEventService;
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         reservationsTableViewController.setColumnData(DetailsTableConfigData.getReservationTableColumnData());
 
-        IReservationService reservationService = ServiceProvider.getReservationService();
-        IEventService eventService = ServiceProvider.getEventService();
         UserModel userModel = LoggedUserData.getInstance().getUserModel();
 
         if (userModel != null) {
