@@ -26,7 +26,6 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
-import java.util.Optional;
 import java.util.ResourceBundle;
 
 import static main.ApplicationResourceStrings.*;
@@ -50,6 +49,7 @@ public class ChatPageContentController extends ChangeableSceneWithModelControlle
     private IUserService userService;
     private Integer modelId;
     private ObservableList<TableCardModel> discussionsCards;
+    private boolean setConversationToUnreadMessages;
 
     // for reflexion
     public ChatPageContentController() {
@@ -65,6 +65,7 @@ public class ChatPageContentController extends ChangeableSceneWithModelControlle
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         enterMessageTextField.requestFocus();
+        setConversationToUnreadMessages = false;
 
         final boolean[] focusSetOnFirstHeader = {false};
 
@@ -87,7 +88,10 @@ public class ChatPageContentController extends ChangeableSceneWithModelControlle
             @Override
             public TableCell<TableCardModel, TableCardModel> getCellFactory() {
                 DiscussionChatHeaderCardController headerController = new DiscussionChatHeaderCardController();
-                headerController.setOnClickResponseCall(headerCardModel -> switchConversation(headerCardModel));
+                headerController.setOnClickResponseCall(headerCardModel -> {
+                    switchConversation(headerCardModel);
+                    setConversationToUnreadMessages = false;
+                });
                 headerController.setOnCardModelSet((discussionHeaderCardModel) -> {
                     if (modelId != null && headerController.hasModelId(modelId)) {
                         if (!focusSetOnFirstHeader[0]) {
@@ -100,17 +104,23 @@ public class ChatPageContentController extends ChangeableSceneWithModelControlle
             }
         });
 
+        int unreadMessageIndex = 0;
+
         discussionsCards = FXCollections.observableArrayList();
         if (LoggedUserData.getInstance().isUserLogged()) {
             List<DiscussionModel> discussions = discussionService.getDiscussionsUsingId(LoggedUserData.getInstance().getUserModel().getId());
-            for (DiscussionModel discussionModel : discussions) {
+            for (int i = 0; i < discussions.size(); i++) {
+                DiscussionModel discussionModel = discussions.get(i);
+                if (discussionService.checkNewMessage(LoggedUserData.getInstance().getUserModel().getId())) {
+                    unreadMessageIndex = i;
+                }
                 discussionsCards.add(new DiscussionHeaderCardModel(discussionModel, userService));
             }
         }
 
         discussionHeaderTableViewController.setItems(discussionsCards);
 
-        TableCardModel item = discussionHeaderTableViewController.getItem(0);
+        TableCardModel item = discussionHeaderTableViewController.getItem(unreadMessageIndex);
         if (item == null) {
             enterMessageTextField.setDisable(true);
             sendButton.setDisable(true);
@@ -142,6 +152,7 @@ public class ChatPageContentController extends ChangeableSceneWithModelControlle
     private void switchConversation(DiscussionHeaderCardModel headerCardModel) {
         if (headerCardModel == null || !LoggedUserData.getInstance().isUserLogged())
             return;
+        if (setConversationToUnreadMessages) return;
 
         openedHeaderCardModel = headerCardModel;
 
@@ -152,6 +163,9 @@ public class ChatPageContentController extends ChangeableSceneWithModelControlle
         for (Message message : messages) {
             boolean isSender = message.getSender_id() == LoggedUserData.getInstance().getUserModel().getId();
             if (!isSender) {
+                if (!message.isSeen()) {
+                    setConversationToUnreadMessages = true;
+                }
                 message.setSeen(true);
             }
 
@@ -168,17 +182,21 @@ public class ChatPageContentController extends ChangeableSceneWithModelControlle
 
     @Override
     public void onSetModelId(Integer modelId) {
-        this.modelId = modelId;
-        Optional<TableCardModel> first = discussionsCards.stream().filter(i -> {
-            if (i instanceof DiscussionHeaderCardModel) {
-                return ((DiscussionHeaderCardModel) i).getDiscussionModel().getIds().contains(modelId);
-            }
-            return false;
-        }).findFirst();
+        if (!LoggedUserData.getInstance().isUserLogged())
+            return;
 
-        first.ifPresent(tableCardModel -> {
-            DiscussionHeaderCardModel model = (DiscussionHeaderCardModel) tableCardModel;
-            switchConversation(model);
-        });
+        this.modelId = modelId;
+        int notReadIndex = 0;
+        for (int i = 0; i < discussionsCards.size(); i++) {
+            TableCardModel tableCardModel = discussionsCards.get(i);
+            if (tableCardModel instanceof DiscussionHeaderCardModel) {
+                if (discussionService.checkNewMessage(LoggedUserData.getInstance().getUserModel().getId())) {
+                    notReadIndex = i;
+                }
+            }
+        }
+
+        DiscussionHeaderCardModel model = (DiscussionHeaderCardModel) discussionsCards.get(notReadIndex);
+        switchConversation(model);
     }
 }

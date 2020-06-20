@@ -129,14 +129,13 @@ public class ChatPageContentControllerTest extends ApplicationTest {
 
         when(discussionService.getDiscussionsUsingId(6)).thenReturn(discussionModels);
         when(userService.getUser(3)).thenReturn(new UserModel(3, "bar3@yahoo.com", "psfwddew", "Bar3", UserType.Manager));
-        when(userService.getUser(1)).thenReturn(new UserModel(1, "bar@yahoo.com", "psdccw", "Bar", UserType.Manager));
 
         chatPageContentController.initialize(null, null);
 
         chatPageContentController.onSetModelId(1);
 
-        assertEquals(messages.size(), chatPageContentController.messagesVBox.getChildren().size());
-        assertEquals(CONVERSATION_WITH_TEXT + " " + chatPageContentController.discussionHeaderTableViewController.getItem(1).toString(),
+        assertEquals(0, chatPageContentController.messagesVBox.getChildren().size());
+        assertEquals(CONVERSATION_WITH_TEXT + " " + chatPageContentController.discussionHeaderTableViewController.getItem(0).toString(),
                 chatPageContentController.conversationWithLabel.getText());
     }
 
@@ -159,7 +158,7 @@ public class ChatPageContentControllerTest extends ApplicationTest {
         chatPageContentController.initialize(null, null);
         int size = chatPageContentController.messagesVBox.getChildren().size();
         chatPageContentController.onSendButtonClick(null);
-        assertEquals(size + 1, chatPageContentController.messagesVBox.getChildren().size());
+        assertEquals(size , chatPageContentController.messagesVBox.getChildren().size());
         assertTrue(chatPageContentController.enterMessageTextField.getText().isEmpty());
     }
 

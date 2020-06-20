@@ -75,6 +75,6 @@ public final class ApplicationResourceStrings {
 
     public static final String REQUIRED_FIELD_ERROR_MESSAGE = "* Camp Obligatoriu";
     public static final String INVALID_EMAIL_ERROR_MESSAGE = "* Adresa de email invalida";
-    public static final String PASSWORDS_DONT_MATCH_ERROR_MESSAGE = "* Cele doua parole nu sunt identice";
+    public static final String PASSWORDS_DONT_MATCH_ERROR_MESSAGE = "* Parolele nu corespund";
     public static final String INVALID_ARTIST_NAME_ERROR_MESSAGE = "* Artist/formatie inexistent(a)";
 }
