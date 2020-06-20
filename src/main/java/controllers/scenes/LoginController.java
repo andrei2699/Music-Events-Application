@@ -57,10 +57,9 @@ public class LoginController implements Initializable {
         setAllLabelsInvisible();
         boolean canLogin = true;
 
-        if (StringValidator.isStringEmpty(emailTextField.getText())) {
-            emailTextField.requestFocus();
-            emailErrorLabel.setText(REQUIRED_FIELD_ERROR_MESSAGE);
-            emailErrorLabel.setVisible(true);
+        if (StringValidator.isStringEmpty(passwordTextField.getText())) {
+            passwordTextField.requestFocus();
+            passwordErrorLabel.setVisible(true);
             canLogin = false;
         }
 
@@ -71,9 +70,10 @@ public class LoginController implements Initializable {
             canLogin = false;
         }
 
-        if (StringValidator.isStringEmpty(passwordTextField.getText())) {
-            passwordTextField.requestFocus();
-            passwordErrorLabel.setVisible(true);
+        if (StringValidator.isStringEmpty(emailTextField.getText())) {
+            emailTextField.requestFocus();
+            emailErrorLabel.setText(REQUIRED_FIELD_ERROR_MESSAGE);
+            emailErrorLabel.setVisible(true);
             canLogin = false;
         }
 
@@ -83,6 +83,7 @@ public class LoginController implements Initializable {
                 onSkipPageButtonClick(actionEvent);
             } else {
                 incorrectCredentialsError.setVisible(true);
+                emailTextField.requestFocus();
             }
         }
     }
