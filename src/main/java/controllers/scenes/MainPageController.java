@@ -29,14 +29,25 @@ public class MainPageController implements Initializable {
     @FXML
     public ImageView moreActionsImage;
 
-    private ContextMenu moreActionsContextMenu;
-
     @FXML
-    private ImageView messageImage;
+    public ImageView messageImage;
 
-    private final Image noMessages = new Image(IMAGE_FOR_NO_MESSAGES_PATH);
+    protected ContextMenu moreActionsContextMenu;
 
-    private final Image newMessages = new Image(IMAGE_FOR_NEW_MESSAGES_PATH);
+    private final IDiscussionService discussionService;
+
+    protected final Image noMessages = new Image(IMAGE_FOR_NO_MESSAGES_PATH);
+    protected final Image newMessages = new Image(IMAGE_FOR_NEW_MESSAGES_PATH);
+
+    // for reflexion call
+    public MainPageController() {
+        this(ServiceProvider.getDiscussionService());
+    }
+
+    // for testing
+    protected MainPageController(IDiscussionService discussionService) {
+        this.discussionService = discussionService;
+    }
 
     @FXML
     public void onMoreActionsClicked(MouseEvent mouseEvent) {
@@ -103,22 +114,23 @@ public class MainPageController implements Initializable {
         }
     }
 
-    public void setMessageImage() {
+    public void onMessageClick(MouseEvent mouseEvent) {
+        UserModel user = LoggedUserData.getInstance().getUserModel();
+        if (user != null) {
+            messageImage.setImage(noMessages);
+            SceneSwitchController.getInstance().loadFXMLToMainPage(SceneSwitchController.SceneType.ChatContentScene, user.getId());
+        }
+    }
+
+    private void setMessageImage() {
         if (!LoggedUserData.getInstance().isBarManager() && !LoggedUserData.getInstance().isArtist()) {
             messageImage.setVisible(false);
             return;
         }
         UserModel user = LoggedUserData.getInstance().getUserModel();
-        IDiscussionService discussionService = ServiceProvider.getDiscussionService();
         if (discussionService.checkNewMessage(user.getId()))
             messageImage.setImage(newMessages);
         else
             messageImage.setImage(noMessages);
-    }
-
-    public void onMessageClick(MouseEvent mouseEvent) {
-        messageImage.setImage(noMessages);
-        UserModel user = LoggedUserData.getInstance().getUserModel();
-        SceneSwitchController.getInstance().loadFXMLToMainPage(SceneSwitchController.SceneType.ChatContentScene, user.getId());
     }
 }
