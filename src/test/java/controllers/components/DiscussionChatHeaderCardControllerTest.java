@@ -3,7 +3,7 @@ package controllers.components;
 import controllers.scenes.ISceneResponseCall;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import main.LoggedUserData;
 import models.DiscussionModel;
 import models.EventModel;
@@ -52,7 +52,7 @@ public class DiscussionChatHeaderCardControllerTest extends ApplicationTest {
 
         discussionChatHeaderCardController.profilePictureImage = new ImageView();
         discussionChatHeaderCardController.nameLabel = new Label();
-        discussionChatHeaderCardController.chatHeaderHBox = new HBox();
+        discussionChatHeaderCardController.chatHeaderHBox = new VBox();
 
         dummyDiscussionModel = new DiscussionModel(2, 3, 4);
         List<Message> messageList = new ArrayList<>();
