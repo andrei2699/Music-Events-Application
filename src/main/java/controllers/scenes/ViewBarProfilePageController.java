@@ -25,6 +25,10 @@ public class ViewBarProfilePageController extends AbstractViewProfilePageControl
                 || LoggedUserData.getInstance().isRegularUser() || LoggedUserData.getInstance().isBarManager();
         startChatButton.setVisible(!startChatButtonInvisible);
 
+        boolean gridInvisible = userModel == null || LoggedUserData.getInstance().isRegularUser() || (LoggedUserData.getInstance().getUserModel().getId() != userModel.getId() && LoggedUserData.getInstance().isBarManager());
+        scheduleGridController.setVisible(!gridInvisible);
+
+
         if (barModel != null) {
             addressLabel.setText(barModel.getAddress());
             profilePhoto.setImage(getProfileImage(barModel.getPath_to_image()));
@@ -34,11 +38,13 @@ public class ViewBarProfilePageController extends AbstractViewProfilePageControl
 
     @Override
     protected void onEditProfilePageButtonClick(ActionEvent actionEvent) {
+        addressLabel.requestFocus();
         SceneSwitchController.getInstance().loadFXMLToMainPage(SceneSwitchController.SceneType.EditBarProfileContentScene);
     }
 
     @Override
     protected void onStartChatButtonClick(ActionEvent actionEvent) {
+        addressLabel.requestFocus();
         IDiscussionService discussionService = ServiceProvider.getDiscussionService();
         discussionService.createDiscussion(barModel.getId(), LoggedUserData.getInstance().getUserModel().getId());
         SceneSwitchController.getInstance().loadFXMLToMainPage(SceneSwitchController.SceneType.ChatContentScene, barModel.getId());

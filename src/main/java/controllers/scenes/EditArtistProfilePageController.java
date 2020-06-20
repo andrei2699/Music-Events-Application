@@ -62,6 +62,7 @@ public class EditArtistProfilePageController extends AbstractEditProfilePageCont
 
     @Override
     public void onChoosePhotoButtonClick(ActionEvent actionEvent) {
+        bandMembersLabel.requestFocus();
         File selectedFile = openImageFileChooser();
         if (selectedFile != null) {
             artistModel.setPath_to_image(selectedFile.getPath());
@@ -77,6 +78,7 @@ public class EditArtistProfilePageController extends AbstractEditProfilePageCont
             artistModel.setPath_to_video(file.getPath());
             setVideo();
             artistService.updateArtist(artistModel);
+            videoPlayerComponentController.videoMediaView.requestFocus();
         }
     }
 

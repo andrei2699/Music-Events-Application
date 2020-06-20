@@ -1,7 +1,7 @@
 package controllers.scenes;
 
-import controllers.components.cardsTableView.DetailsTableConfigData;
 import controllers.components.cardsTableView.CardsTableViewController;
+import controllers.components.cardsTableView.DetailsTableConfigData;
 import controllers.components.scheduleGrid.ReadonlyScheduleLoadStrategy;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
