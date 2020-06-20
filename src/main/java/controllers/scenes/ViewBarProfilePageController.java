@@ -41,9 +41,8 @@ public class ViewBarProfilePageController extends AbstractViewProfilePageControl
                 || LoggedUserData.getInstance().isRegularUser() || LoggedUserData.getInstance().isBarManager();
         startChatButton.setVisible(!startChatButtonInvisible);
 
-        boolean gridInvisible = userModel == null || LoggedUserData.getInstance().isRegularUser() || (LoggedUserData.getInstance().isBarManager() && LoggedUserData.getInstance().getUserModel().getId() != userModel.getId());
+        boolean gridInvisible = userModel == null || LoggedUserData.getInstance().isRegularUser() || !LoggedUserData.getInstance().isUserLogged() || (LoggedUserData.getInstance().isBarManager() && LoggedUserData.getInstance().getUserModel().getId() != userModel.getId());
         scheduleGridController.setVisible(!gridInvisible);
-
 
         if (barModel != null) {
             addressLabel.setText(barModel.getAddress());
