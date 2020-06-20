@@ -1,7 +1,6 @@
 package controllers.components;
 
 import controllers.scenes.ISceneResponseCall;
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
@@ -9,7 +8,7 @@ import javafx.scene.control.TableCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import main.LoggedUserData;
 import models.ArtistModel;
 import models.BarModel;
@@ -36,7 +35,7 @@ public class DiscussionChatHeaderCardController extends TableCell<TableCardModel
     @FXML
     public Label nameLabel;
     @FXML
-    public HBox chatHeaderHBox;
+    public VBox chatHeaderHBox;
 
     private ISceneResponseCall<DiscussionHeaderCardModel> onCardModelSet;
 

@@ -7,38 +7,29 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<HBox fx:id="chatHeaderHBox" alignment="CENTER" styleClass="card" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
-    <GridPane hgap="10.0">
-        <columnConstraints>
-            <ColumnConstraints hgrow="NEVER" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0" />
-        </columnConstraints>
-        <rowConstraints>
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-        </rowConstraints>
-        <HBox.margin>
-            <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
-        </HBox.margin>
-        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-            <ImageView fx:id="profilePictureImage" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true"
-                       preserveRatio="true">
-                <Image url="@../../Images/defaultUserPhoto.png"/>
-                <viewport>
-                    <Rectangle2D/>
-                </viewport>
-            </ImageView>
-        </HBox>
-        <HBox alignment="CENTER" fillHeight="false" prefHeight="30.0" prefWidth="134.0" GridPane.columnIndex="1">
-            <Label fx:id="nameLabel" text="Name ">
-                <font>
-                    <Font name="System Bold" size="16.0" />
-                </font>
-            </Label>
-        </HBox>
-    </GridPane>
+<VBox fx:id="chatHeaderHBox" alignment="CENTER" spacing="10.0" styleClass="card" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
+
+    <VBox.margin>
+        <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+    </VBox.margin>
+    <HBox alignment="CENTER">
+        <ImageView fx:id="profilePictureImage" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+            <Image url="@../../Images/defaultUserPhoto.png" />
+            <viewport>
+                <Rectangle2D />
+            </viewport>
+        </ImageView>
+    </HBox>
+    <HBox alignment="CENTER" GridPane.rowIndex="1">
+        <Label fx:id="nameLabel" text="Name ">
+            <font>
+                <Font name="System Bold" size="16.0" />
+            </font>
+        </Label>
+    </HBox>
 
     <stylesheets>
         <URL value="@../../css/material-fx-v0_3.css" />
         <URL value="@../../css/stylesheet.css" />
     </stylesheets>
-</HBox>
+</VBox>
