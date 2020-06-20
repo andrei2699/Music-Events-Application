@@ -79,15 +79,6 @@ public class ViewRegularUserProfilePageControllerTest extends ApplicationTest {
         viewRegularUserProfilePageController.initialize(null, null);
         assertEquals("User Name", viewRegularUserProfilePageController.nameLabel.getText());
 
-        boolean shouldFail = true;
-        try {
-            ReservationModel reservationModel = ((ReservationCardModel) viewRegularUserProfilePageController.reservationsTableViewController.getItem(0)).getReservationModel();
-            assertNull(reservationModel);
-            shouldFail=false;
-        } catch (IndexOutOfBoundsException e) {
-            shouldFail=false;
-        }
-        if(shouldFail)
-            fail();
+        assertNull( viewRegularUserProfilePageController.reservationsTableViewController.getItem(0));
     }
 }
