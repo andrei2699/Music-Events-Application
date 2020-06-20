@@ -25,6 +25,7 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import static main.ApplicationResourceStrings.*;
@@ -44,10 +45,9 @@ public class ChatPageContentController extends ChangeableSceneWithModelControlle
     public Label conversationWithLabel;
 
     private DiscussionHeaderCardModel openedHeaderCardModel;
-
     private IDiscussionService discussionService;
-
     private Integer modelId;
+    private ObservableList<TableCardModel> discussionsCards;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -88,7 +88,7 @@ public class ChatPageContentController extends ChangeableSceneWithModelControlle
             }
         });
 
-        ObservableList<TableCardModel> discussionsCards = FXCollections.observableArrayList();
+        discussionsCards = FXCollections.observableArrayList();
         if (LoggedUserData.getInstance().isUserLogged()) {
             List<DiscussionModel> discussions = discussionService.getDiscussionsUsingId(LoggedUserData.getInstance().getUserModel().getId());
             for (DiscussionModel discussionModel : discussions) {
@@ -125,9 +125,10 @@ public class ChatPageContentController extends ChangeableSceneWithModelControlle
     }
 
     private void switchConversation(DiscussionHeaderCardModel headerCardModel) {
-        openedHeaderCardModel = headerCardModel;
         if (headerCardModel == null || !LoggedUserData.getInstance().isUserLogged())
             return;
+
+        openedHeaderCardModel = headerCardModel;
 
         List<Message> messages = headerCardModel.getDiscussionModel().getMessages();
 
@@ -153,5 +154,16 @@ public class ChatPageContentController extends ChangeableSceneWithModelControlle
     @Override
     public void onSetModelId(Integer modelId) {
         this.modelId = modelId;
+        Optional<TableCardModel> first = discussionsCards.stream().filter(i -> {
+            if (i instanceof DiscussionHeaderCardModel) {
+                return ((DiscussionHeaderCardModel) i).getDiscussionModel().getIds().contains(modelId);
+            }
+            return false;
+        }).findFirst();
+
+        first.ifPresent(tableCardModel -> {
+            DiscussionHeaderCardModel model = (DiscussionHeaderCardModel) tableCardModel;
+            switchConversation(model);
+        });
     }
 }

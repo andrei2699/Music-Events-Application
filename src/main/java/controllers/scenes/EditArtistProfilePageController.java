@@ -77,6 +77,7 @@ public class EditArtistProfilePageController extends AbstractEditProfilePageCont
             artistModel.setPath_to_video(file.getPath());
             setVideo();
             artistService.updateArtist(artistModel);
+            videoPlayerComponentController.videoMediaView.requestFocus();
         }
     }
 
