@@ -1,16 +1,19 @@
 package models.cards;
 
 import models.BarModel;
-import services.ServiceProvider;
 import services.IUserService;
+import services.ServiceProvider;
 
 public class BarCardModel implements TableCardModel {
     private final String barName;
     private final BarModel barModel;
 
     public BarCardModel(BarModel barModel) {
+        this(barModel, ServiceProvider.getUserService());
+    }
+
+    public BarCardModel(BarModel barModel, IUserService userService) {
         this.barModel = barModel;
-        IUserService userService = ServiceProvider.getUserService();
         barName = userService.getUser(this.barModel.getId()).getName();
     }
 
@@ -23,7 +26,9 @@ public class BarCardModel implements TableCardModel {
     }
 
     public boolean containsFilter(String filter) {
-        return getBarName().toLowerCase().contains(filter) || getBarModel().getAddress().toLowerCase().contains(filter);
+        if (filter == null)
+            return true;
+        return getBarName().toLowerCase().contains(filter.toLowerCase()) || getBarModel().getAddress().toLowerCase().contains(filter.toLowerCase());
     }
 
     public BarCardModel getBarCardModel() {
