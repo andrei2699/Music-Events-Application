@@ -49,9 +49,18 @@ public class ChatPageContentController extends ChangeableSceneWithModelControlle
     private Integer modelId;
     private ObservableList<TableCardModel> discussionsCards;
 
+    // for reflexion
+    public ChatPageContentController() {
+        this(ServiceProvider.getDiscussionService());
+    }
+
+    // for test
+    protected ChatPageContentController(IDiscussionService discussionService) {
+        this.discussionService = discussionService;
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        discussionService = ServiceProvider.getDiscussionService();
         enterMessageTextField.requestFocus();
 
         final boolean[] focusSetOnFirstHeader = {false};
@@ -98,11 +107,12 @@ public class ChatPageContentController extends ChangeableSceneWithModelControlle
 
         discussionHeaderTableViewController.setItems(discussionsCards);
 
-        try {
-            switchConversation((DiscussionHeaderCardModel) discussionHeaderTableViewController.getItem(0));
-        } catch (IndexOutOfBoundsException ignored) {
+        TableCardModel item = discussionHeaderTableViewController.getItem(0);
+        if (item == null) {
             enterMessageTextField.setDisable(true);
             sendButton.setDisable(true);
+        } else {
+            switchConversation((DiscussionHeaderCardModel) item);
         }
     }
 
