@@ -41,7 +41,7 @@ jobs:
 
       # Builds and installs the artifact
       - name: Build and Install
-        run: gradle clean build --debug
+        run: gradle clean build
 
       # Uploads the Artifact to Github. You will be able to find it on your action workflow run
       - name: Upload Artifact
