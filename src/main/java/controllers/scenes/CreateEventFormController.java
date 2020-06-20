@@ -9,8 +9,8 @@ import main.SceneSwitchController;
 import models.EventModel;
 import models.UserModel;
 import services.IEventService;
-import services.ServiceProvider;
 import services.IUserService;
+import services.ServiceProvider;
 
 import java.net.URL;
 import java.time.LocalDate;
@@ -64,11 +64,19 @@ public class CreateEventFormController extends ChangeableSceneWithModelControlle
 
     private EventModel eventModel;
 
+    //pentru apelul prin reflexie
+    public CreateEventFormController() {
+        this(ServiceProvider.getUserService(), ServiceProvider.getEventService());
+    }
+
+    //pentru testare
+    protected CreateEventFormController(IUserService iUserService, IEventService iEventService) {
+        this.userService = iUserService;
+        this.eventService = iEventService;
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        eventService = ServiceProvider.getEventService();
-        userService = ServiceProvider.getUserService();
-
         setAllLabelsInvisible();
 
         Integer[] hours = new Integer[24];
@@ -85,7 +93,8 @@ public class CreateEventFormController extends ChangeableSceneWithModelControlle
             }
         });
 
-        barNameField.setText(LoggedUserData.getInstance().getUserModel().getName());
+        if (LoggedUserData.getInstance().isUserLogged())
+            barNameField.setText(LoggedUserData.getInstance().getUserModel().getName());
     }
 
     @FXML
