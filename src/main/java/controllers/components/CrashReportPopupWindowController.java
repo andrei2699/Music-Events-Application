@@ -28,6 +28,7 @@ public class CrashReportPopupWindowController implements Initializable {
     }
 
     private void onCloseButtonClick(ActionEvent actionEvent) {
+        crashMessageLabel.requestFocus();
         SceneSwitchController.getInstance().closeCrashReportPopup();
     }
 

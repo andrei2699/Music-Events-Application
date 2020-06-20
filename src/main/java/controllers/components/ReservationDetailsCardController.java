@@ -83,6 +83,7 @@ public class ReservationDetailsCardController extends TableCell<TableCardModel, 
     }
 
     public void onExportPDFButtonClick(ActionEvent actionEvent) {
+        artistNameLabel.requestFocus();
         File selectedFile = openFileChooser();
         if (selectedFile != null) {
             ExportAsPDF exportPDF = new ExportAsPDF();

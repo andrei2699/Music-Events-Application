@@ -77,6 +77,7 @@ public class ArtistDetailsCardController extends TableCell<TableCardModel, Table
     }
 
     private void onGoToProfilePageButtonClick(ActionEvent actionEvent) {
+        artistNameLabel.requestFocus();
         SceneSwitchController.getInstance().loadFXMLToMainPage(SceneSwitchController.SceneType.ViewArtistProfileContentScene, artistModel.getId());
     }
 }

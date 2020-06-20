@@ -62,6 +62,7 @@ public class EditArtistProfilePageController extends AbstractEditProfilePageCont
 
     @Override
     public void onChoosePhotoButtonClick(ActionEvent actionEvent) {
+        bandMembersLabel.requestFocus();
         File selectedFile = openImageFileChooser();
         if (selectedFile != null) {
             artistModel.setPath_to_image(selectedFile.getPath());
