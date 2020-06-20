@@ -54,11 +54,13 @@ public class ViewArtistProfilePageController extends AbstractViewProfilePageCont
 
     @Override
     protected void onEditProfilePageButtonClick(ActionEvent actionEvent) {
+        genreLabel.requestFocus();
         SceneSwitchController.getInstance().loadFXMLToMainPage(SceneSwitchController.SceneType.EditArtistProfileContentScene);
     }
 
     @Override
     protected void onStartChatButtonClick(ActionEvent actionEvent) {
+        startChatButton.requestFocus();
         if (artistModel != null && LoggedUserData.getInstance().isUserLogged()) {
             discussionService.createDiscussion(artistModel.getId(), LoggedUserData.getInstance().getUserModel().getId());
             SceneSwitchController.getInstance().loadFXMLToMainPage(SceneSwitchController.SceneType.ChatContentScene, artistModel.getId());

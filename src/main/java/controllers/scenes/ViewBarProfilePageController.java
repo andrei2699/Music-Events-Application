@@ -54,11 +54,13 @@ public class ViewBarProfilePageController extends AbstractViewProfilePageControl
 
     @Override
     protected void onEditProfilePageButtonClick(ActionEvent actionEvent) {
+        addressLabel.requestFocus();
         SceneSwitchController.getInstance().loadFXMLToMainPage(SceneSwitchController.SceneType.EditBarProfileContentScene);
     }
 
     @Override
     protected void onStartChatButtonClick(ActionEvent actionEvent) {
+        addressLabel.requestFocus();
         if (barModel != null && LoggedUserData.getInstance().isUserLogged()) {
             discussionService.createDiscussion(barModel.getId(), LoggedUserData.getInstance().getUserModel().getId());
             SceneSwitchController.getInstance().loadFXMLToMainPage(SceneSwitchController.SceneType.ChatContentScene, barModel.getId());
