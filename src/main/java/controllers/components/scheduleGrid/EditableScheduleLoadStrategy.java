@@ -52,7 +52,7 @@ public class EditableScheduleLoadStrategy extends ScheduleGridLoadStrategy {
             for (int row = 1; row < gridHBoxes[column].length; row++) {
                 ComboBox<Integer> comboBox = new ComboBox<>();
 
-                if (intervals != null && intervals.size() > 0) {
+                if (intervals != null && intervals.size() > 0 && column - 1 < intervals.size()) {
                     Interval interval = intervals.get(column - 1);
                     if (row == 1 && interval != null) {
                         comboBox.setValue(interval.getStart_hour());

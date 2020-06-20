@@ -25,6 +25,7 @@ public class VideoPlayerComponentController {
     }
 
     public void setVideo(String pathToVideo) {
+        if (pathToVideo == null) return;
         Media media = new Media(new File(pathToVideo).toURI().toString());
         mediaPlayer = new MediaPlayer(media);
         mediaPlayer.setAutoPlay(false);

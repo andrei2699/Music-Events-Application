@@ -1,8 +1,8 @@
 package models.cards;
 
 import models.EventModel;
-import services.ServiceProvider;
 import services.IUserService;
+import services.ServiceProvider;
 
 public class EventCardModel implements TableCardModel {
     private final String barName;
@@ -10,8 +10,11 @@ public class EventCardModel implements TableCardModel {
     private final EventModel eventModel;
 
     public EventCardModel(EventModel eventModel) {
+        this(eventModel, ServiceProvider.getUserService());
+    }
+
+    public EventCardModel(EventModel eventModel, IUserService userService) {
         this.eventModel = eventModel;
-        IUserService userService = ServiceProvider.getUserService();
         barName = userService.getUser(eventModel.getBar_manager_id()).getName();
         artistName = userService.getUser(eventModel.getArtist_id()).getName();
     }
@@ -29,9 +32,11 @@ public class EventCardModel implements TableCardModel {
     }
 
     public boolean containsFilter(String filter) {
-        return getEventModel().getName().toLowerCase().contains(filter) ||
-                getArtistName().toLowerCase().contains(filter) ||
-                getBarName().toLowerCase().contains(filter);
+        if (filter == null)
+            return true;
+        return getEventModel().getName().toLowerCase().contains(filter.toLowerCase()) ||
+                getArtistName().toLowerCase().contains(filter.toLowerCase()) ||
+                getBarName().toLowerCase().contains(filter.toLowerCase());
     }
 
     public EventCardModel getEventCardModel() {

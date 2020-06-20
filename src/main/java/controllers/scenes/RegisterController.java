@@ -81,6 +81,7 @@ public class RegisterController implements Initializable {
     }
 
     public void onGoToLoginPageClick(ActionEvent actionEvent) {
+        confirmPasswordErrorLabel.requestFocus();
         SceneSwitchController.getInstance().switchToLoginScene();
     }
 
@@ -89,34 +90,41 @@ public class RegisterController implements Initializable {
         boolean canCreateAccount = true;
 
         if (StringValidator.isStringEmpty(nameTextField.getText())) {
+            nameTextField.requestFocus();
             showErrorLabel(nameErrorLabel);
             canCreateAccount = false;
         }
         if (StringValidator.isStringEmpty(emailTextField.getText())) {
+            emailTextField.requestFocus();
             showErrorLabel(emailErrorLabel, REQUIRED_FIELD_ERROR_MESSAGE);
             canCreateAccount = false;
         }
         if (!validateEmailAddress(emailTextField.getText())) {
+            emailTextField.requestFocus();
             showErrorLabel(emailErrorLabel, INVALID_EMAIL_ERROR_MESSAGE);
             canCreateAccount = false;
         }
 
         if (StringValidator.isStringEmpty(passwordTextField.getText())) {
+            passwordTextField.requestFocus();
             showErrorLabel(passwordErrorLabel);
             canCreateAccount = false;
         }
 
         if (StringValidator.isStringEmpty(confirmPasswordTextField.getText())) {
+            confirmPasswordTextField.requestFocus();
             showErrorLabel(confirmPasswordErrorLabel, REQUIRED_FIELD_ERROR_MESSAGE);
             canCreateAccount = false;
         }
 
         if (!validateEqualPasswordsFields()) {
+            confirmPasswordTextField.requestFocus();
             showErrorLabel(confirmPasswordErrorLabel, PASSWORDS_DONT_MATCH_ERROR_MESSAGE);
             canCreateAccount = false;
         }
 
         if (emailExists()) {
+            emailTextField.requestFocus();
             showErrorLabel(emailInUseErrorLabel);
             canCreateAccount = false;
         }
@@ -140,6 +148,7 @@ public class RegisterController implements Initializable {
     }
 
     public void onSkipPageButtonClick(ActionEvent actionEvent) {
+        confirmPasswordErrorLabel.requestFocus();
         SceneSwitchController.getInstance().switchToMainScene();
     }
 

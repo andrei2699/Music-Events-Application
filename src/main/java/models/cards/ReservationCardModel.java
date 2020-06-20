@@ -6,6 +6,7 @@ import main.LoggedUserData;
 import models.BarModel;
 import models.EventModel;
 import models.ReservationModel;
+import services.IBarService;
 import services.IEventService;
 import services.IUserService;
 import services.ServiceProvider;
@@ -20,16 +21,18 @@ public class ReservationCardModel implements TableCardModel, IConvertCardToExpor
     private final String artistName;
     private final EventModel eventModel;
     private final ReservationModel reservationModel;
+    private final BarModel barModel;
 
     public ReservationCardModel(ReservationModel reservationModel) {
+        this(reservationModel, ServiceProvider.getUserService(), ServiceProvider.getEventService(), ServiceProvider.getBarService());
+    }
+
+    public ReservationCardModel(ReservationModel reservationModel, IUserService userService, IEventService eventService, IBarService barService) {
         this.reservationModel = reservationModel;
-
-        IUserService userService = ServiceProvider.getUserService();
-        IEventService eventService = ServiceProvider.getEventService();
-
         eventModel = eventService.getEventUsingEventId(reservationModel.getEvent_id());
         barName = userService.getUser(eventModel.getBar_manager_id()).getName();
         artistName = userService.getUser(eventModel.getArtist_id()).getName();
+        barModel = barService.getBar(eventModel.getBar_manager_id());
     }
 
     public String getBarName() {
@@ -49,9 +52,11 @@ public class ReservationCardModel implements TableCardModel, IConvertCardToExpor
     }
 
     public boolean containsFilter(String filter) {
-        return getEventModel().getName().toLowerCase().contains(filter) ||
-                getArtistName().toLowerCase().contains(filter) ||
-                getBarName().toLowerCase().contains(filter);
+        if (filter == null)
+            return true;
+        return getEventModel().getName().toLowerCase().contains(filter.toLowerCase()) ||
+                getArtistName().toLowerCase().contains(filter.toLowerCase()) ||
+                getBarName().toLowerCase().contains(filter.toLowerCase());
     }
 
     public ReservationCardModel getReservationCardModel() {
@@ -62,8 +67,6 @@ public class ReservationCardModel implements TableCardModel, IConvertCardToExpor
     public List<ExportRow> convertCardModelToExportRowList() {
         List<ExportRow> rowList = new ArrayList<>();
 
-        BarModel barModel = ServiceProvider.getBarService().getBar(eventModel.getBar_manager_id());
-
         rowList.add(new ExportRow(EVENT_NAME_TEXT, eventModel.getName()));
         rowList.add(new ExportRow(BAR_NAME_TEXT, barName));
         rowList.add(new ExportRow(BAR_ADRESS_TEXT, barModel.getAddress()));
@@ -71,7 +74,10 @@ public class ReservationCardModel implements TableCardModel, IConvertCardToExpor
         rowList.add(new ExportRow(DATE_TEXT, eventModel.getDate()));
         rowList.add(new ExportRow(HOUR_TEXT, eventModel.getStart_hour() + ""));
         rowList.add(new ExportRow(SEAT_NUMBER_TEXT, reservationModel.getReserved_seats() + ""));
-        rowList.add(new ExportRow(RESERVATION_MADE_BY_TEXT, LoggedUserData.getInstance().getUserModel().getName()));
+        if (LoggedUserData.getInstance().isUserLogged())
+            rowList.add(new ExportRow(RESERVATION_MADE_BY_TEXT, LoggedUserData.getInstance().getUserModel().getName()));
+        else
+            return null;
 
         return rowList;
     }
