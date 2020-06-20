@@ -76,7 +76,7 @@ public abstract class AbstractViewProfilePageController extends AbstractProfileP
 
     @Override
     protected void updateUIOnInitialize() {
-        boolean buttonInvisible = userModel == null || !LoggedUserData.getInstance().isUserLogged() || LoggedUserData.getInstance().getUserModel().getId() != userModel.getId();
+        boolean buttonInvisible = userModel == null || !LoggedUserData.getInstance().isUserLogged() || (LoggedUserData.getInstance().isUserLogged() && LoggedUserData.getInstance().getUserModel().getId() != userModel.getId());
         editProfilePageButton.setVisible(!buttonInvisible);
 
         if (userModel != null) {

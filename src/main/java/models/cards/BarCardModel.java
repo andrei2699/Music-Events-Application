@@ -12,7 +12,7 @@ public class BarCardModel implements TableCardModel {
         this(barModel, ServiceProvider.getUserService());
     }
 
-    public BarCardModel(BarModel barModel, IUserService userService) {
+    protected BarCardModel(BarModel barModel, IUserService userService) {
         this.barModel = barModel;
         barName = userService.getUser(this.barModel.getId()).getName();
     }
