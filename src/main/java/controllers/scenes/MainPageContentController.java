@@ -1,7 +1,7 @@
 package controllers.scenes;
 
-import controllers.components.cardsTableView.DetailsTableConfigData;
 import controllers.components.cardsTableView.CardsTableViewWithSearchbarController;
+import controllers.components.cardsTableView.DetailsTableConfigData;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -14,10 +14,7 @@ import models.cards.ArtistCardModel;
 import models.cards.BarCardModel;
 import models.cards.EventCardModel;
 import models.cards.TableCardModel;
-import services.IArtistService;
-import services.IBarService;
-import services.IEventService;
-import services.ServiceProvider;
+import services.*;
 
 import java.net.URL;
 import java.time.LocalDate;
@@ -39,13 +36,21 @@ public class MainPageContentController implements Initializable {
     private IEventService eventService;
     private IBarService barService;
     private IArtistService artistService;
+    private IUserService userService;
+
+    public MainPageContentController() {
+        this(ServiceProvider.getUserService(), ServiceProvider.getEventService(), ServiceProvider.getBarService(), ServiceProvider.getArtistService());
+    }
+
+    protected MainPageContentController(IUserService userService, IEventService eventService, IBarService barService, IArtistService artistService) {
+        this.userService = userService;
+        this.eventService = eventService;
+        this.barService = barService;
+        this.artistService = artistService;
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        eventService = ServiceProvider.getEventService();
-        barService = ServiceProvider.getBarService();
-        artistService = ServiceProvider.getArtistService();
-
         // events table view
         FilteredList<TableCardModel> eventModelFilteredList = new FilteredList<>(getAllEvents(), m -> true);
         eventsTableViewWithSearchbarController.setupTableData(SEARCH_FOR_EVENTS_TEXT, eventModelFilteredList, DetailsTableConfigData.getEventTableColumnData());
@@ -63,7 +68,7 @@ public class MainPageContentController implements Initializable {
         ObservableList<TableCardModel> eventModels = FXCollections.observableArrayList();
         List<EventModel> allEvents = eventService.getEventsStartingFrom(LocalDate.now(), LocalTime.now().getHour());
         for (EventModel eventModel : allEvents) {
-            eventModels.add(new EventCardModel(eventModel));
+            eventModels.add(new EventCardModel(eventModel, userService));
         }
 
         return eventModels;
@@ -74,7 +79,7 @@ public class MainPageContentController implements Initializable {
 
         List<BarModel> allEvents = barService.getAllBars();
         for (BarModel barModel : allEvents) {
-            barModels.add(new BarCardModel(barModel));
+            barModels.add(new BarCardModel(barModel, userService));
         }
 
         return barModels;
@@ -85,7 +90,7 @@ public class MainPageContentController implements Initializable {
 
         List<ArtistModel> allEvents = artistService.getAllArtists();
         for (ArtistModel artistModel : allEvents) {
-            artistModels.add(new ArtistCardModel(artistModel));
+            artistModels.add(new ArtistCardModel(artistModel, userService));
         }
 
         return artistModels;
