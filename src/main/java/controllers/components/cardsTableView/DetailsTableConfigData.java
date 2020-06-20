@@ -1,6 +1,9 @@
 package controllers.components.cardsTableView;
 
-import controllers.components.*;
+import controllers.components.ArtistDetailsCardController;
+import controllers.components.BarDetailsCardController;
+import controllers.components.EventDetailsCardController;
+import controllers.components.ReservationDetailsCardController;
 import javafx.scene.control.TableCell;
 import models.cards.TableCardModel;
 

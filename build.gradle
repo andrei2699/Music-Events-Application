@@ -2,7 +2,6 @@ plugins {
     id 'java'
     id 'application'
     id 'org.openjfx.javafxplugin' version '0.0.8'
-    id 'jacoco'
 }
 
 group 'org.example'
@@ -25,22 +24,6 @@ dependencies {
 javafx {
     version = "14"
     modules = ['javafx.controls', 'javafx.fxml', 'javafx.media']
-}
-
-test {
-    finalizedBy jacocoTestReport
-}
-
-jacoco{
-    toolVersion = "0.8.5"
-}
-
-jacocoTestReport{
-    reports{
-        html.enabled = true
-        xml.enabled = false
-        csv.enabled = false
-    }
 }
 
 mainClassName = 'main.Main'
