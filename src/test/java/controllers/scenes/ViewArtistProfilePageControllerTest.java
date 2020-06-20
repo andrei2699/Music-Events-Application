@@ -8,6 +8,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import main.LoggedUserData;
 import models.ArtistModel;
 import models.UserModel;
@@ -68,6 +69,7 @@ public class ViewArtistProfilePageControllerTest extends ApplicationTest {
         viewArtistProfilePageController.profilePhoto = new ImageView();
         viewArtistProfilePageController.scheduleGridController = new ScheduleGridController();
         viewArtistProfilePageController.scheduleGridController.scheduleGridPane = new GridPane();
+        viewArtistProfilePageController.scheduleGridController.gridVBox = new VBox();
         viewArtistProfilePageController.scheduleGridController.setLoadStrategy(new ReadonlyScheduleLoadStrategy());
     }
 
@@ -80,6 +82,25 @@ public class ViewArtistProfilePageControllerTest extends ApplicationTest {
         viewArtistProfilePageController.updateUIOnInitialize();
 
         assertTrue(viewArtistProfilePageController.startChatButton.isVisible());
+    }
+
+    @Test
+    public void testUpdateUIOnInitializeGridVisible() {
+        LoggedUserData.getInstance().setUserModel(new UserModel(123, EMAIL, PASSWORD, VALID_NAME, UserType.Manager));
+
+        when(userService.getUser(43)).thenReturn(artistUserModel);
+        viewArtistProfilePageController.onSetModelId(43);
+        viewArtistProfilePageController.updateUIOnInitialize();
+
+        assertTrue(viewArtistProfilePageController.scheduleGridController.gridVBox.isVisible());
+
+        LoggedUserData.getInstance().setUserModel(new UserModel(534, EMAIL, PASSWORD, VALID_NAME, UserType.RegularUser));
+        viewArtistProfilePageController.updateUIOnInitialize();
+        assertFalse(viewArtistProfilePageController.scheduleGridController.gridVBox.isVisible());
+
+        LoggedUserData.getInstance().setUserModel(new UserModel(34, EMAIL, PASSWORD, VALID_NAME, UserType.Artist));
+        viewArtistProfilePageController.updateUIOnInitialize();
+        assertFalse(viewArtistProfilePageController.scheduleGridController.gridVBox.isVisible());
     }
 
     @Test

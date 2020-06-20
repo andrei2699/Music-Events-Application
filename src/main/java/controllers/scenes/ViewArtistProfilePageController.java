@@ -76,6 +76,9 @@ public class ViewArtistProfilePageController extends AbstractViewProfilePageCont
                 || LoggedUserData.getInstance().isRegularUser() || LoggedUserData.getInstance().isArtist();
         startChatButton.setVisible(!startChatButtonInvisible);
 
+        boolean gridInvisible = userModel == null || LoggedUserData.getInstance().isRegularUser() || (LoggedUserData.getInstance().isArtist() && LoggedUserData.getInstance().getUserModel().getId() != userModel.getId());
+        scheduleGridController.setVisible(!gridInvisible);
+
         if (artistModel != null) {
             genreLabel.setText(artistModel.getGenre());
             profilePhoto.setImage(getProfileImage(artistModel.getPath_to_image()));
