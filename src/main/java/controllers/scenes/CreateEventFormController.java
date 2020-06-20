@@ -11,6 +11,7 @@ import models.UserModel;
 import services.IEventService;
 import services.ServiceProvider;
 import services.IUserService;
+import utils.StringValidator;
 
 import java.net.URL;
 import java.time.LocalDate;
@@ -96,41 +97,49 @@ public class CreateEventFormController extends ChangeableSceneWithModelControlle
 
         UserModel artistUserModel = userService.getArtist(artistNameField.getText());
 
-        if (eventNameField.getText().isEmpty() || eventNameField.getText().isBlank()) {
+        if (StringValidator.isStringEmpty(eventNameField.getText())) {
+            eventNameField.requestFocus();
             showErrorLabel(eventNameErrorLabel);
             canSaveDetails = false;
         }
+
         if (datePicker.getValue() == null) {
+            datePicker.requestFocus();
             showErrorLabel(dateErrorLabel);
             canSaveDetails = false;
         }
+
         if (startHourComboBox.getValue() == null) {
+            startHourComboBox.requestFocus();
             showErrorLabel(startHourErrorLabel);
             canSaveDetails = false;
         }
-        if (seatNumberField.getText().isEmpty() || seatNumberField.getText().isBlank()) {
+
+        if (StringValidator.isStringEmpty(seatNumberField.getText())) {
+            seatNumberField.requestFocus();
             showErrorLabel(seatNumberErrorLabel);
             canSaveDetails = false;
         }
+
         if (artistUserModel == null) {
+            artistNameField.requestFocus();
             showErrorLabel(artistNameErrorLabel, INVALID_ARTIST_NAME_ERROR_MESSAGE);
             canSaveDetails = false;
         }
-        if (artistNameField.getText().isEmpty() || artistNameField.getText().isBlank()) {
+
+        if (StringValidator.isStringEmpty(artistNameField.getText())) {
+            artistNameField.requestFocus();
             showErrorLabel(artistNameErrorLabel, REQUIRED_FIELD_ERROR_MESSAGE);
             canSaveDetails = false;
         }
+
         if (canSaveDetails) {
+            int numberOfSeats = Integer.parseInt(seatNumberField.getText());
             if (eventModel == null) {
-                int numberOfSeats = Integer.parseInt(seatNumberField.getText());
                 eventService.createEvent(LoggedUserData.getInstance().getUserModel().getId(),
                         artistUserModel.getId(), eventNameField.getText(), datePicker.getValue().toString(),
                         startHourComboBox.getValue(), numberOfSeats, descriptionField.getText());
-
-                SceneSwitchController.getInstance().loadFXMLToMainPage(SceneSwitchController.SceneType.MainSceneContent);
             } else {
-                int numberOfSeats = Integer.parseInt(seatNumberField.getText());
-
                 eventModel.setName(eventNameField.getText());
                 eventModel.setDescription(descriptionField.getText());
                 eventModel.setTotal_seats(numberOfSeats);
@@ -138,8 +147,8 @@ public class CreateEventFormController extends ChangeableSceneWithModelControlle
                 eventModel.setDate(datePicker.getValue().toString());
 
                 eventService.updateEvent(eventModel);
-                SceneSwitchController.getInstance().loadFXMLToMainPage(SceneSwitchController.SceneType.MainSceneContent);
             }
+            SceneSwitchController.getInstance().loadFXMLToMainPage(SceneSwitchController.SceneType.MainSceneContent);
         }
     }
 

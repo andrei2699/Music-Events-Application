@@ -80,7 +80,7 @@ public class ChatPageContentController extends ChangeableSceneWithModelControlle
                     if (modelId != null && headerController.hasModelId(modelId)) {
                         if (!focusSetOnFirstHeader[0]) {
                             focusSetOnFirstHeader[0] = true;
-                            Platform.runLater(headerController::requestLayout);
+                            Platform.runLater(headerController::requestFocus);
                         }
                     }
                 });
@@ -109,6 +109,8 @@ public class ChatPageContentController extends ChangeableSceneWithModelControlle
     @FXML
     public void onSendButtonClick(ActionEvent actionEvent) {
         if (openedHeaderCardModel != null && LoggedUserData.getInstance().isUserLogged() && StringValidator.isStringNotEmpty(enterMessageTextField.getText())) {
+            enterMessageTextField.requestFocus();
+
             DiscussionModel discussionModel = openedHeaderCardModel.getDiscussionModel();
             LocalTime nowTime = LocalTime.now();
             LocalDate nowDate = LocalDate.now();

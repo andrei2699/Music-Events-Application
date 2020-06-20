@@ -150,6 +150,7 @@ public class EventDetailsCardController extends TableCell<TableCardModel, TableC
     }
 
     private void onReserveTicketButtonClick(ActionEvent actionEvent) {
+        barNameLabel.requestFocus();
         SceneSwitchController.getInstance().showReservationPopup(eventModel.getAvailableSeats(), numberOfSeats -> {
             eventModel.addReservedSeats(numberOfSeats);
             updateNumberOfSeats();
@@ -163,6 +164,7 @@ public class EventDetailsCardController extends TableCell<TableCardModel, TableC
     }
 
     private void onEditEventButtonClick(ActionEvent actionEvent) {
+        barNameLabel.requestFocus();
         SceneSwitchController.getInstance().loadFXMLToMainPage(SceneSwitchController.SceneType.CreateEventFormContentScene, eventModel.getId());
     }
 }
