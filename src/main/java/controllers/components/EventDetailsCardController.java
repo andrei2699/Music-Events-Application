@@ -125,12 +125,10 @@ public class EventDetailsCardController extends TableCell<TableCardModel, TableC
                         notEditableMessageLabel.setVisible(true);
                     }
                     actionButtonsHBox.getChildren().remove(reserveTicketButton);
-
                 }
             } else {
                 hideControlsForNotRegUserOrBar();
             }
-
             setGraphic(eventCardVBox);
         } else {
             setGraphic(null);
