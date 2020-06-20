@@ -69,7 +69,7 @@
                                     <Insets left="10.0" />
                                 </HBox.margin>
                             </Label>
-                            <TextArea fx:id="bandMembersField" prefWidth="300.0" promptText="Numele membrilor formației">
+                            <TextArea fx:id="bandMembersField" prefWidth="300.0" promptText="Numele membrilor formației" scrollTop="1.0" wrapText="true">
                                 <HBox.margin>
                                     <Insets bottom="5.0" top="5.0" />
                                 </HBox.margin>
