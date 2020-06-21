@@ -77,10 +77,10 @@ public class DiscussionServiceTest {
         dummyDiscussionModels.add(model5);
     }
 
-        @After
-        public void tearDown() {
-            discussionService = null;
-        }
+    @After
+    public void tearDown() {
+        discussionService = null;
+    }
 
     @Test
     public void testGetDiscussion() {
@@ -109,7 +109,7 @@ public class DiscussionServiceTest {
     public void testCreateDiscussion() {
         when(repository.getAll()).thenReturn(null);
         try {
-            discussionService.createDiscussion(5,6);
+            discussionService.createDiscussion(5, 6);
         } catch (NullPointerException e) {
             fail();
         }

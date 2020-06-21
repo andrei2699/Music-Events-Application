@@ -54,26 +54,33 @@ public class ChatPageContentControllerTest extends ApplicationTest {
     }
 
     @Test
-    public void testInitializeNullLoggedUser() {
-        LoggedUserData.getInstance().setUserModel(null);
-
+    public void testInitialize() {
         chatPageContentController.initialize(null, null);
 
         assertEquals(NO_CONVERSATIONS_TEXT, ((Label) chatPageContentController.discussionHeaderTableViewController.cardsTableView.getPlaceholder()).getText());
         assertEquals(CELL_FACTORY_VALUE, ((PropertyValueFactory<TableCardModel, TableCardModel>)
                 chatPageContentController.discussionHeaderTableViewController.cardsTableColumn.getCellValueFactory()).getProperty());
         assertEquals(CONVERSATIONS_TEXT, chatPageContentController.discussionHeaderTableViewController.cardsTableColumn.getText());
+    }
+
+    @Test
+    public void testOnSetModelIdNullLoggedUser() {
+        LoggedUserData.getInstance().setUserModel(null);
+
+        chatPageContentController.initialize(null, null);
+        chatPageContentController.onSetModelId(5);
         assertNull(chatPageContentController.discussionHeaderTableViewController.getItem(0));
         assertTrue(chatPageContentController.enterMessageTextField.isDisabled());
         assertTrue(chatPageContentController.sendButton.isDisabled());
     }
 
     @Test
-    public void testInitializeNoDiscussions() {
+    public void testOnSetModelIdNoDiscussions() {
         LoggedUserData.getInstance().setUserModel(new UserModel(1, "email@yahoo.com", "pass", "name", UserType.Artist));
         when(discussionService.getDiscussionsUsingId(1)).thenReturn(new ArrayList<>());
 
         chatPageContentController.initialize(null, null);
+        chatPageContentController.onSetModelId(1);
 
         assertEquals(NO_CONVERSATIONS_TEXT, ((Label) chatPageContentController.discussionHeaderTableViewController.cardsTableView.getPlaceholder()).getText());
         assertEquals(CELL_FACTORY_VALUE, ((PropertyValueFactory<TableCardModel, TableCardModel>)
@@ -85,7 +92,7 @@ public class ChatPageContentControllerTest extends ApplicationTest {
     }
 
     @Test
-    public void testInitializeWithDiscussions() {
+    public void testOnSetModelIdWithDiscussions() {
         LoggedUserData.getInstance().setUserModel(new UserModel(2, "local.bar@yahoo.com", "password", "manager name", UserType.Manager));
         ArrayList<DiscussionModel> discussionModels = new ArrayList<>();
         discussionModels.add(new DiscussionModel(1, 2, 5));
@@ -100,19 +107,17 @@ public class ChatPageContentControllerTest extends ApplicationTest {
         when(userService.getUser(5)).thenReturn(new UserModel(5, "artist2@yahoo.com", "psdasdccw", "Artist2", UserType.Artist));
 
         chatPageContentController.initialize(null, null);
+        chatPageContentController.onSetModelId(5);
 
         assertEquals(NO_CONVERSATIONS_TEXT, ((Label) chatPageContentController.discussionHeaderTableViewController.cardsTableView.getPlaceholder()).getText());
         assertEquals(CELL_FACTORY_VALUE, ((PropertyValueFactory<TableCardModel, TableCardModel>)
                 chatPageContentController.discussionHeaderTableViewController.cardsTableColumn.getCellValueFactory()).getProperty());
         assertEquals(CONVERSATIONS_TEXT, chatPageContentController.discussionHeaderTableViewController.cardsTableColumn.getText());
 
-        for (int i = 0; i < discussionModels.size(); i++) {
-            assertEquals(discussionModels.get(i), ((DiscussionHeaderCardModel) chatPageContentController.discussionHeaderTableViewController.getItem(i)).getDiscussionModel());
-        }
+        assertEquals(discussionModels.get(0), ((DiscussionHeaderCardModel) chatPageContentController.discussionHeaderTableViewController.getItem(0)).getDiscussionModel());
 
         assertEquals(messages.size(), chatPageContentController.messagesVBox.getChildren().size());
-        assertEquals(CONVERSATION_WITH_TEXT + " " + chatPageContentController.discussionHeaderTableViewController.getItem(0).toString(),
-                chatPageContentController.conversationWithLabel.getText());
+        assertEquals(CONVERSATION_WITH_TEXT + " " + chatPageContentController.discussionHeaderTableViewController.getItem(0).toString(), chatPageContentController.conversationWithLabel.getText());
     }
 
     @Test
@@ -128,14 +133,14 @@ public class ChatPageContentControllerTest extends ApplicationTest {
         discussionModels.add(new DiscussionModel(9, 7, 6));
 
         when(discussionService.getDiscussionsUsingId(6)).thenReturn(discussionModels);
-        when(userService.getUser(3)).thenReturn(new UserModel(3, "bar3@yahoo.com", "psfwddew", "Bar3", UserType.Manager));
+        when(userService.getUser(1)).thenReturn(new UserModel(1, "bar1@yahoo.com", "psfwdkkdew", "Bar", UserType.Manager));
 
         chatPageContentController.initialize(null, null);
 
         chatPageContentController.onSetModelId(1);
 
-        assertEquals(0, chatPageContentController.messagesVBox.getChildren().size());
-        assertEquals(CONVERSATION_WITH_TEXT + " " + chatPageContentController.discussionHeaderTableViewController.getItem(0).toString(),
+        assertEquals(2, chatPageContentController.messagesVBox.getChildren().size());
+        assertEquals(CONVERSATION_WITH_TEXT + " " + chatPageContentController.discussionHeaderTableViewController.getItem(1).toString(),
                 chatPageContentController.conversationWithLabel.getText());
     }
 
@@ -152,14 +157,12 @@ public class ChatPageContentControllerTest extends ApplicationTest {
         discussionModels.get(0).setMessages(messages);
         discussionModels.add(new DiscussionModel(6, 2, 6));
         discussionModels.add(new DiscussionModel(9, 2, 8));
-        when(discussionService.getDiscussionsUsingId(7)).thenReturn(discussionModels);
-        when(userService.getUser(2)).thenReturn(new UserModel(2, "bar3@yahoo.com", "psfwddew", "Bar3", UserType.Manager));
 
         chatPageContentController.initialize(null, null);
         int size = chatPageContentController.messagesVBox.getChildren().size();
         chatPageContentController.onSendButtonClick(null);
-        assertEquals(size , chatPageContentController.messagesVBox.getChildren().size());
-        assertTrue(chatPageContentController.enterMessageTextField.getText().isEmpty());
+        assertEquals(size, chatPageContentController.messagesVBox.getChildren().size());
+        assertEquals("Text", chatPageContentController.enterMessageTextField.getText());
     }
 
     @Test
@@ -175,8 +178,6 @@ public class ChatPageContentControllerTest extends ApplicationTest {
         discussionModels.get(0).setMessages(messages);
         discussionModels.add(new DiscussionModel(6, 2, 6));
         discussionModels.add(new DiscussionModel(9, 2, 8));
-        when(discussionService.getDiscussionsUsingId(7)).thenReturn(discussionModels);
-        when(userService.getUser(2)).thenReturn(new UserModel(2, "bar3@yahoo.com", "psfwddew", "Bar3", UserType.Manager));
 
         chatPageContentController.initialize(null, null);
         int size = chatPageContentController.messagesVBox.getChildren().size();
@@ -228,9 +229,6 @@ public class ChatPageContentControllerTest extends ApplicationTest {
         messages.add(new Message("03-05-2020", "Buna", 1));
         discussionModels.get(1).setMessages(messages);
         discussionModels.add(new DiscussionModel(9, 7, 6));
-
-        when(discussionService.getDiscussionsUsingId(6)).thenReturn(discussionModels);
-        when(userService.getUser(3)).thenReturn(new UserModel(3, "bar3@yahoo.com", "psfwddew", "Bar3", UserType.Manager));
 
         chatPageContentController.initialize(null, null);
         LoggedUserData.getInstance().setUserModel(null);
