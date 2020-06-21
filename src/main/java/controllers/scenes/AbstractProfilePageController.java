@@ -6,11 +6,10 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import services.IUserService;
 import services.ServiceProvider;
+import utils.StringValidator;
 
 import java.io.File;
-import java.net.URISyntaxException;
 import java.net.URL;
-import java.nio.file.Paths;
 import java.util.ResourceBundle;
 
 import static main.ApplicationResourceStrings.IMAGE_DEFAULT_USER_PHOTO_PATH;
@@ -41,15 +40,17 @@ public abstract class AbstractProfilePageController extends ChangeableSceneWithM
     protected abstract void updateUIOnInitialize();
 
     protected Image getProfileImage(String pathToImageFile) {
-        if (pathToImageFile.isEmpty()) {
-            try {
-                pathToImageFile = Paths.get(getClass().getResource(IMAGE_DEFAULT_USER_PHOTO_PATH).toURI()).toString();
-            } catch (URISyntaxException e) {
-                e.printStackTrace();
-            }
+        if (StringValidator.isStringEmpty(pathToImageFile)) {
+            return new Image(getClass().getResourceAsStream(IMAGE_DEFAULT_USER_PHOTO_PATH));
         }
 
-        File file = new File(pathToImageFile);
-        return new Image(file.toURI().toString(), true);
+        try {
+            File file = new File(pathToImageFile);
+            return new Image(file.toURI().toString(), true);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return new Image(getClass().getResourceAsStream(IMAGE_DEFAULT_USER_PHOTO_PATH));
     }
 }
