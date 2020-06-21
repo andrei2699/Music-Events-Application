@@ -47,4 +47,10 @@ public class DiscussionModel extends EntityModel {
     public int hashCode() {
         return Objects.hash(ids, messages);
     }
+
+    public boolean hasUnreadMessagesWith(int user_id) {
+        if (messages == null || messages.size() == 0)
+            return false;
+        return !messages.get(messages.size() - 1).isSeen() && messages.get(messages.size() - 1).getSender_id() != user_id;
+    }
 }
