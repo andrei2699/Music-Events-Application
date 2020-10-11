@@ -5,6 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import main.SceneSwitchController;
@@ -21,7 +22,13 @@ public class MakeReservationPopupWindowController implements Initializable {
     public Button reserveButton;
 
     @FXML
+    public Button cancelButton;
+
+    @FXML
     public TextField selectedTextField;
+
+    @FXML
+    public Label totalSeatsLabel;
 
     private int maximumNumberOfSeats;
     private ISceneResponseCall<Integer> numberOfSeatsResponseCall;
@@ -31,7 +38,7 @@ public class MakeReservationPopupWindowController implements Initializable {
         selectedSeatsSlider.setMax(maximumNumberOfSeats);
         selectedSeatsSlider.setMin(1);
         selectedTextField.setText("1");
-
+        totalSeatsLabel.setText("/ " + maximumNumberOfSeats);
 
         selectedTextField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue.matches("\\d*")) {
@@ -51,6 +58,8 @@ public class MakeReservationPopupWindowController implements Initializable {
         });
 
         reserveButton.setOnAction(this::onReserveButtonClick);
+
+        cancelButton.setOnAction(this::closePopup);
     }
 
     public void setMaximumNumberOfSeats(int maximumNumberOfSeats) {
@@ -66,6 +75,11 @@ public class MakeReservationPopupWindowController implements Initializable {
         if (numberOfSeatsResponseCall != null) {
             numberOfSeatsResponseCall.onResponseCall((int) selectedSeatsSlider.getValue());
         }
+        closePopup(actionEvent);
+    }
+
+    private void closePopup(ActionEvent actionEvent) {
         SceneSwitchController.getInstance().closeReservationPopup();
+
     }
 }
