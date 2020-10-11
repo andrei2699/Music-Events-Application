@@ -41,12 +41,12 @@ public class JavaFXBoot extends Application {
         primaryStage.setOnCloseRequest(event -> Platform.exit());
         primaryStage.show();
 
-        Thread.setDefaultUncaughtExceptionHandler((thread, throwable) -> {
-            SceneSwitchController.getInstance().showCrashPopup(throwable.getMessage());
-
-            ICrashService crashService = ServiceProvider.getCrashService();
-            crashService.createCrashReport(throwable);
-        });
+//        Thread.setDefaultUncaughtExceptionHandler((thread, throwable) -> {
+//            SceneSwitchController.getInstance().showCrashPopup(throwable.getMessage());
+//
+//            ICrashService crashService = ServiceProvider.getCrashService();
+//            crashService.createCrashReport(throwable);
+//        });
     }
 
     public static void main(String[] args) {

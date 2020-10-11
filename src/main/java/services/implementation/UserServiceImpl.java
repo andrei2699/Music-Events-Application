@@ -22,7 +22,7 @@ public class UserServiceImpl implements IUserService {
         List<UserModel> allUsers = getAllUsers();
         if (allUsers == null)
             return false;
-
+       // userRepository.setDestinationFileName("UserModel/validare.php");
         return allUsers.stream().anyMatch(u -> u.getEmail().equals(email) &&
                 u.getPassword().equals(StringEncryptor.encrypt(email, password)));
     }
@@ -58,26 +58,14 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public UserModel createUser(String email, String password, String userName, UserType userType) throws UserExistsException {
-        List<UserModel> users = getAllUsers();
 
-        if (users == null) {
-            users = new ArrayList<>();
-        }
-
-        int biggestId = -1;
-        for (UserModel user : users) {
-            if (user.getEmail().equals(email)) {
-                throw new UserExistsException();
-            }
-            if (user.getId() > biggestId) {
-                biggestId = user.getId();
-            }
-        }
-        UserModel userModel = new UserModel(biggestId + 1, email, StringEncryptor.encrypt(email, password), userName, userType);
-
-        userRepository.create(userModel);
-
-        return userModel;
+       // UserModel userModel = new UserModel(0, email, StringEncryptor.encrypt(email, password), userName, userType);
+        UserModel userModel = new UserModel(0, email, password, userName, userType);
+        userRepository.setDestinationFileName("UserModel/createUser.php");
+        UserModel userCreated = userRepository.create(userModel);
+        if (userCreated == null)
+            throw new UserExistsException();
+        return getUser(email);
     }
 
     @Override
@@ -98,6 +86,7 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public List<UserModel> getAllUsers() {
+        userRepository.setDestinationFileName("UserModel/index.php");
         return userRepository.getAll();
     }
 }

@@ -5,7 +5,7 @@ import repository.implemenation.JSONRepository;
 import services.implementation.*;
 
 public final class ServiceProvider {
-    private static final IStorageManager storageManager = new FileSystemManager();
+    private static final IStorageManager storageManager = new DataBaseSystemManager();
     private static final IUserService userService = new UserServiceImpl(new JSONRepository<>(UserModel.class, storageManager));
     private static final IBarService barService = new BarServiceImpl(new JSONRepository<>(BarModel.class, storageManager));
     private static final IArtistService artistService = new ArtistServiceImpl(new JSONRepository<>(ArtistModel.class, storageManager));

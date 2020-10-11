@@ -18,7 +18,7 @@ public class JSONRepository<T extends EntityModel> implements IRepository<T> {
 
     public JSONRepository(Class<T> modelClass, IStorageManager storageManager, boolean initFile) {
         clazz = modelClass;
-        this.fileName = (modelClass.getSimpleName() + ".json");
+        this.fileName = (modelClass.getSimpleName() + "/");
         this.storageManager = storageManager;
 
         if (initFile) {
@@ -40,51 +40,36 @@ public class JSONRepository<T extends EntityModel> implements IRepository<T> {
 
     @Override
     public T create(T entity) {
-        List<T> allData = getAll();
-
-        if (allData == null) {
-            allData = new ArrayList<>();
-        }
-
-        allData.add(entity);
-
         GsonBuilder gsonBuilder = new GsonBuilder();
-        Gson gson = gsonBuilder.setPrettyPrinting().create();
+        Gson gson = gsonBuilder.create();
 
-        String json = gson.toJson(allData);
-        storageManager.writeContent(fileName, json);
+        String json = gson.toJson(entity);
 
-        return entity;
+        String writeResponseMessage = storageManager.writeContent(fileName, json);
+
+        if(writeResponseMessage.contains("true")) {
+            return entity;
+        }
+        else {
+            return null;
+        }
     }
 
     @Override
     public T update(T entity) {
-        List<T> allData = getAll();
-
-        if (allData == null) {
-            return null;
-        }
-
-        boolean updated = false;
-        for (int i = 0; i < allData.size(); i++) {
-            if (allData.get(i).getId() == entity.getId()) {
-                allData.set(i, entity);
-                updated = true;
-                break;
-            }
-        }
-
-        if (!updated) {
-            return null;
-        }
-
         GsonBuilder gsonBuilder = new GsonBuilder();
         Gson gson = gsonBuilder.setPrettyPrinting().create();
 
-        String json = gson.toJson(allData);
-        storageManager.writeContent(fileName, json);
+        String json = gson.toJson(entity);
 
-        return entity;
+        String writeResponseMessage = storageManager.writeContent(fileName, json);
+
+        if(writeResponseMessage.contains("true")) {
+            return entity;
+        }
+        else {
+            return null;
+        }
     }
 
     @Override

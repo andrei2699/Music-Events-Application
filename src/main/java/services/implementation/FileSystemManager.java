@@ -36,7 +36,7 @@ public final class FileSystemManager implements IStorageManager {
     }
 
     @Override
-    public void writeContent(String fileName, String content) {
+    public String writeContent(String fileName, String content) {
         Path path = getPathToFile(fileName);
 
         if (Files.exists(path)) {
@@ -46,6 +46,7 @@ public final class FileSystemManager implements IStorageManager {
                 e.printStackTrace();
             }
         }
+        return "";
     }
 
     @Override
