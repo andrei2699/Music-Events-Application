@@ -1,6 +1,7 @@
 package services.implementation;
 
 import models.DiscussionModel;
+import models.EventModel;
 import models.other.Message;
 import repository.IRepository;
 import services.IDiscussionService;
@@ -27,36 +28,23 @@ public class DiscussionServiceImpl implements IDiscussionService {
 
     @Override
     public List<DiscussionModel> getAllDiscussions() {
+        discussionRepository.setDestinationFileName("DiscussionModel/");
         return discussionRepository.getAll();
     }
 
     @Override
     public DiscussionModel updateDiscussion(DiscussionModel discussionModel) {
+        discussionRepository.setDestinationFileName("DiscussionModel/");
         return discussionRepository.update(discussionModel);
     }
 
     @Override
-    public DiscussionModel createDiscussion(int bar_manager_id, int artist_id) {
-        List<DiscussionModel> allDiscussions = getAllDiscussions();
-
-        if (allDiscussions == null) {
-            DiscussionModel discussionModel = new DiscussionModel(0, bar_manager_id, artist_id);
-            return discussionRepository.create(discussionModel);
-        }
-
-        int biggestId = -1;
-        for (DiscussionModel discussion : allDiscussions) {
-            if (discussion.getId() > biggestId) {
-                biggestId = discussion.getId();
-            }
-            if (discussion.getIds().contains(bar_manager_id) && discussion.getIds().contains(artist_id)) {
-                return discussion;
-            }
-        }
-
-        DiscussionModel discussionModel = new DiscussionModel(biggestId + 1, bar_manager_id, artist_id);
-
-        return discussionRepository.create(discussionModel);
+    public void createDiscussion(int bar_manager_id, int artist_id) throws DiscussionNotCreatedException {
+        DiscussionModel discussionModel = new DiscussionModel(0, bar_manager_id, artist_id);
+        discussionRepository.setDestinationFileName("DiscussionModel/createDiscussion.php");
+        DiscussionModel discussionCreated = discussionRepository.create(discussionModel);
+        if (discussionCreated == null)
+            throw new DiscussionNotCreatedException();
     }
 
     @Override

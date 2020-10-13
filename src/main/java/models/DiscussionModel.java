@@ -11,19 +11,19 @@ import java.util.List;
 import java.util.Objects;
 
 public class DiscussionModel extends EntityModel {
-    private final List<Integer> ids;
+    private final String ids;
     private String messages;
 
     public DiscussionModel(int id, int bar_manager_id, int artist_id) {
         super(id);
-        ids = new ArrayList<>();
-        ids.add(bar_manager_id);
-        ids.add(artist_id);
+        ids = "[ " + bar_manager_id + ", " + artist_id + " ]";
         messages = "";
     }
 
     public List<Integer> getIds() {
-        return ids;
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        Gson gson = gsonBuilder.create();
+        return gson.fromJson(ids, new TypeToken<ArrayList<Integer>>(){}.getType());
     }
 
     public List<Message> getMessages() {

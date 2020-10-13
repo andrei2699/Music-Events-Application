@@ -13,6 +13,8 @@ import services.IArtistService;
 import services.IDiscussionService;
 import services.IUserService;
 import services.ServiceProvider;
+import services.implementation.DiscussionNotCreatedException;
+import services.implementation.EventNotCreatedException;
 import utils.StringValidator;
 
 public class ViewArtistProfilePageController extends AbstractViewProfilePageController {
@@ -62,7 +64,11 @@ public class ViewArtistProfilePageController extends AbstractViewProfilePageCont
     protected void onStartChatButtonClick(ActionEvent actionEvent) {
         startChatButton.requestFocus();
         if (artistModel != null && LoggedUserData.getInstance().isUserLogged()) {
-            discussionService.createDiscussion(artistModel.getId(), LoggedUserData.getInstance().getUserModel().getId());
+            try {
+                discussionService.createDiscussion(artistModel.getId(), LoggedUserData.getInstance().getUserModel().getId());
+            } catch (DiscussionNotCreatedException e) {
+                e.printStackTrace();
+            }
             SceneSwitchController.getInstance().loadFXMLToMainPage(SceneSwitchController.SceneType.ChatContentScene, artistModel.getId());
         }
     }

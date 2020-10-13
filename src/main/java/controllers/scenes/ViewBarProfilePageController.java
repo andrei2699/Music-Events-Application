@@ -10,6 +10,7 @@ import services.IBarService;
 import services.IDiscussionService;
 import services.IUserService;
 import services.ServiceProvider;
+import services.implementation.DiscussionNotCreatedException;
 
 public class ViewBarProfilePageController extends AbstractViewProfilePageController {
 
@@ -61,7 +62,11 @@ public class ViewBarProfilePageController extends AbstractViewProfilePageControl
     protected void onStartChatButtonClick(ActionEvent actionEvent) {
         addressLabel.requestFocus();
         if (barModel != null && LoggedUserData.getInstance().isUserLogged()) {
-            discussionService.createDiscussion(barModel.getId(), LoggedUserData.getInstance().getUserModel().getId());
+            try {
+                discussionService.createDiscussion(barModel.getId(), LoggedUserData.getInstance().getUserModel().getId());
+            } catch (DiscussionNotCreatedException e) {
+                e.printStackTrace();
+            }
             SceneSwitchController.getInstance().loadFXMLToMainPage(SceneSwitchController.SceneType.ChatContentScene, barModel.getId());
         }
     }
