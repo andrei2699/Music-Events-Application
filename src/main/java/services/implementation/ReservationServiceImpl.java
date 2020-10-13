@@ -1,5 +1,6 @@
 package services.implementation;
 
+import models.EventModel;
 import models.ReservationModel;
 import repository.IRepository;
 import services.IReservationService;
@@ -45,26 +46,15 @@ public class ReservationServiceImpl implements IReservationService {
 
     @Override
     public List<ReservationModel> getAllReservations() {
+        reservationRepository.setDestinationFileName("ReservationModel/");
         return reservationRepository.getAll();
     }
 
     @Override
-    public void makeReservation(int userId, int eventId, int numberOfSeats) {
-        List<ReservationModel> reservations = getAllReservations();
-
-        int biggestId = -1;
-
-        if (reservations != null) {
-
-            for (ReservationModel reservation : reservations) {
-                if (reservation.getId() > biggestId) {
-                    biggestId = reservation.getId();
-                }
-            }
-        }
-
-        ReservationModel reservationModel = new ReservationModel(biggestId + 1, userId, eventId, numberOfSeats);
-
-        reservationRepository.create(reservationModel);
+    public void makeReservation(int userId, int eventId, int numberOfSeats) throws ReservationNotCreatedException {
+        ReservationModel reservationModel = new ReservationModel(0, userId, eventId, numberOfSeats);
+        ReservationModel reservationCreated = reservationRepository.create(reservationModel);
+        if (reservationCreated == null)
+            throw new ReservationNotCreatedException();
     }
 }

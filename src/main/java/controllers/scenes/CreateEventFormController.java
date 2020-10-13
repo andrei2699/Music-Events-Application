@@ -11,6 +11,7 @@ import models.UserModel;
 import services.IEventService;
 import services.IUserService;
 import services.ServiceProvider;
+import services.implementation.EventNotCreatedException;
 import utils.StringValidator;
 
 import java.net.URL;
@@ -145,9 +146,13 @@ public class CreateEventFormController extends ChangeableSceneWithModelControlle
         if (canSaveDetails) {
             int numberOfSeats = Integer.parseInt(seatNumberField.getText());
             if (eventModel == null) {
-                eventService.createEvent(LoggedUserData.getInstance().getUserModel().getId(),
-                        artistUserModel.getId(), eventNameField.getText(), datePicker.getValue().toString(),
-                        startHourComboBox.getValue(), numberOfSeats, descriptionField.getText());
+                try {
+                    eventService.createEvent(LoggedUserData.getInstance().getUserModel().getId(),
+                            artistUserModel.getId(), eventNameField.getText(), datePicker.getValue().toString(),
+                            startHourComboBox.getValue(), numberOfSeats, descriptionField.getText());
+                } catch (EventNotCreatedException e) {
+                    e.printStackTrace();
+                }
             } else {
                 eventModel.setName(eventNameField.getText());
                 eventModel.setDescription(descriptionField.getText());

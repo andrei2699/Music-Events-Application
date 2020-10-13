@@ -1,5 +1,8 @@
 package models;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 import models.other.Interval;
 
 import java.util.ArrayList;
@@ -10,13 +13,13 @@ public class BarModel extends EntityModel {
 
     private String address;
     private String path_to_image;
-    private List<Interval> intervals;
+    private String intervals;
 
     public BarModel(int user_id, String address) {
         super(user_id);
         this.address = address;
         this.path_to_image = "";
-        this.intervals = new ArrayList<>();
+        this.intervals = "";
     }
 
     public String getAddress() {
@@ -36,11 +39,16 @@ public class BarModel extends EntityModel {
     }
 
     public List<Interval> getIntervals() {
-        return intervals;
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        Gson gson = gsonBuilder.create();
+        return gson.fromJson(intervals, new TypeToken<ArrayList<Interval>>(){}.getType());
     }
 
     public void setIntervals(List<Interval> intervals) {
-        this.intervals = intervals;
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        Gson gson = gsonBuilder.create();
+
+        this.intervals = gson.toJson(intervals);
     }
 
     @Override

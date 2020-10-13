@@ -1,5 +1,8 @@
 package models;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 import models.other.Interval;
 
 import java.util.ArrayList;
@@ -12,7 +15,7 @@ public class ArtistModel extends EntityModel {
     private String path_to_image;
     private String path_to_video;
     private String genre;
-    private List<Interval> intervals;
+    private String intervals;
     private String members; //solo artists do not have any members
 
     public ArtistModel(int user_id, boolean is_band, String genre) {
@@ -22,7 +25,7 @@ public class ArtistModel extends EntityModel {
         this.path_to_image = "";
         this.path_to_video = "";
         this.members = "";
-        this.intervals = new ArrayList<>();
+        this.intervals = "";
     }
 
     public void setPath_to_image(String path_to_image) {
@@ -38,7 +41,10 @@ public class ArtistModel extends EntityModel {
     }
 
     public void setIntervals(List<Interval> intervals) {
-        this.intervals = intervals;
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        Gson gson = gsonBuilder.create();
+
+        this.intervals = gson.toJson(intervals);
     }
 
     public void setMembers(String members) {
@@ -70,7 +76,9 @@ public class ArtistModel extends EntityModel {
     }
 
     public List<Interval> getIntervals() {
-        return intervals;
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        Gson gson = gsonBuilder.create();
+        return gson.fromJson(intervals, new TypeToken<ArrayList<Interval>>(){}.getType());
     }
 
     public String getMembers() {

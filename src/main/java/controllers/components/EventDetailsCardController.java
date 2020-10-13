@@ -15,6 +15,7 @@ import models.cards.TableCardModel;
 import services.IEventService;
 import services.IReservationService;
 import services.ServiceProvider;
+import services.implementation.ReservationNotCreatedException;
 
 import java.io.IOException;
 
@@ -164,7 +165,11 @@ public class EventDetailsCardController extends TableCell<TableCardModel, TableC
             eventService.updateEvent(eventModel);
 
             IReservationService reservationService = ServiceProvider.getReservationService();
-            reservationService.makeReservation(LoggedUserData.getInstance().getUserModel().getId(), eventModel.getId(), numberOfSeats);
+            try {
+                reservationService.makeReservation(LoggedUserData.getInstance().getUserModel().getId(), eventModel.getId(), numberOfSeats);
+            } catch (ReservationNotCreatedException e) {
+                e.printStackTrace();
+            }
         });
     }
 

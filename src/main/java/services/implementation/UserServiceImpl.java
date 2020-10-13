@@ -19,12 +19,13 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public boolean validateUserCredentials(String email, String password) {
-        List<UserModel> allUsers = getAllUsers();
-        if (allUsers == null)
+        userRepository.setDestinationFileName("UserModel/validare.php");
+        UserModel userModel = userRepository.create(new UserModel(0,email,password,"Name", UserType.RegularUser));
+        if(userModel==null){
             return false;
-       // userRepository.setDestinationFileName("UserModel/validare.php");
-        return allUsers.stream().anyMatch(u -> u.getEmail().equals(email) &&
-                u.getPassword().equals(StringEncryptor.encrypt(email, password)));
+        } else {
+            return true;
+        }
     }
 
     @Override

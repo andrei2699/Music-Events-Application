@@ -1,6 +1,7 @@
 package services.implementation;
 
 import models.EventModel;
+import models.UserModel;
 import repository.IRepository;
 import services.IEventService;
 
@@ -88,30 +89,23 @@ public class EventServiceImpl implements IEventService {
 
     @Override
     public void updateEvent(EventModel model) {
+        eventRepository.setDestinationFileName("EventModel/");
         eventRepository.update(model);
     }
 
     @Override
-    public EventModel createEvent(int bar_id, int artist_id, String eventName, String date, int startHour, int totalSeats, String description) {
-        List<EventModel> events = getAllEvents();
-
-        if (events == null)
-            events = new ArrayList<>();
-
-        int biggestId = -1;
-        for (EventModel event : events) {
-            if (event.getId() > biggestId) {
-                biggestId = event.getId();
-            }
-        }
-
-        EventModel eventModel = new EventModel(biggestId + 1, bar_id, artist_id, eventName, date, startHour, totalSeats, description);
-
-        return eventRepository.create(eventModel);
+    public EventModel createEvent(int bar_id, int artist_id, String eventName, String date, int startHour, int totalSeats, String description) throws EventNotCreatedException {
+        EventModel eventModel = new EventModel(0, bar_id, artist_id, eventName, date, startHour, totalSeats, description);
+        eventRepository.setDestinationFileName("EventModel/createEvent.php");
+        EventModel eventCreated = eventRepository.create(eventModel);
+        if (eventCreated == null)
+            throw new EventNotCreatedException();
+        return getEventUsingEventName(eventName);
     }
 
     @Override
     public List<EventModel> getAllEvents() {
+        eventRepository.setDestinationFileName("EventModel/");
         return eventRepository.getAll();
     }
 }
