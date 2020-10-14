@@ -72,6 +72,7 @@ public class ReservationCardModel implements TableCardModel, IConvertCardToExpor
         rowList.add(new ExportRow(BAR_ADRESS_TEXT, barModel.getAddress()));
         rowList.add(new ExportRow(ARTIST_NAME_TEXT, artistName));
         rowList.add(new ExportRow(DATE_TEXT, eventModel.getDate()));
+        rowList.add(new ExportRow(TICKET_PRICE_TEXT, eventModel.getPrice() + ""));
         rowList.add(new ExportRow(HOUR_TEXT, eventModel.getStart_hour() + ""));
         rowList.add(new ExportRow(SEAT_NUMBER_TEXT, reservationModel.getReserved_seats() + ""));
         if (LoggedUserData.getInstance().isUserLogged())

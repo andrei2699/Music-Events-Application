@@ -154,24 +154,26 @@ public class ReservationCardModelTest {
         LoggedUserData.getInstance().setUserModel(new UserModel(98, "email@gmail.com", "pass", "Name", UserType.RegularUser));
         resultList = reservationCardModel.convertCardModelToExportRowList();
 
-        assertEquals(8, resultList.size());
+        assertEquals(9, resultList.size());
 
         assertEquals(EVENT_NAME_TEXT, resultList.get(0).getAttributeName());
         assertEquals(BAR_NAME_TEXT, resultList.get(1).getAttributeName());
         assertEquals(BAR_ADRESS_TEXT, resultList.get(2).getAttributeName());
         assertEquals(ARTIST_NAME_TEXT, resultList.get(3).getAttributeName());
         assertEquals(DATE_TEXT, resultList.get(4).getAttributeName());
-        assertEquals(HOUR_TEXT, resultList.get(5).getAttributeName());
-        assertEquals(SEAT_NUMBER_TEXT, resultList.get(6).getAttributeName());
-        assertEquals(RESERVATION_MADE_BY_TEXT, resultList.get(7).getAttributeName());
+        assertEquals(TICKET_PRICE_TEXT, resultList.get(5).getAttributeName());
+        assertEquals(HOUR_TEXT, resultList.get(6).getAttributeName());
+        assertEquals(SEAT_NUMBER_TEXT, resultList.get(7).getAttributeName());
+        assertEquals(RESERVATION_MADE_BY_TEXT, resultList.get(8).getAttributeName());
 
         assertEquals("Super Event Name", resultList.get(0).getAttributeValue());
         assertEquals("Bar Name", resultList.get(1).getAttributeValue());
         assertEquals("Straad Mihai Viteazu Nr 17", resultList.get(2).getAttributeValue());
         assertEquals("Band Name", resultList.get(3).getAttributeValue());
         assertEquals("2020-08-09", resultList.get(4).getAttributeValue());
-        assertEquals(14 + "", resultList.get(5).getAttributeValue());
-        assertEquals(15 + "", resultList.get(6).getAttributeValue());
-        assertEquals("Name", resultList.get(7).getAttributeValue());
+        assertEquals("10", resultList.get(5).getAttributeValue());
+        assertEquals(14 + "", resultList.get(6).getAttributeValue());
+        assertEquals(15 + "", resultList.get(7).getAttributeValue());
+        assertEquals("Name", resultList.get(8).getAttributeValue());
     }
 }

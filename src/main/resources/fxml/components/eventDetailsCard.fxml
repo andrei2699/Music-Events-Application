@@ -21,7 +21,7 @@
             <Label fx:id="artistNameLabel" text="Nume Artist value" />
         </HBox>
         <HBox alignment="CENTER_LEFT" spacing="10.0">
-            <Label text="Pret Bilet:" />
+            <Label text="Pret Bilet (Lei):" />
             <Label fx:id="ticketPriceLabel" text="Pret bilet" />
         </HBox>
         <Accordion>

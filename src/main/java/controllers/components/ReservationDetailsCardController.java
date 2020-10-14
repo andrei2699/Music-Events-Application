@@ -37,6 +37,9 @@ public class ReservationDetailsCardController extends TableCell<TableCardModel, 
     public Label numberOfSeatsLabel;
 
     @FXML
+    public Label ticketPriceLabel;
+
+    @FXML
     public Label dateLabel;
 
     @FXML
@@ -73,6 +76,7 @@ public class ReservationDetailsCardController extends TableCell<TableCardModel, 
             barNameLabel.setText(reservationCardModel.getBarName());
             artistNameLabel.setText(reservationCardModel.getArtistName());
             numberOfSeatsLabel.setText(reservationModel.getReserved_seats() + "");
+            ticketPriceLabel.setText(eventModel.getPrice() + "");
             dateLabel.setText(eventModel.getDate());
             startHourLabel.setText(eventModel.getStart_hour() + "");
 

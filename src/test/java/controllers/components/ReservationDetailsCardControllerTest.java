@@ -53,6 +53,7 @@ public class ReservationDetailsCardControllerTest extends ApplicationTest {
         reservationDetailsCardController.startHourLabel = new Label();
         reservationDetailsCardController.reservationDetailsCardVBox = new VBox();
         reservationDetailsCardController.exportPDFButton = new Button();
+        reservationDetailsCardController.ticketPriceLabel = new Label();
 
         dummyReservationModel = new ReservationModel(1, 2, 3, RESERVED_SEATS);
         dummyEventModel = new EventModel(4, 5, 6, EVENT_NAME, 10, DATE, START_HOUR, TOTAL_SEATS);
@@ -88,6 +89,7 @@ public class ReservationDetailsCardControllerTest extends ApplicationTest {
         assertEquals(BAR_NAME, reservationDetailsCardController.barNameLabel.getText());
         assertEquals(ARTIST_NAME, reservationDetailsCardController.artistNameLabel.getText());
         assertEquals(DATE, reservationDetailsCardController.dateLabel.getText());
+        assertEquals("10", reservationDetailsCardController.ticketPriceLabel.getText());
         assertEquals(String.valueOf(START_HOUR), reservationDetailsCardController.startHourLabel.getText());
 
         assertNotNull(reservationDetailsCardController.getGraphic());
