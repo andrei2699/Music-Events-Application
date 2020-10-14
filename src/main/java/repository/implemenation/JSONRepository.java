@@ -83,4 +83,21 @@ public class JSONRepository<T extends EntityModel> implements IRepository<T> {
             storageManager.initStorageUnit(fileName, "[]");
         }
     }
+
+    @Override
+    public T delete(T entity) {
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        Gson gson = gsonBuilder.setPrettyPrinting().create();
+
+        String json = gson.toJson(entity);
+
+        String writeResponseMessage = storageManager.writeContent(fileName, json);
+
+        if(writeResponseMessage.contains("true")) {
+            return entity;
+        }
+        else {
+            return null;
+        }
+    }
 }

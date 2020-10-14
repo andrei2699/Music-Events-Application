@@ -220,12 +220,16 @@ public class EventServiceTest {
         EventModel dummyEventModel = new EventModel(10, 2, 5, "Eveniment nou", "2020-07-30", 14, 520, "Descrierea evenimentului");
         when(repository.getAll()).thenReturn(dummyEventModels);
         when(repository.create(dummyEventModel)).thenReturn(dummyEventModel);
-        assertEquals(dummyEventModel, eventService.createEvent(2, 5, "Eveniment nou", "2020-07-30", 14, 520, "Descrierea evenimentului"));
+        try {
+            assertEquals(dummyEventModel, eventService.createEvent(2, 5, "Eveniment nou", "2020-07-30", 14, 520, "Descrierea evenimentului"));
+        } catch (EventNotCreatedException e) {
+            fail();
+        }
 
         when(repository.getAll()).thenReturn(null);
         try {
             eventService.createEvent(6, 14, "Event nou", "2020-04-26", 12, 600, "Descrierea evenimentului");
-        } catch (NullPointerException e) {
+        } catch (NullPointerException | EventNotCreatedException e) {
             fail();
         }
     }

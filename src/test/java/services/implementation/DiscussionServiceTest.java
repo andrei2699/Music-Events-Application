@@ -110,7 +110,7 @@ public class DiscussionServiceTest {
         when(repository.getAll()).thenReturn(null);
         try {
             discussionService.createDiscussion(5, 6);
-        } catch (NullPointerException e) {
+        } catch (NullPointerException | DiscussionNotCreatedException e) {
             fail();
         }
     }

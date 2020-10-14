@@ -1,5 +1,6 @@
 package services.implementation;
 
+import models.EventModel;
 import models.ReservationModel;
 import org.junit.Before;
 import org.junit.Test;
@@ -20,13 +21,16 @@ public class ReservationServiceTest {
     @Mock
     private IRepository<ReservationModel> repository;
 
+    @Mock
+    private IRepository<EventModel> eventRepository;
+
     private IReservationService reservationService;
     private List<ReservationModel> dummyReservationModels;
 
     @Before
 
     public void setUp() {
-        reservationService = new ReservationServiceImpl(repository);
+        reservationService = new ReservationServiceImpl(repository,eventRepository);
 
         dummyReservationModels = new ArrayList<>();
         dummyReservationModels.add(new ReservationModel(1, 2, 5, 166));
@@ -89,7 +93,7 @@ public class ReservationServiceTest {
         when(repository.getAll()).thenReturn(null);
         try {
             reservationService.makeReservation(5, 12, 100);
-        } catch (NullPointerException e) {
+        } catch (NullPointerException | ReservationNotCreatedException e) {
             fail();
         }
     }

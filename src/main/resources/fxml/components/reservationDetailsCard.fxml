@@ -36,8 +36,13 @@
         </VBox.margin>
     </VBox>
    <Separator prefWidth="200.0" />
-   <Button fx:id="exportPDFButton" defaultButton="true" mnemonicParsing="false" styleClass="button-raised" text="Descarcă PDF" />
-   <HBox />
+   <HBox prefHeight="50.0" prefWidth="200.0" spacing="30.0">
+      <children>
+         <Button fx:id="exportPDFButton" defaultButton="true" mnemonicParsing="false" styleClass="button-raised" text="Descarcă PDF" />
+          <Button fx:id="deleteReservationButton" defaultButton="true" mnemonicParsing="false" styleClass="button-raised" text="Sterge rezervarea" />
+      </children>
+   </HBox>
+<!--   <HBox />-->
     <stylesheets>
         <URL value="@../../css/material-fx-v0_3.css" />
         <URL value="@../../css/stylesheet.css" />

@@ -13,5 +13,5 @@ public interface IRepository<T> {
 
     void initFile();
 
-//    T delete(T entity);
+    T delete(T entity);
 }

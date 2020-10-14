@@ -14,6 +14,9 @@ import models.EventModel;
 import models.ReservationModel;
 import models.cards.ReservationCardModel;
 import models.cards.TableCardModel;
+import services.IReservationService;
+import services.ServiceProvider;
+import services.implementation.ReservationNotDeletedException;
 
 import java.io.File;
 import java.io.IOException;
@@ -45,9 +48,20 @@ public class ReservationDetailsCardController extends TableCell<TableCardModel, 
     @FXML
     public Button exportPDFButton;
 
+    @FXML
+    public Button deleteReservationButton;
+
     private ReservationCardModel reservationCardModel;
 
+    private IReservationService reservationService;
+
+    // for testing
+    protected ReservationDetailsCardController(IReservationService reservationService) {
+        this.reservationService = reservationService;
+    }
+
     public ReservationDetailsCardController() {
+        this(ServiceProvider.getReservationService());
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(RESERVATION_DETAILS_CARD_FXML_PATH));
         fxmlLoader.setController(this);
 
@@ -68,6 +82,7 @@ public class ReservationDetailsCardController extends TableCell<TableCardModel, 
             EventModel eventModel = reservationCardModel.getEventModel();
 
             exportPDFButton.setOnAction(this::onExportPDFButtonClick);
+            deleteReservationButton.setOnAction(this::onDeleteReservationButtonClick);
 
             eventNameLabel.setText(eventModel.getName());
             barNameLabel.setText(reservationCardModel.getBarName());
@@ -88,6 +103,17 @@ public class ReservationDetailsCardController extends TableCell<TableCardModel, 
         if (selectedFile != null) {
             ExportAsPDF exportPDF = new ExportAsPDF();
             exportPDF.export(selectedFile, reservationCardModel.convertCardModelToExportRowList(), RESERVATION_TEXT);
+        }
+    }
+
+    public void onDeleteReservationButtonClick(ActionEvent actionEvent) {
+        artistNameLabel.requestFocus();
+        ReservationModel reservationModel = reservationCardModel.getReservationModel();
+        try {
+            reservationService.deleteReservation(reservationModel.getId());
+            reservationDetailsCardVBox.getChildren().clear();
+        } catch (ReservationNotDeletedException e) {
+            e.printStackTrace();
         }
     }
 
