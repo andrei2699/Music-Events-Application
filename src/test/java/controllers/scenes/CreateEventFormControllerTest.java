@@ -46,6 +46,8 @@ public class CreateEventFormControllerTest extends ApplicationTest {
         createEventFormController.dateErrorLabel = new Label();
         createEventFormController.titleLabel = new Label();
         createEventFormController.startHourComboBox = new ComboBox<>();
+        createEventFormController.ticketPriceTextField = new TextField();
+        createEventFormController.ticketPriceErrorLabel = new Label();
     }
 
     @Test
@@ -97,7 +99,7 @@ public class CreateEventFormControllerTest extends ApplicationTest {
 
     @Test
     public void testOnSetModelIdValid() {
-        EventModel eventModel = new EventModel(56, 67, 78, "Event Name", "2020-10-10", 12, 200, "Description");
+        EventModel eventModel = new EventModel(56, 67, 78, "Event Name", 10, "2020-10-10", 12, 200, "Description");
         UserModel artistModel = new UserModel(78, "artist@yahoo.com", "pass", "Artist Name", UserType.Artist);
 
         when(eventService.getEventUsingEventId(56)).thenReturn(eventModel);
@@ -177,7 +179,7 @@ public class CreateEventFormControllerTest extends ApplicationTest {
         UserModel artistModel = new UserModel(78, "artist@yahoo.com", "pass", "Artist Name", UserType.Artist);
         when(userService.getArtist("Artist Name")).thenReturn(artistModel);
 
-        EventModel eventModel = new EventModel(12, 67, 78, "Event Name", "2020-10-10", 12, 200, "Description");
+        EventModel eventModel = new EventModel(12, 67, 78, "Event Name", 20, "2020-10-10", 12, 200, "Description");
 
         when(eventService.getEventUsingEventId(12)).thenReturn(eventModel);
         when(userService.getUser(78)).thenReturn(artistModel);

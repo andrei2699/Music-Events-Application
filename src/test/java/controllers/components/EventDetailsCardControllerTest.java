@@ -68,8 +68,9 @@ public class EventDetailsCardControllerTest extends ApplicationTest {
         eventDetailsCardController.numberOfSeatsHBox = new HBox();
         eventDetailsCardController.detailsTitledPaneContentVBox = new VBox();
         eventDetailsCardController.actionButtonsSeparator = new Separator();
+        eventDetailsCardController.ticketPriceLabel = new Label();
 
-        dummyEventModel = new EventModel(7, 1, 6, EVENT_NAME, DATE, START_HOUR, TOTAL_SEATS);
+        dummyEventModel = new EventModel(7, 1, 6, EVENT_NAME, 10, DATE, START_HOUR, TOTAL_SEATS);
         dummyEventModel.setReserved_seats(10);
     }
 
@@ -135,7 +136,7 @@ public class EventDetailsCardControllerTest extends ApplicationTest {
 
     @Test
     public void updateItemNotAvailableSeats() {
-        EventModel eventModel = new EventModel(7, 1, 6, EVENT_NAME, DATE, START_HOUR, TOTAL_SEATS);
+        EventModel eventModel = new EventModel(7, 1, 6, EVENT_NAME, 15, DATE, START_HOUR, TOTAL_SEATS);
         eventModel.setReserved_seats(TOTAL_SEATS);
 
         when(dummyEventCardModel.getEventModel()).thenReturn(eventModel);

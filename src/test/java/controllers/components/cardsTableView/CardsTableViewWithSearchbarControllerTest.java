@@ -60,7 +60,7 @@ public class CardsTableViewWithSearchbarControllerTest extends ApplicationTest {
         when(userService.getUser(1)).thenReturn(new UserModel(1, "artist3@yahoo.com", "psdccw", "Artist3", UserType.Artist));
 
         ReservationCardModel reservationCardModel = new ReservationCardModel(new ReservationModel(50, 2, 1, 12));
-        EventCardModel eventCardModel = new EventCardModel(new EventModel(1, 4, 0, "Nume", "06-07-2020", 15, 80), userService);
+        EventCardModel eventCardModel = new EventCardModel(new EventModel(1, 4, 0, "Nume", 35,"06-07-2020", 15, 80), userService);
         ArtistCardModel artistCardModel = new ArtistCardModel(new ArtistModel(1, false, "Rock"), userService);
 
         ObservableList<TableCardModel> models = FXCollections.observableArrayList();

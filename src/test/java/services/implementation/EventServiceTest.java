@@ -31,12 +31,12 @@ public class EventServiceTest {
         eventService = new EventServiceImpl(repository);
 
         dummyEventModels = new ArrayList<>();
-        dummyEventModels.add(new EventModel(1, 2, 3, "Event 1", "2020-08-12", 12, 400, "descriere 1"));
-        dummyEventModels.add(new EventModel(2, 6, 1, "Event 2", "2021-04-11", 18, 50, "descriere 2"));
-        dummyEventModels.add(new EventModel(4, 31, 3, "Event 3", "2020-07-12", 19, 44, ""));
-        dummyEventModels.add(new EventModel(7, 2, 44, "Event 4", "2022-01-01", 15, 100, "descriere 51"));
-        dummyEventModels.add(new EventModel(8, 5, 7, "Event 5", "2020-05-12", 20, 140));
-        dummyEventModels.add(new EventModel(9, 1, 4, "Event 6", "2021-04-11", 19, 140, "descriere 1551"));
+        dummyEventModels.add(new EventModel(1, 2, 3, "Event 1", 10, "2020-08-12", 12, 400, "descriere 1"));
+        dummyEventModels.add(new EventModel(2, 6, 1, "Event 2", 10, "2021-04-11", 18, 50, "descriere 2"));
+        dummyEventModels.add(new EventModel(4, 31, 3, "Event 3", 10, "2020-07-12", 19, 44, ""));
+        dummyEventModels.add(new EventModel(7, 2, 44, "Event 4", 10, "2022-01-01", 15, 100, "descriere 51"));
+        dummyEventModels.add(new EventModel(8, 5, 7, "Event 5", 20, "2020-05-12", 20, 140));
+        dummyEventModels.add(new EventModel(9, 1, 4, "Event 6", 15, "2021-04-11", 19, 140, "descriere 1551"));
     }
 
     @After
@@ -217,14 +217,14 @@ public class EventServiceTest {
 
     @Test
     public void testCreateEvent() {
-        EventModel dummyEventModel = new EventModel(10, 2, 5, "Eveniment nou", "2020-07-30", 14, 520, "Descrierea evenimentului");
+        EventModel dummyEventModel = new EventModel(10, 2, 5, "Eveniment nou", 16, "2020-07-30", 14, 520, "Descrierea evenimentului");
         when(repository.getAll()).thenReturn(dummyEventModels);
         when(repository.create(dummyEventModel)).thenReturn(dummyEventModel);
-        assertEquals(dummyEventModel, eventService.createEvent(2, 5, "Eveniment nou", "2020-07-30", 14, 520, "Descrierea evenimentului"));
+        assertEquals(dummyEventModel, eventService.createEvent(2, 5, "Eveniment nou", 16, "2020-07-30", 14, 520, "Descrierea evenimentului"));
 
         when(repository.getAll()).thenReturn(null);
         try {
-            eventService.createEvent(6, 14, "Event nou", "2020-04-26", 12, 600, "Descrierea evenimentului");
+            eventService.createEvent(6, 14, "Event nou", 20, "2020-04-26", 12, 600, "Descrierea evenimentului");
         } catch (NullPointerException e) {
             fail();
         }

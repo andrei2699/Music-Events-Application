@@ -70,9 +70,9 @@ public class MainPageContentControllerTest extends ApplicationTest {
     @Test
     public void testInitialize() {
         List<EventModel> eventsList = new ArrayList<>();
-        eventsList.add(new EventModel(1, 12, 23, "Event1", "2020-06-05", 17, 130));
-        eventsList.add(new EventModel(2, 14, 32, "Event2", "2020-07-10", 10, 40));
-        eventsList.add(new EventModel(3, 13, 3, "Event3", "2020-11-12", 20, 100));
+        eventsList.add(new EventModel(1, 12, 23, "Event1", 10, "2020-06-05", 17, 130));
+        eventsList.add(new EventModel(2, 14, 32, "Event2", 20, "2020-07-10", 10, 40));
+        eventsList.add(new EventModel(3, 13, 3, "Event3", 30, "2020-11-12", 20, 100));
 
         List<BarModel> barsList = new ArrayList<>();
         barsList.add(new BarModel(12, "Albinelor Nr 14"));

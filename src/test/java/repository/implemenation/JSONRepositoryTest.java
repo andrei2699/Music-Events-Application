@@ -86,11 +86,11 @@ public class JSONRepositoryTest {
     @Test
     public void testCreate() {
         IRepository<EventModel> repository = new JSONRepository<>(EventModel.class, storageManager);
-        EventModel eventModel = new EventModel(2, 4, 5, "Eveniment 1", "2020-06-12", 0, 30);
+        EventModel eventModel = new EventModel(2, 4, 5, "Eveniment 1", 10, "2020-06-12", 0, 30);
 
         List<EventModel> events = new ArrayList<>();
-        events.add(new EventModel(4, 5, 6, "Name1", "2021-05-11", 12, 100));
-        events.add(new EventModel(3, 3, 5, "Name2", "2022-03-11", 22, 670));
+        events.add(new EventModel(4, 5, 6, "Name1",15, "2021-05-11", 12, 100));
+        events.add(new EventModel(3, 3, 5, "Name2", 35,"2022-03-11", 22, 670));
 
         GsonBuilder gsonBuilder = new GsonBuilder();
         Gson gson = gsonBuilder.setPrettyPrinting().create();
@@ -105,7 +105,7 @@ public class JSONRepositoryTest {
     @Test
     public void testCreateInEmptyFile() {
         IRepository<EventModel> repository = new JSONRepository<>(EventModel.class, storageManager);
-        EventModel eventModel = new EventModel(8, 22, 415, "Eveniment 15", "2020-06-22", 22, 300);
+        EventModel eventModel = new EventModel(8, 22, 415, "Eveniment 15", 10, "2020-06-22", 22, 300);
 
         when(storageManager.readContent("EventModel.json")).thenReturn("[]");
         EventModel resulted = repository.create(eventModel);

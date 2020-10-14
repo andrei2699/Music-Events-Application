@@ -12,7 +12,7 @@ public class EventModelTest extends ApplicationTest {
 
     @Before
     public void setUp() {
-        eventModel = new EventModel(43, 54, 34, "Name", "12/03/2020", 14, 100, "Description");
+        eventModel = new EventModel(43, 54, 34, "Name", 20,"12/03/2020", 14, 100, "Description");
     }
 
     @Test

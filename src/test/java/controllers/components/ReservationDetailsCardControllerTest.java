@@ -55,7 +55,7 @@ public class ReservationDetailsCardControllerTest extends ApplicationTest {
         reservationDetailsCardController.exportPDFButton = new Button();
 
         dummyReservationModel = new ReservationModel(1, 2, 3, RESERVED_SEATS);
-        dummyEventModel = new EventModel(4, 5, 6, EVENT_NAME, DATE, START_HOUR, TOTAL_SEATS);
+        dummyEventModel = new EventModel(4, 5, 6, EVENT_NAME, 10, DATE, START_HOUR, TOTAL_SEATS);
     }
 
     @Test

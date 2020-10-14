@@ -1,15 +1,16 @@
 package controllers.components;
 
 import controllers.scenes.ISceneResponseCall;
-import javafx.scene.control.Button;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.Slider;
+import javafx.scene.control.*;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.testfx.framework.junit.ApplicationTest;
 
+import javax.xml.crypto.Data;
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.concurrent.atomic.AtomicReference;
 
 import static org.junit.Assert.assertEquals;
@@ -27,8 +28,14 @@ public class MakeReservationPopupWindowControllerTest extends ApplicationTest {
     public void setUp() {
         makeReservationPopupWindowController = new MakeReservationPopupWindowController();
         makeReservationPopupWindowController.selectedSeatsSlider = new Slider();
+        makeReservationPopupWindowController.ticketPriceLabel = new Label();
+        makeReservationPopupWindowController.totalSeatsLabel = new Label();
         makeReservationPopupWindowController.selectedTextField = new PasswordField();
         makeReservationPopupWindowController.reserveButton = new Button();
+        makeReservationPopupWindowController.cancelButton = new Button();
+        makeReservationPopupWindowController.cvcTextField = new TextField();
+        makeReservationPopupWindowController.cardNumberTextField = new TextField();
+        makeReservationPopupWindowController.expirationDateDatePicker = new DatePicker();
     }
 
     @Test
@@ -61,6 +68,10 @@ public class MakeReservationPopupWindowControllerTest extends ApplicationTest {
     @Test
     public void testOnReserveButtonClick() {
         makeReservationPopupWindowController.setMaximumNumberOfSeats(MAXIMUM_SEAT_NUMBER);
+        makeReservationPopupWindowController.setTicketPrice(10);
+        makeReservationPopupWindowController.cvcTextField.setText("123");
+        makeReservationPopupWindowController.cardNumberTextField.setText("1234565686561245");
+        makeReservationPopupWindowController.expirationDateDatePicker.setValue(LocalDate.now());
         AtomicReference<Boolean> methodCalled = new AtomicReference<>(false);
         ISceneResponseCall<Integer> responseCall = callResult -> methodCalled.set(true);
 

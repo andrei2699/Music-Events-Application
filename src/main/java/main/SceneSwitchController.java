@@ -103,12 +103,13 @@ public final class SceneSwitchController {
         switchScene(SceneType.LoginScene);
     }
 
-    public void showReservationPopup(int maximumNumberOfSeats, ISceneResponseCall<Integer> responseCall) {
+    public void showReservationPopup(int maximumNumberOfSeats, int ticketPrice, ISceneResponseCall<Integer> responseCall) {
         closeReservationPopup();
         FXMLLoader loader = new FXMLLoader(getClass().getResource(MAKE_RESERVATION_POPUP_WINDOW_FXML_PATH));
 
         MakeReservationPopupWindowController controller = new MakeReservationPopupWindowController();
         controller.setPopupResponseCall(responseCall);
+        controller.setTicketPrice(ticketPrice);
         controller.setMaximumNumberOfSeats(maximumNumberOfSeats);
         loader.setController(controller);
 

@@ -18,7 +18,7 @@ public interface IEventService {
 
     void updateEvent(EventModel model);
 
-    EventModel createEvent(int bar_id, int artist_id, String eventName, String date, int startHour, int totalSeats, String description);
+    EventModel createEvent(int bar_id, int artist_id, String eventName, int price, String date, int startHour, int totalSeats, String description);
 
     List<EventModel> getAllEvents();
 }

@@ -61,6 +61,7 @@ public final class ApplicationResourceStrings {
     public static final String ARTIST_NAME_TEXT = "Nume Artist";
     public static final String DATE_TEXT = "Data";
     public static final String HOUR_TEXT = "Ora";
+    public static final String TICKET_PRICE_TEXT = "Pret bilet (lei)";
     public static final String SEAT_NUMBER_TEXT = "Numar locuri";
     public static final String RESERVATION_MADE_BY_TEXT = "Rezervare efectuata de";
 

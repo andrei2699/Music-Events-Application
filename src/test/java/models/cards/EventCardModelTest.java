@@ -24,7 +24,7 @@ public class EventCardModelTest {
         when(userService.getUser(13)).thenReturn(new UserModel(13, "bar@yahoo.com", "password", "Bar Name", UserType.Manager));
         when(userService.getUser(81)).thenReturn(new UserModel(81, "artist@yahoo.com", "password", "Artist Name", UserType.Artist));
 
-        EventModel eventModel = new EventModel(29, 13, 81, "Super Event Name", "2020-08-09", 14, 120, "Interesting description");
+        EventModel eventModel = new EventModel(29, 13, 81, "Super Event Name", 10, "2020-08-09", 14, 120, "Interesting description");
         EventCardModel eventCardModel = new EventCardModel(eventModel, userService);
 
         assertTrue(eventCardModel.containsFilter("Super Event Name"));
@@ -46,7 +46,7 @@ public class EventCardModelTest {
         when(userService.getUser(13)).thenReturn(new UserModel(13, "bar@yahoo.com", "password", "Bar Name", UserType.Manager));
         when(userService.getUser(81)).thenReturn(new UserModel(81, "artist@yahoo.com", "password", "Band Name", UserType.Artist));
 
-        EventModel eventModel = new EventModel(29, 13, 81, "Super Event Name", "2020-08-09", 14, 120, "Interesting description");
+        EventModel eventModel = new EventModel(29, 13, 81, "Super Event Name", 20, "2020-08-09", 14, 120, "Interesting description");
         EventCardModel eventCardModel = new EventCardModel(eventModel, userService);
 
         assertTrue(eventCardModel.containsFilter("Band Name"));
@@ -68,7 +68,7 @@ public class EventCardModelTest {
         when(userService.getUser(13)).thenReturn(new UserModel(13, "bar@yahoo.com", "password", "Bar Name", UserType.Manager));
         when(userService.getUser(81)).thenReturn(new UserModel(81, "artist@yahoo.com", "password", "Band Name", UserType.Artist));
 
-        EventModel eventModel = new EventModel(29, 13, 81, "Super Event Name", "2020-08-09", 14, 120, "Interesting description");
+        EventModel eventModel = new EventModel(29, 13, 81, "Super Event Name", 36, "2020-08-09", 14, 120, "Interesting description");
         EventCardModel eventCardModel = new EventCardModel(eventModel, userService);
 
         assertTrue(eventCardModel.containsFilter("Bar Name"));
@@ -88,7 +88,7 @@ public class EventCardModelTest {
         when(userService.getUser(13)).thenReturn(new UserModel(13, "bar@yahoo.com", "password", "Bar Name", UserType.Manager));
         when(userService.getUser(81)).thenReturn(new UserModel(81, "artist@yahoo.com", "password", "Band Name", UserType.Artist));
 
-        EventModel eventModel = new EventModel(29, 13, 81, "Super Event Name", "2020-08-09", 14, 120, "Interesting description");
+        EventModel eventModel = new EventModel(29, 13, 81, "Super Event Name", 10, "2020-08-09", 14, 120, "Interesting description");
         EventCardModel eventCardModel = new EventCardModel(eventModel, userService);
 
         assertFalse(eventCardModel.containsFilter("Super Bar Band"));

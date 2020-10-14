@@ -47,11 +47,11 @@ public class ViewRegularUserProfilePageControllerTest extends ApplicationTest {
 
     @Test
     public void testInitialize() {
-        EventModel eventModel1 = new EventModel(12, 13, 14, "Event1", "2020-10-10", 12, 30);
-        EventModel eventModel2 = new EventModel(22, 23, 24, "Event2", "2020-11-11", 18, 120);
-        EventModel eventModel3 = new EventModel(32, 33, 34, "Event3", "2020-09-09", 19, 70);
-        EventModel eventModel4 = new EventModel(42, 13, 34, "Event4", "2020-07-07", 21, 50);
-        EventModel eventModel5 = new EventModel(52, 23, 14, "Event5", "2020-08-08", 16, 200);
+        EventModel eventModel1 = new EventModel(12, 13, 14, "Event1", 35, "2020-10-10", 12, 30);
+        EventModel eventModel2 = new EventModel(22, 23, 24, "Event2", 35, "2020-11-11", 18, 120);
+        EventModel eventModel3 = new EventModel(32, 33, 34, "Event3", 35, "2020-09-09", 19, 70);
+        EventModel eventModel4 = new EventModel(42, 13, 34, "Event4", 35, "2020-07-07", 21, 50);
+        EventModel eventModel5 = new EventModel(52, 23, 14, "Event5", 35, "2020-08-08", 16, 200);
         List<EventModel> eventsList = new ArrayList<>();
         eventsList.add(eventModel1);
         eventsList.add(eventModel2);

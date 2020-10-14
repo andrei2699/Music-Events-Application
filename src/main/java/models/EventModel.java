@@ -11,20 +11,22 @@ public class EventModel extends EntityModel {
     private String description;
     private int total_seats;
     private int reserved_seats;
+    private int price;
 
-    public EventModel(int id, int barManagerId, int artistId, String name, String date, int startHour, int totalSeats, String description) {
+    public EventModel(int id, int barManagerId, int artistId, String name, int price, String date, int startHour, int totalSeats, String description) {
         super(id);
         this.bar_manager_id = barManagerId;
         this.artist_id = artistId;
         this.name = name;
+        this.price = price;
         this.date = date;
         this.start_hour = startHour;
         this.total_seats = totalSeats;
         this.description = description;
     }
 
-    public EventModel(int id, int barManagerId, int artistId, String name, String date, int startHour, int totalSeats) {
-        this(id, barManagerId, artistId, name, date, startHour, totalSeats, "");
+    public EventModel(int id, int barManagerId, int artistId, String name, int price, String date, int startHour, int totalSeats) {
+        this(id, barManagerId, artistId, name, price, date, startHour, totalSeats, "");
     }
 
     public void setName(String name) {
@@ -51,6 +53,10 @@ public class EventModel extends EntityModel {
         this.reserved_seats = Math.min(reserved_seats, getTotal_seats());
     }
 
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
     public int getBar_manager_id() {
         return bar_manager_id;
     }
@@ -73,6 +79,10 @@ public class EventModel extends EntityModel {
 
     public String getDescription() {
         return description;
+    }
+
+    public int getPrice() {
+        return price;
     }
 
     public int getTotal_seats() {
@@ -105,6 +115,7 @@ public class EventModel extends EntityModel {
         return bar_manager_id == that.bar_manager_id &&
                 artist_id == that.artist_id &&
                 start_hour == that.start_hour &&
+                price == that.price &&
                 total_seats == that.total_seats &&
                 reserved_seats == that.reserved_seats &&
                 Objects.equals(name, that.name) &&
@@ -114,6 +125,6 @@ public class EventModel extends EntityModel {
 
     @Override
     public int hashCode() {
-        return Objects.hash(bar_manager_id, artist_id, name, date, start_hour, description, total_seats, reserved_seats);
+        return Objects.hash(bar_manager_id, artist_id, name, price, date, start_hour, description, total_seats, reserved_seats);
     }
 }

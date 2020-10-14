@@ -49,7 +49,7 @@ public class CardsTableViewControllerTest extends ApplicationTest {
         when(userService.getUser(5)).thenReturn(new UserModel(5, "artist2@yahoo.com", "psdasdccw", "Artist2", UserType.Artist));
 
         DiscussionHeaderCardModel discussionHeaderCardModel = new DiscussionHeaderCardModel(new DiscussionModel(1, 2, 3), userService);
-        EventCardModel eventCardModel = new EventCardModel(new EventModel(2, 4, 6, "Name", "06-07-2020", 5, 120), userService);
+        EventCardModel eventCardModel = new EventCardModel(new EventModel(2, 4, 6, "Name", 20, "06-07-2020", 5, 120), userService);
         ArtistCardModel artistCardModel = new ArtistCardModel(new ArtistModel(5, false, "Folk"), userService);
         BarCardModel barCardModel = new BarCardModel(new BarModel(7, "My address"), userService);
 
@@ -86,7 +86,7 @@ public class CardsTableViewControllerTest extends ApplicationTest {
         when(userService.getUser(5)).thenReturn(new UserModel(5, "artist2@yahoo.com", "psdasdccw", "Artist2", UserType.Artist));
 
         DiscussionHeaderCardModel discussionHeaderCardModel = new DiscussionHeaderCardModel(new DiscussionModel(1, 2, 3), userService);
-        EventCardModel eventCardModel = new EventCardModel(new EventModel(2, 4, 6, "Name", "06-07-2020", 5, 120), userService);
+        EventCardModel eventCardModel = new EventCardModel(new EventModel(2, 4, 6, "Name", 15, "06-07-2020", 5, 120), userService);
         ArtistCardModel artistCardModel = new ArtistCardModel(new ArtistModel(5, false, "Folk"), userService);
         BarCardModel barCardModel = new BarCardModel(new BarModel(7, "My address"), userService);
 

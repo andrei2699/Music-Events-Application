@@ -40,7 +40,7 @@ public class ReservationCardModelTest {
     @Before
     public void setUp() {
         userModelBar = new UserModel(13, "bar@yahoo.com", "password", "Bar Name", UserType.Manager);
-        eventModel = new EventModel(29, 13, 81, "Super Event Name", "2020-08-09", 14, 120, "Interesting description");
+        eventModel = new EventModel(29, 13, 81, "Super Event Name", 10,"2020-08-09", 14, 120, "Interesting description");
         barModel = new BarModel(userModelBar.getId(), "Straad Mihai Viteazu Nr 17");
         userModelArtist = new UserModel(81, "artist@yahoo.com", "password", "Band Name", UserType.Artist);
     }

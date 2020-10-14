@@ -30,6 +30,9 @@ public class CreateEventFormController extends ChangeableSceneWithModelControlle
     public TextField artistNameField;
 
     @FXML
+    public TextField ticketPriceTextField;
+
+    @FXML
     public TextArea descriptionField;
 
     @FXML
@@ -40,6 +43,9 @@ public class CreateEventFormController extends ChangeableSceneWithModelControlle
 
     @FXML
     public Label artistNameErrorLabel;
+
+    @FXML
+    public Label ticketPriceErrorLabel;
 
     @FXML
     public Label startHourErrorLabel;
@@ -59,9 +65,9 @@ public class CreateEventFormController extends ChangeableSceneWithModelControlle
     @FXML
     public TextField seatNumberField;
 
-    private IEventService eventService;
+    private final IEventService eventService;
 
-    private IUserService userService;
+    private final IUserService userService;
 
     private EventModel eventModel;
 
@@ -91,6 +97,12 @@ public class CreateEventFormController extends ChangeableSceneWithModelControlle
         seatNumberField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue.matches("\\d*")) {
                 seatNumberField.setText(newValue.replaceAll("[^\\d]", ""));
+            }
+        });
+
+        ticketPriceTextField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                ticketPriceTextField.setText(newValue.replaceAll("[^\\d]", ""));
             }
         });
 
@@ -130,6 +142,12 @@ public class CreateEventFormController extends ChangeableSceneWithModelControlle
             canSaveDetails = false;
         }
 
+        if (StringValidator.isStringEmpty(ticketPriceTextField.getText())) {
+            ticketPriceTextField.requestFocus();
+            showErrorLabel(ticketPriceErrorLabel);
+            canSaveDetails = false;
+        }
+
         if (artistUserModel == null) {
             artistNameField.requestFocus();
             showErrorLabel(artistNameErrorLabel, INVALID_ARTIST_NAME_ERROR_MESSAGE);
@@ -144,12 +162,14 @@ public class CreateEventFormController extends ChangeableSceneWithModelControlle
 
         if (canSaveDetails) {
             int numberOfSeats = Integer.parseInt(seatNumberField.getText());
+            int price = Integer.parseInt(ticketPriceTextField.getText());
             if (eventModel == null) {
-                eventService.createEvent(LoggedUserData.getInstance().getUserModel().getId(),
-                        artistUserModel.getId(), eventNameField.getText(), datePicker.getValue().toString(),
-                        startHourComboBox.getValue(), numberOfSeats, descriptionField.getText());
+                eventService.createEvent(LoggedUserData.getInstance().getUserModel().getId(), artistUserModel.getId(),
+                        eventNameField.getText(), price, datePicker.getValue().toString(), startHourComboBox.getValue(),
+                        numberOfSeats, descriptionField.getText());
             } else {
                 eventModel.setName(eventNameField.getText());
+                eventModel.setPrice(price);
                 eventModel.setDescription(descriptionField.getText());
                 eventModel.setTotal_seats(numberOfSeats);
                 eventModel.setStart_hour(startHourComboBox.getValue());
@@ -167,6 +187,7 @@ public class CreateEventFormController extends ChangeableSceneWithModelControlle
         artistNameErrorLabel.setVisible(false);
         seatNumberErrorLabel.setVisible(false);
         startHourErrorLabel.setVisible(false);
+        ticketPriceErrorLabel.setVisible(false);
     }
 
     private void showErrorLabel(Label label) {
@@ -193,6 +214,7 @@ public class CreateEventFormController extends ChangeableSceneWithModelControlle
         datePicker.setValue(LocalDate.parse(eventModel.getDate()));
         seatNumberField.setText(eventModel.getTotal_seats_string());
         descriptionField.setText(eventModel.getDescription());
+        ticketPriceTextField.setText(eventModel.getPrice() + "");
 
         barNameField.setDisable(true);
         artistNameField.setDisable(true);

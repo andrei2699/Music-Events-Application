@@ -36,6 +36,9 @@ public class EventDetailsCardController extends TableCell<TableCardModel, TableC
     public Label artistNameLabel;
 
     @FXML
+    public Label ticketPriceLabel;
+
+    @FXML
     public Label dateLabel;
 
     @FXML
@@ -69,7 +72,7 @@ public class EventDetailsCardController extends TableCell<TableCardModel, TableC
     public Label notEditableMessageLabel;
 
     private EventModel eventModel;
-    private IReservationService reservationService;
+    private final IReservationService reservationService;
 
     // for testing
     protected EventDetailsCardController(IReservationService reservationService) {
@@ -102,6 +105,7 @@ public class EventDetailsCardController extends TableCell<TableCardModel, TableC
             eventNameLabel.setText(eventModel.getName());
             barNameLabel.setText(eventCardModel.getBarName());
             artistNameLabel.setText(eventCardModel.getArtistName());
+            ticketPriceLabel.setText(eventModel.getPrice() + "");
             dateLabel.setText(eventModel.getDate());
             startHourLabel.setText(eventModel.getStart_hour() + "");
             updateNumberOfSeats();
@@ -156,7 +160,7 @@ public class EventDetailsCardController extends TableCell<TableCardModel, TableC
 
     private void onReserveTicketButtonClick(ActionEvent actionEvent) {
         barNameLabel.requestFocus();
-        SceneSwitchController.getInstance().showReservationPopup(eventModel.getAvailableSeats(), numberOfSeats -> {
+        SceneSwitchController.getInstance().showReservationPopup(eventModel.getAvailableSeats(), eventModel.getPrice(), numberOfSeats -> {
             eventModel.addReservedSeats(numberOfSeats);
             updateNumberOfSeats();
 

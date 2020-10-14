@@ -92,7 +92,7 @@ public class EventServiceImpl implements IEventService {
     }
 
     @Override
-    public EventModel createEvent(int bar_id, int artist_id, String eventName, String date, int startHour, int totalSeats, String description) {
+    public EventModel createEvent(int bar_id, int artist_id, String eventName, int price, String date, int startHour, int totalSeats, String description) {
         List<EventModel> events = getAllEvents();
 
         if (events == null)
@@ -105,7 +105,7 @@ public class EventServiceImpl implements IEventService {
             }
         }
 
-        EventModel eventModel = new EventModel(biggestId + 1, bar_id, artist_id, eventName, date, startHour, totalSeats, description);
+        EventModel eventModel = new EventModel(biggestId + 1, bar_id, artist_id, eventName, price, date, startHour, totalSeats, description);
 
         return eventRepository.create(eventModel);
     }

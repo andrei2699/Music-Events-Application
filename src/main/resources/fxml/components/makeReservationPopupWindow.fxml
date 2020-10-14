@@ -6,12 +6,12 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="200.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="200.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <VBox alignment="TOP_CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <HBox>
             <Label styleClass="card-title" text="Rezerva bilet" />
         </HBox>
-      <Separator prefWidth="200.0" />
+        <Separator prefWidth="200.0" />
         <VBox prefHeight="200.0" prefWidth="100.0">
             <HBox spacing="10.0">
                 <Label styleClass="card-subtitle" text="Numar locuri:" />
@@ -28,8 +28,11 @@
                     <Insets />
                 </VBox.margin>
             </HBox>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+                <Label fx:id="ticketPriceLabel" text="Pret Bilet "/>
+            </HBox>
         </VBox>
-      <Separator prefWidth="200.0" />
+        <Separator prefWidth="200.0" />
         <VBox spacing="20.0">
             <Label styleClass="card-subtitle" text="Informatii card" />
             <VBox prefHeight="200.0" prefWidth="100.0" spacing="2.0">
@@ -38,7 +41,7 @@
             </VBox>
             <VBox prefHeight="200.0" prefWidth="100.0" spacing="2.0">
                 <Label text="Data Expirare" />
-            <ChoiceBox prefWidth="150.0" />
+                <DatePicker fx:id="expirationDateDatePicker" />
 
             </VBox>
             <VBox prefHeight="200.0" prefWidth="100.0" spacing="2.0">
@@ -46,13 +49,13 @@
                 <TextField fx:id="cvcTextField" promptText="CVC" />
             </VBox>
         </VBox>
-      <Separator prefWidth="200.0" />
+        <Separator prefWidth="200.0" />
         <HBox alignment="CENTER_RIGHT" spacing="10.0">
             <Button fx:id="reserveButton" defaultButton="true" mnemonicParsing="false" styleClass="button-raised" text="Rezerva" />
             <Button fx:id="cancelButton" mnemonicParsing="false" styleClass="button-raised" text="Renunta" />
-         <VBox.margin>
-            <Insets top="8.0" />
-         </VBox.margin>
+            <VBox.margin>
+                <Insets top="8.0" />
+            </VBox.margin>
         </HBox>
     </VBox>
     <stylesheets>
