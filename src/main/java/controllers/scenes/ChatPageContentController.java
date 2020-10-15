@@ -17,6 +17,7 @@ import models.cards.DiscussionHeaderCardModel;
 import models.cards.DiscussionMessageCardModel;
 import models.cards.TableCardModel;
 import models.other.Message;
+import repository.IRepository;
 import services.IDiscussionService;
 import services.IUserService;
 import services.ServiceProvider;
@@ -46,6 +47,7 @@ public class ChatPageContentController extends ChangeableSceneWithModelControlle
 
     private DiscussionHeaderCardModel openedHeaderCardModel;
     private IDiscussionService discussionService;
+    private IRepository<DiscussionModel> discussionRepository;
     private IUserService userService;
     private Integer modelId;
 
@@ -141,6 +143,7 @@ public class ChatPageContentController extends ChangeableSceneWithModelControlle
             messagesVBox.getChildren().add(controller.messageCardHBox);
         }
 
+        headerCardModel.getDiscussionModel().setMessages(messages);
         discussionService.updateDiscussion(headerCardModel.getDiscussionModel());
         conversationWithLabel.setText(CONVERSATION_WITH_TEXT + " " + headerCardModel.toString());
         Platform.runLater(() -> messagesScrollPane.setVvalue(1D));
