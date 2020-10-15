@@ -4,6 +4,7 @@ import controllers.components.ArtistDetailsCardController;
 import controllers.components.BarDetailsCardController;
 import controllers.components.EventDetailsCardController;
 import controllers.components.ReservationDetailsCardController;
+import controllers.scenes.ISceneResponseCall;
 import javafx.scene.control.TableCell;
 import models.cards.TableCardModel;
 
@@ -93,7 +94,7 @@ public abstract class DetailsTableConfigData {
         };
     }
 
-    public static DetailsTableConfigData getReservationTableColumnData() {
+    public static DetailsTableConfigData getReservationTableColumnData(ISceneResponseCall<Integer> responseCall) {
         return new DetailsTableConfigData() {
             @Override
             public String getTableColumnText() {
@@ -112,7 +113,9 @@ public abstract class DetailsTableConfigData {
 
             @Override
             public TableCell<TableCardModel, TableCardModel> getCellFactory() {
-                return new ReservationDetailsCardController();
+                ReservationDetailsCardController reservationDetailsCardController = new ReservationDetailsCardController();
+                reservationDetailsCardController.setResponseCall(responseCall);
+                return reservationDetailsCardController;
             }
         };
     }

@@ -47,14 +47,14 @@ public class ViewRegularUserProfilePageController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        reservationsTableViewController.setColumnData(DetailsTableConfigData.getReservationTableColumnData());
+        ObservableList<TableCardModel> reservationCardModels = FXCollections.observableArrayList();
+
+        reservationsTableViewController.setColumnData(DetailsTableConfigData.getReservationTableColumnData(id -> reservationCardModels.removeIf(reservationCard -> ((ReservationCardModel)reservationCard).getReservationModel().getId() == id)));
 
         UserModel userModel = LoggedUserData.getInstance().getUserModel();
 
         if (userModel != null) {
             nameLabel.setText(userModel.getName());
-
-            ObservableList<TableCardModel> reservationCardModels = FXCollections.observableArrayList();
 
             List<ReservationModel> reservations = reservationService.getReservationUsingUserId(userModel.getId());
             List<EventModel> allFutureEvents = eventService.getEventsStartingFrom(LocalDate.now(), LocalTime.now().getHour());

@@ -1,5 +1,6 @@
 package controllers.components;
 
+import controllers.scenes.ISceneResponseCall;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

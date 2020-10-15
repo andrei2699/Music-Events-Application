@@ -1,5 +1,6 @@
 package controllers.components;
 
+import controllers.scenes.ISceneResponseCall;
 import export.ExportAsPDF;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -55,6 +56,10 @@ public class ReservationDetailsCardController extends TableCell<TableCardModel, 
 
     private IReservationService reservationService;
 
+    private boolean deleted = false;
+
+    private ISceneResponseCall<Integer> idResponseCall;
+
     // for testing
     protected ReservationDetailsCardController(IReservationService reservationService) {
         this.reservationService = reservationService;
@@ -77,6 +82,9 @@ public class ReservationDetailsCardController extends TableCell<TableCardModel, 
         super.updateItem(tableCardModel, empty);
 
         if (!empty && tableCardModel instanceof ReservationCardModel) {
+            if(deleted)
+                reservationDetailsCardVBox.getChildren().clear();
+
             reservationCardModel = (ReservationCardModel) tableCardModel;
             ReservationModel reservationModel = reservationCardModel.getReservationModel();
             EventModel eventModel = reservationCardModel.getEventModel();
@@ -106,12 +114,20 @@ public class ReservationDetailsCardController extends TableCell<TableCardModel, 
         }
     }
 
+    public void setResponseCall(ISceneResponseCall<Integer> responseCall) {
+        idResponseCall = responseCall;
+    }
+
     public void onDeleteReservationButtonClick(ActionEvent actionEvent) {
         artistNameLabel.requestFocus();
         ReservationModel reservationModel = reservationCardModel.getReservationModel();
         try {
             reservationService.deleteReservation(reservationModel.getId());
             reservationDetailsCardVBox.getChildren().clear();
+            deleted =  true;
+            if(idResponseCall != null) {
+                idResponseCall.onResponseCall(reservationModel.getId());
+            }
         } catch (ReservationNotDeletedException e) {
             e.printStackTrace();
         }

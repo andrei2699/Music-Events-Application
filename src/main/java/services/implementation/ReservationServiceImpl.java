@@ -72,9 +72,6 @@ public class ReservationServiceImpl implements IReservationService {
         ReservationModel reservationCreated = reservationRepository.create(reservationModel);
         if (reservationCreated == null)
             throw new ReservationNotCreatedException();
-        EventModel eventModel = ServiceProvider.getEventService().getEventUsingEventId(reservationModel.getEvent_id());
-        eventModel.setReserved_seats(eventModel.getReserved_seats() + numberOfSeats);
-        eventRepository.update(eventModel);
     }
 
     @Override
