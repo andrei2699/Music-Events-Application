@@ -53,7 +53,10 @@ public class MainPageContentController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         // events table view
         FilteredList<TableCardModel> eventModelFilteredList = new FilteredList<>(getAllEvents(), m -> true);
-        eventsTableViewWithSearchbarController.setupTableData(SEARCH_FOR_EVENTS_TEXT, eventModelFilteredList, DetailsTableConfigData.getEventTableColumnData());
+        eventsTableViewWithSearchbarController.setupTableData(SEARCH_FOR_EVENTS_TEXT, eventModelFilteredList, DetailsTableConfigData.getEventTableColumnData(id -> {
+            eventModelFilteredList.getSource().removeIf(eventCard -> ((EventCardModel) eventCard).getEventModel().getId() == id);
+//            eventModelFilteredList.removeIf(eventCard -> ((EventCardModel) eventCard).getEventModel().getId() == id);
+        }));
 
         // bars table view
         FilteredList<TableCardModel> barModelFilteredList = new FilteredList<>(getAllBars(), m -> true);

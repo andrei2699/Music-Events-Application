@@ -13,6 +13,7 @@ import main.LoggedUserData;
 import models.EventModel;
 import models.UserModel;
 import models.cards.EventCardModel;
+import models.cards.ReservationCardModel;
 import models.cards.TableCardModel;
 import services.IEventService;
 import services.IUserService;
@@ -73,8 +74,6 @@ public abstract class AbstractViewProfilePageController extends AbstractProfileP
 
         startChatButton.setOnAction(this::onStartChatButtonClick);
 
-        eventsTableViewController.setColumnData(DetailsTableConfigData.getEventTableColumnData());
-
         scheduleGridController.setLoadStrategy(new ReadonlyScheduleLoadStrategy());
     }
 
@@ -93,6 +92,10 @@ public abstract class AbstractViewProfilePageController extends AbstractProfileP
             nameLabel.setText(userModel.getName());
             userTypeLabel.setText(userModel.getType().toString());
             emailLabel.setText(userModel.getEmail());
+
+            List<TableCardModel> eventCards = getAllFutureEventsLinkedWithId(userModel.getId());
+            eventsTableViewController.setColumnData(DetailsTableConfigData.getEventTableColumnData(id -> eventCards.removeIf(eventCard -> ((EventCardModel)eventCard).getEventModel().getId() == id)));
+
             eventsTableViewController.setItems(getAllFutureEventsLinkedWithId(userModel.getId()));
 
             nameLabel.requestFocus();

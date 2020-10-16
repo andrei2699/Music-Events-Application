@@ -2,6 +2,8 @@ package services;
 
 import models.EventModel;
 import services.implementation.EventNotCreatedException;
+import services.implementation.EventNotDeletedException;
+import services.implementation.ReservationNotDeletedException;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -20,6 +22,8 @@ public interface IEventService {
     void updateEvent(EventModel model);
 
     EventModel createEvent(int bar_id, int artist_id, String eventName, String date, int startHour, int totalSeats, String description) throws EventNotCreatedException;
+
+    void deleteEvent (int eventId) throws EventNotDeletedException;
 
     List<EventModel> getAllEvents();
 }

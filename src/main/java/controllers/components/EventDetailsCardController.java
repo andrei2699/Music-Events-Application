@@ -11,12 +11,15 @@ import javafx.scene.layout.VBox;
 import main.LoggedUserData;
 import main.SceneSwitchController;
 import models.EventModel;
+import models.ReservationModel;
 import models.cards.EventCardModel;
 import models.cards.TableCardModel;
 import services.IEventService;
 import services.IReservationService;
 import services.ServiceProvider;
+import services.implementation.EventNotDeletedException;
 import services.implementation.ReservationNotCreatedException;
+import services.implementation.ReservationNotDeletedException;
 
 import java.io.IOException;
 
@@ -56,6 +59,9 @@ public class EventDetailsCardController extends TableCell<TableCardModel, TableC
     public Button editEventButton;
 
     @FXML
+    public Button deleteEventButton;
+
+    @FXML
     public Separator actionButtonsSeparator;
 
     @FXML
@@ -72,15 +78,19 @@ public class EventDetailsCardController extends TableCell<TableCardModel, TableC
 
     private EventModel eventModel;
     private IReservationService reservationService;
+    private IEventService eventService;
+
+    private ISceneResponseCall<Integer> idResponseCall;
 
     // for testing
-    protected EventDetailsCardController(IReservationService reservationService) {
+    protected EventDetailsCardController(IReservationService reservationService, IEventService eventService) {
         this.reservationService = reservationService;
+        this.eventService = eventService;
     }
 
     // for FXML reflection
     public EventDetailsCardController() {
-        this(ServiceProvider.getReservationService());
+        this(ServiceProvider.getReservationService(), ServiceProvider.getEventService());
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(EVENT_DETAILS_CARD_FXML_PATH));
         fxmlLoader.setController(this);
 
@@ -111,6 +121,7 @@ public class EventDetailsCardController extends TableCell<TableCardModel, TableC
 
             reserveTicketButton.setOnAction(this::onReserveTicketButtonClick);
             editEventButton.setOnAction(this::onEditEventButtonClick);
+            deleteEventButton.setOnAction(this::onDeleteEventButtonClick);
 
             Platform.runLater(() -> {
                 double width = detailsTitledPaneContentVBox.getWidth();
@@ -122,6 +133,7 @@ public class EventDetailsCardController extends TableCell<TableCardModel, TableC
 
             if (LoggedUserData.getInstance().isRegularUser()) {
                 actionButtonsHBox.getChildren().remove(editEventButton);
+                actionButtonsHBox.getChildren().remove(deleteEventButton);
             } else if (LoggedUserData.getInstance().isBarManager()) {
 
                 if (eventModel.getBar_manager_id() != LoggedUserData.getInstance().getUserModel().getId()) {
@@ -129,6 +141,7 @@ public class EventDetailsCardController extends TableCell<TableCardModel, TableC
                 } else {
                     if (reservationService.getReservationUsingEventId(eventModel.getId()).size() > 0) {
                         editEventButton.setDisable(true);
+                        deleteEventButton.setDisable(true);
                         notEditableMessageLabel.setVisible(true);
                     }
                     actionButtonsHBox.getChildren().remove(reserveTicketButton);
@@ -177,5 +190,25 @@ public class EventDetailsCardController extends TableCell<TableCardModel, TableC
     private void onEditEventButtonClick(ActionEvent actionEvent) {
         barNameLabel.requestFocus();
         SceneSwitchController.getInstance().loadFXMLToMainPage(SceneSwitchController.SceneType.CreateEventFormContentScene, eventModel.getId());
+    }
+
+    public void setResponseCall(ISceneResponseCall<Integer> responseCall) {
+        idResponseCall = responseCall;
+    }
+
+    private void onDeleteEventButtonClick(ActionEvent actionEvent)  {
+        barNameLabel.requestFocus();
+        try
+        {
+            int id=eventModel.getId();
+            eventService.deleteEvent(id);
+            if(idResponseCall != null) {
+                idResponseCall.onResponseCall(eventModel.getId());
+            }
+        }
+
+        catch (EventNotDeletedException e) {
+            e.printStackTrace();
+        }
     }
 }

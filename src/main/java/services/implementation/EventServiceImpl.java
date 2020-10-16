@@ -1,9 +1,11 @@
 package services.implementation;
 
 import models.EventModel;
+import models.ReservationModel;
 import models.UserModel;
 import repository.IRepository;
 import services.IEventService;
+import services.ServiceProvider;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -102,6 +104,18 @@ public class EventServiceImpl implements IEventService {
             throw new EventNotCreatedException();
         return getEventUsingEventName(eventName);
     }
+
+    @Override
+    public void deleteEvent(int eventId) throws EventNotDeletedException {
+        EventModel eventModel = getEventUsingEventId(eventId);
+        if (eventModel == null)
+            throw new EventNotDeletedException();
+        eventRepository.setDestinationFileName("EventModel/deleteEvent.php");
+        EventModel eventDeleted = eventRepository.delete(eventModel);
+        if (eventDeleted == null)
+            throw new EventNotDeletedException();
+    }
+
 
     @Override
     public List<EventModel> getAllEvents() {

@@ -21,7 +21,7 @@ public abstract class DetailsTableConfigData {
     public abstract TableCell<TableCardModel, TableCardModel> getCellFactory();
 
 
-    public static DetailsTableConfigData getEventTableColumnData() {
+    public static DetailsTableConfigData getEventTableColumnData(ISceneResponseCall<Integer> responseCall) {
         return new DetailsTableConfigData() {
             @Override
             public String getTableColumnText() {
@@ -40,7 +40,9 @@ public abstract class DetailsTableConfigData {
 
             @Override
             public TableCell<TableCardModel, TableCardModel> getCellFactory() {
-                return new EventDetailsCardController();
+                EventDetailsCardController eventDetailsCardController = new EventDetailsCardController();
+                eventDetailsCardController.setResponseCall(responseCall);
+                return eventDetailsCardController;
             }
         };
     }
